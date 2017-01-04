@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-19 Sat 19:23 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-orgd25bbfa" class="outline-2">
+<h2 id="The_Natural_Numbers_and_Induction"><a id="orgd25bbfa"></a><span class="section-number-2"> 17</span> The Natural Numbers and Induction</h2>
+<div class="outline-text-2" id="text-The_Natural_Numbers_and_Induction">
+<p>
+This chapter marks a transition from the abstract to the concrete.
+Viewing the mathematical universe in terms of sets, relations, and
+functions gives us useful ways of thinking about mathematical objects
+and structures and the relationships between them. At some point,
+however, we need to start thinking about <i>particular</i> mathematical
+objects and structures, and the natural numbers are a good place to
+start. The nineteenth century mathematician Leopold Kronecker once
+proclaimed "God created the whole numbers; everything else is the work
+of man." By this he meant that the natural numbers (and the integers,
+which we will also discuss below) are a fundamental component of the
+mathematical universe, and that many other objects and structures of
+interest can be constructed from these.
+</p>
+
+<p>
+In this chapter, we will consider the natural numbers and the basic
+principles that govern them. In <a href="#" onclick="myModule.loadTutorial('18_The_Natural_Numbers_and_Induction_in_Lean.html', 'The_Natural_Numbers_and_Induction_in_Lean')">Chapter 18</a> we will see that even basic
+operations like addition and multiplication can be defined using means
+described here, and their properties derived from these basic
+principles. Our presentation in this chapter will remain informal,
+however. In Chapter 19, we will see how these principles play out in
+number theory, one of the oldest and most venerable branches of
+mathematics.
+</p>
+</div>
+
+<div id="outline-container-org6da42a3" class="outline-3">
+<h3 id="org6da42a3"><span class="section-number-3"> 17.1</span> The Principal of Induction</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The set of natural numbers is the set
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e53062c809017ebf61ccb53477f31a13380a861d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e53062c809017ebf61ccb53477f31a13380a861d.png" /></p>
+</div>
+<p>
+In the past, opinions have differed as to whether the set of natural
+numbers should start with 0 or 1, but these days most mathematicians
+take them to start with 0. Logicians often call the function <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_4f90537bb36119e340374f34227bb63562fae434.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_4f90537bb36119e340374f34227bb63562fae434.png" /> the <i>successor</i> function, since it maps each natural number,
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, to the one that follows it. What makes the natural numbers
+special is that they are <i>generated</i> by the number zero and the
+successor function, which is to say, the only way to "construct" a
+natural number is to start with <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> and apply the successor function
+finitely many times. From a foundational standpoint, we are in danger
+of running into a circularity here, because it is not clear how we can
+explain what it means to apply a function "finitely many times"
+without talking about the natural numbers themselves. But the
+following principle, known as the <i>principle of induction</i>, describes
+this essential property of the natural numbers in a non-circular way.
+</p>
+
+<hr>
+<p>
+<b>Principle of Induction.</b> Let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> be any property of natural
+numbers. Suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of zero, and whenever <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of a
+natural number <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, then it holds of its successor, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" />. Then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />
+holds of every natural number.
+</p>
+
+<hr>
+<p>
+This reflects the image of the natural numbers as being generated by
+zero and the successor operation: by covering the zero and successor
+cases, we take care of all the natural numbers.
+</p>
+
+<p>
+The principle of induction provides a recipe for proving that every
+natural number has a certain property: to show that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of every
+natural number, show that it holds of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, and show that whenever it
+holds of some number <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, it holds of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" />. This form of proof is
+called a <i>proof by induction</i>. The first required task is called the
+<i>base case</i>, and the second required task is called the <i>induction
+step</i>. The induction step requires temporarily fixing a natural number
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, assuming that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, and then showing that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds
+of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" />. In this context, the assumption that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is
+called the <i>inductive hypothesis</i>.
+</p>
+
+<p>
+You can visualize proof by induction as a method of knocking down an
+infinite stream of dominoes, all at once. We set the mechanism in
+place and knock down domino 0 (the base case), and every domino knocks
+down the next domino (the induction step). So domino 0 knocks down
+domino 1; that knocks down domino 2, and so on.
+</p>
+
+<p>
+Here is an example of a proof by induction.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> For every natural number <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />,
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d37cf3cc19795c54b5c83a2481b0cb45be4708c2.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d37cf3cc19795c54b5c83a2481b0cb45be4708c2.png" />
+</p>
+
+<p>
+<b>Proof.</b> We prove this by induction on <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. In the base case, when <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b73f97988c360ae38dd3905c250c086d373ddbf3.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b73f97988c360ae38dd3905c250c086d373ddbf3.png" />, we have <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c7295d996e8426393a7925f31cc79b65f8ec395d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c7295d996e8426393a7925f31cc79b65f8ec395d.png" />, as required.
+</p>
+
+<p>
+For the induction step, fix <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, and assume <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_91494a53b9960fcf313dc6ae9ee6fc188a1f94a0.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_91494a53b9960fcf313dc6ae9ee6fc188a1f94a0.png" /> (the induction hypothesis). We need to show that this
+same claim holds with <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> replaced by <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" />. But this is just a
+calculation:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a4514ead541a3ea5e83fe1660213572b0ba59e6e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a4514ead541a3ea5e83fe1660213572b0ba59e6e.png" /></p>
+</div>
+
+<hr>
+<p>
+In the notation of first-order logic, if we write <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f7a7e03dda424b54c01875523a4fd3663efbf873.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f7a7e03dda424b54c01875523a4fd3663efbf873.png" /> to mean that
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, we could express the principle of induction as
+follows:
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ad69f5944235e3879d722a9ad65480fd2c89f9a1.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ad69f5944235e3879d722a9ad65480fd2c89f9a1.png" />
+But notice that the principle of induction says that the axiom holds
+<i>for every property</i> <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />, which means that we should properly use a
+universal quantifier for that, too:
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5a0d7a7f70bbf10364e4810f3eb4b91f4c868db6.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5a0d7a7f70bbf10364e4810f3eb4b91f4c868db6.png" />
+Quantifying over properties takes us out of the realm of first-order
+logic; induction is therefore a second-order principle.
+</p>
+
+<p>
+The pattern for a proof by induction is expressed even more naturally
+by the following natural deduction rule:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_31545100ee6348925a8c0f3a4352566b8dd4842d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_31545100ee6348925a8c0f3a4352566b8dd4842d.png" /></p>
+</div>
+<p>
+You should think about how some of the proofs in this chapter could be
+represented formally using natural deduction.
+</p>
+
+<p>
+For another example of a proof by induction, let us derive a formula
+that, given any finite set <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />, determines the number of subsets of
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />. For example, there are four subsets of the two-element set <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_2c1b35facaf3587a94157794d5fd4c3b383e2b7a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_2c1b35facaf3587a94157794d5fd4c3b383e2b7a.png" />, namely <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6955ea57396aa06dbf66beb3ea2121c99c4f03d5.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6955ea57396aa06dbf66beb3ea2121c99c4f03d5.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a63ed6b27fea4f5a83868adbd8cbdfdcf3cc5d21.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a63ed6b27fea4f5a83868adbd8cbdfdcf3cc5d21.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_01073718a51f03520ebc75e70eff7d1315210b6b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_01073718a51f03520ebc75e70eff7d1315210b6b.png" />, and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_27ff9eb4617e2f833b8c0ab19306cef126f486e0.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_27ff9eb4617e2f833b8c0ab19306cef126f486e0.png" />. You should
+convince yourself that there are eight subsets of the set <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_03acfa0dcc50b3f9b7ee19e3feb0edd584ea5c6d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_03acfa0dcc50b3f9b7ee19e3feb0edd584ea5c6d.png" />. The following theorem establishes the general pattern.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> For any finite set <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />, if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> has <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements, then there
+are <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" /> subsets of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />.
+</p>
+
+<p>
+<b>Proof.</b> We use induction on <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. In the base case, there is only one
+set with <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> elements, the empty set, and there is exactly one subset
+of the empty set, as required.
+</p>
+
+<p>
+In the inductive case, suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> has <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" /> elements. Let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> be
+any element of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />, and let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8675a2435745ff59ffadf5f4f80b227ab4e288d6.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8675a2435745ff59ffadf5f4f80b227ab4e288d6.png" /> be the set containing the remaining
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements. In order to count the subsets of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />, we divide them
+into two groups.
+</p>
+
+<p>
+First, we consider the subsets of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> that don't contain
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />. These are exactly the subsets of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8675a2435745ff59ffadf5f4f80b227ab4e288d6.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8675a2435745ff59ffadf5f4f80b227ab4e288d6.png" />, and by the inductive
+hypothesis, there are <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" /> of those.
+</p>
+
+<p>
+Next we consider the subsets of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> that <i>do</i> contain <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />. Each of
+these is obtained by choosing a subset of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8675a2435745ff59ffadf5f4f80b227ab4e288d6.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8675a2435745ff59ffadf5f4f80b227ab4e288d6.png" /> and adding <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />. Since
+there are <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" /> subsets of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8675a2435745ff59ffadf5f4f80b227ab4e288d6.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8675a2435745ff59ffadf5f4f80b227ab4e288d6.png" />, there are <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" /> subsets of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> that
+contain <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />.
+</p>
+
+<p>
+Taken together, then, there are <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5409f95a335768872388e12a417d94a71fa835cc.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5409f95a335768872388e12a417d94a71fa835cc.png" /> subsets of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />,
+as required.
+</p>
+
+<hr>
+<p>
+We have seen that there is a correspondence between properties of a
+domain and subsets of a domain. For every property <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> of natural
+numbers, we can consider the set <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> of natural numbers with that
+property, and for every set of natural numbers, we can consider the
+property of being in that set. For example, we can talk about the
+property of being even, or talk about the set of even numbers. Under
+this correspondence, the principle of induction can be cast as
+follows:
+</p>
+
+<hr>
+<p>
+<b>Principle of Induction.</b> Let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> be any set of natural numbers that
+contains <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> and is closed under the successor operation. Then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_385ba20c6096ca8d623f4400ad060fb05e55cfa3.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_385ba20c6096ca8d623f4400ad060fb05e55cfa3.png" />.
+</p>
+
+<hr>
+<p>
+Here, saying that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> is "closed under the successor operation" means
+that whenever a number <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is in <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />, so is <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" />.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgeaa57a6" class="outline-3">
+<h3 id="orgeaa57a6"><span class="section-number-3"> 17.2</span> Variants of Induction</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+In this section, we will consider variations on the principle of
+induction that are often useful. It is important to recognize that
+each of these can be justified using the principle of induction as
+stated in the last section, so they need not be taken as fundamental.
+</p>
+
+<p>
+The first one is no great shakes: instead of starting from <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, we can
+start from any natural number, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />.
+</p>
+
+<hr>
+<p>
+<b>Principle of Induction from a Starting Point.</b> Let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> be any
+property of natural numbers, and let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> be any natural
+number. Suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, and whenever <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of a natural
+number <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> greater than or equal to <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, then it holds of its
+successor, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" />. Then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of every natural number greater
+than or equal to <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />.
+</p>
+
+<hr>
+<p>
+Assuming the hypotheses of this last principle, if we let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_9a841474b5fd37f7e56eb7be3ddd4d46bbc1dcec.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_9a841474b5fd37f7e56eb7be3ddd4d46bbc1dcec.png" /> be
+the property "<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_cee1cba7107d427e06d2e0aec02eb7ed8f05df52.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_cee1cba7107d427e06d2e0aec02eb7ed8f05df52.png" />," we can prove that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d18fe3cea22fe6e09d74e380eede17be4f57a1d0.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d18fe3cea22fe6e09d74e380eede17be4f57a1d0.png" /> holds of
+every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> by the ordinary principle of induction. But this means that
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of every number greater than or equal to <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />.
+</p>
+
+<p>
+Here is one example of a proof using this variant of induction.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> For every natural number <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_932c8004c5fb360eb4b38b3fe95e5eefd5996a7f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_932c8004c5fb360eb4b38b3fe95e5eefd5996a7f.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f5aedd9e0021d2bcac5962e4f0c39456bfd20108.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f5aedd9e0021d2bcac5962e4f0c39456bfd20108.png" />.
+</p>
+
+<p>
+<b>Proof.</b> By induction on <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. When <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1b46101c5b2da2adaa3b13e42f8f3b365d07cb41.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1b46101c5b2da2adaa3b13e42f8f3b365d07cb41.png" />, we have <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_0d6b4926d1cef5dfee6a33c4f2b3ad09e8aa5931.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_0d6b4926d1cef5dfee6a33c4f2b3ad09e8aa5931.png" />, as required.
+</p>
+
+<p>
+For the induction step, suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ae0f9b7f4d614b3663639de0617ab7033cd8f47d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ae0f9b7f4d614b3663639de0617ab7033cd8f47d.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f5aedd9e0021d2bcac5962e4f0c39456bfd20108.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f5aedd9e0021d2bcac5962e4f0c39456bfd20108.png" />. Since <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />
+is greater than or equal to <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_9a070c48c78b66a2a37864dd91e8d3d89955e36d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_9a070c48c78b66a2a37864dd91e8d3d89955e36d.png" />, we have <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_65d2d4aec9cdeb575a054e2d64fc94657e7d26a3.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_65d2d4aec9cdeb575a054e2d64fc94657e7d26a3.png" />,
+and so
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1f7696a9ebfa5e43c69b8136646a1e4e3b67046b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1f7696a9ebfa5e43c69b8136646a1e4e3b67046b.png" /></p>
+</div>
+
+<hr>
+<p>
+For another example, let us derive a formula for the sum total of the
+angles in a convex polygon. A polygon is said to be <i>convex</i> if every
+line between two vertices stays inside the polygon. We will accept
+without proof the visually obvious fact that one can subdivide any
+convex polygon with more than three sides into a triangle and a convex
+polygon with one fewer side, namely, by closing off any two consecutive
+sides to form a triangle. We will also accept, without proof, the
+basic geometric fact that the sum of the angles of any triangle is 180
+degrees.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> For any <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f5b957a915b5fcd0b1430f77a83b97aed2d90dc3.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f5b957a915b5fcd0b1430f77a83b97aed2d90dc3.png" />, the sum of the angles of any convex
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-gon is <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ef3fb9eb51ff41b4a22bc9a6661a61f4205e6fd6.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ef3fb9eb51ff41b4a22bc9a6661a61f4205e6fd6.png" />.
+</p>
+
+<p>
+<b>Proof.</b> In the base case, when <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ed5e53d5fb2df0d3c5a8582b2bb52d2bfb263939.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ed5e53d5fb2df0d3c5a8582b2bb52d2bfb263939.png" />, this reduces to the statement
+that the sum of the angles in any triangle is 180 degrees.
+</p>
+
+<p>
+For the induction step, suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f5b957a915b5fcd0b1430f77a83b97aed2d90dc3.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f5b957a915b5fcd0b1430f77a83b97aed2d90dc3.png" />, and let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> be a convex
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_0e5102bf3a739e0f411b3b8c328fef113177c9fb.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_0e5102bf3a739e0f411b3b8c328fef113177c9fb.png" />-gon. Divide <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> into a triangle and an <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-gon. By the
+inductive hypotheses, the sum of the angles of the <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-gon is
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_998c9cfabb0c356431c7a6b9856a0e1aa7662f56.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_998c9cfabb0c356431c7a6b9856a0e1aa7662f56.png" /> degrees, and the sum of the angles of the triangle is <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e7d20bef0717f297b8fec9922666dda6f83480b4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e7d20bef0717f297b8fec9922666dda6f83480b4.png" />
+degrees. The measures of these angles taken together make up the sum
+of the measures of the angles of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />, for a total of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_05caa9904b87d01d16784a7c92519c5aaab443ef.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_05caa9904b87d01d16784a7c92519c5aaab443ef.png" /> degrees.
+</p>
+
+<hr>
+<p>
+For our second example, we will consider the principle of <i>complete
+induction</i>, also sometimes known as <i>total induction</i>.
+</p>
+
+<hr>
+<p>
+<b>Principle of Complete Induction.</b> Let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> be any property that
+satisfies the following: for any natural number <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, whenever <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />
+holds of every number less than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, it also holds of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />
+holds of every natural number.
+</p>
+
+<hr>
+<p>
+Notice that there is no need to break out a special case for zero: for
+any property <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of all the natural numbers less than zero,
+for the trivial reason that there aren't any! So, in particular, any
+such property automatically holds of zero.
+</p>
+
+<p>
+Notice also that if such a property <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of every number less than
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, then it also holds of every number less than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" /> (why?). So,
+for such a <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />, the ordinary principle of induction implies that for
+every natural number <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of every natural number less than
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. But this is just a roundabout way of saying that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of
+every natural number. In other words, we have justified the principle
+of complete induction using ordinary induction.
+</p>
+
+<p>
+To use the principle of complete induction we merely have to
+let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> be any natural number and show that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, assuming
+that it holds of every smaller number. Compare this to the ordinary
+principle of induction, which requires us to show <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_2f770a694af4eb460e47b12e0861628ac0f15c4b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_2f770a694af4eb460e47b12e0861628ac0f15c4b.png" /> assuming
+only <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f7a7e03dda424b54c01875523a4fd3663efbf873.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f7a7e03dda424b54c01875523a4fd3663efbf873.png" />. The following example of the use of this principle is
+taken verbatim from the introduction to this book:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Every natural number greater than or equal to 2 can be written
+as a product of primes.
+</p>
+
+<p>
+<b>Proof.</b> We proceed by induction on <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> be any natural number
+greater than 2. If <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is prime, we are done; we can consider <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />
+itself as a product with one factor. Otherwise, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is composite, and we
+can write <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8ba0fd9790598e65b348ec2aceb69371abe29fd2.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8ba0fd9790598e65b348ec2aceb69371abe29fd2.png" /> where <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> are smaller than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and
+greater than 1. By the inductive hypothesis, each of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> can
+be written as a product of primes, say
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1c54e42c5f6db04b96f9d27ba05c82f496210e0d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1c54e42c5f6db04b96f9d27ba05c82f496210e0d.png" />
+and
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_7fafa85b694ee177f2ddb9724458736329a4d591.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_7fafa85b694ee177f2ddb9724458736329a4d591.png" />
+But then we have
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_40d3e57e91a98d5eccc859d7080c8aef2f639074.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_40d3e57e91a98d5eccc859d7080c8aef2f639074.png" />
+a product of primes, as required.
+</p>
+
+<hr>
+<p>
+Finally, we will consider another formulation of induction, known as
+the least element principle.
+</p>
+
+<hr>
+<p>
+<b>The Least Element Principle.</b> Suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> is some property of natural
+numbers, and suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds of some <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Then there is a smallest
+value of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> for which <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds.
+</p>
+
+<hr>
+<p>
+In fact, using classical reasoning, this is equivalent to the
+principle of complete induction. To see this, consider the
+contrapositive of the statement above: "if there is no smallest value
+for which <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds, then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> doesn't hold of any natural number." Let
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_90747007debbaea2221cc6e77dcaa504c34d05cf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_90747007debbaea2221cc6e77dcaa504c34d05cf.png" /> be the property <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> does <i>not</i> hold of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Saying that there
+is no smallest value for which <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds means that, for every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, if
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds at <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, then it holds of some number smaller than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />; and
+this is equivalent to saying that, for every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" /> doesn't hold
+at <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, then there is a smaller value for which <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" /> doesn't hold. And
+<i>that</i> is equivalent to saying that if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" /> holds for every number less
+than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, it holds for <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> as well. Similarly, saying that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> doesn't
+hold of any natural number is equivalent to saying that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" /> holds of
+every natural number. In other words, replacing the least element
+principle by its contrapositive, and replacing <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> by "not <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" />," we
+have the principle of complete induction. Since every statement is
+equivalent to its contrapositive, and every predicate as its negated
+version, the two principles are the same.
+</p>
+
+<p>
+It is not surprising, then, that the least element principle can be
+used in much the same way as the principle of complete
+induction. Here, for example, is a formulation of the previous proof
+in these terms. Notice that it is phrased as a proof by contradiction.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Every natural number greater than equal to 2 can be written
+as a product of primes.
+</p>
+
+<p>
+<b>Proof.</b> Suppose, to the contrary, there some natural number greater
+than or equal to 2 cannot be written as a product of primes. By the
+least element principle, there is a smallest such element; call it
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is not prime, and since it is greater than or equal to
+2, it must be composite. Hence we can write <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8ba0fd9790598e65b348ec2aceb69371abe29fd2.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8ba0fd9790598e65b348ec2aceb69371abe29fd2.png" /> where <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />
+and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> are smaller than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and greater than 1. By
+the assumption on <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, each of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> can be written as a product of
+primes, say
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1c54e42c5f6db04b96f9d27ba05c82f496210e0d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1c54e42c5f6db04b96f9d27ba05c82f496210e0d.png" />
+and
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_7fafa85b694ee177f2ddb9724458736329a4d591.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_7fafa85b694ee177f2ddb9724458736329a4d591.png" />
+But then we have
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_40d3e57e91a98d5eccc859d7080c8aef2f639074.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_40d3e57e91a98d5eccc859d7080c8aef2f639074.png" />
+a product of primes, contradicting the fact that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> cannot be written
+as a product of primes.
+</p>
+
+<hr>
+<p>
+Here is another example:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Every natural number is interesting.
+</p>
+
+<p>
+<b>Proof.</b> Suppose, to the contrary, some natural number is
+uninteresting. Then there is a smallest one, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. In other words, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />
+is the smallest uninteresting number. But that is really interesting!
+Contradiction.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org4e3d457" class="outline-3">
+<h3 id="Recursive_Definitions"><a id="org4e3d457"></a><span class="section-number-3"> 17.3</span> Recursive Definitions</h3>
+<div class="outline-text-3" id="text-Recursive_Definitions">
+<p>
+Suppose I tell you that I have a function <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_fe258742c09de5628f844bb3dcf98ed27b7f3c21.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_fe258742c09de5628f844bb3dcf98ed27b7f3c21.png" /> in mind,
+satisfying the following properties:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_3e7d549bdb94a544c1144629569c4c31d9c56d53.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_3e7d549bdb94a544c1144629569c4c31d9c56d53.png" /></p>
+</div>
+<p>
+What can you infer about <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />? Try calculating a few values:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8a268831ab1bc8e4d44d2d85d35ee75a2a369107.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8a268831ab1bc8e4d44d2d85d35ee75a2a369107.png" /></p>
+</div>
+<p>
+It soon becomes apparent that for every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_4e3ec3c8fc844d12baf2c1501656ae09f586ed4f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_4e3ec3c8fc844d12baf2c1501656ae09f586ed4f.png" />.
+</p>
+
+<p>
+What is more interesting is that the two conditions above specify
+<i>all</i> the values of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, which is to say, there is exactly one
+function meeting the specification above. In fact, it does not matter
+that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> takes values in the natural numbers; it could take values in
+any other domain. All that is needed is a value of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" /> and a way
+to compute the value of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8eb2e41e461f8b8001960abbd578e1ca934b3d06.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8eb2e41e461f8b8001960abbd578e1ca934b3d06.png" /> in terms of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_dc526746dc8e1bacedd8ed7d6bf417095a70b714.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_dc526746dc8e1bacedd8ed7d6bf417095a70b714.png" />. This is
+what the principle of definition by recursion asserts:
+</p>
+
+<hr>
+<p>
+<b>Principle of Definition by Recursion</b>. Let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> be any set, and
+suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is in <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6879438fa5cb92a0c0b13eef75318165cf2ec4d5.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6879438fa5cb92a0c0b13eef75318165cf2ec4d5.png" />. Then there is a
+unique function <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> satisfying the following two clauses:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_18b33431f4b682e848e4a8a91e0b87f34e57d855.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_18b33431f4b682e848e4a8a91e0b87f34e57d855.png" /></p>
+</div>
+
+<hr>
+<p>
+The principle of recursive definition makes two claims at once: first,
+that there is a function <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> satisfying the clauses above, and,
+second, that any two functions <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ff830d1e2687daff0dc3c52698fc0840ddd4e765.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ff830d1e2687daff0dc3c52698fc0840ddd4e765.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1c5a208139d543434282b6cf388d4155834b13ca.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1c5a208139d543434282b6cf388d4155834b13ca.png" /> satisfying those
+clauses are equal, which is to say, they have the same values for
+every input. In the example with which we began this section, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+just <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_16055645567bc08b00e3f283382649571264a102.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_16055645567bc08b00e3f283382649571264a102.png" />.
+</p>
+
+<p>
+In some axiomatic frameworks, the principle of recursive definition can be
+justified using the principle of induction. In others, the principle
+of induction can be viewed as a special case of the principle of
+recursive definition. For now, we will simply take both to be
+fundamental properties of the natural numbers.
+</p>
+
+<p>
+As another example of a recursive definition, consider the function
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1abce8602dd43c7a963de03d31d822e1861d38ef.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1abce8602dd43c7a963de03d31d822e1861d38ef.png" /> defined recursively by the following clauses:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6716032b286e696fc931da94567ac58dbfb3996c.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6716032b286e696fc931da94567ac58dbfb3996c.png" /></p>
+</div>
+<p>
+Try calculating the first few values. Unwrapping the definition, we
+see that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_93a291d4ab23205fb74debfe73e1bf22f05a6be5.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_93a291d4ab23205fb74debfe73e1bf22f05a6be5.png" /> for every
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />; indeed, definition by recursion is usually the proper way to make
+expressions using "" precise. The value <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6075add3128c379664e0f5bdebec031be8014552.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6075add3128c379664e0f5bdebec031be8014552.png" /> is read "<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />
+factorial," and written <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_3c4afb186fe919b64fa77a898d9c1d50161c2e97.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_3c4afb186fe919b64fa77a898d9c1d50161c2e97.png" />.
+</p>
+
+<p>
+Indeed, summation notation
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_cdce46bbd6b6059412715a7bb8fa423aa8d0638e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_cdce46bbd6b6059412715a7bb8fa423aa8d0638e.png" />
+and product notation
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_7a7d4116edc7ee082d78139b236665d942ce148f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_7a7d4116edc7ee082d78139b236665d942ce148f.png" />
+can also be made precise using recursive definitions. For example, the
+function <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b7d448c43b55125d0c2baee9eef9e7109a088960.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b7d448c43b55125d0c2baee9eef9e7109a088960.png" /> can be defined recursively as
+follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_74efc43b641a9a7194c8136373e05c4eed5703cc.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_74efc43b641a9a7194c8136373e05c4eed5703cc.png" /></p>
+</div>
+
+<p>
+Induction and recursion are complementary principles, and typically
+the way to prove something about a recursively defined function is to
+use the principle of induction. For example, the following theorem
+provides a formulas for the sum <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6683fe04067ec6d6eff6d30e622431832bc10376.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6683fe04067ec6d6eff6d30e622431832bc10376.png" />, in terms of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> For every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c06a2b8686762c44e196aa5cbd7972ea39878678.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c06a2b8686762c44e196aa5cbd7972ea39878678.png" />.
+</p>
+
+<p>
+<b>Proof.</b> In the base case, when <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" />, both sides are equal to <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />.
+</p>
+
+<p>
+In the inductive step, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c52c4e5b33aabb85b2e2fe87890f4f574c283193.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c52c4e5b33aabb85b2e2fe87890f4f574c283193.png" /></p>
+</div>
+
+<hr>
+<p>
+There are just as many variations on the principle of recursive
+definition as there are on the principle of induction. For example, in
+analogy to the principle of complete induction, we can specify a value
+of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_dc526746dc8e1bacedd8ed7d6bf417095a70b714.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_dc526746dc8e1bacedd8ed7d6bf417095a70b714.png" /> in terms of the values that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> takes at all inputs smaller
+than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. When <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_2a8df2c6642e1047b538657882ee2f2a0e413cf5.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_2a8df2c6642e1047b538657882ee2f2a0e413cf5.png" />, for example, the following definition
+specifies that value of a function <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6285c44f5c39e18c18123651ce25278a0acc081a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6285c44f5c39e18c18123651ce25278a0acc081a.png" /> in terms of its two
+predecessors:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b8055137060390ed9a421c5f837a6652a27db87.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b8055137060390ed9a421c5f837a6652a27db87.png" /></p>
+</div>
+<p>
+Calculating the values of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_648fcb3bdcaaea95965161424e8ba6ac53d2b823.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_648fcb3bdcaaea95965161424e8ba6ac53d2b823.png" /> on <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1ebb2aa12940d38d20aca28abe94d22503d7e723.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1ebb2aa12940d38d20aca28abe94d22503d7e723.png" /> we obtain
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_59889fc1c8f346d25c7e92506c3812088c1e725b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_59889fc1c8f346d25c7e92506c3812088c1e725b.png" /></p>
+</div>
+<p>
+Here, after the second number, each successive number is the sum of
+the two values preceding it. This is known as the <i>Fibonacci
+sequence</i>, and the corresponding numbers are known as the <i>Fibonacci
+numbers</i>. An ordinary mathematical presentation would write <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_9059e874e86c450a3041ff785bfef12dac6d627e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_9059e874e86c450a3041ff785bfef12dac6d627e.png" />
+instead of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6285c44f5c39e18c18123651ce25278a0acc081a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6285c44f5c39e18c18123651ce25278a0acc081a.png" /> and specify the sequence with the following
+equations:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_19afc8e27126e7560920864080441a136e72922c.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_19afc8e27126e7560920864080441a136e72922c.png" /></p>
+</div>
+<p>
+But you can now recognize such a specification as an implicit appeal
+to the principle of definition by recursion. We ask you to prove some
+facts about the Fibonacci sequence in the exercises below.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0b9a54e" class="outline-3">
+<h3 id="Arithmetic_on_the_Natural_Numbers"><a id="org0b9a54e"></a><span class="section-number-3"> 17.4</span> Arithmetic on the Natural Numbers</h3>
+<div class="outline-text-3" id="text-Arithmetic_on_the_Natural_Numbers">
+<p>
+In the next chapter, we will see that it is even possible to define
+addition and multiplication recursively, and to establish most of
+their basic properties using the principle of recursion. This is
+important from a foundational perspective, in which, as much as
+possible, we want to ground our reasoning on a small number of
+fundamental principles. Just as the foundations of a building are
+below ground, however, the foundations of mathematics should only be
+visible when we choose to go down to the basement and look around. In
+this section, we summarize the basic properties of natural numbers
+that play a role in day-to-day mathematics. In an ordinary
+mathematical argument or calculation, they can be used without
+explicit justification.
+</p>
+
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_3fdbc5ce43d41021c86a0d6afee200cefe283ed7.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_3fdbc5ce43d41021c86a0d6afee200cefe283ed7.png" /></p>
+</div>
+<p>
+We also have the following properties:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b91d9d98542f3c501766c5a00837030fe6b0c5d3.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b91d9d98542f3c501766c5a00837030fe6b0c5d3.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_bb1f6082715b506bffe7b3d2bc6e74eeb581cb7e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_bb1f6082715b506bffe7b3d2bc6e74eeb581cb7e.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6e77a1891c6d8fd332dfba819a87448730d26c8a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6e77a1891c6d8fd332dfba819a87448730d26c8a.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f280d3a0362a653a4710c34e61856ed1e06a02d1.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f280d3a0362a653a4710c34e61856ed1e06a02d1.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" />.</li>
+</ul>
+
+<p>
+We can define <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" />, "<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> is less than or equal to <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />," to mean
+that there exists a <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> such that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_57a7ca467115baed75712008a087025f405966c6.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_57a7ca467115baed75712008a087025f405966c6.png" />. If we do that, it is
+not hard to show that the less-than-or-equal-to relation satisfies all
+the following properties, for every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ea5917472145c3257cf251bf1b9fd0d035ba8431.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ea5917472145c3257cf251bf1b9fd0d035ba8431.png" /> (<i>reflexivity</i>);</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_0e7f7320979efda58e2b7827925df03538725d4e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_0e7f7320979efda58e2b7827925df03538725d4e.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_0219d8e961a8c7abfdac17e68b3943abac0c3e25.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_0219d8e961a8c7abfdac17e68b3943abac0c3e25.png" /> (<i>transitivity</i>);</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" /> (<i>antisymmetry</i>);</li>
+<li>for all <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, either <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" /> is true (<i>totality</i>);</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_19f4d4191cd19aab1e70b888759242fca43d8b91.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_19f4d4191cd19aab1e70b888759242fca43d8b91.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b4560547554104d2a5d76ae849bb2a5ed5fdcc52.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b4560547554104d2a5d76ae849bb2a5ed5fdcc52.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b76fbe5902f20b8c5e1ec9caee591192f0772c9b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b76fbe5902f20b8c5e1ec9caee591192f0772c9b.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_73fcb73aa6f34f10f5719aafd95a3d2549cf9f53.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_73fcb73aa6f34f10f5719aafd95a3d2549cf9f53.png" />;</li>
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5fff594cd3cc094cb6e8b0a34469a589f4579c75.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5fff594cd3cc094cb6e8b0a34469a589f4579c75.png" />.</li>
+</ul>
+<p>
+Remember from <a href="#" onclick="myModule.loadTutorial('13_Relations.html', 'Relations')">Chapter 13</a> that the first four items assert that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_7afa280d31947debf3f1f460c543a4204cb16b1b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_7afa280d31947debf3f1f460c543a4204cb16b1b.png" />
+is a linear order. Note that when we write <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b76fbe5902f20b8c5e1ec9caee591192f0772c9b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b76fbe5902f20b8c5e1ec9caee591192f0772c9b.png" />, we mean <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ec0b22349d250eb3d9c41ff8f649c0db48de15f2.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ec0b22349d250eb3d9c41ff8f649c0db48de15f2.png" />.
+</p>
+
+<p>
+We can then define <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" />, "<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> is less than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />," to mean <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_0740120151b49a3aeefa280c60185b32b7413eaf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_0740120151b49a3aeefa280c60185b32b7413eaf.png" />. The following proposition then justifies the terminology.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> With the definitions above, for every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_0e939413775ae75299c7d676236ebd4b0359eb8e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_0e939413775ae75299c7d676236ebd4b0359eb8e.png" /> if and only if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" />.
+</p>
+
+<p>
+<b>Proof.</b> First, suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" />, and let us show <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_79fdc3b3a76755c059181d2ed2adb636a86403db.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_79fdc3b3a76755c059181d2ed2adb636a86403db.png" />. Since <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" />, then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_57a7ca467115baed75712008a087025f405966c6.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_57a7ca467115baed75712008a087025f405966c6.png" />. If <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8ec26f4ef71274bcaefe814f25d38b88a428d1ae.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8ec26f4ef71274bcaefe814f25d38b88a428d1ae.png" />, we have <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_79fdc3b3a76755c059181d2ed2adb636a86403db.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_79fdc3b3a76755c059181d2ed2adb636a86403db.png" />. Otherwise, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_415cd751716c4136073d2eebafb906f70f82b1ec.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_415cd751716c4136073d2eebafb906f70f82b1ec.png" />, and we have <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_4709b2d51b05b32bb836f4134f1370b65458ec19.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_4709b2d51b05b32bb836f4134f1370b65458ec19.png" />, which
+mean <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" />.
+</p>
+
+<p>
+Conversely, suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" />. If <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" />, then we have <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_55a387ef8ffdc308b40f3855f2577cc7c0a01b36.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_55a387ef8ffdc308b40f3855f2577cc7c0a01b36.png" />, so <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" />. And if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" />, we also have <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1fe430706a2fc4e1c78924afe97b390ad0a5cc0b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1fe430706a2fc4e1c78924afe97b390ad0a5cc0b.png" />, as required.
+</p>
+
+<hr>
+<p>
+In a similar way, we can show that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" /> if and only if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" />
+and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b05a9e8ac1eab77f1eefe9ecdce4e0e0a5e74d3e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b05a9e8ac1eab77f1eefe9ecdce4e0e0a5e74d3e.png" />. In fact, we can demonstrate all of the following from
+these properties and the properties of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_7afa280d31947debf3f1f460c543a4204cb16b1b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_7afa280d31947debf3f1f460c543a4204cb16b1b.png" />:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_69bef68a9ff56e84bda1a949b79b55c2d7b15c98.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_69bef68a9ff56e84bda1a949b79b55c2d7b15c98.png" /> is never true (<i>irreflexivity</i>);</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1af0df251347497f8daf21a261d6277220d43bcd.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1af0df251347497f8daf21a261d6277220d43bcd.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_2427ee7a18df95c58beecb9da647aeb26082d0a2.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_2427ee7a18df95c58beecb9da647aeb26082d0a2.png" /> (<i>transitivity</i>);</li>
+<li>for all <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, either <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" /> or
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" /> is true (<i>trichotomy</i>);</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_82e3cbfcc95077af678d67cbfc5fa5852e81e124.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_82e3cbfcc95077af678d67cbfc5fa5852e81e124.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8b1cf21311986918b59f45bf94d822a2347111ac.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8b1cf21311986918b59f45bf94d822a2347111ac.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_85ca913fcac36436e3f281f101d14948bfdb83d1.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_85ca913fcac36436e3f281f101d14948bfdb83d1.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_bb7dc8afb0a2b435d4180de3d7ef4e4d484e2572.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_bb7dc8afb0a2b435d4180de3d7ef4e4d484e2572.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_cf12227a6743a85b3974fee04e5a8544ac79f541.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_cf12227a6743a85b3974fee04e5a8544ac79f541.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5f8dd7fae2d1ca44839e095652f8ca26f941c14e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5f8dd7fae2d1ca44839e095652f8ca26f941c14e.png" />;</li>
+<li>for all <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a81608ca8df3aa65b19f98f00fa2aadb78951e1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a81608ca8df3aa65b19f98f00fa2aadb78951e1e.png" />.</li>
+</ul>
+<p>
+The first three items mean that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> is a strict linear order, and the
+properties above means that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_7afa280d31947debf3f1f460c543a4204cb16b1b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_7afa280d31947debf3f1f460c543a4204cb16b1b.png" /> is the associated linear order, in
+the sense described in <a href="#" onclick="myModule.loadTutorial('13_Relations.html', 'Order_Relations')">Section 13.1</a>.
+</p>
+
+
+<hr>
+<p>
+<b>Proof</b>. We will prove some of these properties.
+</p>
+
+<p>
+The first property is straightforward: we know <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1cc45cef22ab9ed4fb7b1dda663e0dfe4b6740e4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1cc45cef22ab9ed4fb7b1dda663e0dfe4b6740e4.png" />, and if
+we had <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_911b74a0c8305453d8229f33ce3fe2a044798c0d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_911b74a0c8305453d8229f33ce3fe2a044798c0d.png" />, we should have <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_236ea517b163531ac605c112b3b4bacb9a8c5f59.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_236ea517b163531ac605c112b3b4bacb9a8c5f59.png" />, a contradiction.
+</p>
+
+<p>
+For the second property, assume <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1af0df251347497f8daf21a261d6277220d43bcd.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1af0df251347497f8daf21a261d6277220d43bcd.png" />. Then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_79c56c94adea923c4aac6bb133d5b4e98eac1c4d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_79c56c94adea923c4aac6bb133d5b4e98eac1c4d.png" />, which implies <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_2427ee7a18df95c58beecb9da647aeb26082d0a2.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_2427ee7a18df95c58beecb9da647aeb26082d0a2.png" />.
+</p>
+
+<p>
+For the third, we know that either <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5d7f9f2dfdc02dbae8a54fb12a66da14678346a4.png" />. If <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" />,
+we are done, and otherwise we have either <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" />.
+</p>
+
+<p>
+For the fourth, if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_38f705ffe150bf2a83eb4ba8bee833358fff8073.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_38f705ffe150bf2a83eb4ba8bee833358fff8073.png" />, we have <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8c6d43fd799349af7313a0e2cc8e714c036a4cc4.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8c6d43fd799349af7313a0e2cc8e714c036a4cc4.png" />, as required.
+</p>
+
+<p>
+For the fifth, suppose <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8b1cf21311986918b59f45bf94d822a2347111ac.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8b1cf21311986918b59f45bf94d822a2347111ac.png" />, which is to say, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_415cd751716c4136073d2eebafb906f70f82b1ec.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_415cd751716c4136073d2eebafb906f70f82b1ec.png" />. If <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ed85297eea47a7d18232ea85daebd2b7c2e23c75.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ed85297eea47a7d18232ea85daebd2b7c2e23c75.png" />, then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_38f705ffe150bf2a83eb4ba8bee833358fff8073.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_38f705ffe150bf2a83eb4ba8bee833358fff8073.png" />, and so <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a855461e0673624497bacbe794db2b3b33300f34.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a855461e0673624497bacbe794db2b3b33300f34.png" />. But this
+implies <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_06f61ad07a50fb35af24c433d3a24d2a619f1f6c.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_06f61ad07a50fb35af24c433d3a24d2a619f1f6c.png" />, as required.
+</p>
+
+<p>
+The rest of the remaining proofs are left as an exercise to the reader.
+</p>
+
+<hr>
+<p>
+Here are some additional properties of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_7afa280d31947debf3f1f460c543a4204cb16b1b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_7afa280d31947debf3f1f460c543a4204cb16b1b.png" />:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" /> cannot both hold (<i>asymmetry</i>);</li>
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a9e3cb785cf44a099f69a08dca06e7d610b52db3.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a9e3cb785cf44a099f69a08dca06e7d610b52db3.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_0e7f7320979efda58e2b7827925df03538725d4e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_0e7f7320979efda58e2b7827925df03538725d4e.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_2427ee7a18df95c58beecb9da647aeb26082d0a2.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_2427ee7a18df95c58beecb9da647aeb26082d0a2.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_278a056c4c74229a54988d080139bd5ac67de24a.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_1af0df251347497f8daf21a261d6277220d43bcd.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_1af0df251347497f8daf21a261d6277220d43bcd.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_2427ee7a18df95c58beecb9da647aeb26082d0a2.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_2427ee7a18df95c58beecb9da647aeb26082d0a2.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_bb7dc8afb0a2b435d4180de3d7ef4e4d484e2572.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_bb7dc8afb0a2b435d4180de3d7ef4e4d484e2572.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_73fcb73aa6f34f10f5719aafd95a3d2549cf9f53.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_73fcb73aa6f34f10f5719aafd95a3d2549cf9f53.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b76fbe5902f20b8c5e1ec9caee591192f0772c9b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b76fbe5902f20b8c5e1ec9caee591192f0772c9b.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_db8615e80d38a61999bdfb576cb839796b8c0da3.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_db8615e80d38a61999bdfb576cb839796b8c0da3.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_82e3cbfcc95077af678d67cbfc5fa5852e81e124.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_82e3cbfcc95077af678d67cbfc5fa5852e81e124.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_85ca913fcac36436e3f281f101d14948bfdb83d1.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_85ca913fcac36436e3f281f101d14948bfdb83d1.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8b1cf21311986918b59f45bf94d822a2347111ac.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8b1cf21311986918b59f45bf94d822a2347111ac.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" />.</li>
+</ul>
+<p>
+These can be proved from the ones above. Moreover, the collection of
+principles we have just seen can be used to justify basic facts about
+the natural numbers, which are again typically taken for granted in
+informal mathematical arguments.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> If <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> are natural numbers such that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_24b871353bc12608ef1a6ac9206b78c7ebfc3c47.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_24b871353bc12608ef1a6ac9206b78c7ebfc3c47.png" />, then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ca78e89c6b6a09a5b30ecbbb5ce614f85f6959c6.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ca78e89c6b6a09a5b30ecbbb5ce614f85f6959c6.png" />.
+</p>
+
+<p>
+<b>Proof.</b> We first prove that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_82adb895fbec6245cc2e8e216fabd47b971459cf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_82adb895fbec6245cc2e8e216fabd47b971459cf.png" />. We know that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_82adb895fbec6245cc2e8e216fabd47b971459cf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_82adb895fbec6245cc2e8e216fabd47b971459cf.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_641cb0e6f1eade7588da6557c0194fd06bf9bb3d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_641cb0e6f1eade7588da6557c0194fd06bf9bb3d.png" />. Suppose that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a5f2cfacbabc0aaaa46a8b62bf1bb92e4d66efbd.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a5f2cfacbabc0aaaa46a8b62bf1bb92e4d66efbd.png" />. Then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_0220a5c279606c6ba77701e6cc25c66ff476367f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_0220a5c279606c6ba77701e6cc25c66ff476367f.png" />. Since <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6fd86146f3be7e06ec0c2b1d33240092bbbc5178.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6fd86146f3be7e06ec0c2b1d33240092bbbc5178.png" />,
+we conclude that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c5d227b8f9e06288ab0b6c25e7d0413dd2f30efc.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c5d227b8f9e06288ab0b6c25e7d0413dd2f30efc.png" />, which contradicts the fact that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_24b871353bc12608ef1a6ac9206b78c7ebfc3c47.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_24b871353bc12608ef1a6ac9206b78c7ebfc3c47.png" />. Since <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a5f2cfacbabc0aaaa46a8b62bf1bb92e4d66efbd.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a5f2cfacbabc0aaaa46a8b62bf1bb92e4d66efbd.png" /> leads to a contradiction, we must have <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_82adb895fbec6245cc2e8e216fabd47b971459cf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_82adb895fbec6245cc2e8e216fabd47b971459cf.png" />.
+</p>
+
+<p>
+Now we can easily conclude that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" />, since <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c58beedd3b2f721756ab62ba09b3ab9201565b54.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c58beedd3b2f721756ab62ba09b3ab9201565b54.png" />. Hence <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ca78e89c6b6a09a5b30ecbbb5ce614f85f6959c6.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ca78e89c6b6a09a5b30ecbbb5ce614f85f6959c6.png" />.
+</p>
+
+<p>
+<b>Proposition.</b> If <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is a natural number such that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6ed408fae472dd78dcbe746afa3d775cdd989adb.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6ed408fae472dd78dcbe746afa3d775cdd989adb.png" />, then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_0fdbf4ba02cfe6d7749f4f1f46bc75e92463707c.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_0fdbf4ba02cfe6d7749f4f1f46bc75e92463707c.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b8a91167b06cc01978676fdf9e631e130156f527.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b8a91167b06cc01978676fdf9e631e130156f527.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e62b3f122ad8b60e27eb1c9a46bee4bb6f8ec5d5.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e62b3f122ad8b60e27eb1c9a46bee4bb6f8ec5d5.png" />.
+</p>
+
+<p>
+<b>Proof.</b> In this proof we repeatedly use the property that if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_bb7dc8afb0a2b435d4180de3d7ef4e4d484e2572.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_bb7dc8afb0a2b435d4180de3d7ef4e4d484e2572.png" />
+then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_cf12227a6743a85b3974fee04e5a8544ac79f541.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_cf12227a6743a85b3974fee04e5a8544ac79f541.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5f8dd7fae2d1ca44839e095652f8ca26f941c14e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5f8dd7fae2d1ca44839e095652f8ca26f941c14e.png" />. Since <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_03911ed087b0fa45bd44c2a11515ce24b587dc48.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_03911ed087b0fa45bd44c2a11515ce24b587dc48.png" />, we conclude
+that either <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_39b2b230829f1146a10387f42d4add35eac0c0ce.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_39b2b230829f1146a10387f42d4add35eac0c0ce.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_fe34a42ea066e001b0534929c5133ecc5f5f11ee.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_fe34a42ea066e001b0534929c5133ecc5f5f11ee.png" />. In the first case we
+conclude <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e62b3f122ad8b60e27eb1c9a46bee4bb6f8ec5d5.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e62b3f122ad8b60e27eb1c9a46bee4bb6f8ec5d5.png" />, and we are done. In the second case we conclude <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_46063ffda625497d9bcdf775dac4320ccef02c68.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_46063ffda625497d9bcdf775dac4320ccef02c68.png" />, which implies that either <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_0f760a7768cbd83d81d63ca65adb0de8110b8929.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_0f760a7768cbd83d81d63ca65adb0de8110b8929.png" />, or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b9341fe67fe3f9fe07103f1d12a45e7af626c9cd.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b9341fe67fe3f9fe07103f1d12a45e7af626c9cd.png" />. In the
+first case, we conclude <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b8a91167b06cc01978676fdf9e631e130156f527.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b8a91167b06cc01978676fdf9e631e130156f527.png" />, and we are done. In the second case,
+we conclude <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d17890fc9fe726f6a0286206790f84c52ad97b0b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d17890fc9fe726f6a0286206790f84c52ad97b0b.png" />, and appeal one last time to the general principle
+presented above to conclude that either <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_4fde2d1b35627cc425daf9b7f51d7ff2cb1eac4f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_4fde2d1b35627cc425daf9b7f51d7ff2cb1eac4f.png" /> or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_47984216c37ff97c491a2bf62be11ab3479ec947.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_47984216c37ff97c491a2bf62be11ab3479ec947.png" />. In
+the first case, we conclude <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" />, and we are once again done. In
+the second case, we conclude that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f02c162833306c8d240967187e35bd5b9cc9f20c.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f02c162833306c8d240967187e35bd5b9cc9f20c.png" />. This leads to a
+contradiction, since now <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8043efd7a56eff1b3e35beb08459c9789c58543e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8043efd7a56eff1b3e35beb08459c9789c58543e.png" />, hence <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_4ee01eeca3f6830bb3f4748131cec94a95b0ffc0.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_4ee01eeca3f6830bb3f4748131cec94a95b0ffc0.png" />, which
+contradicts the irreflexivity of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a9ed56a65d689b6813fe7cee12472dada631526f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a9ed56a65d689b6813fe7cee12472dada631526f.png" />.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org050fd29" class="outline-3">
+<h3 id="The_Integers"><a id="org050fd29"></a><span class="section-number-3"> 17.5</span> The Integers</h3>
+<div class="outline-text-3" id="text-The_Integers">
+<p>
+The natural numbers are designed for counting discrete quantities, but
+they suffer an annoying drawback: it is possible to subtract <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> from
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is less than or equal to <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, but not if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> is greater
+than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. The set of <i>integers</i>, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" />, extends the natural numbers
+with negative values, to make it possible to carry out subtraction in
+full:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_8312b6f1ffcbb1a48ed799c2566997de005cd602.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_8312b6f1ffcbb1a48ed799c2566997de005cd602.png" /></p>
+</div>
+<p>
+We will see in a later chapter that the integers can be extended to
+the <i>rational numbers</i>, the <i>real numbers</i>, and the <i>complex numbers</i>,
+each of which serves useful purposes. For dealing with discrete
+quantities, however, the integers will get us pretty far.
+</p>
+
+<p>
+You can think of the integers as consisting of two copies of the
+natural numbers, a positive one and a negative one, sharing a common
+zero. Conversely, once we have the integers, you can think of the
+natural numbers as consisting of the nonnegative integers, that is,
+the integers that are greater than or equal to <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />. Most
+mathematicians blur the distinction between the two, though we will
+see that in Lean, for example, the natural numbers and the integers
+represent two different data types.
+</p>
+
+<p>
+Most of the properties of the natural numbers that were enumerated in
+the last section hold of the integers as well, but not all. For
+example, it is no longer the case that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b91d9d98542f3c501766c5a00837030fe6b0c5d3.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b91d9d98542f3c501766c5a00837030fe6b0c5d3.png" /> for every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />,
+since the claim is false for <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_eefc14edb14b7fbea1c3e24bd7207ecff6146c5c.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_eefc14edb14b7fbea1c3e24bd7207ecff6146c5c.png" />. For another example, it is not
+the case that every integer is either equal to <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> or greater than
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, since this fails to hold of the negative integers.
+</p>
+
+<p>
+The key property that the integers enjoy, which sets them apart from
+the natural numbers, is that for every integer <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> there is a value
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b8ab21ad9f873c1de6a1595bd9d6d486d729a935.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b8ab21ad9f873c1de6a1595bd9d6d486d729a935.png" /> with the property that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ff0dca6e5664672138833c105c4ed3ac83d20401.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ff0dca6e5664672138833c105c4ed3ac83d20401.png" />. The value <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b8ab21ad9f873c1de6a1595bd9d6d486d729a935.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b8ab21ad9f873c1de6a1595bd9d6d486d729a935.png" /> is called
+the <i>negation</i> of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. We define subtraction <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b7d531ca66159282c40699b7c0f9162adf93db68.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b7d531ca66159282c40699b7c0f9162adf93db68.png" /> to be <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_f6527b9cfdbf200ece784f209fb3a55f5e6458cd.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_f6527b9cfdbf200ece784f209fb3a55f5e6458cd.png" />. For any integer <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, we also define the <i>absolute value</i> of
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, written <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_202c78d34e2e6b5342891f4ac64e461c6e933386.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_202c78d34e2e6b5342891f4ac64e461c6e933386.png" />, to be <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_55cd9a4b962bc42c5852f9434073608cae697f18.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_55cd9a4b962bc42c5852f9434073608cae697f18.png" />, and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b8ab21ad9f873c1de6a1595bd9d6d486d729a935.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b8ab21ad9f873c1de6a1595bd9d6d486d729a935.png" /> otherwise.
+</p>
+
+<p>
+Proof by induction no longer holds, because induction does not cover
+the negative numbers. But we can use induction to show that a property
+holds of every nonnegative integer, for example. Moreover, we know
+that every negative integer is the negation of a positive one.As a
+result, proofs involving the integers often break down into two cases,
+where one case covers the nonnegative integers, and the other case
+covers the negative ones.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5c1e02b" class="outline-3">
+<h3 id="org5c1e02b"><span class="section-number-3"> 17.6</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li>Write the principle of complete induction using the notation of
+symbolic logic. Also write the least element principle this way,
+and use logical manipulations to show that the two are equivalent.</li>
+
+<li>Show that for every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_cd832c7d78d5210b06197fd93e71d7b276b7bb63.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_cd832c7d78d5210b06197fd93e71d7b276b7bb63.png" />.</li>
+
+<li>Show that for every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_66230d94e9f78d7383aefc4fd149a6a76a8f2acc.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_66230d94e9f78d7383aefc4fd149a6a76a8f2acc.png" />.</li>
+
+<li>Given the definition of the Fibonacci numbers in <a href="#" onclick="myModule.scrollTutorialTo('Recursive_Definitions')">Section 17.3</a>,
+prove Cassini's identity: for every <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_896b195dea600569ebb248e4a6eff3ce6ab50651.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_896b195dea600569ebb248e4a6eff3ce6ab50651.png" />. Hint: in the induction step, write <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_102d7a65004d67fb0fe5dd72507d1c059afd685e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_102d7a65004d67fb0fe5dd72507d1c059afd685e.png" /> as
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c5386e6e797f7ae9237a19cbfa74a63c8e7c6df8.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c5386e6e797f7ae9237a19cbfa74a63c8e7c6df8.png" />.</li>
+
+<li>Prove <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_2070dc6a770e732acb8865630e22a6555426998a.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_2070dc6a770e732acb8865630e22a6555426998a.png" />.</li>
+
+<li><p>
+Prove the following two identities:
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_b62d27322f7169f6c9e7b61c8ac23e1207c66cd8.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_b62d27322f7169f6c9e7b61c8ac23e1207c66cd8.png" /></li>
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_34c1da5307e6ef00d961a46f247886d5e81bbc4d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_34c1da5307e6ef00d961a46f247886d5e81bbc4d.png" /></li>
+</ul>
+<p>
+Hint: use induction on <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, and prove them both at once. In the
+induction step, expand <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_bcfa2335fad97c4f9aa76bd27a44535da98baa2d.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_bcfa2335fad97c4f9aa76bd27a44535da98baa2d.png" />, and
+similarly for <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ee8ed59e78fb3b39c60a506b4da5529487562d80.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ee8ed59e78fb3b39c60a506b4da5529487562d80.png" />. Proving the second equation is
+especially tricky. Use the inductive hypothesis and the first
+identity to simplify the left-hand side, and repeatedly unfold the
+Fibonacci number with the highest index and simplify the equation
+you need to prove. (When you have worked out a solution, write a
+clear equational proof, calculating in the ``forwards''
+direction.)
+</p></li>
+
+<li>Prove that every natural number can be written as a sum of
+<i>distinct</i> powers of 2. For this problem, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_97a8825da4e22ad6a5385cd0bc0a63a8794b3492.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_97a8825da4e22ad6a5385cd0bc0a63a8794b3492.png" /> is counted as
+power of 2.</li>
+
+<li><p>
+Let <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" /> be a non-empty set of integers such that the following two
+properties hold:
+</p>
+
+<ul class="org-ul">
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d7fc5ba965dad07d127af3806ff74eaca2a64baa.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d7fc5ba965dad07d127af3806ff74eaca2a64baa.png" />, then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_63d9f0db4e810f02485cb6972933da214c33c0e7.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_63d9f0db4e810f02485cb6972933da214c33c0e7.png" /></li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6f4aa4c2bbbcc3984899eb7513a7fa2ee4cf1fbe.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6f4aa4c2bbbcc3984899eb7513a7fa2ee4cf1fbe.png" />, then every multiple of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is an element of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" /></li>
+</ul>
+<p>
+Prove that there is some <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e94b21f7c1201fcf94f91ec13de7a39e35484634.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e94b21f7c1201fcf94f91ec13de7a39e35484634.png" />, such that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" /> is equal to the set of
+multiples of <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_75237b86456fae65c4263b32c1e949a1bcb59f35.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_75237b86456fae65c4263b32c1e949a1bcb59f35.png" />. Hint: use the least element principle.
+</p></li>
+
+<li>Following the example in <a href="#" onclick="myModule.scrollTutorialTo('Arithmetic_on_the_Natural_Numbers')">Section 17.4</a> prove that if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is a
+natural number and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a51002fa6b8d61124f9ef6a1dc33de61c8ae6bce.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a51002fa6b8d61124f9ef6a1dc33de61c8ae6bce.png" />, then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is one of the values <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6f607e24fd9225e2ef9d0d530f1cfa98b842729e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6f607e24fd9225e2ef9d0d530f1cfa98b842729e.png" />, or <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_af68d08ebe92ae100455b1ff9963a815d958c035.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_af68d08ebe92ae100455b1ff9963a815d958c035.png" />.</li>
+
+<li><p>
+Prove that if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> are natural numbers and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_4a83e8388a1de681abb4f5b7e01a8d8224800a3e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_4a83e8388a1de681abb4f5b7e01a8d8224800a3e.png" />, then
+<img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_440a34085183c31d470f1381d461f2da9ca3bf45.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_440a34085183c31d470f1381d461f2da9ca3bf45.png" />.
+</p>
+
+<p>
+This is tricky. First show that <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> are greater than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />,
+and hence greater than or equal to <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" />. Then show that if either
+one of them is greater than <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" />, then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_ae074825a142d88ccc7b67621dd30eaf5d0b0f59.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_ae074825a142d88ccc7b67621dd30eaf5d0b0f59.png" />.
+</p></li>
+
+<li>Prove all the claims in <a href="#" onclick="myModule.scrollTutorialTo('Arithmetic_on_the_Natural_Numbers')">Section 17.4</a> that were stated without
+proof.</li>
+
+<li>Prove the following properties of negation and subtraction on the
+integers, using only the properties of negation and subtraction
+given in <a href="#" onclick="myModule.scrollTutorialTo('The_Integers')">Section 17.5</a>.
+
+<ul class="org-ul">
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_dea246cfbee387376930dde158c155134b401e8b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_dea246cfbee387376930dde158c155134b401e8b.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_22735c8c9dbe7a95cb6655a85a371e539748a739.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_22735c8c9dbe7a95cb6655a85a371e539748a739.png" />;</li>
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_67630b4b8dbda88d710bcd63153d2bafb3bffb27.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_67630b4b8dbda88d710bcd63153d2bafb3bffb27.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_5e1806640d86a10c3f3b4535cd4576991c886967.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_5e1806640d86a10c3f3b4535cd4576991c886967.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" />;</li>
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_38e48d4db1a60c962677960323f4bcf59d885cb5.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_38e48d4db1a60c962677960323f4bcf59d885cb5.png" />;</li>
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_2da1538572ef60cf4962ee28bbef096904147226.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_2da1538572ef60cf4962ee28bbef096904147226.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_6b45231b5fe75c218ab4c4e7dd09173ee306b468.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_6b45231b5fe75c218ab4c4e7dd09173ee306b468.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_e4eeaf3acf0c814ffe312b9550be63355887febf.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_40b6d536aebb644c0d9905cc1555a5a08d148c66.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_40b6d536aebb644c0d9905cc1555a5a08d148c66.png" />;</li>
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_791019ab669fac1fc976a562490c1bb0c30db70f.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_791019ab669fac1fc976a562490c1bb0c30db70f.png" />;</li>
+<li><img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_332eeb24a3d00a4aaef849da812895d5cd6ff505.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_332eeb24a3d00a4aaef849da812895d5cd6ff505.png" />;</li>
+<li>if <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" /> then <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_29884c6afa62c6f238e9051087d8bc4c95166050.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_29884c6afa62c6f238e9051087d8bc4c95166050.png" />.</li>
+</ul></li>
+
+<li>Suppose you have an infinite chessboard with a natural number
+written in each square. The value in each square is the average of
+the values of the four neighboring squares. Prove that all the
+values on the chessboard are equal.</li>
+
+<li>Prove that every natural number can be written as a sum of
+<i>distinct non-consecutive</i> Fibonacci numbers. For example, <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_3f1eef7a2b24850fb875c5baff380d3f69d72748.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_3f1eef7a2b24850fb875c5baff380d3f69d72748.png" /> is not allowed, since 3 and 5 are consecutive
+Fibonacci numbers, but <img src="ltximg/17_The_Natural_Numbers_and_Induction.org.temp_4cfc3df7600a81068cef8a93c499db4006adfe44.png" alt="17_The_Natural_Numbers_and_Induction.org.temp_4cfc3df7600a81068cef8a93c499db4006adfe44.png" /> is allowed.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

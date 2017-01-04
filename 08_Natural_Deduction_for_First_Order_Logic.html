@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 21:03 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-orgf61c336" class="outline-2">
+<h2 id="Natural_Deduction_for_First_Order_Logic"><a id="orgf61c336"></a><span class="section-number-2"> 8</span> Natural Deduction for First Order Logic</h2>
+<div class="outline-text-2" id="text-Natural_Deduction_for_First_Order_Logic">
+</div>
+
+<div id="outline-container-org8eb5dc9" class="outline-3">
+<h3 id="org8eb5dc9"><span class="section-number-3"> 8.1</span> Rules of Inference</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+In the last chapter, we discussed the language of first-order logic,
+and the rules that govern their use. We summarize them here:
+</p>
+</div>
+
+<div id="outline-container-org5ea17bd" class="outline-4">
+<h4 id="org5ea17bd"><span class="section-number-4"> 8.1.1</span> Universal quantifier</h4>
+<div class="outline-text-4" id="text-1-1-1">
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_e251fdc5ea43be323b960ad2311f5daf6ccbe047.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_e251fdc5ea43be323b960ad2311f5daf6ccbe047.png" /></p>
+</div>
+<p>
+In the introduction rule, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> should not be free in any uncanceled
+hypothesis. In the elimination rule, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /> can be any term that does not
+clash with any of the bound variables in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdc2efa5" class="outline-4">
+<h4 id="orgdc2efa5"><span class="section-number-4"> 8.1.2</span> Existential quantifier</h4>
+<div class="outline-text-4" id="text-1-1-2">
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_282038a116a532ae8094b60febdad773409874cf.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_282038a116a532ae8094b60febdad773409874cf.png" /></p>
+</div>
+<p>
+In the introduction rule, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /> cant be any term that does not clash
+with any of the bound variables in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. In the elimination rule, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />
+should not be free in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> or any uncanceled hypothesis.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge3593f4" class="outline-4">
+<h4 id="orge3593f4"><span class="section-number-4"> 8.1.3</span> Equality</h4>
+<div class="outline-text-4" id="text-1-1-3">
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_4186eaaa080f8b386d75f4fbb77bd9eecac58c52.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_4186eaaa080f8b386d75f4fbb77bd9eecac58c52.png" /></p>
+</div>
+<p>
+Strictly speaking, only <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_2a45aa56264c5297d77e2c0256a716fe6987ebab.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_2a45aa56264c5297d77e2c0256a716fe6987ebab.png" /> and the second substitution
+rule are necessary. The others can be derived from them.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org194204f" class="outline-3">
+<h3 id="org194204f"><span class="section-number-3"> 8.2</span> The Universal Quantifier</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The following example of a proof in natural deduction shows that if,
+for every <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" /> holds, and for every <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_3bea4bbf0e2b6efe946437b293cb1a895e7137c7.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_3bea4bbf0e2b6efe946437b293cb1a895e7137c7.png" /> holds, then for
+every <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, they both hold:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_dd6f9f2bfa1c5ab90b2795d77a7261754b641450.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_dd6f9f2bfa1c5ab90b2795d77a7261754b641450.png" /></p>
+</div>
+<p>
+Notice that neither of the assumptions 1 or 2 mention <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, so
+that <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> is really "arbitrary" at the point where the universal
+quantifiers are introduced.
+</p>
+
+<p>
+Here is another example:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_b02b9afd70ef2f8fd66270c0452b2a28b22f4d53.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_b02b9afd70ef2f8fd66270c0452b2a28b22f4d53.png" /></p>
+</div>
+
+<p>
+As an exercise, try proving the following:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_661e28866c850f57780673bdc38b5eca540f89b5.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_661e28866c850f57780673bdc38b5eca540f89b5.png" /></p>
+</div>
+<p>
+Here is a more challenging exercise. Suppose I tell you that, in a town,
+there is a (male) barber that shaves all and only the men who do not
+shave themselves. You can show that this is a contradiction, arguing
+informally, as follows:
+</p>
+<blockquote>
+<p>
+By the assumption, the barber shaves himself if and only if he does
+not shave himself. Call this statement (*).
+</p>
+
+<p>
+Suppose the barber shaves himself. By (*), this implies that he does
+not shave himself, a contradiction. So, the barber does not shave
+himself.
+</p>
+
+<p>
+But using (*) again, this implies that the barber shaves himself,
+which contradicts the fact we just showed, namely, that the barber
+does not shave himself. 
+</p>
+</blockquote>
+<p>
+Try to turn this into a formal argument in natural deduction.
+</p>
+
+<p>
+Let us return to the example of the natural numbers, to see how
+deductive notions play out there. Suppose we have defined <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_a2b78fc52e9aa05f400adb06ff4db07fd6af8e58.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_a2b78fc52e9aa05f400adb06ff4db07fd6af8e58.png" />
+and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_9edb8c8cc5371d5e61536da5cf533bf0f8f53f26.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_9edb8c8cc5371d5e61536da5cf533bf0f8f53f26.png" /> in such a way that we can prove:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_5a0a099c14f4db12e69a53cd5a885885ba0d3450.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_5a0a099c14f4db12e69a53cd5a885885ba0d3450.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_0d6ca12566b787728800108fb6da329a1e8c6dea.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_0d6ca12566b787728800108fb6da329a1e8c6dea.png" /></li>
+</ul>
+<p>
+Then we can go on to derive <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_00114902ad7ce42894fb8051de60ed230cd0687f.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_00114902ad7ce42894fb8051de60ed230cd0687f.png" /> as
+follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_0dfe83ea2487acfc6162726a496f41c1124ab2a0.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_0dfe83ea2487acfc6162726a496f41c1124ab2a0.png" /></p>
+</div>
+<p>
+We can also prove and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_959fb49a71e0ded047849c915810ec8097bc9c8f.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_959fb49a71e0ded047849c915810ec8097bc9c8f.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_f4276caf6c89ed85e9052507196f0708ff1186d3.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_f4276caf6c89ed85e9052507196f0708ff1186d3.png" /></p>
+</div>
+<p>
+As we move from modeling basic rules of inference to modeling actual
+mathematical proofs, we will tend to shift focus from natural
+deduction to formal proofs in Lean. Natural deduction has its uses: as
+a model of logical reasoning, it provides us with a convenient means
+to study metatheoretic properties such as soundness and
+completeness. For working <i>within</i> the system, however, proof
+languages like Lean's tend to scale better, and produce more readable
+proofs.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3b444d9" class="outline-3">
+<h3 id="org3b444d9"><span class="section-number-3"> 8.3</span> The Existential Quantifier</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Remember that the intuition behind the elimination rule for the
+existential quantifier is that if we know <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_6a233a8764e95ac874205cf2c155aeecb72814ba.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_6a233a8764e95ac874205cf2c155aeecb72814ba.png" />, we can
+temporarily reason about an arbitrary element <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> satisfying <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_b964d663c34c6361f5b19878b503e0d968210b44.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_b964d663c34c6361f5b19878b503e0d968210b44.png" /> in
+order to prove a conclusion that doesn't depend on <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />. Here is an
+example of how it can be used. The next proof says that if we know
+there is something satisfying both <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, then we know, in
+particular, that there is something satisfying <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_ff2d57ee4e137635c2f74cbe23db2e628903e158.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_ff2d57ee4e137635c2f74cbe23db2e628903e158.png" /></p>
+</div>
+<p>
+The following proof shows that if there is something satsifying either
+<img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> or <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, then either there is something satisfying <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, or there is
+something satisfying <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />.
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_b99879946ed88142c6949b8e357f4d1d16d52365.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_b99879946ed88142c6949b8e357f4d1d16d52365.png" /></p>
+</div>
+
+
+<p>
+The following example is more involved:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_0627d788080561e58a7d368f51b4b263382712d3.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_0627d788080561e58a7d368f51b4b263382712d3.png" /></p>
+</div>
+<p>
+In this proof, the existential elimination rule (the line labeled <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_589b4d802d7fce3611012a506403dced871832d0.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_589b4d802d7fce3611012a506403dced871832d0.png" />)
+is used to cancel two hypotheses at the same time. Note that when this
+rule is applied, the hypothesis <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_7f5134037d657a5c7c118d3bd6f4c53ee724e5fe.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_7f5134037d657a5c7c118d3bd6f4c53ee724e5fe.png" /> has not
+yet been canceled. So we have to make sure that this formula doesn't
+contain the variable <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> freely. But this is o.k., since this
+hypothesis contains <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> only as a bound variable.
+</p>
+
+<p>
+Another example is that if <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> does not occur in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />, then <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_aabbe75afe3477a2aa86643e9abd36e938a7667d.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_aabbe75afe3477a2aa86643e9abd36e938a7667d.png" />
+is equivalent to <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_a547c6df69955ca0adcf35eb76fad61ab4615ecb.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_a547c6df69955ca0adcf35eb76fad61ab4615ecb.png" /></p>
+</div>
+<p>
+This short but tricky, so let us go through it carefully. On the left,
+we assume <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_aabbe75afe3477a2aa86643e9abd36e938a7667d.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_aabbe75afe3477a2aa86643e9abd36e938a7667d.png" /> to conclude <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />. We assume <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />, and now we can
+immediately cancel this assumption by existential elimination, since
+<img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> does not occur in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />, so it doesn't occur freely in any
+assumption or in the conclusion. On the right we use existential
+introduction to conclude <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_aabbe75afe3477a2aa86643e9abd36e938a7667d.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_aabbe75afe3477a2aa86643e9abd36e938a7667d.png" /> from <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfe31aff" class="outline-3">
+<h3 id="Equality"><a id="orgfe31aff"></a><span class="section-number-3"> 8.4</span> Equality</h3>
+<div class="outline-text-3" id="text-Equality">
+<p>
+Recall the natural deduction rules for equality:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_c12923ac6fb796f14a61d72b7eabe341d81ccaf6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_c12923ac6fb796f14a61d72b7eabe341d81ccaf6.png" /></p>
+</div>
+<p>
+Keep in mind that we have implicitly fixed some first-order language,
+and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" />, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_c3648b9525359bf9de10a16af0a905db175a7cb1.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_c3648b9525359bf9de10a16af0a905db175a7cb1.png" />, and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /> are any terms in that language. Recall also that
+we have adopted the practice of using functional notation with
+terms. For example, if we think of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_e3cf8c136c0ca977849a4b55efdd307125d1da8f.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_e3cf8c136c0ca977849a4b55efdd307125d1da8f.png" /> as the term <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_56dab5a1ea5ca0428f07217200a0379321fff0f3.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_56dab5a1ea5ca0428f07217200a0379321fff0f3.png" /> in the language of arithmetic, then <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_721ced1b004a565eb76e9718b020bdfb4c86b264.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_721ced1b004a565eb76e9718b020bdfb4c86b264.png" /> is the term <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d34141abb5669d20eccceb94d4728713324d98fd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d34141abb5669d20eccceb94d4728713324d98fd.png" /> and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_03463b1cf727d65e95ae1e744a6baa5d504f697a.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_03463b1cf727d65e95ae1e744a6baa5d504f697a.png" /> is <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_20656640b820738d56ab0134d39d9a12effc352c.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_20656640b820738d56ab0134d39d9a12effc352c.png" />. So one example of the first inference on the second line is this:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_8d3870592bbb151155dc1c1295fd675c233ef581.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_8d3870592bbb151155dc1c1295fd675c233ef581.png" /></p>
+</div>
+<p>
+The second axiom on that line is similar, except now <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_75adcc2185b886a3b8c242504bd19012bf253c53.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_75adcc2185b886a3b8c242504bd19012bf253c53.png" /> stands for
+any <i>formula</i>, as in the following inference:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_6148ccb73e5ebae78688a94ef1013eaa582b39c0.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_6148ccb73e5ebae78688a94ef1013eaa582b39c0.png" /></p>
+</div>
+<p>
+Notice that we have written the reflexivity axiom, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_c57981c3944851c3e27af71b8f90a234415f0b38.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_c57981c3944851c3e27af71b8f90a234415f0b38.png" />, as a rule
+with no premises. If you use it in a proof, it does not count as a
+hypothesis; it is built into the logic.
+</p>
+
+<p>
+In fact, we can think of the first inference on the second line as a
+special case of the first. Consider, for example, the formula <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_79e473b1e2727ce30802f713f9dfc942c1f17377.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_79e473b1e2727ce30802f713f9dfc942c1f17377.png" />. If we plug <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_eb1a9e4f4c0db67bd1d4652a9d3001b1aaa2da27.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_eb1a9e4f4c0db67bd1d4652a9d3001b1aaa2da27.png" />
+in for <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, we get an instance of reflexivity. If we plug in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, we
+get the conclusion of the first example above. The following is
+therefore a derivation of the first inference, using only reflexivity
+and the second substitution rule above:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_22bc8c5849521c81a83165be8fd07cec56effc9e.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_22bc8c5849521c81a83165be8fd07cec56effc9e.png" /></p>
+</div>
+<p>
+Roughly speaking, we are replacing the second instance of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_eb1a9e4f4c0db67bd1d4652a9d3001b1aaa2da27.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_eb1a9e4f4c0db67bd1d4652a9d3001b1aaa2da27.png" /> in 
+an instance of reflexivity with <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> to get the conclusion we want.
+</p>
+
+<p>
+Equality rules let us carry out calculations in symbolic logic. This
+typically amounts to using the equality rules we have already
+discussed, together with a list of general identities. For example,
+the following identities hold for any real numbers <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />:
+</p>
+<ul class="org-ul">
+<li>commutativity of addition: <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_11059b4c2bd90883b393a5be8d00acc696ff1c35.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_11059b4c2bd90883b393a5be8d00acc696ff1c35.png" /></li>
+<li>associativity of addition: <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_857309b9ae7dc6f38d6b0e40dc87022bd56c05a6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_857309b9ae7dc6f38d6b0e40dc87022bd56c05a6.png" /></li>
+<li>additive identity: <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_961ff10f565f4e34839def67ff2db712c66ea78d.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_961ff10f565f4e34839def67ff2db712c66ea78d.png" /></li>
+<li>additive inverse: <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d8538cc64754e7fe1cbbe5594a3b7d9ea77aee3b.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d8538cc64754e7fe1cbbe5594a3b7d9ea77aee3b.png" /></li>
+<li>multiplicative identity: <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_cebc9b6f1ab6fa51915306c89c14d4b19477e927.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_cebc9b6f1ab6fa51915306c89c14d4b19477e927.png" /></li>
+<li>commutativity of multiplication: <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_8d28093558a5768d6134d5d9a5f4ed3a09a2b25c.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_8d28093558a5768d6134d5d9a5f4ed3a09a2b25c.png" /></li>
+<li>associativity of multiplication: <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_8b8ab3fcb1292da26968d815331ddfa2638acddf.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_8b8ab3fcb1292da26968d815331ddfa2638acddf.png" /></li>
+<li>distributivity: <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_7f6d3bf238f399caffbf086f689ee3b8bbcdc548.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_7f6d3bf238f399caffbf086f689ee3b8bbcdc548.png" /></li>
+</ul>
+<p>
+You should imagine that there are implicit universal quantifiers in
+front of each statement, asserting that the statement holds for <i>any</i>
+values of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />. Note that <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" /> can, in
+particular, be integers or rational numbers as well. Calculations
+involving real numbers, rational numbers, or integers generally
+involve identities like this.
+</p>
+
+<p>
+The strategy is to use the elimination rule for the universal
+quantifier to instantiate general identities, use symmetry, if
+necessary, to orient an equation in the right direction, and then
+using the substitution rule for equality to change something in a
+previous result. For example, here is a natural deduction proof of a
+simple identity, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_2911860eb234a4c5675b6cb4aeb6dcb240614f11.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_2911860eb234a4c5675b6cb4aeb6dcb240614f11.png" />, using
+only commutativity and associativity of addition. We have taken the
+liberty of using a brief name to denote the relevant identities, and
+combining multiple instances of the universal quantifier introduction
+and elimination rules into a single step.
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_8da9be04d0f617e3730e75edcf3aec73109edbe1.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_8da9be04d0f617e3730e75edcf3aec73109edbe1.png" /></p>
+</div>
+<p>
+There is generally nothing interesting to be learned from carrying out
+such calculations in natural deduction, but you should try one or two
+examples to get the hang of it, and then take pleasure in knowing that
+it is possible.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4cb3aa9" class="outline-3">
+<h3 id="org4cb3aa9"><span class="section-number-3"> 8.5</span> Counterexamples and Relativized Quantifiers</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Consider the statement:
+</p>
+<blockquote>
+<p>
+Every prime number is odd.
+</p>
+</blockquote>
+<p>
+In first-order logic, we could formulate this as <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_09241b3822d16502234a283f716fb3ae3b86ccfa.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_09241b3822d16502234a283f716fb3ae3b86ccfa.png" />. This statement is false, because there is a prime
+number which is even, namely the number 2. This is called a
+<i>counterexample</i> to the statement.
+</p>
+
+<p>
+More generally, given a formula <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_330418a8b68cbfd376a4cbd9c91f06467289644c.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_330418a8b68cbfd376a4cbd9c91f06467289644c.png" />, a counterexample is a
+value <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /> such that <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_2ed753f022e0fa1f7cbe835e84c60232df0c53f4.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_2ed753f022e0fa1f7cbe835e84c60232df0c53f4.png" /> holds. Such a counterexample shows
+that the original formula is false, because we have the following
+equivalence: <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_15073e86e39dc8e8e80c8b595cdcd3a9d13a8416.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_15073e86e39dc8e8e80c8b595cdcd3a9d13a8416.png" />. So if we find a
+value <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /> such that <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_2ed753f022e0fa1f7cbe835e84c60232df0c53f4.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_2ed753f022e0fa1f7cbe835e84c60232df0c53f4.png" /> holds, then by the existential
+introduction rule we can conclude that <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_aa3e455e1a13809032433748739c15fa833f7555.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_aa3e455e1a13809032433748739c15fa833f7555.png" />, and then by
+the above equivalence we have <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_1279bf5ce11c642393c80153d58335760c924b1b.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_1279bf5ce11c642393c80153d58335760c924b1b.png" />. Here is a proof of the equivalence:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_882893380905f689ce5ca8f563ce096d95c8ec1b.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_882893380905f689ce5ca8f563ce096d95c8ec1b.png" /></p>
+</div>
+<p>
+One remark about the proof: at the step marked by <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_af68d08ebe92ae100455b1ff9963a815d958c035.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_af68d08ebe92ae100455b1ff9963a815d958c035.png" /> we <i>cannot</i> use
+the existential introduction rule, because at that point our only
+assumption is <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_1279bf5ce11c642393c80153d58335760c924b1b.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_1279bf5ce11c642393c80153d58335760c924b1b.png" />, and from that assumption we cannot
+prove <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_2ed753f022e0fa1f7cbe835e84c60232df0c53f4.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_2ed753f022e0fa1f7cbe835e84c60232df0c53f4.png" /> for a particular term <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" />. So we use a proof by
+contradiction there.
+</p>
+
+<p>
+As an exercise, prove the "dual" equivalence yourself: <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_a9204b809654e6e459323cca5eb91bb9c8b0183d.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_a9204b809654e6e459323cca5eb91bb9c8b0183d.png" />. This can be done without using proof by
+contradiction.
+</p>
+
+<p>
+In <a href="#" onclick="myModule.loadTutorial('07_First_Order_Logic.html', 'First_Order_Logic')">Chapter 7</a> we saw examples of how to use relativization to restrict
+the scope of a universal quantifier. Suppose we want to say "every
+prime number is greater than 1". In first order logic this can be
+written as <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_267ad83ec4a20da01fd449a6080196e17836e4c2.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_267ad83ec4a20da01fd449a6080196e17836e4c2.png" />. The reason is that the
+original statement is equivalent to the statement "for every natural
+number, if it is prime, then it is greater than 1". Similarly, suppose
+we want to say "there exists a prime number greater than 100." This is
+equivalent to saying "there exists a natural number which is prime and
+greater than 100," which can be expressed as <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_e79be0afe224cb8747ab68bf52428c04bf1a50a4.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_e79be0afe224cb8747ab68bf52428c04bf1a50a4.png" />.
+</p>
+
+<p>
+As an exercise you can prove the above results about negations of
+quantifiers also for relativized quantifiers. Specifically, prove the
+following statements:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_526060011ac745cc85d7414de165e97ae945b26c.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_526060011ac745cc85d7414de165e97ae945b26c.png" />;</li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_47ef26a214ebbc8640fe30c482226dd755ec88c7.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_47ef26a214ebbc8640fe30c482226dd755ec88c7.png" /></li>
+</ul>
+
+<p>
+For reference, here is a list of valid sentences involving
+quantifiers:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_eeb791055987330f5dfe70e38b2e509c68b4ff2e.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_eeb791055987330f5dfe70e38b2e509c68b4ff2e.png" /> if <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is not free in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_93a0d352409a1f30ec4f81d3bf2f1a6da51040f9.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_93a0d352409a1f30ec4f81d3bf2f1a6da51040f9.png" /> if <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is not free in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_6820670e8bd9948c841c32f31799f32d2dafc58c.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_6820670e8bd9948c841c32f31799f32d2dafc58c.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_4a432905c734d98fe9fee7f0fd316e361baf8182.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_4a432905c734d98fe9fee7f0fd316e361baf8182.png" /> if <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is
+not free in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_2643e4f9b578580408f571f848c096a0c1c4f212.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_2643e4f9b578580408f571f848c096a0c1c4f212.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_6d1eb04f6be0b71f1e067275a0b482d9240fe1c4.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_6d1eb04f6be0b71f1e067275a0b482d9240fe1c4.png" /> if <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is not
+free in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d5b1428c760de124830e617d6aff254f09d05e43.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d5b1428c760de124830e617d6aff254f09d05e43.png" /> if
+<img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is not free in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_e924657c0839b22026cb6b84579fbaac94390692.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_e924657c0839b22026cb6b84579fbaac94390692.png" /> if <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is not free in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_a5636eb72d067862797ff86321ffccc6d0f1a662.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_a5636eb72d067862797ff86321ffccc6d0f1a662.png" /> if
+<img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is not free in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_0717aac668f13d92b6ae9a280756495f321a9bf1.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_0717aac668f13d92b6ae9a280756495f321a9bf1.png" />
+if <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is not free in <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_b04f801b93d9e5f61019fa22603cefcd3c05deb7.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_b04f801b93d9e5f61019fa22603cefcd3c05deb7.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_60bd8ffefec485c2e14fb7551bdf7574a9ff859d.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_60bd8ffefec485c2e14fb7551bdf7574a9ff859d.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_1398011ceddb9998ed10134d901c9ff0b4dc1814.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_1398011ceddb9998ed10134d901c9ff0b4dc1814.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_e96e27dfdf4a6a9bcf6947b1c426fcfdb82a4f4f.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_e96e27dfdf4a6a9bcf6947b1c426fcfdb82a4f4f.png" /></li>
+</ul>
+<p>
+All of these can be derived in natural deduction. The last two allow
+us to push negations inwards, so we can continue to put first-order
+formulas in negation normal form. Other rules allow us to bring
+quantifiers to the front of any formula, though, in general, there
+will be multiple ways of doing this. For example, the formula
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_b7743cf4e1e0c170bbee5494f1fde42598e860ed.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_b7743cf4e1e0c170bbee5494f1fde42598e860ed.png" /></p>
+</div>
+<p>
+is equivalent to both
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_9ba5d48a45b106fca57b2876cf72e2c36af8292a.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_9ba5d48a45b106fca57b2876cf72e2c36af8292a.png" /></p>
+</div>
+<p>
+and
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_e8be51ac81acaa970cf3d50499a5e6928a6caf2b.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_e8be51ac81acaa970cf3d50499a5e6928a6caf2b.png" /></p>
+</div>
+<p>
+A formula with all the quantifiers in front is said to be in <i>prenex</i>
+form.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org8497672" class="outline-3">
+<h3 id="org8497672"><span class="section-number-3"> 8.6</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li><p>
+Give a natural deduction proof of
+</p>
+
+<div class="figure">
+<p><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_661e28866c850f57780673bdc38b5eca540f89b5.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_661e28866c850f57780673bdc38b5eca540f89b5.png" /></p>
+</div></li>
+
+<li>Give a natural deduction proof of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_401a38a06c2a098d273c849fb505698388c47497.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_401a38a06c2a098d273c849fb505698388c47497.png" /> from hypotheses
+<img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_44fd9772b13d9143e10f70970357aed743569ce7.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_44fd9772b13d9143e10f70970357aed743569ce7.png" /> and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_5ad07f1d2427e7e08b39215d752f1f79bb6d26c6.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_5ad07f1d2427e7e08b39215d752f1f79bb6d26c6.png" />.</li>
+
+<li>From hypotheses <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_056e8ccf43118b6fd5114c83c2633565068684be.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_056e8ccf43118b6fd5114c83c2633565068684be.png" /> and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_1d75c4365c518827d0693269e2f7eb23ddb9275a.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_1d75c4365c518827d0693269e2f7eb23ddb9275a.png" /> give a natural deduction proof
+<img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_1ed546f4ed735225127509a38dcc696407789d51.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_1ed546f4ed735225127509a38dcc696407789d51.png" />. (It might help to
+think of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_7d64b70becd5d7de3f867cfd19542b1c6b436303.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_7d64b70becd5d7de3f867cfd19542b1c6b436303.png" /> as the function defined by <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_ab737c403d59e3a55dc6d45fe9f60e3bd7564fc1.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_ab737c403d59e3a55dc6d45fe9f60e3bd7564fc1.png" />.)</li>
+
+<li>Give a natural deduction proof of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_180ae55609a7894036858227199236fa7fba455c.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_180ae55609a7894036858227199236fa7fba455c.png" />.</li>
+
+<li>Give a natural deduction proof of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_4aa345ae8c279b836b496f4bfde0335ea311a04b.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_4aa345ae8c279b836b496f4bfde0335ea311a04b.png" /> from
+the assumptions <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_c27bb9001268d3f4bda88a8c26d909c263cad140.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_c27bb9001268d3f4bda88a8c26d909c263cad140.png" /> and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_dffe805622905a86916a9634ef2fdbb5c3fd6213.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_dffe805622905a86916a9634ef2fdbb5c3fd6213.png" />.</li>
+
+<li>Prove some of the other equivalences in the last section.</li>
+
+<li><p>
+Consider some of the various ways of expressing ``nobody trusts a
+politician'' in first-order logic:
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_5fe609ee720aceda47fe2cb7b1ae47d09c7ef2a4.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_5fe609ee720aceda47fe2cb7b1ae47d09c7ef2a4.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_95fe8b8dfcb2dbfa1dca95d39aaffc874ed6fc08.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_95fe8b8dfcb2dbfa1dca95d39aaffc874ed6fc08.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_fab940d0c0f40fe3dd82681c0ff93fbdcaa6efdd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_fab940d0c0f40fe3dd82681c0ff93fbdcaa6efdd.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_b8e77899cd63c821f245adee449f9df7c7c7a413.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_b8e77899cd63c821f245adee449f9df7c7c7a413.png" /></li>
+</ul>
+<p>
+They are all logically equivalent. Show this for (b) and (d), by
+giving natural deduction proofs of each from the other. (As a
+shortcut, in the <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_773687659e5c303f98d508803fb94c045c8e01cd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_773687659e5c303f98d508803fb94c045c8e01cd.png" /> introduction and elimination rules, you
+can introduce / eliminate both variables in one step.)
+</p></li>
+
+<li><p>
+Formalize the following statements, and give a natural deduction
+proof in which the first three statements appear as (uncancelled)
+hypotheses, and the last line is the conclusion:
+</p>
+
+<ul class="org-ul">
+<li>Every young and healthy person likes baseball.</li>
+<li>Every active person is healthy.</li>
+<li>Someone is young and active.</li>
+<li>Therefore, someone likes baseball.</li>
+</ul>
+<p>
+Use <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_b011502b87275dba83e446b27f190195a67dfcd5.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_b011502b87275dba83e446b27f190195a67dfcd5.png" /> for ``is young,'' <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_07714a64988f196926e9cecb7e3d61a57baa074b.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_07714a64988f196926e9cecb7e3d61a57baa074b.png" /> for ``is healthy,'' <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" /> for
+``is active,'' and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_3bea4bbf0e2b6efe946437b293cb1a895e7137c7.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_3bea4bbf0e2b6efe946437b293cb1a895e7137c7.png" /> for ``likes baseball.''
+</p></li>
+
+<li>Give a natural deduction proof of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_b3a569eafd29101caf21cfb4ba363f2810874748.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_b3a569eafd29101caf21cfb4ba363f2810874748.png" /> using the equality rules in <a href="#" onclick="myModule.scrollTutorialTo('Equality')">Section 8.4</a>.</li>
+
+<li><p>
+Give a natural deduction proof of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_38df66f1e588e7b50834374596db94ff3d4a422e.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_38df66f1e588e7b50834374596db94ff3d4a422e.png" />
+using only these two hypotheses (and none of the new equality
+rules):
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_bcfc5ca8388ce5ac63501e1bbaa69d69c9bb1bfa.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_bcfc5ca8388ce5ac63501e1bbaa69d69c9bb1bfa.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_1249ab093cf257b445b6758db3e5d2707cba9abd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_1249ab093cf257b445b6758db3e5d2707cba9abd.png" /></li>
+</ul>
+<p>
+(Hint: Choose instantiations of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" />, <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" />, and <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_905d5df8ca486514ac6a4665bcdae7f6faa4ad0f.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_905d5df8ca486514ac6a4665bcdae7f6faa4ad0f.png" /> carefully. You
+can instantiate all the universal quantifiers in one step, as on
+the last homework assignment.)
+</p></li>
+
+<li>Give a natural deduction proof of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_c0c615717f1a118d6de5cabbd12cc7d2d21da934.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_c0c615717f1a118d6de5cabbd12cc7d2d21da934.png" /></li>
+
+<li>Give a natural deduction proof of <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_4a117366200b964889c6bf528e078628b5bf10ee.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_4a117366200b964889c6bf528e078628b5bf10ee.png" /></li>
+
+<li><p>
+Remember that both the following express <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_38538b0e00b86213250fda38a05654a930547484.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_38538b0e00b86213250fda38a05654a930547484.png" />, that
+is, the statement that there is a unique <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> satisfying <img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" />:
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_86247bd8684a8cee7637d9f8acf2481b43c5f2b2.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_86247bd8684a8cee7637d9f8acf2481b43c5f2b2.png" /></li>
+<li><img src="ltximg/08_Natural_Deduction_for_First_Order_Logic.org.temp_d39074bb0eb5ecf3505bd02da57706a912dd6acd.png" alt="08_Natural_Deduction_for_First_Order_Logic.org.temp_d39074bb0eb5ecf3505bd02da57706a912dd6acd.png" /></li>
+</ul>
+<p>
+Do the following:
+</p>
+
+<ul class="org-ul">
+<li>Give a natural deduction proof of the second, assuming the first
+as a hypothesis.</li>
+<li>Give a natural deduction proof of the first, asssuming the
+second as a hypothesis.</li>
+</ul>
+<p>
+(Warning: these are long.)
+</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 21:00 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-orgb4d8b24" class="outline-2">
+<h2 id="Sets_in_Lean"><a id="orgb4d8b24"></a><span class="section-number-2"> 12</span> Sets in Lean</h2>
+<div class="outline-text-2" id="text-Sets_in_Lean">
+<p>
+In the last chapter, we noted that although in axiomatic set theory
+one consider sets of disparate objects, it is more common in
+mathematics to consider subsets of some fixed domain, <img src="ltximg/12_Sets_in_Lean.org.temp_eb6233edafa870c2a0f62a9a76b3ec4842383893.png" alt="12_Sets_in_Lean.org.temp_eb6233edafa870c2a0f62a9a76b3ec4842383893.png" />. This is the way sets are handled in Lean. For any data type <code>U</code>,
+Lean gives us a new data type, <code>set U</code>, consisting of the sets of
+elements of <code>U</code>. Thus, for example, we can reason about sets of
+natural numbers, or sets of integers, or sets of pairs of natural
+numbers.
+</p>
+</div>
+
+<div id="outline-container-org7130d97" class="outline-3">
+<h3 id="Basics"><a id="org7130d97"></a><span class="section-number-3"> 12.1</span> Basics</h3>
+<div class="outline-text-3" id="text-Basics">
+<p>
+Given <code>A : set U</code> and <code>x : U</code>, we can write <code>x ∈ A</code> to
+state that <code>x</code> is a member of the set <code>A</code>. The character <code>∈</code> can be
+typed using <code>\in</code>. We need to import the library file <code>data.set</code> and
+open the "namespace" set to have the notions and notations made
+available to us.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-1' mode="ace/mode/lean" readonly="true">import data.set
+open set
+
+variable {U : Type}
+variables A B C : set U
+variable x : U
+
+check x ∈ A
+check A ∪ B
+check B \ C
+check C ∩ A
+check -C
+check ∅ ⊆ A
+check B ⊆ univ
+</juicy-ace-editor><div id='lean-full-code-1' style='display:none'>import data.set
+open set
+
+variable {U : Type}
+variables A B C : set U
+variable x : U
+
+check x ∈ A
+check A ∪ B
+check B \ C
+check C ∩ A
+check -C
+check ∅ ⊆ A
+check B ⊆ univ
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-1').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+You can type the symbols <code>⊆</code>, <code>∅</code>, <code>∪</code>, <code>∩</code>, <code>\</code> as <code>\subeq</code> <code>\empty</code>,
+<code>\un</code>, <code>\i</code>, and <code>\\</code>, respectively. We have made the type variable
+<code>U</code> implicit, because it can typically be inferred from context. The
+universal set is denoted <code>univ</code>, and set complementation is denoted
+with a negation symbol.
+</p>
+
+<p>
+The following pattern can be used to show that <code>A</code> is a subset of <code>B</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-2' mode="ace/mode/lean" readonly="true">example : A ⊆ B :=
+take x,
+assume H : x ∈ A,
+show x ∈ B, from sorry</juicy-ace-editor><div id='lean-full-code-2' style='display:none'>import data.set
+open set
+
+variable {U : Type}
+variables A B C : set U
+
+example : A ⊆ B :=
+take x,
+assume H : x ∈ A,
+show x ∈ B, from sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-2').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+And the following pattern be used to show that <code>A</code> and <code>B</code> are equal:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-3' mode="ace/mode/lean" readonly="true">example : A = B :=
+eq_of_subset_of_subset
+  (take x,
+    assume H : x ∈ A,
+    show x ∈ B, from sorry)
+  (take x,
+    assume H : x ∈ B,
+    show x ∈ A, from sorry)</juicy-ace-editor><div id='lean-full-code-3' style='display:none'>import data.set
+open set
+
+variable {U : Type}
+variables A B C : set U
+
+example : A = B :=
+eq_of_subset_of_subset
+  (take x,
+    assume H : x ∈ A,
+    show x ∈ B, from sorry)
+  (take x,
+    assume H : x ∈ B,
+    show x ∈ A, from sorry)
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-3').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Alternatively, we can use the following pattern:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-4' mode="ace/mode/lean" readonly="true">example : A = B :=
+ext (take x, iff.intro
+  (assume H : x ∈ A,
+    show x ∈ B, from sorry)
+  (assume H : x ∈ B,
+    show x ∈ A, from sorry))</juicy-ace-editor><div id='lean-full-code-4' style='display:none'>import data.set
+open set
+
+variable {U : Type}
+variables A B C : set U
+
+example : A = B :=
+ext (take x, iff.intro
+  (assume H : x ∈ A,
+    show x ∈ B, from sorry)
+  (assume H : x ∈ B,
+    show x ∈ A, from sorry))
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-4').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Here, <code>ext</code> is short for "extensionality." In symbolic terms, it is
+the following fact: 
+<img src="ltximg/12_Sets_in_Lean.org.temp_70ac21bce8c5d834b7c833eb37c3375370306ed9.png" alt="12_Sets_in_Lean.org.temp_70ac21bce8c5d834b7c833eb37c3375370306ed9.png" />
+This reduces proving <img src="ltximg/12_Sets_in_Lean.org.temp_135910c545c99f2810947f5cdca611bbafe0fcfc.png" alt="12_Sets_in_Lean.org.temp_135910c545c99f2810947f5cdca611bbafe0fcfc.png" /> to proving <img src="ltximg/12_Sets_in_Lean.org.temp_adc71ab917e746b2ae9bea6c3cde87ad488cad53.png" alt="12_Sets_in_Lean.org.temp_adc71ab917e746b2ae9bea6c3cde87ad488cad53.png" />, which we can do using <img src="ltximg/12_Sets_in_Lean.org.temp_773687659e5c303f98d508803fb94c045c8e01cd.png" alt="12_Sets_in_Lean.org.temp_773687659e5c303f98d508803fb94c045c8e01cd.png" /> and <img src="ltximg/12_Sets_in_Lean.org.temp_913e66c9e9758b9dbb052c8dc8ea875f6d4a113a.png" alt="12_Sets_in_Lean.org.temp_913e66c9e9758b9dbb052c8dc8ea875f6d4a113a.png" /> introduction.
+</p>
+
+<p>
+Moreover, Lean supports the following nifty feature: the defining
+rules for union, intersection and other operations on sets are
+considered to hold "definitionally." This means that the expressions
+<code>x ∈ A ∩ B</code> and <code>x ∈ A ∧ x ∈ B</code> mean the same thing to Lean. This is
+the same for the other constructions on sets; for example <code>x ∈ A \ B</code>
+and <code>x ∈ A ∧ ¬(x ∈ B)</code> mean the same thing to Lean. You can also
+write <code>x ∉ B</code> for <code>¬(x ∈ B)</code>, where <code>∉</code> is written using <code>\notin</code>. For
+the other set constructions, the defining equivalences in the last
+chapter hold definitionally. The following example illustrates these
+features.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-5' mode="ace/mode/lean" readonly="true">example : ∀ x, x ∈ A → x ∈ B → x ∈ A ∩ B :=
+take x,
+suppose x ∈ A,
+suppose x ∈ B,
+show x ∈ A ∩ B, from and.intro `x ∈ A` `x ∈ B`
+
+example : ∅ ⊆ A  :=
+take x,
+suppose x ∈ ∅,
+show x ∈ A, from false.elim `x ∈ ∅`</juicy-ace-editor><div id='lean-full-code-5' style='display:none'>import data.set
+open set
+
+variable {U : Type}
+variables A B C : set U
+
+example : ∀ x, x ∈ A → x ∈ B → x ∈ A ∩ B :=
+take x,
+suppose x ∈ A,
+suppose x ∈ B,
+show x ∈ A ∩ B, from and.intro `x ∈ A` `x ∈ B`
+
+example : ∅ ⊆ A  :=
+take x,
+suppose x ∈ ∅,
+show x ∈ A, from false.elim `x ∈ ∅`
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-5').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Remember from <a href="#" onclick="myModule.loadTutorial('04_Propositional_Logic_in_Lean.html', 'Definitions_and_Theorems')">Section 4.5</a> that we can use <code>suppose</code> instead of
+<code>assume</code> without a label, and refer back to hypotheses using
+backticks. We have used this feature in the previous example. Without
+that feature, we could have written the examples above as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-6' mode="ace/mode/lean" readonly="true">example : ∀ x, x ∈ A → x ∈ B → x ∈ A ∩ B :=
+take x,
+assume H1 : x ∈ A,
+assume H2 : x ∈ B,
+show x ∈ A ∩ B, from and.intro H1 H2
+
+example : ∅ ⊆ A  :=
+take x,
+assume H : x ∈ ∅,
+show x ∈ A, from false.elim H</juicy-ace-editor><div id='lean-full-code-6' style='display:none'>import data.set
+open set
+
+variable {U : Type}
+variables A B C : set U
+
+example : ∀ x, x ∈ A → x ∈ B → x ∈ A ∩ B :=
+take x,
+assume H1 : x ∈ A,
+assume H2 : x ∈ B,
+show x ∈ A ∩ B, from and.intro H1 H2
+
+example : ∅ ⊆ A  :=
+take x,
+assume H : x ∈ ∅,
+show x ∈ A, from false.elim H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-6').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Below, and in the chapters that follow, we will begin to use <code>suppose</code>
+more often, as well as the <code>have</code> command without labels.
+</p>
+
+<p>
+The fact that Lean can identify sets with their logical definitions
+makes it easy to prove inclusions btween sets:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-7' mode="ace/mode/lean" readonly="true">example : A \ B ⊆ A :=
+take x,
+suppose x ∈ A \ B,
+show x ∈ A, from and.left this
+
+example : A \ B ⊆ -B :=
+take x,
+suppose x ∈ A \ B,
+have x ∉ B, from and.right this,
+show x ∈ -B, from this</juicy-ace-editor><div id='lean-full-code-7' style='display:none'>import data.set
+open set
+
+variable {U : Type}
+variables A B C : set U
+
+example : A \ B ⊆ A :=
+take x,
+suppose x ∈ A \ B,
+show x ∈ A, from and.left this
+
+example : A \ B ⊆ -B :=
+take x,
+suppose x ∈ A \ B,
+have x ∉ B, from and.right this,
+show x ∈ -B, from this
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-7').text());">Try it yourself &raquo;</button></div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf76b2df" class="outline-3">
+<h3 id="orgf76b2df"><span class="section-number-3"> 12.2</span> Some Identities</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Here is the proof of the first identity that we proved informally
+in the previous chapter:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-8' mode="ace/mode/lean" readonly="true">example : A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C) :=
+eq_of_subset_of_subset
+  (take x,
+    assume H : x ∈ A ∩ (B ∪ C),
+    have x ∈ A, from and.left H,
+    have x ∈ B ∪ C, from and.right H,
+    or.elim (`x ∈ B ∪ C`)
+      (suppose x ∈ B,
+	have x ∈ A ∩ B, from and.intro `x ∈ A` `x ∈ B`,
+	show x ∈ (A ∩ B) ∪ (A ∩ C), from or.inl this)
+      (suppose x ∈ C,
+	have x ∈ A ∩ C, from and.intro `x ∈ A` `x ∈ C`,
+	show x ∈ (A ∩ B) ∪ (A ∩ C), from or.inr this))
+  (take x,
+    suppose x ∈ (A ∩ B) ∪ (A ∩ C),
+    or.elim this
+      (assume H : x ∈ A ∩ B,
+	have x ∈ A, from and.left H,
+	have x ∈ B, from and.right H,
+	have x ∈ B ∪ C, from or.inl this,
+	show x ∈ A ∩ (B ∪ C), from and.intro `x ∈ A` this)
+      (assume H : x ∈ A ∩ C,
+	have x ∈ A, from and.left H,
+	have x ∈ C, from and.right H,
+	have x ∈ B ∪ C, from or.inr this,
+	show x ∈ A ∩ (B ∪ C), from and.intro `x ∈ A` this))</juicy-ace-editor><div id='lean-full-code-8' style='display:none'>import data.set
+open set
+
+variable {U : Type}
+variables A B C : set U
+
+example : A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C) :=
+eq_of_subset_of_subset
+  (take x,
+    assume H : x ∈ A ∩ (B ∪ C),
+    have x ∈ A, from and.left H,
+    have x ∈ B ∪ C, from and.right H,
+    or.elim (`x ∈ B ∪ C`)
+      (suppose x ∈ B,
+	have x ∈ A ∩ B, from and.intro `x ∈ A` `x ∈ B`,
+	show x ∈ (A ∩ B) ∪ (A ∩ C), from or.inl this)
+      (suppose x ∈ C,
+	have x ∈ A ∩ C, from and.intro `x ∈ A` `x ∈ C`,
+	show x ∈ (A ∩ B) ∪ (A ∩ C), from or.inr this))
+  (take x,
+    suppose x ∈ (A ∩ B) ∪ (A ∩ C),
+    or.elim this
+      (assume H : x ∈ A ∩ B,
+	have x ∈ A, from and.left H,
+	have x ∈ B, from and.right H,
+	have x ∈ B ∪ C, from or.inl this,
+	show x ∈ A ∩ (B ∪ C), from and.intro `x ∈ A` this)
+      (assume H : x ∈ A ∩ C,
+	have x ∈ A, from and.left H,
+	have x ∈ C, from and.right H,
+	have x ∈ B ∪ C, from or.inr this,
+	show x ∈ A ∩ (B ∪ C), from and.intro `x ∈ A` this))
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-8').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Notice that it is considerably longer than the informal proof in the
+last chapter, because we have spelled out every last
+detail. Unfortunately, this does not necessarily make it more
+readable. Keep in mind that you can always write long proofs
+incrementally, using <code>sorry</code>. You can also break up long proofs into
+smaller pieces:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-9' mode="ace/mode/lean" readonly="true">proposition inter_union_subset : A ∩ (B ∪ C) ⊆ (A ∩ B) ∪ (A ∩ C) :=
+take x,
+assume H : x ∈ A ∩ (B ∪ C),
+have x ∈ A, from and.left H,
+have x ∈ B ∪ C, from and.right H,
+or.elim (`x ∈ B ∪ C`)
+  (suppose x ∈ B,
+    have x ∈ A ∩ B, from and.intro `x ∈ A` `x ∈ B`,
+    show x ∈ (A ∩ B) ∪ (A ∩ C), from or.inl this)
+  (suppose x ∈ C,
+    have x ∈ A ∩ C, from and.intro `x ∈ A` `x ∈ C`,
+    show x ∈ (A ∩ B) ∪ (A ∩ C), from or.inr this)
+
+proposition inter_union_inter_subset : (A ∩ B) ∪ (A ∩ C) ⊆ A ∩ (B ∪ C) :=
+take x,
+suppose x ∈ (A ∩ B) ∪ (A ∩ C),
+or.elim this
+  (assume H : x ∈ A ∩ B,
+    have x ∈ A, from and.left H,
+    have x ∈ B, from and.right H,
+    have x ∈ B ∪ C, from or.inl this,
+    show x ∈ A ∩ (B ∪ C), from and.intro `x ∈ A` this)
+  (assume H : x ∈ A ∩ C,
+    have x ∈ A, from and.left H,
+    have x ∈ C, from and.right H,
+    have x ∈ B ∪ C, from or.inr this,
+    show x ∈ A ∩ (B ∪ C), from and.intro `x ∈ A` this)
+
+example : A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C) :=
+eq_of_subset_of_subset
+  (inter_union_subset A B C)
+  (inter_union_inter_subset A B C)</juicy-ace-editor><div id='lean-full-code-9' style='display:none'>import data.set
+open set
+
+variable {U : Type}
+variables A B C : set U
+
+proposition inter_union_subset : A ∩ (B ∪ C) ⊆ (A ∩ B) ∪ (A ∩ C) :=
+take x,
+assume H : x ∈ A ∩ (B ∪ C),
+have x ∈ A, from and.left H,
+have x ∈ B ∪ C, from and.right H,
+or.elim (`x ∈ B ∪ C`)
+  (suppose x ∈ B,
+    have x ∈ A ∩ B, from and.intro `x ∈ A` `x ∈ B`,
+    show x ∈ (A ∩ B) ∪ (A ∩ C), from or.inl this)
+  (suppose x ∈ C,
+    have x ∈ A ∩ C, from and.intro `x ∈ A` `x ∈ C`,
+    show x ∈ (A ∩ B) ∪ (A ∩ C), from or.inr this)
+
+proposition inter_union_inter_subset : (A ∩ B) ∪ (A ∩ C) ⊆ A ∩ (B ∪ C) :=
+take x,
+suppose x ∈ (A ∩ B) ∪ (A ∩ C),
+or.elim this
+  (assume H : x ∈ A ∩ B,
+    have x ∈ A, from and.left H,
+    have x ∈ B, from and.right H,
+    have x ∈ B ∪ C, from or.inl this,
+    show x ∈ A ∩ (B ∪ C), from and.intro `x ∈ A` this)
+  (assume H : x ∈ A ∩ C,
+    have x ∈ A, from and.left H,
+    have x ∈ C, from and.right H,
+    have x ∈ B ∪ C, from or.inr this,
+    show x ∈ A ∩ (B ∪ C), from and.intro `x ∈ A` this)
+
+example : A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C) :=
+eq_of_subset_of_subset
+  (inter_union_subset A B C)
+  (inter_union_inter_subset A B C)
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-9').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Notice that the two propositions depend on the variables <code>A</code>, <code>B</code>, and
+<code>C</code>, which have to be supplied as arguments when they are
+applied. They also depend on the underlying type, <code>U</code>, but because the
+variable <code>U</code> was marked implicit, Lean figures it out from the
+context.
+</p>
+
+<p>
+In the last chapter we showed <img src="ltximg/12_Sets_in_Lean.org.temp_93cf418e0e2d143bab0395154928db2490e8cb2e.png" alt="12_Sets_in_Lean.org.temp_93cf418e0e2d143bab0395154928db2490e8cb2e.png" />.  Here
+is the corresponding proof in Lean:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-10' mode="ace/mode/lean" readonly="true">example : (A ∩ -B) ∪ B = A ∪ B :=
+calc
+  (A ∩ -B) ∪ B = (A ∪ B) ∩ (-B ∪ B) : by rewrite union_distrib_right
+	   ... = (A ∪ B) ∩ univ     : by rewrite compl_union_self
+	   ... = A ∪ B              : by rewrite inter_univ</juicy-ace-editor><div id='lean-full-code-10' style='display:none'>import data.set
+open set
+
+variable  U : Type
+variables A B C : set U
+
+example : (A ∩ -B) ∪ B = A ∪ B :=
+calc
+  (A ∩ -B) ∪ B = (A ∪ B) ∩ (-B ∪ B) : by rewrite union_distrib_right
+	   ... = (A ∪ B) ∩ univ     : by rewrite compl_union_self
+	   ... = A ∪ B              : by rewrite inter_univ
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-10').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Translated to propositions, the theorem above states that for every
+pair of elements <img src="ltximg/12_Sets_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="12_Sets_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/12_Sets_in_Lean.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="12_Sets_in_Lean.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> in a Boolean algebra, <img src="ltximg/12_Sets_in_Lean.org.temp_3100e821d8c8a0283d15bb6efa67d8fccd69e43c.png" alt="12_Sets_in_Lean.org.temp_3100e821d8c8a0283d15bb6efa67d8fccd69e43c.png" />. Lean allows us to do calculations on propositions as
+though they are elements of a Boolean algebra, with equality replaced
+by <code>↔</code>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-11' mode="ace/mode/lean" readonly="true">variables A B : Prop
+
+example : (A ∧ ¬ B) ∨ B ↔ A ∨ B :=
+calc
+  (A ∧ ¬ B) ∨ B ↔ (A ∨ B) ∧ (¬ B ∨ B) : or.right_distrib
+	    ... ↔ (A ∨ B) ∧ true      : by rewrite not_or_self_iff
+	    ... ↔ (A ∨ B)             : and_true</juicy-ace-editor><div id='lean-full-code-11' style='display:none'>import logic
+open classical
+
+variables A B : Prop
+
+example : (A ∧ ¬ B) ∨ B ↔ A ∨ B :=
+calc
+  (A ∧ ¬ B) ∨ B ↔ (A ∨ B) ∧ (¬ B ∨ B) : or.right_distrib
+	    ... ↔ (A ∨ B) ∧ true      : by rewrite not_or_self_iff
+	    ... ↔ (A ∨ B)             : and_true
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-11').text());">Try it yourself &raquo;</button></div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org95498f3" class="outline-3">
+<h3 id="org95498f3"><span class="section-number-3"> 12.3</span> Power Sets and Indexed Families</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+We can also work with power sets and indexed unions and intersections
+in Lean. If <code>A : set U</code>, then <code>powerset A</code> is a subset of <code>set U</code>,
+that is, we have <code>powerset A : set (set X)</code>. For Lean, <code>A ∈ powerset
+B</code> means the same thing as <code>A ⊆ B</code>, which, in turn, means <code>∀x, x ∈ A →
+x ∈ B</code>.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-12' mode="ace/mode/lean" readonly="true">check powerset A
+
+example : A ∈ powerset (A ∪ B) :=
+take x,
+assume `x ∈ A`,
+show x ∈ A ∪ B, from or.inl `x ∈ A`</juicy-ace-editor><div id='lean-full-code-12' style='display:none'>import data.set
+open set
+
+variable  {U : Type}
+variables (A B : set U)
+
+check powerset A
+
+example : A ∈ powerset (A ∪ B) :=
+take x,
+assume `x ∈ A`,
+show x ∈ A ∪ B, from or.inl `x ∈ A`
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-12').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+A family of sets in Lean is written as <code>A : I → set U</code> where <code>I</code> is a
+<code>Type</code>. Then the intersection and union of the family of sets <code>A</code> is
+written <code>⋂i, A i</code> <code>⋃i, A i</code>. These characters can be typed with <code>\I</code>
+and <code>\Un</code>. For Lean, <code>x ∈ ⋂i, A i</code> means <code>∀i : I, x ∈ A i</code> and <code>x ∈
+⋃i, A i</code> means <code>∃i : I, x ∈ A i</code>. To refresh your memory at to how to
+work with the universal and existential quantifier in Lean, see
+<a href="#" onclick="myModule.loadTutorial('09_First_Order_Logic_in_Lean.html', 'First_Order_Logic_in_Lean')">Chapter 9</a>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-13' mode="ace/mode/lean" readonly="true">variables {I U : Type}
+variables (A : I → set U)
+
+check ⋃i, A i
+check ⋂i, A i
+
+example (i₀ : I) : (⋂i, A i) ⊆ (⋃i, A i) :=
+take x,
+assume H : x ∈ ⋂i, A i,
+have x ∈ A i₀, from H i₀,
+exists.intro i₀ `x ∈ A i₀`</juicy-ace-editor><div id='lean-full-code-13' style='display:none'>import data.set
+open set
+
+variables {I U : Type}
+variables (A : I → set U)
+
+check ⋃i, A i
+check ⋂i, A i
+
+example (i₀ : I) : (⋂i, A i) ⊆ (⋃i, A i) :=
+take x,
+assume H : x ∈ ⋂i, A i,
+have x ∈ A i₀, from H i₀,
+exists.intro i₀ `x ∈ A i₀`
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-13').text());">Try it yourself &raquo;</button></div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org67642d8" class="outline-3">
+<h3 id="org67642d8"><span class="section-number-3"> 12.4</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li><p>
+Fill in the <code>sorry</code>'s.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-14' mode="ace/mode/lean" readonly="true">import data.set
+open set
+
+section
+  variable  U : Type
+  variable  A : U → Prop
+  variable  B : U → U → Prop
+
+  -- problem 1
+
+  example (H : ∀ x y, A x → B x y) : ∀ x, (A x → ∀ y, B x y) :=
+  sorry
+end
+
+section
+  variable U : Type
+  variables A B C : set U
+
+  -- problem 2
+
+  example : ∀ x, x ∈ A ∩ C → x ∈ A ∪ B :=
+  sorry
+
+  -- problem 3
+
+  example : ∀ x, x ∈ -(A ∪ B) → x ∈ -A :=
+  sorry
+end
+</juicy-ace-editor><div id='lean-full-code-14' style='display:none'>import data.set
+open set
+
+section
+  variable  U : Type
+  variable  A : U → Prop
+  variable  B : U → U → Prop
+
+  -- problem 1
+
+  example (H : ∀ x y, A x → B x y) : ∀ x, (A x → ∀ y, B x y) :=
+  sorry
+end
+
+section
+  variable U : Type
+  variables A B C : set U
+
+  -- problem 2
+
+  example : ∀ x, x ∈ A ∩ C → x ∈ A ∪ B :=
+  sorry
+
+  -- problem 3
+
+  example : ∀ x, x ∈ -(A ∪ B) → x ∈ -A :=
+  sorry
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-14').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Fill in the <code>sorry</code>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-15' mode="ace/mode/lean" readonly="true">import logic data.set
+open eq.ops   -- this allows you to use notation for the equality rules if you want
+open set
+
+variable {U : Type}
+
+/- defining "disjoint" -/
+
+definition disjoint (A B : set U) : Prop := ∀ ⦃x⦄, x ∈ A → x ∈ B → false
+
+example (A B : set U) (H : ∀ x, ¬ (x ∈ A ∧ x ∈ B)) : disjoint A B :=
+take x,
+assume H1 : x ∈ A,
+assume H2 : x ∈ B,
+have H3 : x ∈ A ∧ x ∈ B, from and.intro H1 H2,
+show false, from H x H3
+
+-- notice that we do not have to mention x when applying H : disjoint A B
+example (A B : set U) (H1 : disjoint A B) (x : U) (H2 : x ∈ A) (H3 : x ∈ B) : false :=
+H1 H2 H3
+
+-- the same is true of ⊆
+example (A B : set U) (x : U) (H : A ⊆ B) (H1 : x ∈ A) : x ∈ B :=
+H H1
+
+/- problem 1 -/
+
+-- replace the "sorry" by a proof
+example (A B C D : set U) (H1 : disjoint A B) (H2 : C ⊆ A) (H3 : D ⊆ B) : disjoint C D :=
+sorry
+</juicy-ace-editor><div id='lean-full-code-15' style='display:none'>import logic data.set
+open eq.ops   -- this allows you to use notation for the equality rules if you want
+open set
+
+variable {U : Type}
+
+/- defining "disjoint" -/
+
+definition disjoint (A B : set U) : Prop := ∀ ⦃x⦄, x ∈ A → x ∈ B → false
+
+example (A B : set U) (H : ∀ x, ¬ (x ∈ A ∧ x ∈ B)) : disjoint A B :=
+take x,
+assume H1 : x ∈ A,
+assume H2 : x ∈ B,
+have H3 : x ∈ A ∧ x ∈ B, from and.intro H1 H2,
+show false, from H x H3
+
+-- notice that we do not have to mention x when applying H : disjoint A B
+example (A B : set U) (H1 : disjoint A B) (x : U) (H2 : x ∈ A) (H3 : x ∈ B) : false :=
+H1 H2 H3
+
+-- the same is true of ⊆
+example (A B : set U) (x : U) (H : A ⊆ B) (H1 : x ∈ A) : x ∈ B :=
+H H1
+
+/- problem 1 -/
+
+-- replace the "sorry" by a proof
+example (A B C D : set U) (H1 : disjoint A B) (H2 : C ⊆ A) (H3 : D ⊆ B) : disjoint C D :=
+sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-15').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Prove the following facts about indexed unions and intersections.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-16' mode="ace/mode/lean" readonly="true">import data.set
+open set
+
+variables {I J U : Type}
+variables (A : I → J → set U)
+
+example : (⋃i, ⋂j, A i j) ⊆ (⋂j, ⋃i, A i j) :=
+sorry
+</juicy-ace-editor><div id='lean-full-code-16' style='display:none'>import data.set
+open set
+
+variables {I J U : Type}
+variables (A : I → J → set U)
+
+example : (⋃i, ⋂j, A i j) ⊆ (⋂j, ⋃i, A i j) :=
+sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-16').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-17' mode="ace/mode/lean" readonly="true">import data.set
+open classical set
+
+variables {I U : Type}
+variables (A : I → set U) (B : set U)
+
+example : B ∩ (⋃i, A i) = ⋃i, B ∩ A i :=
+sorry
+
+-- Hint: the reverse inclusion of the following example requires classical reasoning
+example : B ∪ (⋂i, A i) = ⋂i, B ∪ A i :=
+sorry
+</juicy-ace-editor><div id='lean-full-code-17' style='display:none'>import data.set
+open classical set
+
+variables {I U : Type}
+variables (A : I → set U) (B : set U)
+
+example : B ∩ (⋃i, A i) = ⋃i, B ∩ A i :=
+sorry
+
+-- Hint: the reverse inclusion of the following example requires classical reasoning
+example : B ∪ (⋂i, A i) = ⋂i, B ∪ A i :=
+sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-17').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Prove the following fact about power sets. You can use the theorems
+<code>subset.trans</code> and <code>subset.refl</code>
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-18' mode="ace/mode/lean" readonly="true">import data.set
+open set
+
+variables {U : Type}
+variables (A B C : set U)
+
+-- For the exercise these two facts are useful
+example (H1 : A ⊆ B) (H2 : B ⊆ C) : A ⊆ C :=
+subset.trans H1 H2
+
+example : A ⊆ A :=
+subset.refl A
+
+example : A ⊆ B ↔ powerset A ⊆ powerset B :=
+sorry
+</juicy-ace-editor><div id='lean-full-code-18' style='display:none'>import data.set
+open set
+
+variables {U : Type}
+variables (A B C : set U)
+
+-- For the exercise these two facts are useful
+example (H1 : A ⊆ B) (H2 : B ⊆ C) : A ⊆ C :=
+subset.trans H1 H2
+
+example : A ⊆ A :=
+subset.refl A
+
+example : A ⊆ B ↔ powerset A ⊆ powerset B :=
+sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-18').text());">Try it yourself &raquo;</button></div>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

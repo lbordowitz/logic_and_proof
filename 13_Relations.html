@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 21:00 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-org0cae00c" class="outline-2">
+<h2 id="Relations"><a id="org0cae00c"></a><span class="section-number-2"> 13</span> Relations</h2>
+<div class="outline-text-2" id="text-Relations">
+<p>
+In <a href="#" onclick="myModule.loadTutorial('07_First_Order_Logic.html', 'First_Order_Logic')">Chapter 7</a> we discussed the notion of a <i>relation symbol</i> in
+first-order logic, and in <a href="#" onclick="myModule.loadTutorial('10_Semantics_of_First_Order_Logic.html', 'Semantics_of_First_Order_Logic')">Chapter 10</a> we saw how to interpret such a
+symbol in a model. In mathematics, we are generally interested in
+different sorts of relationships between mathematical objects, and so
+the notion of a relation is ubiquitous. In this chapter, we will
+consider some common kinds of relations.
+</p>
+
+<p>
+In some axiomatic foundations, the notion of a relation is taken to be
+primitive, but in axiomatic set theory, a relation is taken to be a
+set of tuples of the corresponding arity. For example, we can take a
+binary relation on <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to be a subset of <img src="ltximg/13_Relations.org.temp_5c3e193500abda711597d804f5ade853691bbfb9.png" alt="13_Relations.org.temp_5c3e193500abda711597d804f5ade853691bbfb9.png" />, where <img src="ltximg/13_Relations.org.temp_2435ed26e2eade08bf27a242778c693e659b247b.png" alt="13_Relations.org.temp_2435ed26e2eade08bf27a242778c693e659b247b.png" />
+means that <img src="ltximg/13_Relations.org.temp_8c4dfb19898a4d3cfb6d825e30f2b49c755a7a65.png" alt="13_Relations.org.temp_8c4dfb19898a4d3cfb6d825e30f2b49c755a7a65.png" />. The foundational definition is generally
+irrelevant to everyday mathematical practice; what is important is
+simply that we can write expressions like <img src="ltximg/13_Relations.org.temp_2435ed26e2eade08bf27a242778c693e659b247b.png" alt="13_Relations.org.temp_2435ed26e2eade08bf27a242778c693e659b247b.png" />, and that they are
+true or false, depending on the values of <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />.  In
+mathematics, we often use <i>infix</i> notation, writing <img src="ltximg/13_Relations.org.temp_5ceddc17a6144c0e6347a7c06aef6e96556d8fdf.png" alt="13_Relations.org.temp_5ceddc17a6144c0e6347a7c06aef6e96556d8fdf.png" /> instead of
+<img src="ltximg/13_Relations.org.temp_2435ed26e2eade08bf27a242778c693e659b247b.png" alt="13_Relations.org.temp_2435ed26e2eade08bf27a242778c693e659b247b.png" />.
+</p>
+</div>
+
+<div id="outline-container-orgcf1c4b6" class="outline-3">
+<h3 id="Order_Relations"><a id="orgcf1c4b6"></a><span class="section-number-3"> 13.1</span> Order Relations</h3>
+<div class="outline-text-3" id="text-Order_Relations">
+<p>
+We will start with a class of important binary relations in
+mathematics, namely, <i>partial orders</i>.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> A binary relation <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> on a domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a <i>partial
+ order</i> if it has the following three properties:
+</p>
+<ul class="org-ul">
+<li><i>reflexivity</i>: <img src="ltximg/13_Relations.org.temp_56eb4d5f37ebdd8071202f3408d6de4928ef8f8a.png" alt="13_Relations.org.temp_56eb4d5f37ebdd8071202f3408d6de4928ef8f8a.png" />, for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /></li>
+<li><i>transitivity</i>: if <img src="ltximg/13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" alt="13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" /> and <img src="ltximg/13_Relations.org.temp_f467d558d6dde9f85b237dcdf02a8e0331661a32.png" alt="13_Relations.org.temp_f467d558d6dde9f85b237dcdf02a8e0331661a32.png" />, then <img src="ltximg/13_Relations.org.temp_5beb09e96dab89d5ea048837f8f178b2b54fc7ef.png" alt="13_Relations.org.temp_5beb09e96dab89d5ea048837f8f178b2b54fc7ef.png" />, for
+every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />, <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, and <img src="ltximg/13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /></li>
+<li><i>antisymmetry</i>: if <img src="ltximg/13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" alt="13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" /> and <img src="ltximg/13_Relations.org.temp_e8cf2941d084c277b243ec691e9e0a069d0b9b8f.png" alt="13_Relations.org.temp_e8cf2941d084c277b243ec691e9e0a069d0b9b8f.png" /> then <img src="ltximg/13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" alt="13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" />, for every
+<img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.</li>
+</ul>
+
+<hr>
+<p>
+Notice the compact way of introducing the symbol <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> in the
+statement of the definition, and the fact that <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is written as
+an infix symbol. Notice also that even though the relation is written
+with the symbol <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />, it is the only symbol occurring in the
+definition; mathematical practice favors natural language to describe
+its properties.
+</p>
+
+<p>
+You now know enough, however, to recognize the universal quantifiers
+that are present in the three clauses. In symbolic logic, we would
+write them as follows:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/13_Relations.org.temp_8f68569998e9645ebd5ee239d7ebb9ad116a23a4.png" alt="13_Relations.org.temp_8f68569998e9645ebd5ee239d7ebb9ad116a23a4.png" /></li>
+<li><img src="ltximg/13_Relations.org.temp_27c2024323093c0e17e178d5265b97707278a3a1.png" alt="13_Relations.org.temp_27c2024323093c0e17e178d5265b97707278a3a1.png" /></li>
+<li><img src="ltximg/13_Relations.org.temp_9c498f9cbd8f69d79ccdd6f65428ce39999c90b9.png" alt="13_Relations.org.temp_9c498f9cbd8f69d79ccdd6f65428ce39999c90b9.png" /></li>
+</ul>
+<p>
+Here the variables <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />, <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, and <img src="ltximg/13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> implicitly range over the domain
+<img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+
+<p>
+The use of the symbol <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is meant to be suggestive, and, indeed,
+the following are all examples of partial orders:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> on the natural numbers</li>
+<li><img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> on the integers</li>
+<li><img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> on the rational numbers</li>
+<li><img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> on the real numbers</li>
+</ul>
+<p>
+But keep in mind that <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is only a symbol; it can have unexpected
+interpretations as well. For example, all of the following are also
+partial orders:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/13_Relations.org.temp_1f644e00a0113873836a7290e88579a41bdd0124.png" alt="13_Relations.org.temp_1f644e00a0113873836a7290e88579a41bdd0124.png" /> on the natural numbers</li>
+<li><img src="ltximg/13_Relations.org.temp_1f644e00a0113873836a7290e88579a41bdd0124.png" alt="13_Relations.org.temp_1f644e00a0113873836a7290e88579a41bdd0124.png" /> on the integers</li>
+<li><img src="ltximg/13_Relations.org.temp_1f644e00a0113873836a7290e88579a41bdd0124.png" alt="13_Relations.org.temp_1f644e00a0113873836a7290e88579a41bdd0124.png" /> on the rational numbers</li>
+<li><img src="ltximg/13_Relations.org.temp_1f644e00a0113873836a7290e88579a41bdd0124.png" alt="13_Relations.org.temp_1f644e00a0113873836a7290e88579a41bdd0124.png" /> on the real numbers</li>
+</ul>
+<p>
+These are not fully representative of the class of partial orders, in
+that they all have an additional property:
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> A partial order <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> on a domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a <i>total
+order</i> (also called a <i>linear order</i>) if it also has the following
+property:
+</p>
+<ul class="org-ul">
+<li>for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, either <img src="ltximg/13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" alt="13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" /> or <img src="ltximg/13_Relations.org.temp_e8cf2941d084c277b243ec691e9e0a069d0b9b8f.png" alt="13_Relations.org.temp_e8cf2941d084c277b243ec691e9e0a069d0b9b8f.png" />.</li>
+</ul>
+
+<hr>
+<p>
+You can check these these are two examples of partial orders that are
+not total orders:
+</p>
+<ul class="org-ul">
+<li>the divides relation, <img src="ltximg/13_Relations.org.temp_e0a641d41e96f18849e3f27df3a51896f656862d.png" alt="13_Relations.org.temp_e0a641d41e96f18849e3f27df3a51896f656862d.png" />, on the integers</li>
+<li>the subset relation, <img src="ltximg/13_Relations.org.temp_e1a727a19e99c4efcb2644f8026bb7a3833dad21.png" alt="13_Relations.org.temp_e1a727a19e99c4efcb2644f8026bb7a3833dad21.png" />, on sets of elements of some
+domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /></li>
+</ul>
+
+<p>
+On the integers, we also have the strict order relation, <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" />, which is
+not a partial order, since it is not reflexive. It is, rather, an
+instance of a <i>strict partial order</i>:
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> A binary relation <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> on a domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a <i>strict
+partial order</i> if it satisfies the following:
+</p>
+<ul class="org-ul">
+<li><i>irreflexivity</i>: <img src="ltximg/13_Relations.org.temp_958d6c2415dd646f824f4dff2e34dada208f1cae.png" alt="13_Relations.org.temp_958d6c2415dd646f824f4dff2e34dada208f1cae.png" /> for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.</li>
+<li><i>transitivity</i>: <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" /> and <img src="ltximg/13_Relations.org.temp_d717d763cff92b2a9f21b0aae4cf40b73dd4aabb.png" alt="13_Relations.org.temp_d717d763cff92b2a9f21b0aae4cf40b73dd4aabb.png" /> implies <img src="ltximg/13_Relations.org.temp_3ef2ee3f8eb3c6da096a98e2995dd8fcea8cd68a.png" alt="13_Relations.org.temp_3ef2ee3f8eb3c6da096a98e2995dd8fcea8cd68a.png" />, for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />,
+<img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, and <img src="ltximg/13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.</li>
+</ul>
+<p>
+A strict partial order is a <i>strict total order</i> (or <i>strict linear
+order</i>) if, in addition, we have the following property:
+</p>
+<ul class="org-ul">
+<li><i>trichotomy</i>: <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" />, <img src="ltximg/13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" alt="13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" />, or <img src="ltximg/13_Relations.org.temp_ddd550b9da9f7472ed9fa715f7f807583f2c72dc.png" alt="13_Relations.org.temp_ddd550b9da9f7472ed9fa715f7f807583f2c72dc.png" /> for
+every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.</li>
+</ul>
+
+<hr>
+<p>
+Here, <img src="ltximg/13_Relations.org.temp_ec4ea799daa434d9c200f104f06ea691fe81be75.png" alt="13_Relations.org.temp_ec4ea799daa434d9c200f104f06ea691fe81be75.png" /> means, of course, that it is not the case that <img src="ltximg/13_Relations.org.temp_90ef2b2c9143dc2c4c03e983029c4ed9ea557135.png" alt="13_Relations.org.temp_90ef2b2c9143dc2c4c03e983029c4ed9ea557135.png" />, and <img src="ltximg/13_Relations.org.temp_ddd550b9da9f7472ed9fa715f7f807583f2c72dc.png" alt="13_Relations.org.temp_ddd550b9da9f7472ed9fa715f7f807583f2c72dc.png" /> is alternative notation for <img src="ltximg/13_Relations.org.temp_45eae4d3f63f114098720d65dd15cf6873e1ff39.png" alt="13_Relations.org.temp_45eae4d3f63f114098720d65dd15cf6873e1ff39.png" />. To distinguish an
+ordinary partial order from a strict one, an ordinary partial order is
+sometimes called a <i>weak</i> partial order.
+</p>
+
+<hr>
+<p>
+<b>Proposition</b>. A strict partial order <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> on <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+<i>asymmetric</i>: for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" /> implies <img src="ltximg/13_Relations.org.temp_ec4ea799daa434d9c200f104f06ea691fe81be75.png" alt="13_Relations.org.temp_ec4ea799daa434d9c200f104f06ea691fe81be75.png" />.
+</p>
+
+<p>
+<b>Proof</b>. Suppose <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" /> and <img src="ltximg/13_Relations.org.temp_45eae4d3f63f114098720d65dd15cf6873e1ff39.png" alt="13_Relations.org.temp_45eae4d3f63f114098720d65dd15cf6873e1ff39.png" />. Then, by transitivity, <img src="ltximg/13_Relations.org.temp_40a0871a097c3eddd39dd23c758212fba61cef6d.png" alt="13_Relations.org.temp_40a0871a097c3eddd39dd23c758212fba61cef6d.png" />,
+contradicting irreflexivity.
+</p>
+
+<hr>
+<p>
+On the integers, there are precise relationships between <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> and
+<img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />: <img src="ltximg/13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" alt="13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" /> if and only if <img src="ltximg/13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" alt="13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" /> or <img src="ltximg/13_Relations.org.temp_bf29e4faa6167c250f8f41656727f1420b8a5922.png" alt="13_Relations.org.temp_bf29e4faa6167c250f8f41656727f1420b8a5922.png" />, and <img src="ltximg/13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" alt="13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" /> if
+and only if <img src="ltximg/13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" alt="13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" /> and <img src="ltximg/13_Relations.org.temp_b096f8c92d8dcb713a74fe3f09b218aaebb13aa3.png" alt="13_Relations.org.temp_b096f8c92d8dcb713a74fe3f09b218aaebb13aa3.png" />. This illustrates a more general
+phenomenon.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Suppose <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is a partial order on a domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Define
+<img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" /> to mean that <img src="ltximg/13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" alt="13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" /> and <img src="ltximg/13_Relations.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" alt="13_Relations.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" />. Then <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> is a strict
+partial order. Moreover, if <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is total, so is <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" />.
+</p>
+
+<p>
+<b>Theorem.</b> Suppose <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> is a strict partial order on a domain
+<img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Define <img src="ltximg/13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" alt="13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" /> to mean <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" /> or <img src="ltximg/13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" alt="13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" />. Then <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is a
+partial order. Moreover, if <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> is total, so is <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />.
+</p>
+
+<hr>
+<p>
+We will prove the first here, and leave the second as an
+exercise. This proof is a nice illustration of how universal
+quantification, equality, and propositional reasoning are combined in a
+mathematical argument.
+</p>
+
+<hr>
+<p>
+<b>Proof</b>. Suppose <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is a partial order on <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> be defined
+as in the statement of the theorem. Irreflexivity is immediate, since
+<img src="ltximg/13_Relations.org.temp_40a0871a097c3eddd39dd23c758212fba61cef6d.png" alt="13_Relations.org.temp_40a0871a097c3eddd39dd23c758212fba61cef6d.png" /> implies <img src="ltximg/13_Relations.org.temp_6561252ae120b08a139c49e75549b6e71f583499.png" alt="13_Relations.org.temp_6561252ae120b08a139c49e75549b6e71f583499.png" />, which is a contradiction.
+</p>
+
+<p>
+To show transitivity, suppose <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" /> and <img src="ltximg/13_Relations.org.temp_d717d763cff92b2a9f21b0aae4cf40b73dd4aabb.png" alt="13_Relations.org.temp_d717d763cff92b2a9f21b0aae4cf40b73dd4aabb.png" />. Then we have <img src="ltximg/13_Relations.org.temp_74f67e648e19643332c758376b1ad33ef7cb42f8.png" alt="13_Relations.org.temp_74f67e648e19643332c758376b1ad33ef7cb42f8.png" />, <img src="ltximg/13_Relations.org.temp_f467d558d6dde9f85b237dcdf02a8e0331661a32.png" alt="13_Relations.org.temp_f467d558d6dde9f85b237dcdf02a8e0331661a32.png" />, <img src="ltximg/13_Relations.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" alt="13_Relations.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" />, and <img src="ltximg/13_Relations.org.temp_ffe0ccc5e1d41791bc7ba027ef2552e2d55bf74b.png" alt="13_Relations.org.temp_ffe0ccc5e1d41791bc7ba027ef2552e2d55bf74b.png" />. By the transitivity
+of <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />, we have <img src="ltximg/13_Relations.org.temp_5beb09e96dab89d5ea048837f8f178b2b54fc7ef.png" alt="13_Relations.org.temp_5beb09e96dab89d5ea048837f8f178b2b54fc7ef.png" />. To show <img src="ltximg/13_Relations.org.temp_3ef2ee3f8eb3c6da096a98e2995dd8fcea8cd68a.png" alt="13_Relations.org.temp_3ef2ee3f8eb3c6da096a98e2995dd8fcea8cd68a.png" />, we only have to show
+<img src="ltximg/13_Relations.org.temp_8269f95018630344965875aaf454c0d8ee596d74.png" alt="13_Relations.org.temp_8269f95018630344965875aaf454c0d8ee596d74.png" />. So suppose <img src="ltximg/13_Relations.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" alt="13_Relations.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" />. then, from the hypotheses, we have <img src="ltximg/13_Relations.org.temp_b23e86b55def4b613e3e4384cc0756cba9eb1eb5.png" alt="13_Relations.org.temp_b23e86b55def4b613e3e4384cc0756cba9eb1eb5.png" /> and <img src="ltximg/13_Relations.org.temp_d717d763cff92b2a9f21b0aae4cf40b73dd4aabb.png" alt="13_Relations.org.temp_d717d763cff92b2a9f21b0aae4cf40b73dd4aabb.png" />, violating asymmetry. So <img src="ltximg/13_Relations.org.temp_8269f95018630344965875aaf454c0d8ee596d74.png" alt="13_Relations.org.temp_8269f95018630344965875aaf454c0d8ee596d74.png" />, as required.
+</p>
+
+<p>
+To establish the last claim in the theorem, suppose <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is
+total, and let <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> be any elements of <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. We need to show
+that <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" />, <img src="ltximg/13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" alt="13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" />, or <img src="ltximg/13_Relations.org.temp_ddd550b9da9f7472ed9fa715f7f807583f2c72dc.png" alt="13_Relations.org.temp_ddd550b9da9f7472ed9fa715f7f807583f2c72dc.png" />. If <img src="ltximg/13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" alt="13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" />, we are done, so we can
+assume <img src="ltximg/13_Relations.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" alt="13_Relations.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" />. Since <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is total, we have <img src="ltximg/13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" alt="13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" /> or <img src="ltximg/13_Relations.org.temp_74f67e648e19643332c758376b1ad33ef7cb42f8.png" alt="13_Relations.org.temp_74f67e648e19643332c758376b1ad33ef7cb42f8.png" />. Since <img src="ltximg/13_Relations.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" alt="13_Relations.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" />, in the first case we have <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" />, and in
+the second case, we have <img src="ltximg/13_Relations.org.temp_ddd550b9da9f7472ed9fa715f7f807583f2c72dc.png" alt="13_Relations.org.temp_ddd550b9da9f7472ed9fa715f7f807583f2c72dc.png" />.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org6ff3318" class="outline-3">
+<h3 id="org6ff3318"><span class="section-number-3"> 13.2</span> More on Orderings</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Let <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> be a partial order on a domain, <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and let <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> be the
+associated strict order, as defined in the last section. It is
+possible to show that if we go in the other direction, and define
+<img src="ltximg/13_Relations.org.temp_4da53560d5e906c9b1328d794e6ade7124598da2.png" alt="13_Relations.org.temp_4da53560d5e906c9b1328d794e6ade7124598da2.png" /> to be the partial order associated to <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" />, then <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> and
+<img src="ltximg/13_Relations.org.temp_4da53560d5e906c9b1328d794e6ade7124598da2.png" alt="13_Relations.org.temp_4da53560d5e906c9b1328d794e6ade7124598da2.png" /> are the same, which is to say, for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />,
+<img src="ltximg/13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" alt="13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" /> if and only if <img src="ltximg/13_Relations.org.temp_3f3d1ce6a6a7938b46901731ee44b2f877235843.png" alt="13_Relations.org.temp_3f3d1ce6a6a7938b46901731ee44b2f877235843.png" />. So we can think of every
+partial order as really being a pair, consisting of a weak partial
+order and an associated strict one. In other words, we can assume that
+<img src="ltximg/13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" alt="13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" /> holds if and only if <img src="ltximg/13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" alt="13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" /> and <img src="ltximg/13_Relations.org.temp_b096f8c92d8dcb713a74fe3f09b218aaebb13aa3.png" alt="13_Relations.org.temp_b096f8c92d8dcb713a74fe3f09b218aaebb13aa3.png" />, and we can
+assume <img src="ltximg/13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" alt="13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" /> holds if and only if <img src="ltximg/13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" alt="13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" /> or <img src="ltximg/13_Relations.org.temp_bf29e4faa6167c250f8f41656727f1420b8a5922.png" alt="13_Relations.org.temp_bf29e4faa6167c250f8f41656727f1420b8a5922.png" />.
+</p>
+
+<p>
+We will henceforth adopt this convention. Given a partial order <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />
+and the associated strict order <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" />, we leave it to you to show that
+if <img src="ltximg/13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" alt="13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" /> and <img src="ltximg/13_Relations.org.temp_07acfa94e1c2bcf424e661415bd5525fcfea15e6.png" alt="13_Relations.org.temp_07acfa94e1c2bcf424e661415bd5525fcfea15e6.png" />, then <img src="ltximg/13_Relations.org.temp_56ff62f6d3a6b70903f45d52ac2849cfccaefaaf.png" alt="13_Relations.org.temp_56ff62f6d3a6b70903f45d52ac2849cfccaefaaf.png" />, and, similarly, if <img src="ltximg/13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" alt="13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" />
+and <img src="ltximg/13_Relations.org.temp_c524df1298b5334b8a9ff4aca289ef54bafaa5e4.png" alt="13_Relations.org.temp_c524df1298b5334b8a9ff4aca289ef54bafaa5e4.png" />, then <img src="ltximg/13_Relations.org.temp_56ff62f6d3a6b70903f45d52ac2849cfccaefaaf.png" alt="13_Relations.org.temp_56ff62f6d3a6b70903f45d52ac2849cfccaefaaf.png" />.
+</p>
+
+<p>
+Consider the natural numbers with the less-than-or-equal relation. It
+has a least element, <img src="ltximg/13_Relations.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="13_Relations.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />. We can express the fact that <img src="ltximg/13_Relations.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="13_Relations.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> is the
+least element in at least two ways:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/13_Relations.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="13_Relations.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> is less than or equal to every natural number.</li>
+<li>There is no natural number that is less than <img src="ltximg/13_Relations.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="13_Relations.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />.</li>
+</ul>
+<p>
+In symbolic logic, we could formalize these statements as follows:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/13_Relations.org.temp_95a1352f0b3396fa09af08805d932f81bf285741.png" alt="13_Relations.org.temp_95a1352f0b3396fa09af08805d932f81bf285741.png" /></li>
+<li><img src="ltximg/13_Relations.org.temp_d0a8869ad27ba90f1090655db22261884c5a1483.png" alt="13_Relations.org.temp_d0a8869ad27ba90f1090655db22261884c5a1483.png" /></li>
+</ul>
+<p>
+Using the existential quantifier, we could render the second statement
+more faithfully as follows:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/13_Relations.org.temp_8d3aee80245e3fa40666cb35f13323b2fc928995.png" alt="13_Relations.org.temp_8d3aee80245e3fa40666cb35f13323b2fc928995.png" /></li>
+</ul>
+<p>
+Notice that this more faithful statement is equivalent to the original,
+using deMorgan's laws for quantifiers.
+</p>
+
+<p>
+Are the two statements above equivalent? Say an element <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> is <i>minimum</i>
+for a partial order if it is less than or equal to any other element;
+this is, if it takes the place of 0 in the first statement. Say that an
+element <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> is <i>minimal</i> for a partial order if no element is less than it;
+that is, if it takes the place of 0 in the second statement. 
+Two facts are immediate.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Any minimum element is minimal.
+</p>
+
+<p>
+<b>Proof.</b> Suppose <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is minimum for <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />. We need to show that <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />
+is minimal, that is, for every <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, it is not the case that <img src="ltximg/13_Relations.org.temp_0caaa0172a67dafa33a7f39debd09b9970461038.png" alt="13_Relations.org.temp_0caaa0172a67dafa33a7f39debd09b9970461038.png" />. Suppose <img src="ltximg/13_Relations.org.temp_1e5d3eba76642f417c34fae08b2dd3e631eec0ce.png" alt="13_Relations.org.temp_1e5d3eba76642f417c34fae08b2dd3e631eec0ce.png" />. Since <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is minimum, we have <img src="ltximg/13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" alt="13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" />. From <img src="ltximg/13_Relations.org.temp_2a49fb655d29fab9d3dff7298e7fd5fccd26c08c.png" alt="13_Relations.org.temp_2a49fb655d29fab9d3dff7298e7fd5fccd26c08c.png" /> and <img src="ltximg/13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" alt="13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" />, we have <img src="ltximg/13_Relations.org.temp_d9f116a84b83f89a23cce54b92d774076546a8de.png" alt="13_Relations.org.temp_d9f116a84b83f89a23cce54b92d774076546a8de.png" />, contradicting the irreflexivity
+of <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" />.
+</p>
+
+<p>
+<b>Theorem.</b> If a partial order <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> has a minimum element, it is
+unique.
+</p>
+
+<p>
+<b>Proof.</b> Suppose <img src="ltximg/13_Relations.org.temp_a0ef5bbadaf95b2da40f775a37e23aa26cc75c9d.png" alt="13_Relations.org.temp_a0ef5bbadaf95b2da40f775a37e23aa26cc75c9d.png" /> and <img src="ltximg/13_Relations.org.temp_dbc7edf07534ef84d9739b4c41d437bb5cdecfc4.png" alt="13_Relations.org.temp_dbc7edf07534ef84d9739b4c41d437bb5cdecfc4.png" /> are both minimum. Then <img src="ltximg/13_Relations.org.temp_362b1e71d5a374462af1bed0b4998fc36a2d933d.png" alt="13_Relations.org.temp_362b1e71d5a374462af1bed0b4998fc36a2d933d.png" />
+and <img src="ltximg/13_Relations.org.temp_ca8c5955d8b15b65078899eeae6b677ba2d53360.png" alt="13_Relations.org.temp_ca8c5955d8b15b65078899eeae6b677ba2d53360.png" />. By antisymmetry, <img src="ltximg/13_Relations.org.temp_b20a65b4a0f3cc82acc34bafd1c46dad1aceb4c0.png" alt="13_Relations.org.temp_b20a65b4a0f3cc82acc34bafd1c46dad1aceb4c0.png" />.
+</p>
+
+<hr>
+<p>
+Notice that we have interpreted the second theorem as the statement
+that if <img src="ltximg/13_Relations.org.temp_a0ef5bbadaf95b2da40f775a37e23aa26cc75c9d.png" alt="13_Relations.org.temp_a0ef5bbadaf95b2da40f775a37e23aa26cc75c9d.png" /> and <img src="ltximg/13_Relations.org.temp_dbc7edf07534ef84d9739b4c41d437bb5cdecfc4.png" alt="13_Relations.org.temp_dbc7edf07534ef84d9739b4c41d437bb5cdecfc4.png" /> are both minimum, then <img src="ltximg/13_Relations.org.temp_b20a65b4a0f3cc82acc34bafd1c46dad1aceb4c0.png" alt="13_Relations.org.temp_b20a65b4a0f3cc82acc34bafd1c46dad1aceb4c0.png" />. Indeed,
+this is exactly what we mean when we say that something is "unique."
+When a partial order has a minimum element <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, uniqueness is what
+justifies calling <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> <i>the</i> minimum element. Such an <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is also
+called the <i>least</i> element or the <i>smallest</i> element, and the terms
+are generally interchangeable.
+</p>
+
+<p>
+The converse to the second theorem &#x2013; that is, the statement that every
+minimal element is minimum &#x2013; is false. As an example, consider the
+nonempty subsets of the set <img src="ltximg/13_Relations.org.temp_128561b1cbb660a8179c7b7c1624740d3e276c76.png" alt="13_Relations.org.temp_128561b1cbb660a8179c7b7c1624740d3e276c76.png" /> with the subset relation. In
+other words, consider the collection of sets <img src="ltximg/13_Relations.org.temp_2881a6da964eb2efe87e6017a0da09420eafcc84.png" alt="13_Relations.org.temp_2881a6da964eb2efe87e6017a0da09420eafcc84.png" />, <img src="ltximg/13_Relations.org.temp_a2ab211b1f403ebd25643ee763706411787af31f.png" alt="13_Relations.org.temp_a2ab211b1f403ebd25643ee763706411787af31f.png" />, and
+<img src="ltximg/13_Relations.org.temp_27ff9eb4617e2f833b8c0ab19306cef126f486e0.png" alt="13_Relations.org.temp_27ff9eb4617e2f833b8c0ab19306cef126f486e0.png" />, where <img src="ltximg/13_Relations.org.temp_21b6df19fd3d1af34a45e5a9a9bceea7ba726015.png" alt="13_Relations.org.temp_21b6df19fd3d1af34a45e5a9a9bceea7ba726015.png" />, <img src="ltximg/13_Relations.org.temp_4fb3906a5be7cfbedaf2df4999ddd569c97be2c6.png" alt="13_Relations.org.temp_4fb3906a5be7cfbedaf2df4999ddd569c97be2c6.png" />, and, of course, every element is a subset of itself. Then
+you can check that <img src="ltximg/13_Relations.org.temp_a63ed6b27fea4f5a83868adbd8cbdfdcf3cc5d21.png" alt="13_Relations.org.temp_a63ed6b27fea4f5a83868adbd8cbdfdcf3cc5d21.png" /> and <img src="ltximg/13_Relations.org.temp_01073718a51f03520ebc75e70eff7d1315210b6b.png" alt="13_Relations.org.temp_01073718a51f03520ebc75e70eff7d1315210b6b.png" /> are each minimal, but neither
+is minimum. (One can also exhibit such a partial order by drawing a
+diagram, with dots labeled <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />, <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, <img src="ltximg/13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" />, etc., and upwards edges
+between elements to indicate that one is less than or equal to the
+other.)
+</p>
+
+<p>
+Notice that the statement "a minimal element of a partial order is not
+necessarily minimum" makes an "existential" assertion: it says that
+there is a partial order <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />, and an element <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> of the domain,
+such that <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is minimal but not minimum. For a fixed partial order
+<img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />, we can express the assertion that such an <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> exists as
+follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/13_Relations.org.temp_22db018fbe96c6f38c73fec499efe32a2d688b65.png" alt="13_Relations.org.temp_22db018fbe96c6f38c73fec499efe32a2d688b65.png" /></p>
+</div>
+<p>
+The assertion that there exists a domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and a
+partial order <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> on that domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, is more dramatic: it is a
+"higher order" existential assertion. But symbolic logic provides us
+with the means to make assertions like these as well, as we will see
+later on.
+</p>
+
+<p>
+We can consider other properties of orders. An order is said to be
+<i>dense</i> if between any two distinct elements, there is another
+element. More precisely, an order is dense if, whenever <img src="ltximg/13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" alt="13_Relations.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" />, there
+is an element <img src="ltximg/13_Relations.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="13_Relations.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" /> satisfying <img src="ltximg/13_Relations.org.temp_56ff62f6d3a6b70903f45d52ac2849cfccaefaaf.png" alt="13_Relations.org.temp_56ff62f6d3a6b70903f45d52ac2849cfccaefaaf.png" /> and <img src="ltximg/13_Relations.org.temp_f75bf5ab1d5152bbc3e80e7c4d7a96c278e4ce2a.png" alt="13_Relations.org.temp_f75bf5ab1d5152bbc3e80e7c4d7a96c278e4ce2a.png" />. For example, the
+rational numbers are dense with the usual <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> ordering, but not the
+integers. Saying that an order is dense is another example of an
+implicit use of existential quantification.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org1247e63" class="outline-3">
+<h3 id="Equivalence_Relations_and_Equality"><a id="org1247e63"></a><span class="section-number-3"> 13.3</span> Equivalence Relations and Equality</h3>
+<div class="outline-text-3" id="text-Equivalence_Relations_and_Equality">
+<p>
+In ordinary mathematical language, an <i>equivalence relation</i> is
+defined as follows.
+</p>
+
+<hr>
+<p>
+<b>Definition</b>. A binary relation <img src="ltximg/13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> on some domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is said to
+ be an <i>equivalence relation</i> if it is reflexive, symmetric, and
+ transitive. In other words, <img src="ltximg/13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> is an equivalent relation if it
+ satisfies these three properties:
+</p>
+<ul class="org-ul">
+<li><i>reflexivity</i>: <img src="ltximg/13_Relations.org.temp_33c45627e876b66abb0ce0d4f240f7093e2ae364.png" alt="13_Relations.org.temp_33c45627e876b66abb0ce0d4f240f7093e2ae364.png" />, for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.</li>
+<li><i>symmetry</i>: if <img src="ltximg/13_Relations.org.temp_a3336a5f8d18cd2b17e2df89ee7f4963c36b4e40.png" alt="13_Relations.org.temp_a3336a5f8d18cd2b17e2df89ee7f4963c36b4e40.png" />, then <img src="ltximg/13_Relations.org.temp_b3ece82844d473bab4dd55f73b3472fc11956e64.png" alt="13_Relations.org.temp_b3ece82844d473bab4dd55f73b3472fc11956e64.png" />, for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and
+<img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.</li>
+<li><i>transitivity</i>: if <img src="ltximg/13_Relations.org.temp_a3336a5f8d18cd2b17e2df89ee7f4963c36b4e40.png" alt="13_Relations.org.temp_a3336a5f8d18cd2b17e2df89ee7f4963c36b4e40.png" /> and <img src="ltximg/13_Relations.org.temp_e2f244530f744e00690f3e153f5db720cb3e0341.png" alt="13_Relations.org.temp_e2f244530f744e00690f3e153f5db720cb3e0341.png" />, then <img src="ltximg/13_Relations.org.temp_fd60a79d1aa7a1348b1a4a1d73c63b500be8b02b.png" alt="13_Relations.org.temp_fd60a79d1aa7a1348b1a4a1d73c63b500be8b02b.png" />,
+for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />, <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, and <img src="ltximg/13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.</li>
+</ul>
+
+<hr>
+<p>
+We leave it to you to think about how you could write these statements
+in first-order logic. (Note the similarity to the rules for a partial
+order.)  We will also leave you with an exercise: by a careful choice
+of how to instantiate the quantifiers, you can actually prove the
+three properties above from the following two:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/13_Relations.org.temp_44ef82b5250f8ea116ed38f34931ca6aa02feaa1.png" alt="13_Relations.org.temp_44ef82b5250f8ea116ed38f34931ca6aa02feaa1.png" /></li>
+<li><img src="ltximg/13_Relations.org.temp_27323a2f0ae6f5f2562b0485a519fc72c66d1435.png" alt="13_Relations.org.temp_27323a2f0ae6f5f2562b0485a519fc72c66d1435.png" /></li>
+</ul>
+<p>
+Try to verify this using natural deduction or Lean.
+</p>
+
+<p>
+These three properties alone are not strong enough to characterize
+equality. You should check that the following informal
+examples are all instances of equivalence relations:
+</p>
+<ul class="org-ul">
+<li>the relation on days on the calendar, given by "<img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> fall on
+the same day of the week"</li>
+<li>the relation on people currently alive on the planet, given by "<img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />
+and <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> have the same age"</li>
+<li>the relation on people currently alive on the planet, given by "<img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />
+and <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> have the same birthday"</li>
+<li>the relation on cities in the United States, given by "<img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />
+are in the same state"</li>
+</ul>
+<p>
+Here are two common mathematical examples:
+</p>
+<ul class="org-ul">
+<li>the relation on lines in a plane, given by "<img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> are
+parallel"</li>
+<li>for any fixed natural number <img src="ltximg/13_Relations.org.temp_b1bacd2d2ecc59771454c960f0e9b3328bbcfe5d.png" alt="13_Relations.org.temp_b1bacd2d2ecc59771454c960f0e9b3328bbcfe5d.png" />, the relation on natural
+numbers, given by "<img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is congruent to <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> modulo <img src="ltximg/13_Relations.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="13_Relations.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />"</li>
+</ul>
+<p>
+Here, we say that <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is congruent to <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> modulo <img src="ltximg/13_Relations.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="13_Relations.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> if they leave the
+same remainder when divided by <img src="ltximg/13_Relations.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="13_Relations.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />. Soon, you will be able to prove
+rigorously that this is equivalent to saying that <img src="ltximg/13_Relations.org.temp_b399d81a4ba994fcfe05a9b8729b53525c079cdc.png" alt="13_Relations.org.temp_b399d81a4ba994fcfe05a9b8729b53525c079cdc.png" /> is divisible
+by <img src="ltximg/13_Relations.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="13_Relations.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />.
+</p>
+
+<p>
+Consider the equivalence relation on citizens of the United States,
+given by "<img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> have the same age." There are some properties
+that respect that equivalence. For example, suppose I tell you that
+John and Susan have the same age, and I also tell you that John is old
+enough to vote. Then you can rightly infer that Susan is old enough to
+vote. On the other hand, if I tell you nothing more than the facts
+that John and Susan have the same age and John lives in South Dakota,
+you cannot infer that Susan lives in South Dakota. This little example
+illustrates what is special about the <i>equality</i> relation: if two
+things are equal, then they have exactly the same properties.
+</p>
+
+<p>
+An important related notion is that of an <i>equivalence class</i>. Let
+<img src="ltximg/13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> be an equivalence relation on a set <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. For every
+element <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, let <img src="ltximg/13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" alt="13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" /> be the set of elements <img src="ltximg/13_Relations.org.temp_0890f1d221689659087e7f5ff8c773d307574de5.png" alt="13_Relations.org.temp_0890f1d221689659087e7f5ff8c773d307574de5.png" />, that is, the set of elements of <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> that are
+equivalent to <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />. We call <img src="ltximg/13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" alt="13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" /> the equivalence class of <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, under
+the equivalence relation <img src="ltximg/13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" />.
+</p>
+
+<p>
+Equivalence tries to capture a "weak" notion of equality: if two elements
+of <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> are equivalent, they are not necessarily the same, but they
+are "similar" in some way. Equivalence classes collect similar objects
+together. If we define <img src="ltximg/13_Relations.org.temp_c0fd0c8938a9242e9ce1f2018f9635e46e36a3b0.png" alt="13_Relations.org.temp_c0fd0c8938a9242e9ce1f2018f9635e46e36a3b0.png" />, the set of equivalence
+classes of elements in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, we get a version of the set <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> where sets of
+similar elements have been "compressed" into single elements.
+This is illustrated in an exercise below.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org357425c" class="outline-3">
+<h3 id="org357425c"><span class="section-number-3"> 13.4</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li><p>
+Suppose <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> is a strict partial order on a domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and define
+<img src="ltximg/13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" alt="13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" /> to mean that <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" /> or <img src="ltximg/13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" alt="13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" />.
+</p>
+
+<ul class="org-ul">
+<li>Show that <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is a partial order.</li>
+<li>Show that if <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> is moreover a strict total order, then <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is
+a total order.</li>
+</ul>
+<p>
+(Above we proved the analogous theorem going in the other
+direction.)
+</p></li>
+
+<li><p>
+Suppose <img src="ltximg/13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="13_Relations.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> is a strict partial order on a domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. (In other
+words, it is transitive and asymmetric.) Suppose that <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is
+defined so that <img src="ltximg/13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" alt="13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" /> if and only if <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" /> or <img src="ltximg/13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" alt="13_Relations.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" />. We
+saw in class that <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is a partial order on a domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />,
+i.e.~it is reflexive, transitive, and antisymmetric.
+</p>
+
+<p>
+Prove that for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, we have <img src="ltximg/13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" alt="13_Relations.org.temp_e3f61144a9d6eb506dd1a0b32a1cb84d67a720fb.png" /> iff <img src="ltximg/13_Relations.org.temp_c3c9c212323b4c38f59a688cc23cab9c208a2c2c.png" alt="13_Relations.org.temp_c3c9c212323b4c38f59a688cc23cab9c208a2c2c.png" /> and <img src="ltximg/13_Relations.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" alt="13_Relations.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" />, using the facts above.
+</p></li>
+
+<li><p>
+An <i>ordered graph</i> is a collection of vertices (points), along with
+a collection of arrows between vertices. For each pair of vertices,
+there is at most one arrow between them: in other words, every
+pair of vertices is either unconnected, or one vertex is "directed"
+toward the other. Note that it is possible to have an arrow from a
+vertex to itself.
+</p>
+
+<p>
+Define a relation <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> on the set of vertices, such that for two
+vertices <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, <img src="ltximg/13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" alt="13_Relations.org.temp_e29f8a4d033d4c9539b371afa3347a723f75570a.png" /> means that there is an arrow from
+<img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> pointing to <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />.
+</p>
+
+<p>
+On an arbitrary graph, is <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> a partial order, a strict partial
+order, a total order, a strict total order, or none of the above?
+If possible, give examples of graphs where <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> fails to have
+these properties.
+</p></li>
+
+<li><p>
+Let <img src="ltximg/13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> be an equivalence relation on a set <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. For every
+element <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, let <img src="ltximg/13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" alt="13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" /> be the equivalence class of <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />: that
+is, the set of elements <img src="ltximg/13_Relations.org.temp_750a036e80d33b0e12e188a45c0cb6d3fb8b6149.png" alt="13_Relations.org.temp_750a036e80d33b0e12e188a45c0cb6d3fb8b6149.png" />. Show that for every <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="13_Relations.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, <img src="ltximg/13_Relations.org.temp_5f0e84d8e23fe064feaf69a3a49c65e2d1e56e65.png" alt="13_Relations.org.temp_5f0e84d8e23fe064feaf69a3a49c65e2d1e56e65.png" /> if
+and only if <img src="ltximg/13_Relations.org.temp_a3336a5f8d18cd2b17e2df89ee7f4963c36b4e40.png" alt="13_Relations.org.temp_a3336a5f8d18cd2b17e2df89ee7f4963c36b4e40.png" />.
+</p>
+
+<p>
+(Hints and notes:
+</p>
+<ul class="org-ul">
+<li>Remember that since you are proving an ``if and only if''
+statement, there are two directions to prove.</li>
+<li>Since that <img src="ltximg/13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" alt="13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" /> and <img src="ltximg/13_Relations.org.temp_294109f910557f3e3fe3a7de0731c204ecf0ef6c.png" alt="13_Relations.org.temp_294109f910557f3e3fe3a7de0731c204ecf0ef6c.png" /> are sets, <img src="ltximg/13_Relations.org.temp_5f0e84d8e23fe064feaf69a3a49c65e2d1e56e65.png" alt="13_Relations.org.temp_5f0e84d8e23fe064feaf69a3a49c65e2d1e56e65.png" /> means that for
+every element <img src="ltximg/13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" />, <img src="ltximg/13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> is in <img src="ltximg/13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" alt="13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" /> if and only if <img src="ltximg/13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> is in
+<img src="ltximg/13_Relations.org.temp_294109f910557f3e3fe3a7de0731c204ecf0ef6c.png" alt="13_Relations.org.temp_294109f910557f3e3fe3a7de0731c204ecf0ef6c.png" />.</li>
+<li>By definition, an element <img src="ltximg/13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="13_Relations.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> is in <img src="ltximg/13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" alt="13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" /> if and only if <img src="ltximg/13_Relations.org.temp_be0af4250448a6aa8280cea15eda7203bacac99c.png" alt="13_Relations.org.temp_be0af4250448a6aa8280cea15eda7203bacac99c.png" />. In particular, <img src="ltximg/13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="13_Relations.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is in <img src="ltximg/13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" alt="13_Relations.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" />.)</li>
+</ul></li>
+
+<li>Let the relation <img src="ltximg/13_Relations.org.temp_b93c5723609bd408e584e4bcd3358f9acf0d1df9.png" alt="13_Relations.org.temp_b93c5723609bd408e584e4bcd3358f9acf0d1df9.png" /> on the natural numbers <img src="ltximg/13_Relations.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="13_Relations.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> be defined as follows:
+if <img src="ltximg/13_Relations.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="13_Relations.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is even, then <img src="ltximg/13_Relations.org.temp_eaa05282b48eacbf7604d99942d3f4703d648269.png" alt="13_Relations.org.temp_eaa05282b48eacbf7604d99942d3f4703d648269.png" />, and if <img src="ltximg/13_Relations.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="13_Relations.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is odd, then <img src="ltximg/13_Relations.org.temp_2aebb16c9dee1d351eef47c214f72b82637d7f9d.png" alt="13_Relations.org.temp_2aebb16c9dee1d351eef47c214f72b82637d7f9d.png" />. Furthermore,
+for every <img src="ltximg/13_Relations.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="13_Relations.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/13_Relations.org.temp_1c9117afc3e1b8f85e847bf20ae7531cdf951f6a.png" alt="13_Relations.org.temp_1c9117afc3e1b8f85e847bf20ae7531cdf951f6a.png" />. Show that <img src="ltximg/13_Relations.org.temp_b93c5723609bd408e584e4bcd3358f9acf0d1df9.png" alt="13_Relations.org.temp_b93c5723609bd408e584e4bcd3358f9acf0d1df9.png" /> is an equivalence relation. What
+is the equivalence class of the number 5? Describe the set of equivalence
+classes <img src="ltximg/13_Relations.org.temp_ad63386cbce4b97894970557b84855f10d881732.png" alt="13_Relations.org.temp_ad63386cbce4b97894970557b84855f10d881732.png" />.</li>
+
+<li>Show that the relation on lines in the plane, given by "<img src="ltximg/13_Relations.org.temp_8ed794708f3b8621d3c9e2f94b36a98b77141e71.png" alt="13_Relations.org.temp_8ed794708f3b8621d3c9e2f94b36a98b77141e71.png" /> and <img src="ltximg/13_Relations.org.temp_652d1f229d3258dad29e9ac158a64224be9261b4.png" alt="13_Relations.org.temp_652d1f229d3258dad29e9ac158a64224be9261b4.png" /> are
+parallel," is an equivalence relation. What is the equivalence class of the
+x-axis? Describe the set of equivalence classes <img src="ltximg/13_Relations.org.temp_04f1bdebbb954ae4204ea81b0ed693035788fd5d.png" alt="13_Relations.org.temp_04f1bdebbb954ae4204ea81b0ed693035788fd5d.png" />.</li>
+
+<li><p>
+A binary relation <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />
+on a domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is said to be a <i>preorder</i> it is is reflexive and
+transitive. This is weaker than saying it is a partial order; we have
+removed the requirement that the relation is asymmetric. An example is
+the ordering on people currently alive on the planet defined by
+setting <img src="ltximg/13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" alt="13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" /> if and only if <img src="ltximg/13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="13_Relations.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> 's birth date is earlier than
+<img src="ltximg/13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="13_Relations.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> 's. Asymmetry fails, because different people can be born on the
+same day. But, prove that the following theorem holds:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="13_Relations.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> be a preorder on a domain <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Define the
+relation <img src="ltximg/13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" />, where <img src="ltximg/13_Relations.org.temp_df112f0c1e7c235148e6b33a4a1ada33c3445b7a.png" alt="13_Relations.org.temp_df112f0c1e7c235148e6b33a4a1ada33c3445b7a.png" /> holds if and only if <img src="ltximg/13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" alt="13_Relations.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" />
+and <img src="ltximg/13_Relations.org.temp_fd04dec2b4fe08a9fb86410b48e805ec49296cc4.png" alt="13_Relations.org.temp_fd04dec2b4fe08a9fb86410b48e805ec49296cc4.png" />. Then <img src="ltximg/13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="13_Relations.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> is an equivalence relation on <img src="ltximg/13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="13_Relations.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+
+<hr></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 21:00 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-org8589373" class="outline-2">
+<h2 id="Relations_in_Lean"><a id="org8589373"></a><span class="section-number-2"> 14</span> Relations in Lean</h2>
+<div class="outline-text-2" id="text-Relations_in_Lean">
+<p>
+In the last chapter, we noted that set theorists think of a binary
+relation <img src="ltximg/14_Relations_in_Lean.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="14_Relations_in_Lean.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> on a set <img src="ltximg/14_Relations_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="14_Relations_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> as a set of ordered pairs, so that <img src="ltximg/14_Relations_in_Lean.org.temp_2435ed26e2eade08bf27a242778c693e659b247b.png" alt="14_Relations_in_Lean.org.temp_2435ed26e2eade08bf27a242778c693e659b247b.png" />
+really means <img src="ltximg/14_Relations_in_Lean.org.temp_8c4dfb19898a4d3cfb6d825e30f2b49c755a7a65.png" alt="14_Relations_in_Lean.org.temp_8c4dfb19898a4d3cfb6d825e30f2b49c755a7a65.png" />. An alternative is to think of <img src="ltximg/14_Relations_in_Lean.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="14_Relations_in_Lean.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> as a
+function which, when applied to <img src="ltximg/14_Relations_in_Lean.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="14_Relations_in_Lean.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/14_Relations_in_Lean.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="14_Relations_in_Lean.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, returns the proposition
+that <img src="ltximg/14_Relations_in_Lean.org.temp_2435ed26e2eade08bf27a242778c693e659b247b.png" alt="14_Relations_in_Lean.org.temp_2435ed26e2eade08bf27a242778c693e659b247b.png" /> holds.  This is the viewpoint adopted by Lean: a binary
+relation on a type <code>A</code> is a function <code>A → A → Prop</code>. So, if <code>R</code> is a
+binary relation on <code>A</code> and we have <code>a b : A</code>, then <code>R a b</code> is a
+proposition.
+</p>
+
+<p>
+As in informal mathematics, we often wish to use infix notation for
+relations. We will see below that Lean supports this practice.
+</p>
+</div>
+
+<div id="outline-container-org463461d" class="outline-3">
+<h3 id="org463461d"><span class="section-number-3"> 14.1</span> Order Relations</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+We can reason about partial orders in Lean by fixing a type, <code>A</code>, and a
+binary relation, <code>R</code>, and working under the hypotheses that <code>A</code> is
+reflexive, transitive, and antisymmetric:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-1' mode="ace/mode/lean" readonly="true">section
+  parameters {A : Type} {R : A → A → Prop}
+  hypothesis (reflR : reflexive R)
+  hypothesis (transR : transitive R)
+  hypothesis (antisymmR : ∀ {a b : A}, R a b → R b a → a = b)
+
+  local infix ≤ := R
+end
+</juicy-ace-editor><div id='lean-full-code-1' style='display:none'>section
+  parameters {A : Type} {R : A → A → Prop}
+  hypothesis (reflR : reflexive R)
+  hypothesis (transR : transitive R)
+  hypothesis (antisymmR : ∀ {a b : A}, R a b → R b a → a = b)
+
+  local infix ≤ := R
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-1').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The <code>parameter</code> and <code>hypothesis</code> commands are similar to the
+<code>variable</code> and <code>premise</code> commands, except that parameters are fixed
+within a section. In other words, if you prove a theorem about <code>R</code> in
+the section above, you cannot apply that theorem to another relation,
+<code>S</code>, without closing the section. Since the parameter <code>R</code> is fixed,
+Lean allows us to define notation for <code>R</code>, to be used locally in the
+section. 
+</p>
+
+<p>
+In the example below, having fixed a partial order, <code>R</code>, we define the
+corresponding strict partial order and prove that it is, indeed, a
+strict order.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-2' mode="ace/mode/lean" readonly="true">open eq.ops
+
+section
+  parameters {A : Type} {R : A → A → Prop}
+  hypothesis (reflR : reflexive R)
+  hypothesis (transR : transitive R)
+  hypothesis (antisymmR : ∀ {a b : A}, R a b → R b a → a = b)
+
+  local infix ≤ := R
+
+  definition R' (a b : A) : Prop := a ≤ b ∧ a ≠ b
+
+  local infix &lt; := R'
+
+  theorem irrefl (a : A) : ¬ a &lt; a :=
+  suppose a &lt; a,
+  have a ≠ a, from and.right this,
+  have a = a, from rfl,
+  show false, from `a ≠ a` `a = a`
+
+  theorem trans {a b c : A} (H₁ : a &lt; b) (H₂ : b &lt; c) : a &lt; c :=
+  have a ≤ b, from and.left H₁,
+  have a ≠ b, from and.right H₁,
+  have b ≤ c, from and.left H₂,
+  have b ≠ c, from and.right H₂,
+  have a ≤ c, from transR `a ≤ b` `b ≤ c`,
+  have a ≠ c, from 
+    suppose a = c,
+      have c ≤ b, from `a = c` ▸ `a ≤ b`,
+      have b = c, from antisymmR `b ≤ c` `c ≤ b`,
+      show false, from `b ≠ c` `b = c`, 
+  show a &lt; c, from and.intro `a ≤ c` `a ≠ c`
+end
+</juicy-ace-editor><div id='lean-full-code-2' style='display:none'>open eq.ops
+
+section
+  parameters {A : Type} {R : A → A → Prop}
+  hypothesis (reflR : reflexive R)
+  hypothesis (transR : transitive R)
+  hypothesis (antisymmR : ∀ {a b : A}, R a b → R b a → a = b)
+
+  local infix ≤ := R
+
+  definition R' (a b : A) : Prop := a ≤ b ∧ a ≠ b
+
+  local infix &lt; := R'
+
+  theorem irrefl (a : A) : ¬ a &lt; a :=
+  suppose a &lt; a,
+  have a ≠ a, from and.right this,
+  have a = a, from rfl,
+  show false, from `a ≠ a` `a = a`
+
+  theorem trans {a b c : A} (H₁ : a &lt; b) (H₂ : b &lt; c) : a &lt; c :=
+  have a ≤ b, from and.left H₁,
+  have a ≠ b, from and.right H₁,
+  have b ≤ c, from and.left H₂,
+  have b ≠ c, from and.right H₂,
+  have a ≤ c, from transR `a ≤ b` `b ≤ c`,
+  have a ≠ c, from 
+    suppose a = c,
+      have c ≤ b, from `a = c` ▸ `a ≤ b`,
+      have b = c, from antisymmR `b ≤ c` `c ≤ b`,
+      show false, from `b ≠ c` `b = c`, 
+  show a &lt; c, from and.intro `a ≤ c` `a ≠ c`
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-2').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Notice that we have used the command <code>open eq.ops</code> to avail ourselves
+of the extra notation for equality proofs, so that the expression 
+<code>`a = c` ▸ `a ≤ b`</code> denotes a proof of <code>c ≤ b</code>.
+</p>
+
+<p>
+In the exercises, we ask you to show the other direction of this: 
+from a strict partial order we can define a partial order.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb1cf6e1" class="outline-3">
+<h3 id="orgb1cf6e1"><span class="section-number-3"> 14.2</span> Orderings on Numbers</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Conveniently, Lean has the normal orderings on the natural numbers,
+integers, and so on defined already.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-3' mode="ace/mode/lean" readonly="true">open nat
+variables n m : ℕ
+
+check 0 ≤ n
+check n &lt; n + 1
+
+example : 0 ≤ n := zero_le n
+example : n &lt; n + 1 := self_lt_succ n
+
+example (H : n + 1 ≤ m) : n &lt; m + 1 :=
+have H1 : n &lt; n + 1, from self_lt_succ n,
+have H2 : n &lt; m, from lt_of_lt_of_le H1 H,
+have H3 : m &lt; m + 1, from self_lt_succ m,
+show n &lt; m + 1, from lt.trans H2 H3
+</juicy-ace-editor><div id='lean-full-code-3' style='display:none'>open nat
+variables n m : ℕ
+
+check 0 ≤ n
+check n &lt; n + 1
+
+example : 0 ≤ n := zero_le n
+example : n &lt; n + 1 := self_lt_succ n
+
+example (H : n + 1 ≤ m) : n &lt; m + 1 :=
+have H1 : n &lt; n + 1, from self_lt_succ n,
+have H2 : n &lt; m, from lt_of_lt_of_le H1 H,
+have H3 : m &lt; m + 1, from self_lt_succ m,
+show n &lt; m + 1, from lt.trans H2 H3
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-3').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+There are many theorems in Lean that are useful for proving facts
+about inequality relations. We list some common ones here.
+</p>
+
+<ol class="org-ol">
+<li><code>zero_le : ∀ a : A, 0 ≤ a</code></li>
+<li><code>self_lt_succ : ∀ a : A, a &lt; a + 1</code></li>
+<li><code>le_succ : ∀ a : A, a ≤ a + 1</code></li>
+<li><code>le.trans : ∀ a b c : A, a ≤ b → b ≤ c → a ≤ c</code></li>
+<li><code>lt.trans : ∀ a b c : A, a &lt; b → b &lt; c → a &lt; c</code></li>
+<li><code>lt_of_lt_of_le : ∀ a b c : A, a &lt; b → b ≤ c → a &lt; c</code></li>
+<li><code>lt_of_le_of_lt : ∀ a b c : A, a ≤ b → b &lt; c → a &lt; c</code></li>
+<li><code>le_of_lt : ∀ a b : A, a &lt; b → a ≤ b</code></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org8f72f1e" class="outline-3">
+<h3 id="org8f72f1e"><span class="section-number-3"> 14.3</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-3">
+<ol class="org-ol">
+<li><p>
+Replace the <code>sorry</code> commands in the following proofs to show that
+we can create a partial order <code>R'​</code> out of a strict partial order <code>R</code>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-4' mode="ace/mode/lean" readonly="true">open eq.ops
+
+section
+  parameters {A : Type} {R : A → A → Prop}
+  hypothesis (irreflR : irreflexive R)
+  hypothesis (transR : transitive R)
+
+  local infix &lt; := R
+
+  definition R' (a b : A) : Prop := R a b ∨ a = b
+  local infix ≤ := R'
+
+  theorem reflR' (a : A) : a ≤ a := sorry
+  theorem transR' {a b c : A} (H1 : a ≤ b) (H2 : b ≤ c): a ≤ c := sorry
+  theorem antisymmR' {a b : A} (H1 : a ≤ b) (H2 : b ≤ a) : a = b := sorry 
+end
+</juicy-ace-editor><div id='lean-full-code-4' style='display:none'>open eq.ops
+
+section
+  parameters {A : Type} {R : A → A → Prop}
+  hypothesis (irreflR : irreflexive R)
+  hypothesis (transR : transitive R)
+
+  local infix &lt; := R
+
+  definition R' (a b : A) : Prop := R a b ∨ a = b
+  local infix ≤ := R'
+
+  theorem reflR' (a : A) : a ≤ a := sorry
+  theorem transR' {a b c : A} (H1 : a ≤ b) (H2 : b ≤ c): a ≤ c := sorry
+  theorem antisymmR' {a b : A} (H1 : a ≤ b) (H2 : b ≤ a) : a = b := sorry 
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-4').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Complete the following proof. Note: we write <code>(1 : ℕ)</code> instead of
+just <code>1</code> so that Lean does not confuse the natural number <code>1</code> with
+the integer, rational, or so on.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-5' mode="ace/mode/lean" readonly="true">open nat
+
+example : (1 : ℕ) ≤ (4 : ℕ) :=
+sorry
+</juicy-ace-editor><div id='lean-full-code-5' style='display:none'>open nat
+
+example : (1 : ℕ) ≤ (4 : ℕ) :=
+sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-5').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Only one of the following two theorems is provable. Figure out which
+one is true, and replace the <code>sorry</code> command with a complete proof.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-6' mode="ace/mode/lean" readonly="true">open eq.ops
+section
+
+  parameters {A : Type} {a b c : A} {R : A → A → Prop}
+  hypothesis (Rab : R a b)
+  hypothesis (Rbc : R b c)
+  hypothesis (nRac : ¬ R a c)
+
+  -- Prove one of the following two theorems:
+
+  theorem R_is_strict_partial_order : irreflexive R ∧ transitive R :=
+  sorry
+
+  theorem R_is_not_strict_partial_order : ¬(irreflexive R ∧ transitive R) :=
+  sorry
+end
+</juicy-ace-editor><div id='lean-full-code-6' style='display:none'>open eq.ops
+section
+
+  parameters {A : Type} {a b c : A} {R : A → A → Prop}
+  hypothesis (Rab : R a b)
+  hypothesis (Rbc : R b c)
+  hypothesis (nRac : ¬ R a c)
+
+  -- Prove one of the following two theorems:
+
+  theorem R_is_strict_partial_order : irreflexive R ∧ transitive R :=
+  sorry
+
+  theorem R_is_not_strict_partial_order : ¬(irreflexive R ∧ transitive R) :=
+  sorry
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-6').text());">Try it yourself &raquo;</button></div>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

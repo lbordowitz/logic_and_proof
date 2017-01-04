@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-19 Sat 19:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-orgdfce9a2" class="outline-2">
+<h2 id="The_Natural_Numbers_and_Induction_in_Lean"><a id="orgdfce9a2"></a><span class="section-number-2"> 18</span> The Natural Numbers and Induction in Lean</h2>
+<div class="outline-text-2" id="text-The_Natural_Numbers_and_Induction_in_Lean">
+<p>
+The goal of this chapter is to give a more axiomatic, foundational
+account of the natural numbers and its basic operations. First, we
+will do this informally, showing how operations like addition and
+multiplication can be defined using the principle of recursion, and
+showing how some of their basic properties can be proved using
+induction. Then we will see how this plays out in the Lean theorem
+prover, using Lean's built-in mechanisms for induction and recursion.
+</p>
+</div>
+
+<div id="outline-container-org0a30c8a" class="outline-3">
+<h3 id="Defining_the_Arithmetic_Operations_Axiomatically"><a id="org0a30c8a"></a><span class="section-number-3"> 18.1</span> Defining the Arithmetic Operations Axiomatically</h3>
+<div class="outline-text-3" id="text-Defining_the_Arithmetic_Operations_Axiomatically">
+<p>
+Let <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> be the set of natural numbers with least element <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, and
+let <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_a154a4ab4bfdd49e857b03e154156b93c6c81097.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_a154a4ab4bfdd49e857b03e154156b93c6c81097.png" /> be the successor function. The structure <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_62e2ee50c70ff0501d3e4e2d5c93df2d35812371.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_62e2ee50c70ff0501d3e4e2d5c93df2d35812371.png" /> satisfies the following clauses:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_3193f57e3ea944b085943d0ff339fefdfde9796e.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_3193f57e3ea944b085943d0ff339fefdfde9796e.png" /> for any <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> in <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />.</li>
+<li>For every <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> in <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, if <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_83e4b30ce81b4e3df14fb200c4ec4254492e8d28.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_83e4b30ce81b4e3df14fb200c4ec4254492e8d28.png" />, then <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_a97995f8c1a342e343653eeb2209dc751fbada7b.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_a97995f8c1a342e343653eeb2209dc751fbada7b.png" />. In other words, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5ce8208c713e12fcdb56e758b819a0254d74d72d.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5ce8208c713e12fcdb56e758b819a0254d74d72d.png" /> is <i>injective</i>.</li>
+<li>If <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is any subset of <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> with the property that <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> is in <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+and whenever <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is in <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> then <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_08f36987fa8b844793a814d0c95cd7f32854ec34.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_08f36987fa8b844793a814d0c95cd7f32854ec34.png" /> is in <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, then <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_ebaa57189f271f743231be946a8702530fb56b4d.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_ebaa57189f271f743231be946a8702530fb56b4d.png" />.</li>
+</ul>
+<p>
+The last clause can be reformulated as the principle of induction:
+</p>
+<blockquote>
+<p>
+Suppose <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f7a7e03dda424b54c01875523a4fd3663efbf873.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f7a7e03dda424b54c01875523a4fd3663efbf873.png" /> is any property of natural numbers, such that <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> holds
+of <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, and for every <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f7a7e03dda424b54c01875523a4fd3663efbf873.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f7a7e03dda424b54c01875523a4fd3663efbf873.png" /> implies <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfcae4cd93b852dbe096397fdb8ecbb4d7713924.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfcae4cd93b852dbe096397fdb8ecbb4d7713924.png" />. Then every <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />
+holds of every natural number.
+</p>
+</blockquote>
+<p>
+Remember that this principle can be used to justify the principle of
+definition by recursion:
+</p>
+<blockquote>
+<p>
+Let <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> be any set, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> be any element of <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and let <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_de992c5f0aa7a1b1e72c4836356b4f8ea46ecf8d.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_de992c5f0aa7a1b1e72c4836356b4f8ea46ecf8d.png" /> be any
+function from <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_a3145d42b9edec5bd1733f420938597c957e095c.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_a3145d42b9edec5bd1733f420938597c957e095c.png" /> to <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Then there is a unique function
+<img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e1b67137044e8596ae0c807e270d1aed2197c18e.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e1b67137044e8596ae0c807e270d1aed2197c18e.png" /> satisfying the following two clauses:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_de365fcc3751b6e1c6a226fc008f8b01291f7e43.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_de365fcc3751b6e1c6a226fc008f8b01291f7e43.png" /></li>
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_4f5f8dfaab21b5d62504ff96e96abe413ed7cebc.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_4f5f8dfaab21b5d62504ff96e96abe413ed7cebc.png" /> for every <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> in <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" />.</li>
+</ul>
+</blockquote>
+
+<p>
+We can use the principle of recursive definition to define addition
+with the following two clauses:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_3ab6cde7128beff80cafbb76c42722df75241bd4.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_3ab6cde7128beff80cafbb76c42722df75241bd4.png" /></p>
+</div>
+<p>
+Note that we are fixing <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, and viewing this as a function of <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.
+If we write <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e67a656d8a6bb7a6342b47f208ad29bd1ff85dc5.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e67a656d8a6bb7a6342b47f208ad29bd1ff85dc5.png" />, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_a96814fc25e0b17b832c64c791a94399e9dfd55b.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_a96814fc25e0b17b832c64c791a94399e9dfd55b.png" />, and so on, it is easy to
+prove <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_b0adf719e489a8890c661bf789b89025a219ac17.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_b0adf719e489a8890c661bf789b89025a219ac17.png" /> from the definition of addition.
+</p>
+
+<p>
+We can proceed to define multiplication using the following two
+clauses:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_816f638b2ade2c8893f4834c25caa27e5e1ef5cb.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_816f638b2ade2c8893f4834c25caa27e5e1ef5cb.png" /></p>
+</div>
+<p>
+We can also define a predecessor function by
+</p>
+
+<div class="figure">
+<p><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e3fd597d26dd913d71114ffde152b4cd61a73b8b.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e3fd597d26dd913d71114ffde152b4cd61a73b8b.png" /></p>
+</div>
+<p>
+and ``truncated subtraction'' by
+</p>
+
+<div class="figure">
+<p><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_4236bb8d3640343c9061837f2402886dc0dc7837.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_4236bb8d3640343c9061837f2402886dc0dc7837.png" /></p>
+</div>
+
+<p>
+With these definitions and the induction principle, one can prove all
+the following identities:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_de96d264eb7a9f924e32ff21dabedc9a18e18c60.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_de96d264eb7a9f924e32ff21dabedc9a18e18c60.png" /> implies <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f4e26fe55203156249ed6483809dc11f1854ccfb.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f4e26fe55203156249ed6483809dc11f1854ccfb.png" /></li>
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_29d85094b6b068815bac2e5c843f1fa6765dafdb.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_29d85094b6b068815bac2e5c843f1fa6765dafdb.png" /></li>
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_2dad4c7ecaf35af00788c2c2b305274b6c96a70d.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_2dad4c7ecaf35af00788c2c2b305274b6c96a70d.png" /></li>
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_8d888bbc9fc72376b7a5ca6e3d9b6b6370235818.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_8d888bbc9fc72376b7a5ca6e3d9b6b6370235818.png" /></li>
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_b6b91a68e17c1cdc08f2bc0bcdf34606fd919780.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_b6b91a68e17c1cdc08f2bc0bcdf34606fd919780.png" /></li>
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_46203beffaa2b3112d10ace57719a7325ad7b844.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_46203beffaa2b3112d10ace57719a7325ad7b844.png" /></li>
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e1fcea7592c53ff11540f1b417b4deb3b6c2c8e3.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e1fcea7592c53ff11540f1b417b4deb3b6c2c8e3.png" /></li>
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_97e7b9e8b1eda392f8fafba952865ea0ad83fe2b.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_97e7b9e8b1eda392f8fafba952865ea0ad83fe2b.png" /></li>
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_4e8627ea1e38074c827b58a4b9ee6b5419a83749.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_4e8627ea1e38074c827b58a4b9ee6b5419a83749.png" /></li>
+<li><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e04ae28e80f60db83fae1c289892e9e9cc491f09.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e04ae28e80f60db83fae1c289892e9e9cc491f09.png" /></li>
+</ul>
+<p>
+We will do the first five here, and leave the remaining ones as
+exercises.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> For every natural number <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, if <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_de96d264eb7a9f924e32ff21dabedc9a18e18c60.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_de96d264eb7a9f924e32ff21dabedc9a18e18c60.png" /> then
+<img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f4e26fe55203156249ed6483809dc11f1854ccfb.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_f4e26fe55203156249ed6483809dc11f1854ccfb.png" />.
+</p>
+
+<p>
+<b>Proof.</b> By induction on <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. We have ruled out the case where <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is
+<img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, so we only need to show that the claim holds for <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_08f36987fa8b844793a814d0c95cd7f32854ec34.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_08f36987fa8b844793a814d0c95cd7f32854ec34.png" />. But
+in that case, we have <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_650e6e11b188a80cfbe27c224c8bf98377ab29d4.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_650e6e11b188a80cfbe27c224c8bf98377ab29d4.png" /> by the
+second defining clause of the predecessor function.
+</p>
+
+<p>
+<b>Proposition.</b> For every <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_29d85094b6b068815bac2e5c843f1fa6765dafdb.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_29d85094b6b068815bac2e5c843f1fa6765dafdb.png" />. 
+</p>
+
+<p>
+<b>Proof.</b> By induction on <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. We have <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_ad092f4cf1837f7140294c5f6cfac710b69e0f13.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_ad092f4cf1837f7140294c5f6cfac710b69e0f13.png" /> by the first
+defining clause for addition. And assuming <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_29d85094b6b068815bac2e5c843f1fa6765dafdb.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_29d85094b6b068815bac2e5c843f1fa6765dafdb.png" />, we have
+<img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_fdd665ededea37837a08dfd1b5298f6673f90c6c.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_fdd665ededea37837a08dfd1b5298f6673f90c6c.png" />, using the second defining clause for
+addition.
+</p>
+
+<p>
+<b>Proposition.</b> For every <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_2dad4c7ecaf35af00788c2c2b305274b6c96a70d.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_2dad4c7ecaf35af00788c2c2b305274b6c96a70d.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Fix <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and use induction on <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Then <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" />, we have
+<img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_79a30a755dc7909f5839ea69dd9afa912909595d.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_79a30a755dc7909f5839ea69dd9afa912909595d.png" />, using the first defining clause
+for addition. Assuming the claim holds for <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_b765a1735bb0b0bcac42d6d1d4a0f9c71ceeffa9.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_b765a1735bb0b0bcac42d6d1d4a0f9c71ceeffa9.png" /></p>
+</div>
+<p>
+using the inductive hypothesis and the second defining clause for
+addition.
+</p>
+
+<p>
+<b>Proposition.</b> For every <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, and <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e2a21c893e3be207b99f56b98bf76336db34c560.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_e2a21c893e3be207b99f56b98bf76336db34c560.png" />.
+</p>
+
+<p>
+<b>Proof.</b> By induction on <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />. The case where <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_8ec26f4ef71274bcaefe814f25d38b88a428d1ae.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_8ec26f4ef71274bcaefe814f25d38b88a428d1ae.png" /> is easy, and in
+the induction step we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_8f4325806db1bdfc59674326140dd7d456c1ed9b.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_8f4325806db1bdfc59674326140dd7d456c1ed9b.png" /></p>
+</div>
+<p>
+using the inductive hypothesis and the definition of addition.
+</p>
+
+<p>
+<b>Proposition.</b> For every pair of natural numbers <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_14322a5125170b26e580edfe1eaec366cf2da8f3.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_14322a5125170b26e580edfe1eaec366cf2da8f3.png" />. 
+</p>
+
+<p>
+<b>Proof.</b> By induction on <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. The base case is easy using the second
+proposition above. In the inductive step, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_7e86e529d0d016578bcfe63ebfdc88650d2154ff.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_7e86e529d0d016578bcfe63ebfdc88650d2154ff.png" /></p>
+</div>
+<p>
+using the third proposition above.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org92a6506" class="outline-3">
+<h3 id="org92a6506"><span class="section-number-3"> 18.2</span> Induction and Recursion in Lean</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Internally, in Lean, the natural numbers are defined as a type
+generated inductively from an axiomatically declared <code>zero</code> and <code>succ</code>
+operation:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-1' mode="ace/mode/lean" readonly="true">inductive nat : Type :=
+| zero : nat
+| succ : nat → nat</juicy-ace-editor><div id='lean-full-code-1' style='display:none'>namespace hide
+
+inductive nat : Type :=
+| zero : nat
+| succ : nat → nat
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-1').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+If you click the button that copies this text into the editor in the
+online version of this textbook, you will see that we wrap it with the
+phrases <code>namespace hide</code> and <code>end hide</code>. This puts the definition into
+a new "namespace," so that the identifiers that are defined are
+<code>hide.nat</code>, <code>hide.nat.zero</code> and <code>hide.nat.succ</code>, to avoid conflicting
+with the one that is in the Lean library. Below, we will do that in a
+number of places where our examples duplicate objects defined in the
+library. The unicode symbol <code>ℕ</code>, entered with <code>\N</code> or <code>\nat</code>, is a
+synonym for <code>nat</code>.
+</p>
+
+<p>
+Declaring <code>nat</code> as an inductively defined type means that we can
+define functions by recursion, and prove theorems by induction. For
+example, these are the first two recursive definitions presented in
+the last chapter:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-2' mode="ace/mode/lean" readonly="true">open nat
+
+definition two_pow : ℕ → ℕ
+| 0        := 1 
+| (succ n) := 2 * two_pow n
+
+definition fact : ℕ → ℕ 
+| 0        := 1
+| (succ n) := (succ n) * fact n
+</juicy-ace-editor><div id='lean-full-code-2' style='display:none'>open nat
+
+definition two_pow : ℕ → ℕ
+| 0        := 1 
+| (succ n) := 2 * two_pow n
+
+definition fact : ℕ → ℕ 
+| 0        := 1
+| (succ n) := (succ n) * fact n
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-2').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Addition and numerals are defined in such a way that Lean recognizes
+<code>succ n</code> and <code>n + 1</code> as essentially the same, so we could instead
+write these definitions as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-3' mode="ace/mode/lean" readonly="true">definition two_pow : ℕ → ℕ
+| 0       := 1 
+| (n + 1) := 2 * two_pow n
+
+definition fact : ℕ → ℕ 
+| 0       := 1
+| (n + 1) := (n + 1) * fact n</juicy-ace-editor><div id='lean-full-code-3' style='display:none'>open nat
+
+definition two_pow : ℕ → ℕ
+| 0       := 1 
+| (n + 1) := 2 * two_pow n
+
+definition fact : ℕ → ℕ 
+| 0       := 1
+| (n + 1) := (n + 1) * fact n
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-3').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+If we wanted to define the function <code>m^n</code>, we would do that by fixing
+<code>m</code>, and writing doing the recursion on the second argument:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-4' mode="ace/mode/lean" readonly="true">definition pow : ℕ → ℕ → ℕ 
+| m 0        := 1
+| m (n + 1)  := m * pow m n</juicy-ace-editor><div id='lean-full-code-4' style='display:none'>open nat
+
+definition pow : ℕ → ℕ → ℕ 
+| m 0        := 1
+| m (n + 1)  := m * pow m n
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-4').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Lean is also smart enough to interpret more complicated forms of
+recursion, like this one:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-5' mode="ace/mode/lean" readonly="true">definition fib : ℕ → ℕ
+| 0        := 0
+| 1        := 1
+| (n + 2)  := fib (n + 1) + fib n
+</juicy-ace-editor><div id='lean-full-code-5' style='display:none'>definition fib : ℕ → ℕ
+| 0        := 0
+| 1        := 1
+| (n + 2)  := fib (n + 1) + fib n
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-5').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+In addition to defining functions by recursion, we can prove theorems
+by induction. In Lean, each clause of a recursive definition results
+in a new identity. For example, the two clauses in the definition of
+<code>pow</code> above give rise to the following two theorems:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-6' mode="ace/mode/lean" readonly="true">proposition pow_zero (n : ℕ) : pow n 0 = 1 := rfl
+proposition pow_succ (m n : ℕ) : pow m (succ n) = m * pow m n := rfl</juicy-ace-editor><div id='lean-full-code-6' style='display:none'>open nat
+
+namespace hide
+
+definition pow : ℕ → ℕ → ℕ 
+| m 0        := 1
+| m (n + 1)  := m * pow m n
+
+proposition pow_zero (n : ℕ) : pow n 0 = 1 := rfl
+proposition pow_succ (m n : ℕ) : pow m (succ n) = m * pow m n := rfl
+
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-6').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Notice that we could alternatively have used <code>(pow m n) * m</code> in the
+second clause of the definition of <code>pow</code>. Of course, we can prove that
+the two definitions are equivalent using the commutativity of
+multiplication, but, using a proof by induction, we can also prove it
+using only the associativity of multiplication, and the properties
+<code>1 * m = m</code> and <code>m * 1 = m</code>. This is useful, because the power
+function is also often used in situations where multiplication is not
+commutative, such as with matrix multiplication. The theorem can be
+proved in Lean as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-7' mode="ace/mode/lean" readonly="true">theorem pow_succ' (m n : ℕ) : pow m (succ n) = (pow m n) * m :=
+nat.induction_on n
+  (show pow m (succ 0) = pow m 0 * m, from calc
+    pow m (succ 0) = m * pow m 0 : pow_succ
+	       ... = m * 1       : pow_zero
+	       ... = m           : mul_one
+	       ... = 1 * m       : one_mul
+	       ... = pow m 0 * m : pow_zero)
+  (take n,
+    assume ih : pow m (succ n) = pow m n * m,
+    show pow m (succ (succ n)) = pow m (succ n) * m, from calc
+      pow m (succ (succ n)) = m * (pow m (succ n)) : pow_succ
+			... = m * (pow m n * m)    : ih
+			... = (m * pow m n) * m    : mul.assoc
+			... = pow m (succ n) * m   : pow_succ)</juicy-ace-editor><div id='lean-full-code-7' style='display:none'>import data.nat 
+open nat
+
+namespace hide
+
+definition pow : ℕ → ℕ → ℕ 
+| m 0        := 1
+| m (n + 1)  := m * (pow m n)
+
+proposition pow_zero (n : ℕ) : pow n 0 = 1 := rfl
+proposition pow_succ (m n : ℕ) : pow m (succ n) = m * (pow m n) := rfl
+
+theorem pow_succ' (m n : ℕ) : pow m (succ n) = (pow m n) * m :=
+nat.induction_on n
+  (show pow m (succ 0) = pow m 0 * m, from calc
+    pow m (succ 0) = m * pow m 0 : pow_succ
+	       ... = m * 1       : pow_zero
+	       ... = m           : mul_one
+	       ... = 1 * m       : one_mul
+	       ... = pow m 0 * m : pow_zero)
+  (take n,
+    assume ih : pow m (succ n) = pow m n * m,
+    show pow m (succ (succ n)) = pow m (succ n) * m, from calc
+      pow m (succ (succ n)) = m * (pow m (succ n)) : pow_succ
+			... = m * (pow m n * m)    : ih
+			... = (m * pow m n) * m    : mul.assoc
+			... = pow m (succ n) * m   : pow_succ)
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-7').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+This is a typical proof by induction in Lean. It begins with the
+phrase <code>nat.induction_on n</code>, and is followed by the base case and the
+inductive hypothesis. The proof can be shortened with a clever use of
+<code>rewrite</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-8' mode="ace/mode/lean" readonly="true">theorem pow_succ' (m n : ℕ) : pow m (succ n) = (pow m n) * m :=
+nat.induction_on n
+  (show pow m (succ 0) = pow m 0 * m, 
+    by rewrite [pow_succ, pow_zero, mul_one, one_mul])
+  (take n,
+    assume ih : pow m (succ n) = pow m n * m,
+    show pow m (succ (succ n)) = pow m (succ n) * m, 
+      by rewrite [pow_succ, ih at {1}, -mul.assoc])</juicy-ace-editor><div id='lean-full-code-8' style='display:none'>import data.nat 
+open nat
+
+namespace hide
+
+definition pow : ℕ → ℕ → ℕ 
+| m 0        := 1
+| m (n + 1)  := m * (pow m n)
+
+proposition pow_zero (n : ℕ) : pow n 0 = 1 := rfl
+proposition pow_succ (m n : ℕ) : pow m (succ n) = m * (pow m n) := rfl
+
+theorem pow_succ' (m n : ℕ) : pow m (succ n) = (pow m n) * m :=
+nat.induction_on n
+  (show pow m (succ 0) = pow m 0 * m, 
+    by rewrite [pow_succ, pow_zero, mul_one, one_mul])
+  (take n,
+    assume ih : pow m (succ n) = pow m n * m,
+    show pow m (succ (succ n)) = pow m (succ n) * m, 
+      by rewrite [pow_succ, ih at {1}, -mul.assoc])
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-8').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Remember that you can write a <code>rewrite</code> proof incrementally, checking
+the error messages to make sure things are working so far, and to see
+how far Lean got. The phrase <code>ih at {1}</code> tells Lean to apply the
+inductive hypothesis only at the first place where it matches, and the
+phrase <code>-mul.assoc</code> tells Lean to apply the associativity equation in
+the backward direction.
+</p>
+
+<p>
+In any case, the power function is already defined in the Lean library
+as <code>pow_nat</code>. (It is defined generically for any type that has a
+multiplication; the <code>nat</code> in <code>pow_nat</code> refers to the fact that the
+exponent is a natural number.) The definition is essentially the one
+above, and the theorems above are also there:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-9' mode="ace/mode/lean" readonly="true">import data.nat 
+open nat
+
+check @pow_nat
+check @pow_zero
+check @pow_succ
+check @pow_succ'
+</juicy-ace-editor><div id='lean-full-code-9' style='display:none'>import data.nat 
+open nat
+
+check @pow_nat
+check @pow_zero
+check @pow_succ
+check @pow_succ'
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-9').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The library also allows us to use the usual notation:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-10' mode="ace/mode/lean" readonly="true">variables m n : ℕ
+
+check m^n</juicy-ace-editor><div id='lean-full-code-10' style='display:none'>import data.nat
+open nat
+
+variables m n : ℕ
+
+check m^n
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-10').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+As another example of a proof by induction, here is a proof of the
+identity <code>m^(n + k) = m^n * m^k</code>.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-11' mode="ace/mode/lean" readonly="true">theorem pow_add (m n k : ℕ) : m^(n + k) = m^n * m^k :=
+nat.induction_on k
+  (show m^(n + 0) = m^n * m^0, from calc
+    m^(n + 0) = m^n       : add_zero
+	  ... = m^n * 1   : mul_one
+	  ... = m^n * m^0 : pow_zero)
+  (take k,
+    assume ih : m^(n + k) = m^n * m^k,
+    show m^(n + succ k) = m^n * m^(succ k), from calc
+      m^(n + succ k) = m^(succ (n + k)) : add_succ
+		 ... = m^(n + k) * m    : pow_succ'
+		 ... = m^n * m^k * m    : ih
+		 ... = m^n * (m^k * m)  : mul.assoc
+		 ... = m^n * m^(succ k) : pow_succ')</juicy-ace-editor><div id='lean-full-code-11' style='display:none'>import data.nat 
+open nat
+
+namespace hide
+
+theorem pow_add (m n k : ℕ) : m^(n + k) = m^n * m^k :=
+nat.induction_on k
+  (show m^(n + 0) = m^n * m^0, from calc
+    m^(n + 0) = m^n       : add_zero
+	  ... = m^n * 1   : mul_one
+	  ... = m^n * m^0 : pow_zero)
+  (take k,
+    assume ih : m^(n + k) = m^n * m^k,
+    show m^(n + succ k) = m^n * m^(succ k), from calc
+      m^(n + succ k) = m^(succ (n + k)) : add_succ
+		 ... = m^(n + k) * m    : pow_succ'
+		 ... = m^n * m^k * m    : ih
+		 ... = m^n * (m^k * m)  : mul.assoc
+		 ... = m^n * m^(succ k) : pow_succ')
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-11').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Notice the same pattern. This time, we do induction on <code>k</code>, and the
+base case and inductive step are routine. Once again, with a bit of
+cleverness, we can shorten the proof with <code>rewrite</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-12' mode="ace/mode/lean" readonly="true">theorem pow_add (m n k : ℕ) : m^(n + k) = m^n * m^k :=
+nat.induction_on k
+  (show m^(n + 0) = m^n * m^0, 
+    by rewrite [add_zero, pow_zero, mul_one]) 
+  (take k,
+    assume ih : m^(n + k) = m^n * m^k,
+    show m^(n + succ k) = m^n * m^(succ k),
+     by rewrite [add_succ, pow_succ', ih, mul.assoc, pow_succ'])</juicy-ace-editor><div id='lean-full-code-12' style='display:none'>import data.nat 
+open nat
+
+namespace hide
+
+theorem pow_add (m n k : ℕ) : m^(n + k) = m^n * m^k :=
+nat.induction_on k
+  (show m^(n + 0) = m^n * m^0, 
+    by rewrite [add_zero, pow_zero, mul_one]) 
+  (take k,
+    assume ih : m^(n + k) = m^n * m^k,
+    show m^(n + succ k) = m^n * m^(succ k),
+     by rewrite [add_succ, pow_succ', ih, mul.assoc, pow_succ'])
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-12').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+You should not hesitate to use <code>calc</code>, however, to make the proofs
+more explicit. Remember that you can also use <code>calc</code> and <code>rewrite</code>
+together, using <code>calc</code> to structure the calculational proof, and using
+<code>rewrite</code> to fill in each justification step.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0491522" class="outline-3">
+<h3 id="org0491522"><span class="section-number-3"> 18.3</span> Defining the Arithmetic Operations in Lean</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+In fact, addition and multiplication are defined in Lean essentially
+as described in <a href="#" onclick="myModule.scrollTutorialTo('Defining_the_Arithmetic_Operations_Axiomatically')">Section 18.1</a>. The defining equations for addition hold
+by reflexivity, but they are also named <code>add_zero</code> and <code>add_succ</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-13' mode="ace/mode/lean" readonly="true">import data.nat 
+open nat
+
+variables m n : ℕ
+
+example : m + 0 = m := add_zero m
+example : m + succ n = succ (m + n) := add_succ m n
+</juicy-ace-editor><div id='lean-full-code-13' style='display:none'>import data.nat 
+open nat
+
+variables m n : ℕ
+
+example : m + 0 = m := add_zero m
+example : m + succ n = succ (m + n) := add_succ m n
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-13').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Similarly, we have the defining equations for the predecessor function
+and multiplication:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-14' mode="ace/mode/lean" readonly="true">import data.nat 
+open nat
+
+check @pred_zero
+check @pred_succ
+check @mul_zero
+check @mul_succ
+</juicy-ace-editor><div id='lean-full-code-14' style='display:none'>import data.nat 
+open nat
+
+check @pred_zero
+check @pred_succ
+check @mul_zero
+check @mul_succ
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-14').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Here are the five propositions proved in <a href="#" onclick="myModule.scrollTutorialTo('Defining_the_Arithmetic_Operations_Axiomatically')">Section 18.1</a>.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-15' mode="ace/mode/lean" readonly="true">theorem succ_pred (n : ℕ) : n ≠ 0 → succ (pred n) = n :=
+nat.induction_on n
+  (assume H : 0 ≠ 0,
+    show succ (pred 0) = 0, from absurd rfl H)
+  (take n,
+    assume ih,
+    assume H : succ n ≠ 0,
+    show succ (pred (succ n)) = succ n, 
+      by rewrite pred_succ)
+
+theorem zero_add (n : nat) : 0 + n = n :=
+nat.induction_on n
+  (show 0 + 0 = 0, from rfl)
+  (take n,
+    assume IH : 0 + n = n,
+    show 0 + succ n = succ n, from
+      calc
+	0 + succ n = succ (0 + n) : rfl
+	  ... = succ n : IH)
+
+theorem succ_add (m n : nat) : succ m + n = succ (m + n) :=
+nat.induction_on n
+  (show succ m + 0 = succ (m + 0), from rfl)
+  (take n,
+    assume IH : succ m + n = succ (m + n),
+    show succ m + succ n = succ (m + succ n), from
+      calc
+	succ m + succ n = succ (succ m + n) : rfl
+	  ... = succ (succ (m + n)) : IH
+	  ... = succ (m + succ n) : rfl)
+
+theorem add_assoc (m n k : nat) : m + n + k = m + (n + k) :=
+nat.induction_on k
+  (show m + n + 0 = m + (n + 0), by rewrite *add_zero)
+  (take k, 
+    assume ih : m + n + k = m + (n + k),
+    show m + n + succ k = m + (n + (succ k)), from calc
+      m + n + succ k = succ (m + n + k)   : add_succ
+		 ... = succ (m + (n + k)) : ih
+		 ... = m + (n + succ k)   : by rewrite *add_succ)
+
+theorem add_comm (m n : nat) : m + n = n + m :=
+nat.induction_on n
+  (show m + 0 = 0 + m, by rewrite [add_zero, zero_add])
+  (take n,
+    assume ih : m + n = n + m,
+    show m + succ n = succ n + m, from calc
+      m + succ n = succ (m + n) : add_succ
+	     ... = succ (n + m) : ih
+	     ... = succ n + m   : succ_add)
+</juicy-ace-editor><div id='lean-full-code-15' style='display:none'>import data.nat 
+open nat
+
+namespace hide
+
+theorem succ_pred (n : ℕ) : n ≠ 0 → succ (pred n) = n :=
+nat.induction_on n
+  (assume H : 0 ≠ 0,
+    show succ (pred 0) = 0, from absurd rfl H)
+  (take n,
+    assume ih,
+    assume H : succ n ≠ 0,
+    show succ (pred (succ n)) = succ n, 
+      by rewrite pred_succ)
+
+theorem zero_add (n : nat) : 0 + n = n :=
+nat.induction_on n
+  (show 0 + 0 = 0, from rfl)
+  (take n,
+    assume IH : 0 + n = n,
+    show 0 + succ n = succ n, from
+      calc
+	0 + succ n = succ (0 + n) : rfl
+	  ... = succ n : IH)
+
+theorem succ_add (m n : nat) : succ m + n = succ (m + n) :=
+nat.induction_on n
+  (show succ m + 0 = succ (m + 0), from rfl)
+  (take n,
+    assume IH : succ m + n = succ (m + n),
+    show succ m + succ n = succ (m + succ n), from
+      calc
+	succ m + succ n = succ (succ m + n) : rfl
+	  ... = succ (succ (m + n)) : IH
+	  ... = succ (m + succ n) : rfl)
+
+theorem add_assoc (m n k : nat) : m + n + k = m + (n + k) :=
+nat.induction_on k
+  (show m + n + 0 = m + (n + 0), by rewrite *add_zero)
+  (take k, 
+    assume ih : m + n + k = m + (n + k),
+    show m + n + succ k = m + (n + (succ k)), from calc
+      m + n + succ k = succ (m + n + k)   : add_succ
+		 ... = succ (m + (n + k)) : ih
+		 ... = m + (n + succ k)   : by rewrite *add_succ)
+
+theorem add_comm (m n : nat) : m + n = n + m :=
+nat.induction_on n
+  (show m + 0 = 0 + m, by rewrite [add_zero, zero_add])
+  (take n,
+    assume ih : m + n = n + m,
+    show m + succ n = succ n + m, from calc
+      m + succ n = succ (m + n) : add_succ
+	     ... = succ (n + m) : ih
+	     ... = succ n + m   : succ_add)
+
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-15').text());">Try it yourself &raquo;</button></div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org884beb3" class="outline-3">
+<h3 id="org884beb3"><span class="section-number-3"> 18.4</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li>Give an informal but detailed proof that for every natural number
+<img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_856e67a074a48562fcdab46f4b66ff14e20f818c.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_856e67a074a48562fcdab46f4b66ff14e20f818c.png" />.</li>
+
+<li>Prove the multiplication is associative and commutative, in the same way.</li>
+
+<li>Prove that multiplication distributes over addition: for every
+natural numbers <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, and <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />, <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_a39c8e53d5736eaa738e99f8f4f16ac3a80e1149.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_a39c8e53d5736eaa738e99f8f4f16ac3a80e1149.png" />.</li>
+
+<li>Prove <img src="ltximg/18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_3c0043945b1662edef6e527a016c9f4332f26ed3.png" alt="18_The_Natural_Numbers_and_Induction_in_Lean.org.temp_3c0043945b1662edef6e527a016c9f4332f26ed3.png" />.</li>
+
+<li>Formalize all these theorems in Lean.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

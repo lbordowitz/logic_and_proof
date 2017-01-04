@@ -1,0 +1,1160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-19 Sat 19:23 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-orgf9e4b09" class="outline-2">
+<h2 id="Functions_in_Lean"><a id="orgf9e4b09"></a><span class="section-number-2"> 16</span> Functions in Lean</h2>
+<div class="outline-text-2" id="text-Functions_in_Lean">
+</div>
+
+<div id="outline-container-org6f3874a" class="outline-3">
+<h3 id="org6f3874a"><span class="section-number-3"> 16.1</span> Functions and Symbolic Logic</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Let us now consider functions in formal terms. Even though we have
+avoided the use of quantifiers and logical symbols in the definitions
+in the last chapter, by now you should be seeing them lurking beneath
+the surface. That fact that two functions <img src="ltximg/16_Functions_in_Lean.org.temp_0cebaf96f3485c64556738bcd0f4d966b63df9fb.png" alt="16_Functions_in_Lean.org.temp_0cebaf96f3485c64556738bcd0f4d966b63df9fb.png" /> are equal
+if and only if they take the same values at every input can be
+expressed as follows: 
+</p>
+
+<div class="figure">
+<p><img src="ltximg/16_Functions_in_Lean.org.temp_25f105cfdda39b6d5dfb6bfaaaab55e5b4c7c2b4.png" alt="16_Functions_in_Lean.org.temp_25f105cfdda39b6d5dfb6bfaaaab55e5b4c7c2b4.png" /></p>
+</div>
+<p>
+This principle is a known as <i>function extensionality</i>, analogous to
+the principle of extensionality for sets, discussed in <a href="#" onclick="myModule.loadTutorial('12_Sets_in_Lean.html', 'Basics')">Section
+12.1</a>. Recall that the notation <img src="ltximg/16_Functions_in_Lean.org.temp_bdec1a860ac55d083be0c76109cf2eebb1a79377.png" alt="16_Functions_in_Lean.org.temp_bdec1a860ac55d083be0c76109cf2eebb1a79377.png" /> abbreviates <img src="ltximg/16_Functions_in_Lean.org.temp_7789fa9d267fe93ee6a94be58a8ca59f43171987.png" alt="16_Functions_in_Lean.org.temp_7789fa9d267fe93ee6a94be58a8ca59f43171987.png" />, and <img src="ltximg/16_Functions_in_Lean.org.temp_26d6f848cfdcf1d04148eee311a9aaba76e68ff5.png" alt="16_Functions_in_Lean.org.temp_26d6f848cfdcf1d04148eee311a9aaba76e68ff5.png" /> abbreviates <img src="ltximg/16_Functions_in_Lean.org.temp_a7f4ced7892678be5a1170b408b35374f47717f9.png" alt="16_Functions_in_Lean.org.temp_a7f4ced7892678be5a1170b408b35374f47717f9.png" />, thereby relativizing the quantifiers to <img src="ltximg/16_Functions_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="16_Functions_in_Lean.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+
+<p>
+We can avoid set-theoretic notation if we assume we are working in a
+logical formalism with basic types for <img src="ltximg/16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />, so that we can
+specify that <img src="ltximg/16_Functions_in_Lean.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="16_Functions_in_Lean.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> ranges over <img src="ltximg/16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. In that case, we will write instead
+</p>
+
+<div class="figure">
+<p><img src="ltximg/16_Functions_in_Lean.org.temp_60a7b44ebef254d4fe8681b589b61a0ba5eeb1a1.png" alt="16_Functions_in_Lean.org.temp_60a7b44ebef254d4fe8681b589b61a0ba5eeb1a1.png" /></p>
+</div>
+<p>
+to indicate that the quantification is over <img src="ltximg/16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. Henceforth, we will
+assume that all our variables range over some type, though we will
+sometimes omit the types in the quantifiers when they can be inferred
+from context.
+</p>
+
+<p>
+The function <img src="ltximg/16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is injective if it satisfies
+<img src="ltximg/16_Functions_in_Lean.org.temp_1365adcb57aa2a049b5e5700a4da7d5dc6e0160e.png" alt="16_Functions_in_Lean.org.temp_1365adcb57aa2a049b5e5700a4da7d5dc6e0160e.png" />
+and <img src="ltximg/16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective if
+<img src="ltximg/16_Functions_in_Lean.org.temp_3a4c8709fb0720db49aaad45c96c764de8038f3f.png" alt="16_Functions_in_Lean.org.temp_3a4c8709fb0720db49aaad45c96c764de8038f3f.png" />
+If <img src="ltximg/16_Functions_in_Lean.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="16_Functions_in_Lean.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_688b22915dd2af8de6277f65a3e5d56316487ec8.png" alt="16_Functions_in_Lean.org.temp_688b22915dd2af8de6277f65a3e5d56316487ec8.png" />, <img src="ltximg/16_Functions_in_Lean.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="16_Functions_in_Lean.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is a left inverse
+to <img src="ltximg/16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> if
+<img src="ltximg/16_Functions_in_Lean.org.temp_9f26ee11f483199fbe3fac910f8349a6a5b905ea.png" alt="16_Functions_in_Lean.org.temp_9f26ee11f483199fbe3fac910f8349a6a5b905ea.png" />
+Notice that this is a universal statement, and it is equivalent to the
+statement that <img src="ltximg/16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a right inverse to <img src="ltximg/16_Functions_in_Lean.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="16_Functions_in_Lean.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />.
+</p>
+
+<p>
+Remember that in logic it is common to use lambda notation to define
+functions. We can denote the identity function by <img src="ltximg/16_Functions_in_Lean.org.temp_7713db01b7c533bda2da3dcb62cef17a642870c4.png" alt="16_Functions_in_Lean.org.temp_7713db01b7c533bda2da3dcb62cef17a642870c4.png" />, or
+perhaps <img src="ltximg/16_Functions_in_Lean.org.temp_a6bd687ba3dea17dfff93dea0f0e86c3c10377e4.png" alt="16_Functions_in_Lean.org.temp_a6bd687ba3dea17dfff93dea0f0e86c3c10377e4.png" /> to emphasize that the domain of the function
+is <img src="ltximg/16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. If <img src="ltximg/16_Functions_in_Lean.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="16_Functions_in_Lean.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" alt="16_Functions_in_Lean.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" />, we can define the
+composition <img src="ltximg/16_Functions_in_Lean.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" alt="16_Functions_in_Lean.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" /> by <img src="ltximg/16_Functions_in_Lean.org.temp_3af2d0d5b5ada5d488df4c20fa0bef9e98b7bd01.png" alt="16_Functions_in_Lean.org.temp_3af2d0d5b5ada5d488df4c20fa0bef9e98b7bd01.png" />.
+</p>
+
+<p>
+Remember that if <img src="ltximg/16_Functions_in_Lean.org.temp_75adcc2185b886a3b8c242504bd19012bf253c53.png" alt="16_Functions_in_Lean.org.temp_75adcc2185b886a3b8c242504bd19012bf253c53.png" /> is any predicate, then in first order logic we
+can assert that there exists a unique <img src="ltximg/16_Functions_in_Lean.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="16_Functions_in_Lean.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> satisfying <img src="ltximg/16_Functions_in_Lean.org.temp_75adcc2185b886a3b8c242504bd19012bf253c53.png" alt="16_Functions_in_Lean.org.temp_75adcc2185b886a3b8c242504bd19012bf253c53.png" />, written
+<img src="ltximg/16_Functions_in_Lean.org.temp_18b4babeda9b4f27c371464dc106dcaa2c4498eb.png" alt="16_Functions_in_Lean.org.temp_18b4babeda9b4f27c371464dc106dcaa2c4498eb.png" />, with the conjunction of the following two
+statements:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/16_Functions_in_Lean.org.temp_6e37a3b43641ce0adfc17f743e80faf036b22394.png" alt="16_Functions_in_Lean.org.temp_6e37a3b43641ce0adfc17f743e80faf036b22394.png" /></li>
+<li><img src="ltximg/16_Functions_in_Lean.org.temp_6f9e8ff6a465cc28aaedbc39100be025724eab29.png" alt="16_Functions_in_Lean.org.temp_6f9e8ff6a465cc28aaedbc39100be025724eab29.png" /></li>
+</ul>
+<p>
+Equivalently, we can write
+<img src="ltximg/16_Functions_in_Lean.org.temp_72422affd1a826477870f9ab5a79b8a7a27c9691.png" alt="16_Functions_in_Lean.org.temp_72422affd1a826477870f9ab5a79b8a7a27c9691.png" />
+Assuming <img src="ltximg/16_Functions_in_Lean.org.temp_18b4babeda9b4f27c371464dc106dcaa2c4498eb.png" alt="16_Functions_in_Lean.org.temp_18b4babeda9b4f27c371464dc106dcaa2c4498eb.png" />, the following two statements are
+equivalent:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/16_Functions_in_Lean.org.temp_10aa981d0129a7eb3d5e6c4bc826303036273c17.png" alt="16_Functions_in_Lean.org.temp_10aa981d0129a7eb3d5e6c4bc826303036273c17.png" /></li>
+<li><img src="ltximg/16_Functions_in_Lean.org.temp_e018b440d64368a353a7c51e4a87869f99edb77d.png" alt="16_Functions_in_Lean.org.temp_e018b440d64368a353a7c51e4a87869f99edb77d.png" /></li>
+</ul>
+<p>
+and both can be taken to assert that "the <img src="ltximg/16_Functions_in_Lean.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="16_Functions_in_Lean.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> satisfying <img src="ltximg/16_Functions_in_Lean.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="16_Functions_in_Lean.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> also
+satisfies <img src="ltximg/16_Functions_in_Lean.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" alt="16_Functions_in_Lean.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" />."
+</p>
+
+<p>
+A binary relation <img src="ltximg/16_Functions_in_Lean.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="16_Functions_in_Lean.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> on <img src="ltximg/16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> is functional if it satisfies
+<img src="ltximg/16_Functions_in_Lean.org.temp_c0333ed7bba25caea81219866ae874b693dca002.png" alt="16_Functions_in_Lean.org.temp_c0333ed7bba25caea81219866ae874b693dca002.png" />
+In that case, a logician might use "iota notation,"
+<img src="ltximg/16_Functions_in_Lean.org.temp_c4d2ed1aca9ab638df562940276585d5bae61019.png" alt="16_Functions_in_Lean.org.temp_c4d2ed1aca9ab638df562940276585d5bae61019.png" />
+to define <img src="ltximg/16_Functions_in_Lean.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" alt="16_Functions_in_Lean.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" /> to be equal to the unique <img src="ltximg/16_Functions_in_Lean.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="16_Functions_in_Lean.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> satisfying <img src="ltximg/16_Functions_in_Lean.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" alt="16_Functions_in_Lean.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" />. If
+<img src="ltximg/16_Functions_in_Lean.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="16_Functions_in_Lean.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> satisfies the weaker property
+<img src="ltximg/16_Functions_in_Lean.org.temp_086d0b05209f949d26b58144059e9db4d6bdf4e9.png" alt="16_Functions_in_Lean.org.temp_086d0b05209f949d26b58144059e9db4d6bdf4e9.png" />
+a logician might use "the Hilbert epsilon" to define a function
+<img src="ltximg/16_Functions_in_Lean.org.temp_c200d35714055cfca1ba9bce6bdc84a33bdbcae0.png" alt="16_Functions_in_Lean.org.temp_c200d35714055cfca1ba9bce6bdc84a33bdbcae0.png" />
+to "choose" a value of <img src="ltximg/16_Functions_in_Lean.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="16_Functions_in_Lean.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> satisfying <img src="ltximg/16_Functions_in_Lean.org.temp_26d202382ca46e6c2ba9436c4cd481dc22ff156e.png" alt="16_Functions_in_Lean.org.temp_26d202382ca46e6c2ba9436c4cd481dc22ff156e.png" />. As we have noted
+above, this is an implicit use of the axiom of choice.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfcfd15f" class="outline-3">
+<h3 id="orgfcfd15f"><span class="section-number-3"> 16.2</span> Second- and Higher-Order Logic</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+In contrast to first-order logic, where we start with a fixed stock of
+function and relation symbols, the topics we have been considering in
+the last few chapters encourage us to consider a more expressive
+language with variables ranging over functions and relations as
+well. For example, saying that a function <img src="ltximg/16_Functions_in_Lean.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="16_Functions_in_Lean.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> has a
+left-inverse implicitly involves a quantifying over functions,
+</p>
+
+<div class="figure">
+<p><img src="ltximg/16_Functions_in_Lean.org.temp_4485f1dda96617b6514782ec2e1b521355823e93.png" alt="16_Functions_in_Lean.org.temp_4485f1dda96617b6514782ec2e1b521355823e93.png" /></p>
+</div>
+<p>
+The theorem that asserts that if any function <img src="ltximg/16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> from <img src="ltximg/16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> is
+injective then it has a left-inverse can be expressed as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/16_Functions_in_Lean.org.temp_a7a4084b2e2c7fad1eaea26f0319949d77d90c3a.png" alt="16_Functions_in_Lean.org.temp_a7a4084b2e2c7fad1eaea26f0319949d77d90c3a.png" /></p>
+</div>
+<p>
+Similarly, saying that two sets <img src="ltximg/16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> have a one-to-one
+correspondence asserts the existence of a function <img src="ltximg/16_Functions_in_Lean.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="16_Functions_in_Lean.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> as
+well as an inverse to <img src="ltximg/16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />. For another example, in <a href="#" onclick="myModule.loadTutorial('15_Functions.html', 'Functions_and_Relations')">Section 15.4</a> we
+asserted that every functional relation gives rise to a corresponding
+function, and vice-versa.
+</p>
+
+<p>
+What makes these statements interesting is that they involve
+quantification, both existential and universal, over functions
+and relations. This takes us outside the realm of first-order
+logic. One option is to develop a theory in the language of
+first-order logic in which the universe contains functions, and
+relations as objects; we will see later that this is what axiomatic
+set theory does. An alternative is to extend first-order logic to
+involve new kinds of quantifiers and variables, to range over
+functions and relations. This is what higher-order logic does.
+</p>
+
+<p>
+There are various ways to go about this. In view of the relationship
+between functions and relations described above, one can take
+relations as basic, and define functions in terms of them, or
+vice-versa. The following formulation of higher-order logic, due to
+the logician Alonzo Church, follows the latter approach. It is
+sometimes known as <i>simple type theory</i>.
+</p>
+
+<p>
+Start with some basic types, <img src="ltximg/16_Functions_in_Lean.org.temp_2524403d7b7acd20480bfd7cb07e8d1e4c77562e.png" alt="16_Functions_in_Lean.org.temp_2524403d7b7acd20480bfd7cb07e8d1e4c77562e.png" /> and a special type,
+<img src="ltximg/16_Functions_in_Lean.org.temp_4cd4e2c835b3d84811a54af7a62003c8102b76ec.png" alt="16_Functions_in_Lean.org.temp_4cd4e2c835b3d84811a54af7a62003c8102b76ec.png" />, of propositions. Add the following two rules to build new
+types:
+</p>
+<ul class="org-ul">
+<li>If <img src="ltximg/16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" /> are types, so is <img src="ltximg/16_Functions_in_Lean.org.temp_db9730e9c0f135771491659e38e2856fd8097af9.png" alt="16_Functions_in_Lean.org.temp_db9730e9c0f135771491659e38e2856fd8097af9.png" />.</li>
+<li>If <img src="ltximg/16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" /> are types, so is <img src="ltximg/16_Functions_in_Lean.org.temp_d461bf489715fb8ee7d544b0747899166c7abf69.png" alt="16_Functions_in_Lean.org.temp_d461bf489715fb8ee7d544b0747899166c7abf69.png" />.</li>
+</ul>
+<p>
+The first intended to denote the type of ordered pairs <img src="ltximg/16_Functions_in_Lean.org.temp_332d7350498188223842e19ebb8aa73f67dac12b.png" alt="16_Functions_in_Lean.org.temp_332d7350498188223842e19ebb8aa73f67dac12b.png" />, where
+<img src="ltximg/16_Functions_in_Lean.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" alt="16_Functions_in_Lean.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" /> is in <img src="ltximg/16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="16_Functions_in_Lean.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" /> is in <img src="ltximg/16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" />. The second is intended to denote the
+type of functions from <img src="ltximg/16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" /> to <img src="ltximg/16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" />. Simple type theory now adds the
+following means of forming expressions:
+</p>
+<ul class="org-ul">
+<li>If <img src="ltximg/16_Functions_in_Lean.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" alt="16_Functions_in_Lean.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" /> is of type <img src="ltximg/16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="16_Functions_in_Lean.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" /> is of type <img src="ltximg/16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" />, <img src="ltximg/16_Functions_in_Lean.org.temp_332d7350498188223842e19ebb8aa73f67dac12b.png" alt="16_Functions_in_Lean.org.temp_332d7350498188223842e19ebb8aa73f67dac12b.png" /> is of type
+<img src="ltximg/16_Functions_in_Lean.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="16_Functions_in_Lean.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" />.</li>
+<li>If <img src="ltximg/16_Functions_in_Lean.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="16_Functions_in_Lean.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> is of type <img src="ltximg/16_Functions_in_Lean.org.temp_db9730e9c0f135771491659e38e2856fd8097af9.png" alt="16_Functions_in_Lean.org.temp_db9730e9c0f135771491659e38e2856fd8097af9.png" />, then <img src="ltximg/16_Functions_in_Lean.org.temp_1b31e1c3dc3b5a10df79671afa5aa422d7375c80.png" alt="16_Functions_in_Lean.org.temp_1b31e1c3dc3b5a10df79671afa5aa422d7375c80.png" /> is of type <img src="ltximg/16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" /> and
+<img src="ltximg/16_Functions_in_Lean.org.temp_48d41b1ed6bd89986dea7196f995ca394a7e70b3.png" alt="16_Functions_in_Lean.org.temp_48d41b1ed6bd89986dea7196f995ca394a7e70b3.png" /> if of type <img src="ltximg/16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" />. (These are intended to denote the first and
+second element of the pair <img src="ltximg/16_Functions_in_Lean.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="16_Functions_in_Lean.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" />.)</li>
+<li>If <img src="ltximg/16_Functions_in_Lean.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="16_Functions_in_Lean.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is a variable of type <img src="ltximg/16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" />, and <img src="ltximg/16_Functions_in_Lean.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="16_Functions_in_Lean.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" /> is any expression of type
+<img src="ltximg/16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" />, then <img src="ltximg/16_Functions_in_Lean.org.temp_7a9009ca7295560f29d9a761413d47aaabee6d66.png" alt="16_Functions_in_Lean.org.temp_7a9009ca7295560f29d9a761413d47aaabee6d66.png" /> is of type <img src="ltximg/16_Functions_in_Lean.org.temp_d461bf489715fb8ee7d544b0747899166c7abf69.png" alt="16_Functions_in_Lean.org.temp_d461bf489715fb8ee7d544b0747899166c7abf69.png" />.</li>
+<li>If <img src="ltximg/16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is of type <img src="ltximg/16_Functions_in_Lean.org.temp_d461bf489715fb8ee7d544b0747899166c7abf69.png" alt="16_Functions_in_Lean.org.temp_d461bf489715fb8ee7d544b0747899166c7abf69.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" alt="16_Functions_in_Lean.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" /> is of type <img src="ltximg/16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="16_Functions_in_Lean.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" />, <img src="ltximg/16_Functions_in_Lean.org.temp_06454307e37c3748290c943d7ccb726eb566063a.png" alt="16_Functions_in_Lean.org.temp_06454307e37c3748290c943d7ccb726eb566063a.png" /> is of
+type <img src="ltximg/16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="16_Functions_in_Lean.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" />.</li>
+</ul>
+<p>
+In addition, simple type theory provides all the means we have in
+first-order logic &#x2014; boolean connectives, quantifiers, and equality
+&#x2013; to build propositions. 
+</p>
+
+<p>
+A function <img src="ltximg/16_Functions_in_Lean.org.temp_1f38fa1ad73ac7b83363d175c8174790b40b04e4.png" alt="16_Functions_in_Lean.org.temp_1f38fa1ad73ac7b83363d175c8174790b40b04e4.png" /> which takes elements of <img src="ltximg/16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> to a type <img src="ltximg/16_Functions_in_Lean.org.temp_1510ac420210136d64f71d28ef6a156ccfc3d04a.png" alt="16_Functions_in_Lean.org.temp_1510ac420210136d64f71d28ef6a156ccfc3d04a.png" />
+is viewed as an object of type <img src="ltximg/16_Functions_in_Lean.org.temp_b41e961e7c2c0d2c32755e022b8d3483822d3860.png" alt="16_Functions_in_Lean.org.temp_b41e961e7c2c0d2c32755e022b8d3483822d3860.png" />. Similarly, a binary
+relation <img src="ltximg/16_Functions_in_Lean.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" alt="16_Functions_in_Lean.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" /> on <img src="ltximg/16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="16_Functions_in_Lean.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> and <img src="ltximg/16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="16_Functions_in_Lean.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> is viewed as an object of type <img src="ltximg/16_Functions_in_Lean.org.temp_b5d143abd895e5c6c1f05128d526b9c08d2cec7b.png" alt="16_Functions_in_Lean.org.temp_b5d143abd895e5c6c1f05128d526b9c08d2cec7b.png" />. What makes higher-order logic "higher order"
+is that we can iterate the function type operation indefinitely. For
+example, if <img src="ltximg/16_Functions_in_Lean.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="16_Functions_in_Lean.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> is the type of natural numbers, <img src="ltximg/16_Functions_in_Lean.org.temp_921c5bc048276ecc70cffea8961901d35c97e8b2.png" alt="16_Functions_in_Lean.org.temp_921c5bc048276ecc70cffea8961901d35c97e8b2.png" />
+denotes the type of functions from the natural numbers to the natural
+numbers, and <img src="ltximg/16_Functions_in_Lean.org.temp_cae439ef43ec21e2b0ffead5a88133f7f299373a.png" alt="16_Functions_in_Lean.org.temp_cae439ef43ec21e2b0ffead5a88133f7f299373a.png" /> denotes the type of functions
+<img src="ltximg/16_Functions_in_Lean.org.temp_d7e909865ce7f703a7bdc7a8963e0d81665b0319.png" alt="16_Functions_in_Lean.org.temp_d7e909865ce7f703a7bdc7a8963e0d81665b0319.png" /> which take a function as argument, and returns a natural number.
+</p>
+
+<p>
+We have not specified the syntax and rules of higher-order logic very
+carefully. This is done in a number of more advanced logic
+textbooks. The fragment of higher-order logic which allows only
+functions and relations on the basic types (without iterating these
+constructions) is known as second-order logic.
+</p>
+
+<p>
+These notions should seem familiar; we have been using these
+constructions, with similar notation, in Lean. Indeed, Lean's logic is
+an even more elaborate and expressive system of logic, which fully subsumes
+all the notions of higher-order logic we have discussed here.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1b8c33c" class="outline-3">
+<h3 id="org1b8c33c"><span class="section-number-3"> 16.3</span> Functions in Lean</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+The fact that the notions we have been discussing have such a
+straightforward logical form means that it is easy to define them in
+Lean. The main difference between the formal representation in Lean
+and the informal representation above is that, in Lean, we distinguish
+between a type <code>X</code> and a subset <code>A : set X</code> of that type.
+</p>
+
+<p>
+In Lean's library, composition and identity are defined as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-1' mode="ace/mode/lean" readonly="true">variables {X Y Z : Type}
+
+definition comp (f : Y → Z) (g : X → Y) : X → Z :=
+λx, f (g x)
+
+infixr  ` ∘ ` := comp
+
+definition id (x : X) : X :=
+x</juicy-ace-editor><div id='lean-full-code-1' style='display:none'>namespace hide
+variables {X Y Z : Type}
+
+definition comp (f : Y → Z) (g : X → Y) : X → Z :=
+λx, f (g x)
+
+infixr  ` ∘ ` := comp
+
+definition id (x : X) : X :=
+x
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-1').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Ordinarily, to use these definitions the notation, you use the command
+<code>open function</code>. We omit this command here, because we are duplicating
+the definitions, for expository purposes.
+</p>
+
+<p>
+Ordinarily, we use <code>funext</code> (for "function extensionality") to prove
+that two functions are equal.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-2' mode="ace/mode/lean" readonly="true">example (f g : X → Y) (H : ∀ x, f x = g x) : f = g := 
+funext H</juicy-ace-editor><div id='lean-full-code-2' style='display:none'>variables {X Y : Type}
+
+example (f g : X → Y) (H : ∀ x, f x = g x) : f = g := 
+funext H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-2').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+But Lean can prove some basic identities by simply unfolding
+definitions and simplifying expressions, using reflexivity.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-3' mode="ace/mode/lean" readonly="true">lemma left_id (f : X → Y) : id ∘ f = f := rfl
+
+lemma right_id (f : X → Y) : f ∘ id = f := rfl
+
+theorem comp.assoc (f : Z → W) (g : Y → Z) (h : X → Y) : 
+  (f ∘ g) ∘ h = f ∘ (g ∘ h) := rfl
+
+theorem comp.left_id (f : X → Y) : id ∘ f = f := rfl
+
+theorem comp.right_id (f : X → Y) : f ∘ id = f := rfl</juicy-ace-editor><div id='lean-full-code-3' style='display:none'>variables {X Y Z W : Type}
+
+definition comp (f : Y → Z) (g : X → Y) : X → Z :=
+λ x, f (g x)
+
+infixr  ` ∘ ` := comp
+
+lemma left_id (f : X → Y) : id ∘ f = f := rfl
+
+lemma right_id (f : X → Y) : f ∘ id = f := rfl
+
+theorem comp.assoc (f : Z → W) (g : Y → Z) (h : X → Y) : 
+  (f ∘ g) ∘ h = f ∘ (g ∘ h) := rfl
+
+theorem comp.left_id (f : X → Y) : id ∘ f = f := rfl
+
+theorem comp.right_id (f : X → Y) : f ∘ id = f := rfl
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-3').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+We can define what it means for <img src="ltximg/16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="16_Functions_in_Lean.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> to be injective, surjective, or
+bijective:
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-4' mode="ace/mode/lean" readonly="true">definition injective (f : X → Y) : Prop := ∀ ⦃x₁ x₂⦄, f x₁ = f x₂ → x₁ = x₂
+
+definition surjective (f : X → Y) : Prop := ∀ y, ∃ x, f x = y
+
+definition bijective (f : X → Y) := injective f ∧ surjective f</juicy-ace-editor><div id='lean-full-code-4' style='display:none'>variables {X Y Z : Type}
+
+definition comp (f : Y → Z) (g : X → Y) : X → Z :=
+λ x, f (g x)
+
+infixr  ` ∘ ` := comp
+
+definition injective (f : X → Y) : Prop := ∀ ⦃x₁ x₂⦄, f x₁ = f x₂ → x₁ = x₂
+
+definition surjective (f : X → Y) : Prop := ∀ y, ∃ x, f x = y
+
+definition bijective (f : X → Y) := injective f ∧ surjective f
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-4').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Marking the variables <code>x₁</code> and <code>x₂</code> implicit in the definition of
+<code>injective</code> means that we do not have to write them as
+often. Specifically, given <code>H : injective f</code>, and <code>H₁ x₁ : f x₁ = f
+x₂</code>, we write <code>H H₁</code> rather than <code>H x₁ x₂ H₁</code> to show <code>x₁ = x₂</code>.
+</p>
+
+<p>
+We can then prove that the identity function is bijective:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-5' mode="ace/mode/lean" readonly="true">theorem injective_id : injective (@id X) := 
+take x₁ x₂, 
+assume H : id x₁ = id x₂, 
+show x₁ = x₂, from H
+
+theorem surjective_id : surjective (@id X) := 
+take y, 
+show ∃ x, id x = y, from exists.intro y rfl
+
+theorem bijective_id : bijective (@id X) := 
+and.intro injective_id surjective_id</juicy-ace-editor><div id='lean-full-code-5' style='display:none'>variables {X Y Z : Type}
+
+definition comp (f : Y → Z) (g : X → Y) : X → Z :=
+λ x, f (g x)
+
+infixr  ` ∘ ` := comp
+
+definition injective (f : X → Y) : Prop := ∀ ⦃x₁ x₂⦄, f x₁ = f x₂ → x₁ = x₂
+
+definition surjective (f : X → Y) : Prop := ∀ y, ∃ x, f x = y
+
+definition bijective (f : X → Y) := injective f ∧ surjective f
+
+theorem injective_id : injective (@id X) := 
+take x₁ x₂, 
+assume H : id x₁ = id x₂, 
+show x₁ = x₂, from H
+
+theorem surjective_id : surjective (@id X) := 
+take y, 
+show ∃ x, id x = y, from exists.intro y rfl
+
+theorem bijective_id : bijective (@id X) := 
+and.intro injective_id surjective_id
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-5').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+More interestingly, we can prove that the composition of injective
+functions is injective, and so on.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-6' mode="ace/mode/lean" readonly="true">theorem injective_comp {g : Y → Z} {f : X → Y} 
+    (Hg : injective g) (Hf : injective f) :
+  injective (g ∘ f) :=
+take x₁ x₂, 
+suppose (g ∘ f) x₁ = (g ∘ f) x₂, 
+have f x₁ = f x₂, from Hg this,
+show x₁ = x₂, from Hf this
+
+theorem surjective_comp {g : Y → Z} {f : X → Y} 
+    (Hg : surjective g) (Hf : surjective f) :
+  surjective (g ∘ f) :=
+take z,
+obtain y (Hy : g y = z), from Hg z,
+obtain x (Hx : f x = y), from Hf y,
+have g (f x) = z, from eq.subst (eq.symm Hx) Hy,
+show ∃ x, g (f x) = z, from exists.intro x this
+
+theorem bijective_comp {g : Y → Z} {f : X → Y} 
+    (Hg : bijective g) (Hf : bijective f) :
+  bijective (g ∘ f) :=
+obtain Hginj Hgsurj, from Hg,
+obtain Hfinj Hfsurj, from Hf,
+and.intro (injective_comp Hginj Hfinj) (surjective_comp Hgsurj Hfsurj)</juicy-ace-editor><div id='lean-full-code-6' style='display:none'>variables {X Y Z : Type}
+
+definition comp (f : Y → Z) (g : X → Y) : X → Z :=
+λ x, f (g x)
+
+infixr  ` ∘ ` := comp
+
+definition injective (f : X → Y) : Prop := ∀ ⦃x₁ x₂⦄, f x₁ = f x₂ → x₁ = x₂
+
+definition surjective (f : X → Y) : Prop := ∀ y, ∃ x, f x = y
+
+definition bijective (f : X → Y) := injective f ∧ surjective f
+
+theorem injective_comp {g : Y → Z} {f : X → Y} 
+    (Hg : injective g) (Hf : injective f) :
+  injective (g ∘ f) :=
+take x₁ x₂, 
+suppose (g ∘ f) x₁ = (g ∘ f) x₂, 
+have f x₁ = f x₂, from Hg this,
+show x₁ = x₂, from Hf this
+
+theorem surjective_comp {g : Y → Z} {f : X → Y} 
+    (Hg : surjective g) (Hf : surjective f) :
+  surjective (g ∘ f) :=
+take z,
+obtain y (Hy : g y = z), from Hg z,
+obtain x (Hx : f x = y), from Hf y,
+have g (f x) = z, from eq.subst (eq.symm Hx) Hy,
+show ∃ x, g (f x) = z, from exists.intro x this
+
+theorem bijective_comp {g : Y → Z} {f : X → Y} 
+    (Hg : bijective g) (Hf : bijective f) :
+  bijective (g ∘ f) :=
+obtain Hginj Hgsurj, from Hg,
+obtain Hfinj Hfsurj, from Hf,
+and.intro (injective_comp Hginj Hfinj) (surjective_comp Hgsurj Hfsurj)
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-6').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+The notions of left and right inverse are defined in the expected way.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-7' mode="ace/mode/lean" readonly="true">-- g is a left inverse to f
+definition left_inverse (g : Y → X) (f : X → Y) : Prop := ∀ x, g (f x) = x
+
+-- g is a right inverse to f
+definition right_inverse (g : Y → X) (f : X → Y) : Prop := left_inverse f g</juicy-ace-editor><div id='lean-full-code-7' style='display:none'>variables {X Y : Type}
+
+-- g is a left inverse to f
+definition left_inverse (g : Y → X) (f : X → Y) : Prop := ∀ x, g (f x) = x
+
+-- g is a right inverse to f
+definition right_inverse (g : Y → X) (f : X → Y) : Prop := left_inverse f g
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-7').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+In particular, composing with a left or right inverse yields the
+identity.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-8' mode="ace/mode/lean" readonly="true">definition id_of_left_inverse {g : Y → X} {f : X → Y} : left_inverse g f → g ∘ f = id :=
+assume H, funext H
+
+definition id_of_right_inverse {g : Y → X} {f : X → Y} : right_inverse g f → f ∘ g = id :=
+assume H, funext H</juicy-ace-editor><div id='lean-full-code-8' style='display:none'>variables {X Y Z : Type}
+
+definition comp (f : Y → Z) (g : X → Y) : X → Z :=
+λ x, f (g x)
+
+infixr  ` ∘ ` := comp
+
+definition left_inverse (g : Y → X) (f : X → Y) : Prop := ∀ x, g (f x) = x
+
+definition right_inverse (g : Y → X) (f : X → Y) : Prop := left_inverse f g
+
+definition id_of_left_inverse {g : Y → X} {f : X → Y} : left_inverse g f → g ∘ f = id :=
+assume H, funext H
+
+definition id_of_right_inverse {g : Y → X} {f : X → Y} : right_inverse g f → f ∘ g = id :=
+assume H, funext H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-8').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Notice that we need to use <code>funext</code> to show the equality of functions.
+</p>
+
+<p>
+The following shows that if a function has a left inverse, then it is
+injective, and if it has a right inverse, then it is surjective.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-9' mode="ace/mode/lean" readonly="true">theorem injective_of_left_inverse {g : Y → X} {f : X → Y} : 
+  left_inverse g f → injective f :=
+assume h, take x₁ x₂, assume feq,
+calc x₁ = g (f x₁) : by rewrite h
+    ... = g (f x₂) : feq
+    ... = x₂       : by rewrite h
+
+theorem surjective_of_right_inverse {g : Y  → X} {f : X → Y} : 
+  right_inverse g f → surjective f :=
+assume h, take y,
+let  x : X := g y in
+have f x = y, from calc
+  f x  = (f (g y))    : rfl
+   ... = y            : h y,
+show ∃ x, f x = y, from exists.intro x this</juicy-ace-editor><div id='lean-full-code-9' style='display:none'>variables {X Y : Type}
+
+definition injective (f : X → Y) : Prop := ∀ ⦃x₁ x₂⦄, f x₁ = f x₂ → x₁ = x₂
+
+definition surjective (f : X → Y) : Prop := ∀ y, ∃ x, f x = y
+
+definition left_inverse (g : Y → X) (f : X → Y) : Prop := ∀x, g (f x) = x
+
+definition right_inverse (g : Y → X) (f : X → Y) : Prop := left_inverse f g
+
+theorem injective_of_left_inverse {g : Y → X} {f : X → Y} : 
+  left_inverse g f → injective f :=
+assume h, take x₁ x₂, assume feq,
+calc x₁ = g (f x₁) : by rewrite h
+    ... = g (f x₂) : feq
+    ... = x₂       : by rewrite h
+
+theorem surjective_of_right_inverse {g : Y  → X} {f : X → Y} : 
+  right_inverse g f → surjective f :=
+assume h, take y,
+let  x : X := g y in
+have f x = y, from calc
+  f x  = (f (g y))    : rfl
+   ... = y            : h y,
+show ∃ x, f x = y, from exists.intro x this
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-9').text());">Try it yourself &raquo;</button></div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org85056c5" class="outline-3">
+<h3 id="org85056c5"><span class="section-number-3"> 16.4</span> Defining the Inverse Classically</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+All the theorems listed in the previous section are found in the Lean
+library, and are available to you when you open the function namespace
+with <code>open function</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-10' mode="ace/mode/lean" readonly="true">open function
+
+check comp
+check left_inverse
+check has_right_inverse
+</juicy-ace-editor><div id='lean-full-code-10' style='display:none'>open function
+
+check comp
+check left_inverse
+check has_right_inverse
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-10').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Defining inverse functions, however, requires classical reasoning,
+which we get by opening the classical namespace:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-11' mode="ace/mode/lean" readonly="true">open classical
+
+section
+  variables A B : Type
+  variable P : A → Prop
+  variable R : A → B → Prop
+
+  example : (∀ x, ∃ y, R x y) → ∃ f, ∀ x, R x (f x) :=
+  axiom_of_choice
+
+  example (H : ∃ x, P x) : P (some H) :=
+  some_spec H
+end
+</juicy-ace-editor><div id='lean-full-code-11' style='display:none'>open classical
+
+section
+  variables A B : Type
+  variable P : A → Prop
+  variable R : A → B → Prop
+
+  example : (∀ x, ∃ y, R x y) → ∃ f, ∀ x, R x (f x) :=
+  axiom_of_choice
+
+  example (H : ∃ x, P x) : P (some H) :=
+  some_spec H
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-11').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The axiom of choice tells us that if, for every <code>x : X</code>, there is a
+<code>y : Y</code> satisfying <code>R x y</code>, then there is a function <code>f : X → Y</code>
+which, for every <code>x</code> chooses such a <code>y</code>. In Lean, this "axiom" is
+proved using a classical construction, the <code>some</code> function (sometimes
+called "the indefinite description operator") which, given that there
+is some <code>x</code> satisfying <code>P x</code>, returns such an <code>x</code>. With these
+constructions, the inverse function is defined as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-12' mode="ace/mode/lean" readonly="true">open classical function
+
+variables {X Y : Type}
+
+noncomputable definition inverse (f : X → Y) (default : X) : Y → X :=
+λ y, if H : ∃ x, f x = y then some H else default
+</juicy-ace-editor><div id='lean-full-code-12' style='display:none'>open classical function
+
+variables {X Y : Type}
+
+noncomputable definition inverse (f : X → Y) (default : X) : Y → X :=
+λ y, if H : ∃ x, f x = y then some H else default
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-12').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Lean requires us to acknowledge that the definition is not
+computational, since, first, it may not be algorithmically
+possible to decide whether or not condition <code>H</code> holds, and even if it
+does, it may not be algorithmically possible to find a suitable value
+of <code>x</code>.
+</p>
+
+<p>
+Below, the proposition <code>inverse_of_exists</code> asserts that <code>inverse</code>
+meets its specification, and the subsequent theorem shows that if <code>f</code>
+is injective, then the <code>inverse</code> function really is a left inverse.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-13' mode="ace/mode/lean" readonly="true">proposition inverse_of_exists (f : X → Y) (default : X) (y : Y) 
+  (H : ∃ x, f x = y) :
+f (inverse f default y) = y :=
+have H1 : inverse f default y = some H, from dif_pos H,
+have H2 : f (some H) = y, from some_spec H,
+eq.subst (eq.symm H1) H2
+
+theorem is_left_inverse_of_injective (f : X → Y) (default : X) 
+  (injf : injective f) :
+left_inverse (inverse f default) f :=
+let finv := (inverse f default) in
+take x,
+have H1 : ∃ x', f x' = f x, from exists.intro x rfl,
+have H2 : f (finv (f x)) = f x, from inverse_of_exists f default (f x) H1,
+show finv (f x) = x, from injf H2</juicy-ace-editor><div id='lean-full-code-13' style='display:none'>open classical function
+
+variables {X Y : Type}
+
+noncomputable definition inverse (f : X → Y) (default : X) : Y → X :=
+λ y, if H : ∃ x, f x = y then some H else default
+
+proposition inverse_of_exists (f : X → Y) (default : X) (y : Y) 
+  (H : ∃ x, f x = y) :
+f (inverse f default y) = y :=
+have H1 : inverse f default y = some H, from dif_pos H,
+have H2 : f (some H) = y, from some_spec H,
+eq.subst (eq.symm H1) H2
+
+theorem is_left_inverse_of_injective (f : X → Y) (default : X) 
+  (injf : injective f) :
+left_inverse (inverse f default) f :=
+let finv := (inverse f default) in
+take x,
+have H1 : ∃ x', f x' = f x, from exists.intro x rfl,
+have H2 : f (finv (f x)) = f x, from inverse_of_exists f default (f x) H1,
+show finv (f x) = x, from injf H2
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-13').text());">Try it yourself &raquo;</button></div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5077615" class="outline-3">
+<h3 id="org5077615"><span class="section-number-3"> 16.5</span> Functions and Sets in Lean</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+In <a href="#" onclick="myModule.loadTutorial('07_First_Order_Logic.html', 'Relativization_and_Sorts')">Section 7.4</a> we saw how to represent relativized universal and
+existential quantifiers when formalizing phrases like "every prime
+number greater than two is odd" and "some prime number is even." In a
+similar way, we can relativize statements to sets. In symbolic logic,
+the expression <img src="ltximg/16_Functions_in_Lean.org.temp_1f72d597267d82d3af7e77f56000caf89876e563.png" alt="16_Functions_in_Lean.org.temp_1f72d597267d82d3af7e77f56000caf89876e563.png" /> abbreviates <img src="ltximg/16_Functions_in_Lean.org.temp_84d72b6bc5c7fa973f85d899cd5427af08c7cbd6.png" alt="16_Functions_in_Lean.org.temp_84d72b6bc5c7fa973f85d899cd5427af08c7cbd6.png" />, and <img src="ltximg/16_Functions_in_Lean.org.temp_e8668eaaa9af0ff25771459e0939c26942dfe3b9.png" alt="16_Functions_in_Lean.org.temp_e8668eaaa9af0ff25771459e0939c26942dfe3b9.png" /> abbreviates <img src="ltximg/16_Functions_in_Lean.org.temp_9d9acf9abb1301d096c92aebf3bae96abd08c482.png" alt="16_Functions_in_Lean.org.temp_9d9acf9abb1301d096c92aebf3bae96abd08c482.png" />.
+</p>
+
+<p>
+Lean's library also defines notation for relativized quantifiers,
+though for notational reasons, we need to use a subscripted 0:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-14' mode="ace/mode/lean" readonly="true">import data.set
+open set
+
+variables (X : Type) (A : set X) (P : X → Prop)
+
+example (H : ∀ x, x ∈ A → P x) : ∀₀ x ∈ A, P x := H
+example (H : ∃ x, x ∈ A ∧ P x) : ∃₀ x ∈ A, P x := H
+</juicy-ace-editor><div id='lean-full-code-14' style='display:none'>import data.set
+open set
+
+variables (X : Type) (A : set X) (P : X → Prop)
+
+example (H : ∀ x, x ∈ A → P x) : ∀₀ x ∈ A, P x := H
+example (H : ∃ x, x ∈ A ∧ P x) : ∃₀ x ∈ A, P x := H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-14').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+In the definition of the bounded quantifiers above, the variable <code>x</code>
+is marked implicit. So, for example, we can apply the hypothesis <code>H :
+∀₀ x ∈ A, P x</code> as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-15' mode="ace/mode/lean" readonly="true">example (H : ∀₀ x ∈ A, P x) (x : X) (H1 : x ∈ A) : P x := H H1</juicy-ace-editor><div id='lean-full-code-15' style='display:none'>import data.set
+open set 
+
+variables (X : Type) (A : set X) (P : X → Prop)
+
+example (H : ∀₀ x ∈ A, P x) (x : X) (H1 : x ∈ A) : P x := H H1
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-15').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The expression <code>maps_to f A B</code> asserts that <code>f</code> maps elements of the
+set <code>A</code> to the set <code>B</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-16' mode="ace/mode/lean" readonly="true">import data.set
+open set function
+
+variables X Y : Type
+variables (A : set X) (B : set Y)
+variable (f : X → Y)
+
+example (H : ∀₀ x ∈ A, f x ∈ B) : maps_to f A B := H
+</juicy-ace-editor><div id='lean-full-code-16' style='display:none'>import data.set
+open set function
+
+variables X Y : Type
+variables (A : set X) (B : set Y)
+variable (f : X → Y)
+
+example (H : ∀₀ x ∈ A, f x ∈ B) : maps_to f A B := H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-16').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The expression <code>inj_on f A</code> asserts that <code>f</code> is injective on <code>A</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-17' mode="ace/mode/lean" readonly="true">example (H : ∀ x₁ x₂, x₁ ∈ A → x₂ ∈ A → f x₁ = f x₂ → x₁ = x₂) : 
+  inj_on f A := H</juicy-ace-editor><div id='lean-full-code-17' style='display:none'>import data.set
+open set function
+
+variables X Y : Type
+variable (A : set X)
+variable (f : X → Y)
+
+example (H : ∀ x₁ x₂, x₁ ∈ A → x₂ ∈ A → f x₁ = f x₂ → x₁ = x₂) : 
+  inj_on f A := H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-17').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The variables <code>x₁</code> and <code>x₂</code> are marked implicit in the definition of
+<code>inj_on</code>, so that the hypothesis is applied as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-18' mode="ace/mode/lean" readonly="true">example (Hinj : inj_on f A) (x₁ x₂ : X) (H1 : x₁ ∈ A) (H2 : x₂ ∈ A)
+  (H : f x₁ = f x₂) : x₁ = x₂ :=
+Hinj H1 H2 H</juicy-ace-editor><div id='lean-full-code-18' style='display:none'>import data.set
+open set function
+
+variables X Y : Type
+variable (A : set X)
+variable (f : X → Y)
+
+example (Hinj : inj_on f A) (x₁ x₂ : X) (H1 : x₁ ∈ A) (H2 : x₂ ∈ A)
+  (H : f x₁ = f x₂) : x₁ = x₂ :=
+Hinj H1 H2 H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-18').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The expression <code>surj_on f A B</code> asserts that, viewed as a function
+defined on elements of <code>A</code>, the function <code>f</code> is surjective onto the
+set <code>B</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-19' mode="ace/mode/lean" readonly="true">example (H : ∀ x₁ x₂, x₁ ∈ A → x₂ ∈ A → f x₁ = f x₂ → x₁ = x₂) : 
+  inj_on f A := H</juicy-ace-editor><div id='lean-full-code-19' style='display:none'>import data.set
+open set function
+
+variables X Y : Type
+variable (A : set X)
+variable (f : X → Y)
+
+example (H : ∀ x₁ x₂, x₁ ∈ A → x₂ ∈ A → f x₁ = f x₂ → x₁ = x₂) : 
+  inj_on f A := H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-19').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+It is synonymous with the assertion that <code>B</code> is a subset of the image
+of <code>A</code>, which is written <code>f ' A</code>, or, equivalently, <code>image f A</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-20' mode="ace/mode/lean" readonly="true">example (H : B ⊆ f ' A) : surj_on f A B := H</juicy-ace-editor><div id='lean-full-code-20' style='display:none'>import data.set
+open set function
+
+variables X Y : Type
+variables (A  : set X) (B : set Y)
+variable (f : X → Y)
+
+example (H : B ⊆ f ' A) : surj_on f A B := H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-20').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+With these notions in hand, we can prove that the composition of
+injective functions is injective. The proof is similar to the one
+above, though now we have to be more careful to relativize claims to
+<code>A</code> and <code>B</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-21' mode="ace/mode/lean" readonly="true">theorem inj_on_comp (fAB : maps_to f A B) (Hg : inj_on g B) (Hf: inj_on f A) :
+  inj_on (g ∘ f) A :=
+take x1 x2 : X,
+assume x1A : x1 ∈ A,
+assume x2A : x2 ∈ A,
+have  fx1B : f x1 ∈ B, from fAB x1A,
+have  fx2B : f x2 ∈ B, from fAB x2A,
+assume  H1 : g (f x1) = g (f x2),
+have    H2 : f x1 = f x2, from Hg fx1B fx2B H1,
+show x1 = x2, from Hf x1A x2A H2</juicy-ace-editor><div id='lean-full-code-21' style='display:none'>import data.set
+open set function
+
+variables X Y Z : Type
+variables (A : set X) (B : set Y)
+variables (f : X → Y) (g : Y → Z)
+
+theorem inj_on_comp (fAB : maps_to f A B) (Hg : inj_on g B) (Hf: inj_on f A) :
+  inj_on (g ∘ f) A :=
+take x1 x2 : X,
+assume x1A : x1 ∈ A,
+assume x2A : x2 ∈ A,
+have  fx1B : f x1 ∈ B, from fAB x1A,
+have  fx2B : f x2 ∈ B, from fAB x2A,
+assume  H1 : g (f x1) = g (f x2),
+have    H2 : f x1 = f x2, from Hg fx1B fx2B H1,
+show x1 = x2, from Hf x1A x2A H2
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-21').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+We can similarly prove that the composition of surjective functions is
+surjective:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-22' mode="ace/mode/lean" readonly="true">theorem surj_on_comp (Hg : surj_on g B C) (Hf: surj_on f A B) :
+  surj_on (g ∘ f) A C :=
+take z,
+assume zc : z ∈ C,
+obtain y (H1 : y ∈ B ∧ g y = z), from Hg zc,
+obtain x (H2 : x ∈ A ∧ f x = y), from Hf (and.left H1),
+show ∃x, x ∈ A ∧ g (f x) = z, from
+  exists.intro x
+    (and.intro
+      (and.left H2)
+      (calc
+	g (f x) = g y : {and.right H2}
+	    ... = z   : and.right H1))</juicy-ace-editor><div id='lean-full-code-22' style='display:none'>import data.set
+open set function
+
+variables X Y Z : Type
+variables (A : set X) (B : set Y) (C : set Z)
+variables (f : X → Y) (g : Y → Z)
+
+theorem surj_on_comp (Hg : surj_on g B C) (Hf: surj_on f A B) :
+  surj_on (g ∘ f) A C :=
+take z,
+assume zc : z ∈ C,
+obtain y (H1 : y ∈ B ∧ g y = z), from Hg zc,
+obtain x (H2 : x ∈ A ∧ f x = y), from Hf (and.left H1),
+show ∃x, x ∈ A ∧ g (f x) = z, from
+  exists.intro x
+    (and.intro
+      (and.left H2)
+      (calc
+	g (f x) = g y : {and.right H2}
+	    ... = z   : and.right H1))
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-22').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The following shows that the image of a union is the union of images:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-23' mode="ace/mode/lean" readonly="true">theorem image_union : f ' (A₁ ∪ A₂) =f ' A₁ ∪ f ' A₂ :=
+ext (take y, iff.intro
+  (assume H : y ∈ image f (A₁ ∪ A₂),
+    obtain x [(xA₁A₂ : x ∈ A₁ ∪ A₂) (fxy : f x = y)], from H,
+    or.elim xA₁A₂
+      (assume xA₁, or.inl (mem_image xA₁ fxy))
+      (assume xA₂, or.inr (mem_image xA₂ fxy)))
+  (assume H : y ∈ image f A₁ ∪ image f A₂,
+    or.elim H
+      (assume yifA₁ : y ∈ image f A₁,
+	obtain x [(xA₁ : x ∈ A₁) (fxy : f x = y)], from yifA₁,
+	mem_image (or.inl xA₁) fxy)
+      (assume yifA₂ : y ∈ image f A₂,
+	obtain x [(xA₂ : x ∈ A₂) (fxy : f x = y)], from yifA₂,
+	mem_image (or.inr xA₂) fxy)))</juicy-ace-editor><div id='lean-full-code-23' style='display:none'>import data.set
+open set function
+
+variables X Y : Type
+variables (A₁ A₂ : set X)
+variable (f : X → Y)
+
+theorem image_union : f ' (A₁ ∪ A₂) =f ' A₁ ∪ f ' A₂ :=
+ext (take y, iff.intro
+  (assume H : y ∈ image f (A₁ ∪ A₂),
+    obtain x [(xA₁A₂ : x ∈ A₁ ∪ A₂) (fxy : f x = y)], from H,
+    or.elim xA₁A₂
+      (assume xA₁, or.inl (mem_image xA₁ fxy))
+      (assume xA₂, or.inr (mem_image xA₂ fxy)))
+  (assume H : y ∈ image f A₁ ∪ image f A₂,
+    or.elim H
+      (assume yifA₁ : y ∈ image f A₁,
+	obtain x [(xA₁ : x ∈ A₁) (fxy : f x = y)], from yifA₁,
+	mem_image (or.inl xA₁) fxy)
+      (assume yifA₂ : y ∈ image f A₂,
+	obtain x [(xA₂ : x ∈ A₂) (fxy : f x = y)], from yifA₂,
+	mem_image (or.inr xA₂) fxy)))
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-23').text());">Try it yourself &raquo;</button></div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org59a8fb6" class="outline-3">
+<h3 id="org59a8fb6"><span class="section-number-3"> 16.6</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li><p>
+Fill in the <code>sorry</code>'s in the last three proofs below.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-24' mode="ace/mode/lean" readonly="true">import data.int
+open function int algebra
+
+definition f (x : ℤ) : ℤ := x + 3
+definition g (x : ℤ) : ℤ := -x
+definition h (x : ℤ) : ℤ := 2 * x + 3
+
+example : injective f :=
+take x1 x2,
+assume H1 : x1 + 3 = x2 + 3,   -- Lean knows this is the same as f x1 = f x2
+show x1 = x2, from eq_of_add_eq_add_right H1
+
+example : surjective f :=
+take y,
+have H1 : f (y - 3) = y, from calc
+  f (y - 3) = (y - 3) + 3 : rfl
+	... = y           : sub_add_cancel,
+show ∃ x, f x = y, from exists.intro (y - 3) H1
+
+example (x y : ℤ) (H : 2 * x = 2 * y) : x = y :=
+have H1 : 2 ≠ (0 : ℤ), from dec_trivial,  -- this tells Lean to figure it out itself
+show x = y, from eq_of_mul_eq_mul_left H1 H
+
+example (x : ℤ) : -(-x) = x := neg_neg x
+
+example (A B : Type) (u : A → B) (v : B → A) (H : left_inverse u v) :
+  ∀ x, u (v x) = x :=
+H
+
+example (A B : Type) (u : A → B) (v : B → A) (H : left_inverse u v) :
+  right_inverse v u :=
+H
+
+-- fill in the sorry's in the following proofs
+
+example : injective h :=
+sorry
+
+example : surjective g :=
+sorry
+
+example (A B : Type) (u : A → B) (v1 : B → A) (v2 : B → A)
+  (H1 : left_inverse v1 u) (H2 : right_inverse v2 u) : v1 = v2 :=
+funext
+  (take x,
+    calc
+      v1 x = v1 (u (v2 x)) : sorry
+       ... = v2 x          : sorry)
+</juicy-ace-editor><div id='lean-full-code-24' style='display:none'>import data.int
+open function int algebra
+
+definition f (x : ℤ) : ℤ := x + 3
+definition g (x : ℤ) : ℤ := -x
+definition h (x : ℤ) : ℤ := 2 * x + 3
+
+example : injective f :=
+take x1 x2,
+assume H1 : x1 + 3 = x2 + 3,   -- Lean knows this is the same as f x1 = f x2
+show x1 = x2, from eq_of_add_eq_add_right H1
+
+example : surjective f :=
+take y,
+have H1 : f (y - 3) = y, from calc
+  f (y - 3) = (y - 3) + 3 : rfl
+	... = y           : sub_add_cancel,
+show ∃ x, f x = y, from exists.intro (y - 3) H1
+
+example (x y : ℤ) (H : 2 * x = 2 * y) : x = y :=
+have H1 : 2 ≠ (0 : ℤ), from dec_trivial,  -- this tells Lean to figure it out itself
+show x = y, from eq_of_mul_eq_mul_left H1 H
+
+example (x : ℤ) : -(-x) = x := neg_neg x
+
+example (A B : Type) (u : A → B) (v : B → A) (H : left_inverse u v) :
+  ∀ x, u (v x) = x :=
+H
+
+example (A B : Type) (u : A → B) (v : B → A) (H : left_inverse u v) :
+  right_inverse v u :=
+H
+
+-- fill in the sorry's in the following proofs
+
+example : injective h :=
+sorry
+
+example : surjective g :=
+sorry
+
+example (A B : Type) (u : A → B) (v1 : B → A) (v2 : B → A)
+  (H1 : left_inverse v1 u) (H2 : right_inverse v2 u) : v1 = v2 :=
+funext
+  (take x,
+    calc
+      v1 x = v1 (u (v2 x)) : sorry
+       ... = v2 x          : sorry)
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-24').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Fill in the <code>sorry</code> in the proof below.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-25' mode="ace/mode/lean" readonly="true">import data.set
+open function set
+
+variables X Y : Type
+variable  f : X → Y
+variables A B : set X
+
+example : f ' (A ∪ B) = f ' A ∪ f ' B :=
+eq_of_subset_of_subset
+  (take y,
+    assume H1 : y ∈ f ' (A ∪ B),
+    obtain x [(H2 : x ∈ A ∪ B) (H3 : f x = y)], from H1,
+    or.elim H2
+      (assume H4 : x ∈ A,
+	have H5 : y ∈ f ' A, from mem_image H4 H3,
+	show y ∈ f ' A ∪ f 'B, from or.inl H5)
+      (assume H4 : x ∈ B,
+	have H5 : y ∈ f ' B, from mem_image H4 H3,
+	show y ∈ f ' A ∪ f ' B, from or.inr H5))
+  (take y,
+    assume H2 : y ∈ f ' A ∪ f ' B,
+    or.elim H2
+      (assume H3 : y ∈ f ' A,
+	obtain x [(H4 : x ∈ A) (H5 : f x = y)], from H3,
+	have H6 : x ∈ A ∪ B, from or.inl H4,
+	show y ∈ f ' (A ∪ B), from mem_image H6 H5)
+      (assume H3 : y ∈ f ' B,
+	obtain x [(H4 : x ∈ B) (H5 : f x = y)], from H3,
+	have H6 : x ∈ A ∪ B, from or.inr H4,
+	show y ∈ f ' (A ∪ B), from mem_image H6 H5))
+
+-- remember, x ∈ A ∩ B is the same as x ∈ A ∧ x ∈ B
+example (x : X) (H1 : x ∈ A) (H2 : x ∈ B) : x ∈ A ∩ B :=
+and.intro H1 H2
+
+example (x : X) (H1 : x ∈ A ∩ B) : x ∈ A :=
+and.left H1
+
+-- Fill in the proof below.
+-- (It should take about 8 lines.)
+
+example : f ' (A ∩ B) ⊆ f ' A ∩ f ' B :=
+take y,
+assume H1 : y ∈ f ' (A ∩ B),
+show y ∈ f ' A ∩ f ' B, from sorry
+</juicy-ace-editor><div id='lean-full-code-25' style='display:none'>import data.set
+open function set
+
+variables X Y : Type
+variable  f : X → Y
+variables A B : set X
+
+example : f ' (A ∪ B) = f ' A ∪ f ' B :=
+eq_of_subset_of_subset
+  (take y,
+    assume H1 : y ∈ f ' (A ∪ B),
+    obtain x [(H2 : x ∈ A ∪ B) (H3 : f x = y)], from H1,
+    or.elim H2
+      (assume H4 : x ∈ A,
+	have H5 : y ∈ f ' A, from mem_image H4 H3,
+	show y ∈ f ' A ∪ f 'B, from or.inl H5)
+      (assume H4 : x ∈ B,
+	have H5 : y ∈ f ' B, from mem_image H4 H3,
+	show y ∈ f ' A ∪ f ' B, from or.inr H5))
+  (take y,
+    assume H2 : y ∈ f ' A ∪ f ' B,
+    or.elim H2
+      (assume H3 : y ∈ f ' A,
+	obtain x [(H4 : x ∈ A) (H5 : f x = y)], from H3,
+	have H6 : x ∈ A ∪ B, from or.inl H4,
+	show y ∈ f ' (A ∪ B), from mem_image H6 H5)
+      (assume H3 : y ∈ f ' B,
+	obtain x [(H4 : x ∈ B) (H5 : f x = y)], from H3,
+	have H6 : x ∈ A ∪ B, from or.inr H4,
+	show y ∈ f ' (A ∪ B), from mem_image H6 H5))
+
+-- remember, x ∈ A ∩ B is the same as x ∈ A ∧ x ∈ B
+example (x : X) (H1 : x ∈ A) (H2 : x ∈ B) : x ∈ A ∩ B :=
+and.intro H1 H2
+
+example (x : X) (H1 : x ∈ A ∩ B) : x ∈ A :=
+and.left H1
+
+-- Fill in the proof below.
+-- (It should take about 8 lines.)
+
+example : f ' (A ∩ B) ⊆ f ' A ∩ f ' B :=
+take y,
+assume H1 : y ∈ f ' (A ∩ B),
+show y ∈ f ' A ∩ f ' B, from sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-25').text());">Try it yourself &raquo;</button></div>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

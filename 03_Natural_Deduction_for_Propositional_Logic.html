@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 20:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-orgb6cd800" class="outline-2">
+<h2 id="Natural_Deduction_for_Propositional_Logic"><a id="orgb6cd800"></a><span class="section-number-2"> 3</span> Natural Deduction for Propositional Logic</h2>
+<div class="outline-text-2" id="text-Natural_Deduction_for_Propositional_Logic">
+</div>
+
+<div id="outline-container-orgd67f47f" class="outline-3">
+<h3 id="Derivations_in_Natural_Deduction"><a id="orgd67f47f"></a><span class="section-number-3"> 3.1</span> Derivations in Natural Deduction</h3>
+<div class="outline-text-3" id="text-Derivations_in_Natural_Deduction">
+<p>
+We have seen that the language of propositional logic allows us to
+build up expressions from propositional variables <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_dbfeb1525c6641bac8542747bdbdcdff87f2d179.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_dbfeb1525c6641bac8542747bdbdcdff87f2d179.png" />
+using propositional connectives like <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_1304cf6e7eb1dabe66cfa3f7f9322aa62b12ce50.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_1304cf6e7eb1dabe66cfa3f7f9322aa62b12ce50.png" />, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" />, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_56ef8f500c587b8ecabc52cc190fe4f230623b46.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_56ef8f500c587b8ecabc52cc190fe4f230623b46.png" />, and
+<img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_75bef715537945d703b4766c0a0e8b9749c23828.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_75bef715537945d703b4766c0a0e8b9749c23828.png" />. We will now consider a formal deductive system that we can use
+to <i>prove</i> propositional formulas. There are a number of such systems
+on offer; the one will use is called <i>natural deduction</i>, designed by
+Gerhard Gentzen in the 1930's.
+</p>
+
+<p>
+In natural deduction, every proof is a proof from <i>hypotheses</i>. In
+other words, in any proof, there is a finite set of hypotheses <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cc8f91286d7aeda8e817afbd0834a1a2d7211106.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cc8f91286d7aeda8e817afbd0834a1a2d7211106.png" /> and a conclusion <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and what the proof shows is that
+<img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> follows from <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_89c76b0b5151b204a5e4deb37c46194b5579189c.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_89c76b0b5151b204a5e4deb37c46194b5579189c.png" />.
+</p>
+
+<p>
+Like formulas, proofs are built by putting together smaller proofs,
+according to the rules. For instance, the way to read the
+and-introduction rule,
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_4e5e87c2f2772fb7440124a8fdfd66ec2232a8df.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_4e5e87c2f2772fb7440124a8fdfd66ec2232a8df.png" /></p>
+</div>
+<p>
+is as follows: if you have a proof <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_1455edec0683ca806f03f2a1f71882e9d60e47a2.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_1455edec0683ca806f03f2a1f71882e9d60e47a2.png" /> of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> from some hypotheses,
+and you have a proof <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_3de8a36563ace32e183ca67d0a1b7b10d947e73f.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_3de8a36563ace32e183ca67d0a1b7b10d947e73f.png" /> of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> from some hypotheses, then you can
+put them together using this rule to obtain a proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" />,
+which uses all the hypotheses in <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_1455edec0683ca806f03f2a1f71882e9d60e47a2.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_1455edec0683ca806f03f2a1f71882e9d60e47a2.png" /> together with all the hypotheses in
+<img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_3de8a36563ace32e183ca67d0a1b7b10d947e73f.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_3de8a36563ace32e183ca67d0a1b7b10d947e73f.png" />. For example, this is a proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_e6f552d7de93698cc360f5644f0baa6917df1dc3.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_e6f552d7de93698cc360f5644f0baa6917df1dc3.png" /> from three hypotheses, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_3798534fead4259e29d2c00e6cce8dae6806118d.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_3798534fead4259e29d2c00e6cce8dae6806118d.png" /></p>
+</div>
+
+<p>
+One thing that makes natural deduction confusing is that when you put
+together proofs in this way, hypotheses can be eliminated, or, as we
+will say, <i>canceled</i>. For example, we can apply the
+implies-introduction rule to the last proof, and obtain the following
+proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_1b361d02606e577ce474a78170901b3e27ba0940.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_1b361d02606e577ce474a78170901b3e27ba0940.png" /> from only <i>two</i>
+hypotheses, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_efc083dd25db44d2144d7906c6a7b8da1b45a6cc.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_efc083dd25db44d2144d7906c6a7b8da1b45a6cc.png" /></p>
+</div>
+<p>
+Here, we have used the label 1 to indicate the place where the
+hypothesis <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> was canceled. Any label will do, though we will tend to
+use numbers for that purpose. 
+</p>
+
+<p>
+We can continue to cancel the hypothesis <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_eca63e8ce37f41132a15b256ec9ec447add8eaaa.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_eca63e8ce37f41132a15b256ec9ec447add8eaaa.png" /></p>
+</div>
+<p>
+The result is a proof using only the hypothesis <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />. We can continue
+to cancel that hypothesis as well:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_de903799906b08fb3c67b0385c9c0d5e8dc2aa19.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_de903799906b08fb3c67b0385c9c0d5e8dc2aa19.png" /></p>
+</div>
+<p>
+The resulting proof uses no hypothesis at all. In other words, it
+establishes the conclusion outright.
+</p>
+
+<p>
+Notice that in the second step, we canceled two "copies" of the
+hypothesis <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. In natural deduction, we can choose which hypotheses
+to cancel; we could have canceled either one, and left the other
+hypothesis <i>open</i>. In fact, we can also carry out the
+implication-introduction rule and cancel <i>zero</i> hypotheses. For
+example, the following is a short proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" /> from the
+hypothesis <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d10566db6b61fe89bea3e86df5df10682b52b4ba.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d10566db6b61fe89bea3e86df5df10682b52b4ba.png" /></p>
+</div>
+<p>
+In this proof, "zero" copies of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> have are canceled.
+</p>
+
+<p>
+Also notice that although we are using letters like <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />
+as propositional variables, in the proofs above we can replace them by
+any propositional formula. For example, we can replace <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> by the
+formula <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_20d89f7ba67ed45920646f3bb353d0032ad63dbd.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_20d89f7ba67ed45920646f3bb353d0032ad63dbd.png" /> everywhere, and still have correct proofs. In
+some presentations of logic, different letters are used for to stand
+for propositional variables and arbitrary propositional formulas, but
+we will continue to blur the distinction. You can think of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />,
+and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> as standing for propositional variables or formulas, as you
+prefer. If you think of them as propositional variables, just keep in
+mind that in any rule or proof, you can replace every variable by a
+different formula, and still have a valid rule or proof. 
+</p>
+
+<p>
+Finally, notice also that in these examples, we have assumed a special
+rule as the starting point for building proofs. It is called the
+assumption rule, and it looks like this:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_4ebc550ce1791cf51e9ffb87fdbc7ad24052d566.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_4ebc550ce1791cf51e9ffb87fdbc7ad24052d566.png" /></p>
+</div>
+<p>
+What it means is that at any point we are free to simply assume a
+formula, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. The single formula <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> constitutes a one-line proof, and
+the way to read this proof is as follows: assuming <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, we have proved
+<img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+
+<p>
+The remaining rules of inference were given in the last chapter, and
+we summarize them here.
+</p>
+</div>
+
+<div id="outline-container-orgd534379" class="outline-4">
+<h4 id="orgd534379"><span class="section-number-4"> 3.1.1</span> Implication</h4>
+<div class="outline-text-4" id="text-1-1-1">
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_a7150ca049ac7a406ea15e6082ea393453c3946e.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_a7150ca049ac7a406ea15e6082ea393453c3946e.png" /></p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6d3f737" class="outline-4">
+<h4 id="org6d3f737"><span class="section-number-4"> 3.1.2</span> Conjunction</h4>
+<div class="outline-text-4" id="text-1-1-2">
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_0b68faa3cf956346584be68d6817113713c4c2ed.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_0b68faa3cf956346584be68d6817113713c4c2ed.png" /></p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org153c7aa" class="outline-4">
+<h4 id="org153c7aa"><span class="section-number-4"> 3.1.3</span> Negation</h4>
+<div class="outline-text-4" id="text-1-1-3">
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_b50a3366b4a0f9a86dadbc5b88db36271c4fd440.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_b50a3366b4a0f9a86dadbc5b88db36271c4fd440.png" /></p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org29b473c" class="outline-4">
+<h4 id="org29b473c"><span class="section-number-4"> 3.1.4</span> Disjunction</h4>
+<div class="outline-text-4" id="text-1-1-4">
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_959fc9bb16311351d86a48f808dc082faeac3880.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_959fc9bb16311351d86a48f808dc082faeac3880.png" /></p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6fec02c" class="outline-4">
+<h4 id="org6fec02c"><span class="section-number-4"> 3.1.5</span> Truth and falsity</h4>
+<div class="outline-text-4" id="text-1-1-5">
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_2837f7cd6613217851c6b02a8979629758456f6f.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_2837f7cd6613217851c6b02a8979629758456f6f.png" /></p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9e4b30f" class="outline-4">
+<h4 id="org9e4b30f"><span class="section-number-4"> 3.1.6</span> Bi-implication</h4>
+<div class="outline-text-4" id="text-1-1-6">
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_c627a93193bba963ddd0775f67831907a1aeb13e.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_c627a93193bba963ddd0775f67831907a1aeb13e.png" /></p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4b526e8" class="outline-4">
+<h4 id="org4b526e8"><span class="section-number-4"> 3.1.7</span> Reductio ad absurdum (proof by contradiction)</h4>
+<div class="outline-text-4" id="text-1-1-7">
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_f0462a7c0f00c34e87acce271bf9de226538536d.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_f0462a7c0f00c34e87acce271bf9de226538536d.png" /></p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org9093b4e" class="outline-3">
+<h3 id="org9093b4e"><span class="section-number-3"> 3.2</span> Examples</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Let us consider some more examples of natural deduction proofs. In
+each case, you should think about what the formulas say and which rule
+of inference is invoked at each step. Also pay close attention to
+which hypotheses are canceled at each stage. If you look at any node
+of the tree, what has been established at that point is that the claim
+follows from all the hypotheses above it that haven't been canceled yet. 
+</p>
+
+<p>
+The following is a proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_bbe5f96df5d8fe99a07b48b9da7d6fd642e3a01d.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_bbe5f96df5d8fe99a07b48b9da7d6fd642e3a01d.png" /> from <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" /> and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_8555f2ee3a9819105ee6874618b2c2045ebd7793.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_8555f2ee3a9819105ee6874618b2c2045ebd7793.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d558c89a1450d4dc8928843dca4e9e3de7007bc4.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d558c89a1450d4dc8928843dca4e9e3de7007bc4.png" /></p>
+</div>
+<p>
+Intuitively, the formula
+<img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_7e76919c66125a5e60aa506e32f24d8ad46c636a.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_7e76919c66125a5e60aa506e32f24d8ad46c636a.png" />
+"internalizes" the conclusion of the previous proof. The <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" /> symbol
+is used to combine hypotheses, and the <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_1304cf6e7eb1dabe66cfa3f7f9322aa62b12ce50.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_1304cf6e7eb1dabe66cfa3f7f9322aa62b12ce50.png" /> symbol is used to express
+that the right-hand side is a consequence of the left. Here is a proof
+of that formula:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_57384d873d5cca87024728212e76a51c866baa71.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_57384d873d5cca87024728212e76a51c866baa71.png" /></p>
+</div>
+
+<p>
+The next proof shows that if a conclusion, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />, follows from <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and
+<img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, then it follows from their conjunction.
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d2fb16b24364d17411ae4d441dc073ac4316fd17.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d2fb16b24364d17411ae4d441dc073ac4316fd17.png" /></p>
+</div>
+
+<p>
+Using the or-elimination rule can be tricky. If you are trying to
+prove <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> and you have <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_454a2b03e9bbd58443ca50360be2588e72d2d909.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_454a2b03e9bbd58443ca50360be2588e72d2d909.png" /> at your disposal, the strategy is to
+split on cases: in one branch, show that <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> follows from <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and in
+the other, show that <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> follows from <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />. In the execution of the
+rule, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> therefore follows from three subproofs: the proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_55e7667b44cb7718316d0191367067aae50560cd.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_55e7667b44cb7718316d0191367067aae50560cd.png" />, then proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> from <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and the proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> from <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />. Here,
+<img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a temporary assumption in the second component and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is a
+temporary assumption in the third. After the rule is applied, both
+assumptions are canceled.
+</p>
+
+<p>
+For instance, here is a proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_a23f5aa0d00193de60d27f344c5f13c61fe99709.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_a23f5aa0d00193de60d27f344c5f13c61fe99709.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_c114ab225647f5ee076dea9c3a13c37ba4b94a94.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_c114ab225647f5ee076dea9c3a13c37ba4b94a94.png" /></p>
+</div>
+
+<p>
+The conclusion of the next proof can be interpreted as saying that if
+it is not the case that one of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> or <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is true, then they are both
+false. It illustrates the use of the rules for negation.
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d96637820c7a414d89196127f97793509ad83e0e.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d96637820c7a414d89196127f97793509ad83e0e.png" /></p>
+</div>
+
+<p>
+Finally, the next two examples illustrate the use of the <i>ex falso</i>
+rule. The first is a derivation of an arbitrary formula <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> from <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_7126e70c6877e900886f41089c117f549827f672.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_7126e70c6877e900886f41089c117f549827f672.png" /> and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_1c2c4db8e5214b5e4df46ca580a10b29b44e6130.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_1c2c4db8e5214b5e4df46ca580a10b29b44e6130.png" /></p>
+</div>
+<p>
+The second shows that <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> follows from <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_6581c5cc6ec29087c217297d610fff2f401c9596.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_6581c5cc6ec29087c217297d610fff2f401c9596.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_4560d5b5b9de9d9fc5d42b8acebf009bd08f6538.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_4560d5b5b9de9d9fc5d42b8acebf009bd08f6538.png" /></p>
+</div>
+<p>
+In some proof systems, these rules are taken to be part of the
+system. But we do not need to that with our system: these two examples
+show that the rules can be <i>derived</i> from our other rules.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org165fac0" class="outline-3">
+<h3 id="Forward_and_Backward_Reasoning"><a id="org165fac0"></a><span class="section-number-3"> 3.3</span> Forward and Backward Reasoning</h3>
+<div class="outline-text-3" id="text-Forward_and_Backward_Reasoning">
+<p>
+Natural deduction is supposed to represent an idealized model of the
+patterns of reasoning and argumentation we use, for example, when
+working with logic puzzles as in the last chapter. There are obvious
+differences: we describe natural deduction proofs with symbols and
+two-dimensional diagrams, whereas our informal arguments are written
+with words and paragraphs. It is worthwhile to reflect on what <i>is</i>
+captured by the model. Natural deduction is supposed to clarify
+the <i>form</i> and <i>structure</i> of our logical arguments, describe
+the appropriate means of justifying a conclusion, and explain the
+sense in which the rules we use are valid.
+</p>
+
+<p>
+Constructing natural deduction proofs can be confusing, but it is
+helpful to think about <i>why</i> it is confusing. We could, for example,
+decide that natural deduction is not a good model for logical
+reasoning. Or we might come to the conclusion that the features of
+natural deduction that make it confusing tell us something interesting
+about ordinary arguments.
+</p>
+
+<p>
+In the "official" description, natural deduction proofs are
+constructed by putting smaller proofs together to obtain bigger
+ones. To prove <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_f95d6be47b074f3faad24eba56aaa7906385089e.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_f95d6be47b074f3faad24eba56aaa7906385089e.png" />, we start with the
+hypothesis <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" />. Then we construct, separately, the following
+two proofs:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_558f1427286e5feebfd9d5eaa452528c357a93af.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_558f1427286e5feebfd9d5eaa452528c357a93af.png" /></p>
+</div>
+<p>
+Then we use these two proofs to construct the following one:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_31b2fe3064aa347135576f9c9982e46e97bb191a.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_31b2fe3064aa347135576f9c9982e46e97bb191a.png" /></p>
+</div>
+<p>
+Finally, we apply the implies-introduction rule to this proof to
+cancel the hypothesis and obtain the desired conclusion:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_2313c43a35271f35faa341c996cd8806c18aa3c8.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_2313c43a35271f35faa341c996cd8806c18aa3c8.png" /></p>
+</div>
+<p>
+The process is similar to what happens in an informal
+argument, where we start with some hypotheses, and work forward
+towards a conclusion.
+</p>
+
+<hr>
+<p>
+Suppose Susan is tall and John is happy.
+</p>
+
+<p>
+Then, in particular, John is happy. 
+</p>
+
+<p>
+Also, Susan is tall.
+</p>
+
+<p>
+So John is happy and Susan is tall. 
+</p>
+
+<p>
+Therefore we have shown that if Susan is tall and John is happy, then
+John is happy and Susan is tall.  
+</p>
+
+<hr>
+<p>
+However, when we <i>read</i> natural deduction proofs, we often read them
+backwards. First, we look at the bottom to see what is being
+proved. Then we consider the rule that is used to prove it, and see
+what premises the rule demands. Then we look to see how those claims
+are proved, and so on. Similarly, when we <i>construct</i> a natural
+deduction proof, we typically work backwards as well: we start with
+the claim we are trying to prove, put that at the bottom, and look for
+rules to apply.
+</p>
+
+<p>
+At times that process breaks down. Suppose we are left with a goal
+that is a single propositional variable, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. There are no
+introduction rules that can be applied, so, unless <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a
+hypothesis, it has to come from an elimination rule. But that
+underspecifies the problem: perhaps the <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> comes from applying the
+and elimination rule to <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" />, or from applying the or
+elimination rule to <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_5cd3b97217d683fb7514d649be5d6dd47457da4d.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_5cd3b97217d683fb7514d649be5d6dd47457da4d.png" />. At that point, we look to the
+hypotheses, and start working forwards. If, for example, our
+hypotheses are <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_6401e6ad2172117321f26d5d7eee9ca886a5322d.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_6401e6ad2172117321f26d5d7eee9ca886a5322d.png" />, we would then work forward
+to obtain <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" /> and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+
+<p>
+There is thus a general heuristic for proving theorems in natural
+deduction:
+</p>
+
+<ol class="org-ol">
+<li>Start by working backwards from the conclusion, using the
+introduction rules. For example, if you are trying to prove a
+statement of the form <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" />, add <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to your list of hypotheses
+and try to derive <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />. If you are trying to prove a statement of
+the form <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" />, use the and-introduction rule to reduce your
+task to proving <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and then proving <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />.</li>
+
+<li>When you have run out things to do in the first step, use
+elimination rules to work forwards. If you have hypotheses <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_7fc9f96fc7f04ae5bca5f99e10971c2a7578aa45.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_7fc9f96fc7f04ae5bca5f99e10971c2a7578aa45.png" /> and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, apply modus ponens to derive <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />. If you have a
+hypothesis <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_454a2b03e9bbd58443ca50360be2588e72d2d909.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_454a2b03e9bbd58443ca50360be2588e72d2d909.png" />, use-or elimination to split on cases, 
+considering <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> in one case and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> in the other.</li>
+</ol>
+
+<p>
+In <a href="#" onclick="myModule.loadTutorial('05_Classical_Reasoning.html', 'Classical_Reasoning')">Chapter 5</a> we will add one more element to this list: if all else
+fails, try a proof by contradiction.
+</p>
+
+<p>
+The tension between forward and backward reasoning is found in
+informal arguments as well, in mathematics and elsewhere. When we
+prove a theorem, we typically reason forward, using assumptions,
+hypotheses, definitions, and background knowledge. But we also keep
+the goal in mind, and that helps us make sense of the forward steps.
+</p>
+
+<p>
+When we turn to interactive theorem proving, we will see that <i>Lean</i>
+has mechanisms to support both forward and backward reasoning. These
+form a bridge between informal styles of argumentation and the
+natural deduction model, and thereby provide a clearer picture of what
+is going on.
+</p>
+
+<p>
+Another confusing feature of natural deduction proofs is that every
+hypothesis has a <i>scope</i>, which is to say, there are only certain
+points in the proof where an assumption is available for use. Of
+course, this is also a feature of informal mathematical
+arguments. Suppose a paragraph begins "Let <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> be any number less than
+100," argues that <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> has at most five prime factors, and concludes
+"thus we have shown that every number less than 100 has at most five
+factors." The reference "<img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />", and the assumption that it is less than
+100, is only active within the scope of the paragraph. If the next
+paragraph begins with the phrase "Now suppose <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is any number
+greater than 100," then, of course, the assumption that <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is less
+than 100 no longer applies.
+</p>
+
+<p>
+In natural deduction, a hypothesis is available from the point where
+it is assumed until the point where it is canceled. We will see that
+interactive theorem proving languages also have mechanisms to
+determine the scope of references and hypotheses, and that these, too,
+shed light on scoping issues in informal mathematics.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3f96dc6" class="outline-3">
+<h3 id="Some_Logical_Identities"><a id="org3f96dc6"></a><span class="section-number-3"> 3.4</span> Some Logical Identities</h3>
+<div class="outline-text-3" id="text-Some_Logical_Identities">
+<p>
+Two propositional formulas, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, are said to be <i>logically
+equivalent</i> if <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_10535621dcac0f30cdc7c50fcefd9edb701d4f08.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_10535621dcac0f30cdc7c50fcefd9edb701d4f08.png" /> is provable. Logical equivalences are
+similar to identities like <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_11059b4c2bd90883b393a5be8d00acc696ff1c35.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_11059b4c2bd90883b393a5be8d00acc696ff1c35.png" /> that occur in algebra. In
+particular, one can show that if two formulas are equivalent, then one
+can substitute one for the other in any formula, and the results will
+also be equivalent. (Some proof systems take this to be a basic rule,
+and interactive theorem provers can accomodate it, but we will <i>not</i>
+take it to be a fundamental rule of natural deduction.)
+</p>
+
+<p>
+For reference, the following list contains some commonly used propositional
+equivalences, along with some noteworthy formulas. Think about why,
+intuitively, these formulas should be true.
+</p>
+
+
+<div class="figure">
+<p><img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_c4af5053cbc64c1593809201fc5b7a79288b4920.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_c4af5053cbc64c1593809201fc5b7a79288b4920.png" /></p>
+</div>
+<p>
+All of these can be derived in natural deduction using the fundamental
+rules listed in <a href="#" onclick="myModule.scrollTutorialTo('Derivations_in_Natural_Deduction')">Section 3.1</a> But some of them require the use of the
+<i>reductio ad absurdum</i> rule, or proof by contradiction, which we have
+not yet discussed in detail. We will discuss the use of this rule, and
+other patterns of classical logic, in the <a href="#" onclick="myModule.loadTutorial('05_Classical_Reasoning.html', 'Classical_Reasoning')">Chapter 5</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3cdf804" class="outline-3">
+<h3 id="org3cdf804"><span class="section-number-3"> 3.5</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+When constructing proofs in natural deduction, use <i>only</i> the list of
+rules given in <a href="#" onclick="myModule.scrollTutorialTo('Derivations_in_Natural_Deduction')">Section 3.1</a>.
+</p>
+
+<ol class="org-ol">
+<li>Give a natural deduction proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_ca25ec1b32cb6dfe0bd596542849530360a46c4b.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_ca25ec1b32cb6dfe0bd596542849530360a46c4b.png" />.</li>
+
+<li>Give a natural deduction proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_ece889fc3c7bed95bc6f48865c28be455329460b.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_ece889fc3c7bed95bc6f48865c28be455329460b.png" />.</li>
+
+<li>Give a natural deduction proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d0aca3120f63f3eef6295c3cab3346b3c0112324.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d0aca3120f63f3eef6295c3cab3346b3c0112324.png" />.</li>
+
+<li>Take another look at Exercise 3 in the last chapter. Using
+propositional variables <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> for ``Alan likes
+kangaroos,'' ``Betty likes frogs'' and ``Carl likes hamsters,''
+respectively, express the three hypotheses in the previous problem
+as symbolic formulas, and then derive a contradiction from them in
+natural deduction.</li>
+
+<li>Give a natural deduction proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_4787131b36649e2746e7e2661dba98f2d4504700.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_4787131b36649e2746e7e2661dba98f2d4504700.png" />.</li>
+
+<li>Give a natural deduction proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_69d09778419adfed7db473b3e17192de6d921664.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_69d09778419adfed7db473b3e17192de6d921664.png" /></li>
+
+<li>Give a natural deduction proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_cbb7eaf730ae918532a080a3278bec2b7f77de0c.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_cbb7eaf730ae918532a080a3278bec2b7f77de0c.png" /> from <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_caca7fa9ee141594f8c419c5d6dbeb1076dda811.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_caca7fa9ee141594f8c419c5d6dbeb1076dda811.png" />. (You do not need to use proof by contradiction.)</li>
+
+<li>Give a natural deduction proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_9a0fb916bc9e247a898859af9a41a336b9431bb1.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_9a0fb916bc9e247a898859af9a41a336b9431bb1.png" />.</li>
+
+<li>Give a natural deduction proof of <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_4dac11e8620067b0dc23b5d417aeac50e7b119c7.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_4dac11e8620067b0dc23b5d417aeac50e7b119c7.png" /> from
+hypothesis <img src="ltximg/03_Natural_Deduction_for_Propositional_Logic.org.temp_10535621dcac0f30cdc7c50fcefd9edb701d4f08.png" alt="03_Natural_Deduction_for_Propositional_Logic.org.temp_10535621dcac0f30cdc7c50fcefd9edb701d4f08.png" />.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

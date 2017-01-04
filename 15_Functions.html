@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-19 Sat 19:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-org54e7ad6" class="outline-2">
+<h2 id="Functions"><a id="org54e7ad6"></a><span class="section-number-2"> 15</span> Functions</h2>
+<div class="outline-text-2" id="text-Functions">
+<p>
+In the late nineteenth century, developments in a number of branches
+of mathematics pushed towards a uniform treatment of sets, functions,
+and relations. We have already considered sets and relations. In this
+chapter, we consider functions and their properties.
+</p>
+
+<p>
+A function, <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, is ordinary understood as a mapping from a domain
+<img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to another domain <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />. In set-theoretic foundations, <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> and <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />
+are arbitrary sets. We have seen that in a type-based system like
+Lean, it is natural to distinguish between types and subsets of a
+type. In other words, we can consider a type <code>X</code> of elements, and a
+set <code>A</code> of elements of that type. Thus, in the type-theoretic
+formulation, it is natural to consider functions between types <code>X</code> and
+<code>Y</code>, and consider their behavior with respect to subsets of <code>X</code> and
+<code>Y</code>.
+</p>
+
+<p>
+In everyday mathematics, however, set-theoretic language is common,
+and most mathematicians think of a function as a map between
+sets. When discussing functions from a mathematical standpoint,
+therefore, we will also adopt this language, and later switch to the
+type-theoretic representation when we talk about formalization in
+Lean.
+</p>
+</div>
+
+<div id="outline-container-orgca54b55" class="outline-3">
+<h3 id="orgca54b55"><span class="section-number-3"> 15.1</span> The Function Concept</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+If <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> and <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> are any sets, we write <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> to express the
+fact that <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a function from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />. This means that <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />
+assigns a value <img src="ltximg/15_Functions.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" alt="15_Functions.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" /> in <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> to every element <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. The set <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />
+is called the <i>domain</i> of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, and the set <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> is called the
+<i>codomain</i>. (Some authors use the word "range" for the codomain, but
+today it is more common to use the word "range" for what we call the
+<i>image</i> of <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> below. We will avoid the ambiguity by avoiding the word
+range altogether.)
+</p>
+
+<p>
+The simplest way to define a function is to give its value at every
+<img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> with an explicit expression. For example, we can write any of the
+following:
+</p>
+<ul class="org-ul">
+<li>Let <img src="ltximg/15_Functions.org.temp_fe258742c09de5628f844bb3dcf98ed27b7f3c21.png" alt="15_Functions.org.temp_fe258742c09de5628f844bb3dcf98ed27b7f3c21.png" /> be the function defined by <img src="ltximg/15_Functions.org.temp_219e4768efea70119f76e348d5a709259308be6f.png" alt="15_Functions.org.temp_219e4768efea70119f76e348d5a709259308be6f.png" />.</li>
+<li>Let <img src="ltximg/15_Functions.org.temp_2decf19c23ea50fed891357590412ce8a65fedd1.png" alt="15_Functions.org.temp_2decf19c23ea50fed891357590412ce8a65fedd1.png" /> be the function defined by <img src="ltximg/15_Functions.org.temp_ab2a1baefaf471b4592d18526f8f42200c3ec9e0.png" alt="15_Functions.org.temp_ab2a1baefaf471b4592d18526f8f42200c3ec9e0.png" />.</li>
+<li>Let <img src="ltximg/15_Functions.org.temp_3319b911d871c8abf9db8809568a6cd1dd2dea87.png" alt="15_Functions.org.temp_3319b911d871c8abf9db8809568a6cd1dd2dea87.png" /> be the function defined by <img src="ltximg/15_Functions.org.temp_81302e6aefa31363068ba941906fad12bb8aeaa7.png" alt="15_Functions.org.temp_81302e6aefa31363068ba941906fad12bb8aeaa7.png" />.</li>
+<li>Let <img src="ltximg/15_Functions.org.temp_32e09a0b00bceb600cd463d9e9c919b5219c3557.png" alt="15_Functions.org.temp_32e09a0b00bceb600cd463d9e9c919b5219c3557.png" /> be the function defined by
+<img src="ltximg/15_Functions.org.temp_fa7587ac27d9ec526c77fae55bc143e3469ec928.png" alt="15_Functions.org.temp_fa7587ac27d9ec526c77fae55bc143e3469ec928.png" /></li>
+</ul>
+<p>
+The ability to define functions using an explicit expression raises
+the foundational question as to what counts as legitimate
+"expression." For the moment, let us set that question aside, and
+simply note that modern mathematics is comfortable with all kinds of
+exotic definitions. For example, we can define a function <img src="ltximg/15_Functions.org.temp_1205489ca1dcf41c2a2a37ce3b0218cfac9c15e0.png" alt="15_Functions.org.temp_1205489ca1dcf41c2a2a37ce3b0218cfac9c15e0.png" /> by
+<img src="ltximg/15_Functions.org.temp_41a2a5d593c7f8081edd7425cd7a3b5309d6d3a1.png" alt="15_Functions.org.temp_41a2a5d593c7f8081edd7425cd7a3b5309d6d3a1.png" />
+This is at odds with a view of functions as objects that are
+computable in some sense. It is not at all clear what it means to be
+presented with a real number as input, let alone whether it is
+possible to determine, algorithmically, whether such a number is
+rational or not. We will return to discuss such issues in a later
+chapter.
+</p>
+
+<p>
+Notice that the choice of the variables <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/15_Functions.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="15_Functions.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> in the definitions
+above are arbitrary. They are bound variables in that the functions
+being defined do not depend on <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> or <img src="ltximg/15_Functions.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="15_Functions.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. The values remain the same
+under renaming, just as the truth values of "for every <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/15_Functions.org.temp_75adcc2185b886a3b8c242504bd19012bf253c53.png" alt="15_Functions.org.temp_75adcc2185b886a3b8c242504bd19012bf253c53.png" />"
+and "for every <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, <img src="ltximg/15_Functions.org.temp_c8eadc34197d6e7ac89cd490722f31306b5f90ef.png" alt="15_Functions.org.temp_c8eadc34197d6e7ac89cd490722f31306b5f90ef.png" />" are the same. Given an expression <img src="ltximg/15_Functions.org.temp_a845895a021e1f762b71edcfad68ce813d297934.png" alt="15_Functions.org.temp_a845895a021e1f762b71edcfad68ce813d297934.png" />
+that depends on the variable <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, logicians often use the notation
+<img src="ltximg/15_Functions.org.temp_a126d7489ce7bfd6299fbb44d26bffa7f773ea52.png" alt="15_Functions.org.temp_a126d7489ce7bfd6299fbb44d26bffa7f773ea52.png" /> to denote the function that maps <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> to <img src="ltximg/15_Functions.org.temp_a845895a021e1f762b71edcfad68ce813d297934.png" alt="15_Functions.org.temp_a845895a021e1f762b71edcfad68ce813d297934.png" />. This is
+called "lambda notation," for the obvious reason, and it is often
+quite handy. Instead of saying "let <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> be the function defined by
+<img src="ltximg/15_Functions.org.temp_32e7ec133fc467a586335ee4b2f4319f7d57e2d7.png" alt="15_Functions.org.temp_32e7ec133fc467a586335ee4b2f4319f7d57e2d7.png" />," we can say "let <img src="ltximg/15_Functions.org.temp_207bed2d9d1a66f601275e1b9aeccd018b58d659.png" alt="15_Functions.org.temp_207bed2d9d1a66f601275e1b9aeccd018b58d659.png" />." This is <i>not</i>
+common mathematical notation, and it is best to avoid it
+unless you are talking to logicians or computer scientists. We will
+see, however, that lambda notation is built in to Lean.
+</p>
+
+<p>
+For any set <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />, we can define a function <img src="ltximg/15_Functions.org.temp_e9bd580476c7efe0b89130d3c90bf0a5ecf49a4b.png" alt="15_Functions.org.temp_e9bd580476c7efe0b89130d3c90bf0a5ecf49a4b.png" /> by the equation
+<img src="ltximg/15_Functions.org.temp_2c5e881c1e514fb0a2b4b7e6510a5dc8886fae38.png" alt="15_Functions.org.temp_2c5e881c1e514fb0a2b4b7e6510a5dc8886fae38.png" />. This function is called the <i>identity function</i>. More
+interestingly, let <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> and <img src="ltximg/15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" alt="15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" />. We can define a
+new function <img src="ltximg/15_Functions.org.temp_e8b7c1bf810d107433c076b93c1e94a60aba6ab0.png" alt="15_Functions.org.temp_e8b7c1bf810d107433c076b93c1e94a60aba6ab0.png" /> by <img src="ltximg/15_Functions.org.temp_d5c9281108c9c52bfeb7abbec1f9c7533c934f1e.png" alt="15_Functions.org.temp_d5c9281108c9c52bfeb7abbec1f9c7533c934f1e.png" />. The function <img src="ltximg/15_Functions.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="15_Functions.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> is
+called <i>the composition of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /></i> or <i><img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> composed with <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /></i> and
+it is written <img src="ltximg/15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" alt="15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" />. The order is somewhat confusing; you just
+have to keep in mind that to evaluate the expression <img src="ltximg/15_Functions.org.temp_2f171ed5f1fd789b3612e908b9e927cde19d8635.png" alt="15_Functions.org.temp_2f171ed5f1fd789b3612e908b9e927cde19d8635.png" /> you
+first evaluate <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> on input <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, and then evaluate <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />.
+</p>
+
+<p>
+We think of two functions <img src="ltximg/15_Functions.org.temp_0cebaf96f3485c64556738bcd0f4d966b63df9fb.png" alt="15_Functions.org.temp_0cebaf96f3485c64556738bcd0f4d966b63df9fb.png" /> as being equal, or the same
+function, when for they have the same values on every input; in other
+words, for every <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />, <img src="ltximg/15_Functions.org.temp_cf7f50fcbc972a72aa21b8749a8eb1f692bb0e71.png" alt="15_Functions.org.temp_cf7f50fcbc972a72aa21b8749a8eb1f692bb0e71.png" />. For example, if
+<img src="ltximg/15_Functions.org.temp_7a35787f62b284322c297beacfb78fbdd36012a5.png" alt="15_Functions.org.temp_7a35787f62b284322c297beacfb78fbdd36012a5.png" /> are defined by <img src="ltximg/15_Functions.org.temp_698b4ecf11a36f4d6059a513979b1a9940bb8329.png" alt="15_Functions.org.temp_698b4ecf11a36f4d6059a513979b1a9940bb8329.png" /> and <img src="ltximg/15_Functions.org.temp_4ac26ed3e268cfc6b19d253a567a588da06bdae8.png" alt="15_Functions.org.temp_4ac26ed3e268cfc6b19d253a567a588da06bdae8.png" />,
+then <img src="ltximg/15_Functions.org.temp_68a3e582b76bea4253ae4e2425a8d7ab6ea37eb3.png" alt="15_Functions.org.temp_68a3e582b76bea4253ae4e2425a8d7ab6ea37eb3.png" />. Notice that the statement that two functions are equal
+is a universal statement (that is, for the form "for every <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, &#x2026;").
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> For every <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" />, <img src="ltximg/15_Functions.org.temp_4efa63dfd6875e4ae439444e706b192b7d2fd8c7.png" alt="15_Functions.org.temp_4efa63dfd6875e4ae439444e706b192b7d2fd8c7.png" /> and <img src="ltximg/15_Functions.org.temp_79f2fa805de87a6d96a3101c27b0d388327f4b55.png" alt="15_Functions.org.temp_79f2fa805de87a6d96a3101c27b0d388327f4b55.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Let <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> be any element of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. Then <img src="ltximg/15_Functions.org.temp_8cf4685b287cf4542a9ed5fd6648c07e5d67c889.png" alt="15_Functions.org.temp_8cf4685b287cf4542a9ed5fd6648c07e5d67c889.png" />, and <img src="ltximg/15_Functions.org.temp_3dff11f6b0f6e7046ce3ee8bbed6458fb824828d.png" alt="15_Functions.org.temp_3dff11f6b0f6e7046ce3ee8bbed6458fb824828d.png" />.
+</p>
+
+<hr>
+<p>
+Suppose <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> and <img src="ltximg/15_Functions.org.temp_ce6cfa1c6829d9e21a4353175b0240305069f43f.png" alt="15_Functions.org.temp_ce6cfa1c6829d9e21a4353175b0240305069f43f.png" /> satisfy <img src="ltximg/15_Functions.org.temp_f941078a84ef501a66993a8e49a630d75b1034a4.png" alt="15_Functions.org.temp_f941078a84ef501a66993a8e49a630d75b1034a4.png" />. Remember that this means that <img src="ltximg/15_Functions.org.temp_102e306ded2d443b306ece6f98ef29c0ec551e04.png" alt="15_Functions.org.temp_102e306ded2d443b306ece6f98ef29c0ec551e04.png" /> for every <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in
+<img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. In that case, <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is said to be a <i>left inverse</i> to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, and <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />
+is said to be a <i>right inverse</i> to <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />. Here are some examples:
+</p>
+<ul class="org-ul">
+<li>Define <img src="ltximg/15_Functions.org.temp_7a35787f62b284322c297beacfb78fbdd36012a5.png" alt="15_Functions.org.temp_7a35787f62b284322c297beacfb78fbdd36012a5.png" /> by <img src="ltximg/15_Functions.org.temp_698b4ecf11a36f4d6059a513979b1a9940bb8329.png" alt="15_Functions.org.temp_698b4ecf11a36f4d6059a513979b1a9940bb8329.png" /> and <img src="ltximg/15_Functions.org.temp_0529b5ee7b0b5849c5cbb53d8dbb828dbf049933.png" alt="15_Functions.org.temp_0529b5ee7b0b5849c5cbb53d8dbb828dbf049933.png" />. Then <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is both a left and a right inverse to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, and vice-versa.</li>
+<li>Write <img src="ltximg/15_Functions.org.temp_c194c9f724ff32b6a302966262289afb8099743e.png" alt="15_Functions.org.temp_c194c9f724ff32b6a302966262289afb8099743e.png" /> to denote the nonnegative reals. Define
+<img src="ltximg/15_Functions.org.temp_daa074b0f4046d58417d0f33fd3cdc3d28340f5d.png" alt="15_Functions.org.temp_daa074b0f4046d58417d0f33fd3cdc3d28340f5d.png" /> by <img src="ltximg/15_Functions.org.temp_e24c8428aa0ac894fafc6e58ba963338e6861861.png" alt="15_Functions.org.temp_e24c8428aa0ac894fafc6e58ba963338e6861861.png" />, and define <img src="ltximg/15_Functions.org.temp_069142e4d110aa0457db0b05ffa2da8842522a1d.png" alt="15_Functions.org.temp_069142e4d110aa0457db0b05ffa2da8842522a1d.png" /> by <img src="ltximg/15_Functions.org.temp_c8bfc54b02c06af2a532999195b8a1bb13b97755.png" alt="15_Functions.org.temp_c8bfc54b02c06af2a532999195b8a1bb13b97755.png" />. Then <img src="ltximg/15_Functions.org.temp_4e3ad0fc669d2fad619ef94770ebc029e801f1c2.png" alt="15_Functions.org.temp_4e3ad0fc669d2fad619ef94770ebc029e801f1c2.png" /> for every <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in the domain of <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />, so <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a left
+inverse to <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />, and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is a right inverse to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />. On the other
+hand, <img src="ltximg/15_Functions.org.temp_17b961cda1cce2642798032d7fdd9649c3596304.png" alt="15_Functions.org.temp_17b961cda1cce2642798032d7fdd9649c3596304.png" />, which is not the same as <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />
+when <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is negative. So <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is not a left inverse to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, and <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />
+is not a right inverse to <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />.</li>
+</ul>
+
+<p>
+The following fact is not at all obvious, even though the proof is short:
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> Suppose <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> has a left inverse,
+<img src="ltximg/15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" alt="15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" />, and a right inverse <img src="ltximg/15_Functions.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="15_Functions.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />. Then <img src="ltximg/15_Functions.org.temp_bcc5f775d9f461936202c3838a66a0fdc3ad7eb4.png" alt="15_Functions.org.temp_bcc5f775d9f461936202c3838a66a0fdc3ad7eb4.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Let <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> be any element in <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />. The idea is to compute
+<img src="ltximg/15_Functions.org.temp_ed408d97df95af7923275f80a4a722903041e951.png" alt="15_Functions.org.temp_ed408d97df95af7923275f80a4a722903041e951.png" /> in two different ways. Since <img src="ltximg/15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" alt="15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" /> is a left inverse to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />,
+we have <img src="ltximg/15_Functions.org.temp_9e3cb1032bbf84f620f5efc87201d1842e370c28.png" alt="15_Functions.org.temp_9e3cb1032bbf84f620f5efc87201d1842e370c28.png" />. On the other hand, since <img src="ltximg/15_Functions.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="15_Functions.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> is a right
+inverse to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, <img src="ltximg/15_Functions.org.temp_dca77e46496e40da33c198855442eedd48a2f6f7.png" alt="15_Functions.org.temp_dca77e46496e40da33c198855442eedd48a2f6f7.png" />, and so <img src="ltximg/15_Functions.org.temp_48d2740e735093cdca766e4fac739fd2a6a98d82.png" alt="15_Functions.org.temp_48d2740e735093cdca766e4fac739fd2a6a98d82.png" />. So <img src="ltximg/15_Functions.org.temp_fc6f2719d2070b1fe6e55757f6064df871c1c0b1.png" alt="15_Functions.org.temp_fc6f2719d2070b1fe6e55757f6064df871c1c0b1.png" />.
+</p>
+
+<hr>
+<p>
+If <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is both a right and left inverse to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, we say that <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is
+simply the inverse of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />. A function <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> may have more than one left
+or right inverse (we leave it to you to cook up examples), but it can
+have at most one inverse.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> Suppose <img src="ltximg/15_Functions.org.temp_7f9c8331e9d5db1897b79c9e7ec3832b4f3fa03b.png" alt="15_Functions.org.temp_7f9c8331e9d5db1897b79c9e7ec3832b4f3fa03b.png" /> are both inverses to
+<img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />. Then <img src="ltximg/15_Functions.org.temp_9ee541e77bf5e676d1f78882f16f5c9a029890ab.png" alt="15_Functions.org.temp_9ee541e77bf5e676d1f78882f16f5c9a029890ab.png" />.
+</p>
+
+<p>
+<b>Proof.</b> The follows from the previous proposition, since (say) <img src="ltximg/15_Functions.org.temp_da86b7e600156b2036a26a14f21bf9d966ca16f6.png" alt="15_Functions.org.temp_da86b7e600156b2036a26a14f21bf9d966ca16f6.png" />
+is a left inverse to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, and <img src="ltximg/15_Functions.org.temp_5b4c50abdcc0e9241ec9fcb0e947a8e4984a840c.png" alt="15_Functions.org.temp_5b4c50abdcc0e9241ec9fcb0e947a8e4984a840c.png" /> is a right inverse.
+</p>
+
+<hr>
+<p>
+When <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> has an inverse, <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />, this justifies calling <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> <i>the</i> inverse
+to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, and writing <img src="ltximg/15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" alt="15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" /> to denote <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />. Notice that if <img src="ltximg/15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" alt="15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" /> is
+an inverse to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, then <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is an inverse to <img src="ltximg/15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" alt="15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" />. So if <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> has
+an inverse, then so does <img src="ltximg/15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" alt="15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" />, and <img src="ltximg/15_Functions.org.temp_651846c2692112d77cc69e177fbab7da98b42ffa.png" alt="15_Functions.org.temp_651846c2692112d77cc69e177fbab7da98b42ffa.png" />. For any
+set <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, clearly we have <img src="ltximg/15_Functions.org.temp_92ad08ec7b419b9bc189c620c9c0d1d3f842c98f.png" alt="15_Functions.org.temp_92ad08ec7b419b9bc189c620c9c0d1d3f842c98f.png" />.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> Suppose <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> and <img src="ltximg/15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" alt="15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" />. If <img src="ltximg/15_Functions.org.temp_f682687db49ef5de14b6974938b01309b2324018.png" alt="15_Functions.org.temp_f682687db49ef5de14b6974938b01309b2324018.png" /> is a
+left inverse to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> and <img src="ltximg/15_Functions.org.temp_b9e1c6e18ebab57fa41d33e367660557c7a578b2.png" alt="15_Functions.org.temp_b9e1c6e18ebab57fa41d33e367660557c7a578b2.png" /> is a left inverse to <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />, then
+<img src="ltximg/15_Functions.org.temp_8ba8edffca13e6d1e6f1e8a327857719fe1855dd.png" alt="15_Functions.org.temp_8ba8edffca13e6d1e6f1e8a327857719fe1855dd.png" /> is a left inverse to <img src="ltximg/15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" alt="15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" />.
+</p>
+
+<p>
+<b>Proof.</b> For every <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />,
+<img src="ltximg/15_Functions.org.temp_862eea948925ee64cf50d7a46c4d4883c6ef86f6.png" alt="15_Functions.org.temp_862eea948925ee64cf50d7a46c4d4883c6ef86f6.png" />
+</p>
+
+<p>
+<b>Corollary.</b> The previous proposition holds with "left" replaced by
+"right".
+</p>
+
+<p>
+<b>Proof.</b> Switch the role of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> with <img src="ltximg/15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" alt="15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" /> and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> with <img src="ltximg/15_Functions.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="15_Functions.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> in the
+previous proposition.
+</p>
+
+<p>
+<b>Corollary.</b> If <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> and <img src="ltximg/15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" alt="15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" /> both have inverses,
+then <img src="ltximg/15_Functions.org.temp_359a51097b9d05f8648134390a777f2d89d90f1b.png" alt="15_Functions.org.temp_359a51097b9d05f8648134390a777f2d89d90f1b.png" />.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-orgc4baacf" class="outline-3">
+<h3 id="orgc4baacf"><span class="section-number-3"> 15.2</span> Injective, Surjective, and Bijective Functions</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+A function <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> is said to be <i>injective</i>, or an <i>injection</i>,
+or <i>one-one</i>, if given any <img src="ltximg/15_Functions.org.temp_a0ef5bbadaf95b2da40f775a37e23aa26cc75c9d.png" alt="15_Functions.org.temp_a0ef5bbadaf95b2da40f775a37e23aa26cc75c9d.png" /> and <img src="ltximg/15_Functions.org.temp_dbc7edf07534ef84d9739b4c41d437bb5cdecfc4.png" alt="15_Functions.org.temp_dbc7edf07534ef84d9739b4c41d437bb5cdecfc4.png" /> in <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, if <img src="ltximg/15_Functions.org.temp_f7824805a3c31b310992fa5b5eb8860c8d263221.png" alt="15_Functions.org.temp_f7824805a3c31b310992fa5b5eb8860c8d263221.png" />, then
+<img src="ltximg/15_Functions.org.temp_b20a65b4a0f3cc82acc34bafd1c46dad1aceb4c0.png" alt="15_Functions.org.temp_b20a65b4a0f3cc82acc34bafd1c46dad1aceb4c0.png" />. Notice that the conclusion is equivalent to its
+contrapositive: if <img src="ltximg/15_Functions.org.temp_168203b1e18a9ef2f36b361da8f664e4a38ced5c.png" alt="15_Functions.org.temp_168203b1e18a9ef2f36b361da8f664e4a38ced5c.png" />, then <img src="ltximg/15_Functions.org.temp_b6c0b66f605a82d74a0c01952bb134ae28358709.png" alt="15_Functions.org.temp_b6c0b66f605a82d74a0c01952bb134ae28358709.png" />. So <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is
+injective if it maps distinct element of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to distinct elements of
+<img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />.
+</p>
+
+<p>
+A function <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> is said to be <i>surjective</i>, or a
+<i>surjection</i>, or <i>onto</i>, if for every element <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> of <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />, there is an
+<img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> such that <img src="ltximg/15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" alt="15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" />. In other words, <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective if
+every element in the codomain is the value of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> at some element in
+the domain.
+</p>
+
+<p>
+A function <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> is said to be <i>bijective</i>, or a <i>bijection</i>,
+or a <i>one-to-one correspondence</i>, if it is both injective and
+surjective. Intuitively, if there is a bijection between <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> and <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />,
+then <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> and <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> have the same size, since <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> makes each element of
+<img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> correspond to exactly one element of <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> and vice-versa. For
+example, it makes sense to interpret the statement that there were four
+Beatles as the statement that there is a bijection between the set
+<img src="ltximg/15_Functions.org.temp_77c6328f7d1aaca67b83a39d6e7f9eaa3238d485.png" alt="15_Functions.org.temp_77c6328f7d1aaca67b83a39d6e7f9eaa3238d485.png" /> and the set <img src="ltximg/15_Functions.org.temp_f227954eaaf5523c2c63166b37d00f8d12e3d23d.png" alt="15_Functions.org.temp_f227954eaaf5523c2c63166b37d00f8d12e3d23d.png" />.
+If we claimed that there were <i>five</i> Beatles, as evidenced by the
+function <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> which assigns 1 to John, 2 to Paul, 3 to George, 4 to
+Ringo, and 5 to John, you should object that we double-counted John
+&#x2014; that is, <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is not injective. If we claimed there were only three
+Beatles, as evidenced by the function <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> which assigns 1 to John, 2
+to Paul, and 3 to George, you should object that we left out poor
+Ringo &#x2014; that is, <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is not surjective.
+</p>
+
+<p>
+The next two propositions show that these notions can be cast in
+terms of the existence of inverses.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> Let <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" />.
+</p>
+<ul class="org-ul">
+<li>If <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> has a left inverse, then <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is injective.</li>
+<li>If <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> has a right inverse, then <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective.</li>
+<li>If <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> has an inverse, then it is <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> bijective.</li>
+</ul>
+
+<p>
+<b>Proof.</b> For the first claim, suppose <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> has a left inverse <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />, and
+suppose <img src="ltximg/15_Functions.org.temp_f7824805a3c31b310992fa5b5eb8860c8d263221.png" alt="15_Functions.org.temp_f7824805a3c31b310992fa5b5eb8860c8d263221.png" />. Then <img src="ltximg/15_Functions.org.temp_09aa468551aee3c6821395c7d2a7256aa1feda2f.png" alt="15_Functions.org.temp_09aa468551aee3c6821395c7d2a7256aa1feda2f.png" />, and so <img src="ltximg/15_Functions.org.temp_b63564c5874ac9afe91e23980e7c566ae34af491.png" alt="15_Functions.org.temp_b63564c5874ac9afe91e23980e7c566ae34af491.png" />.
+</p>
+
+<p>
+For the second claim, suppose <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> has a right inverse <img src="ltximg/15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" alt="15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" />. Let <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> be
+any element of <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />, and let <img src="ltximg/15_Functions.org.temp_70e35a5eae9423ff379ea65e1c12d93e657eb66f.png" alt="15_Functions.org.temp_70e35a5eae9423ff379ea65e1c12d93e657eb66f.png" />. Then <img src="ltximg/15_Functions.org.temp_099acf3604f8d82ec7f6865e3ab3bd87004fb2e1.png" alt="15_Functions.org.temp_099acf3604f8d82ec7f6865e3ab3bd87004fb2e1.png" />.
+</p>
+
+<p>
+The third claim follows from the first two.
+</p>
+
+<hr>
+<p>
+The following proposition is more interesting, because it requires us
+to define new functions, given hypotheses on <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> Let <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" />.
+</p>
+<ul class="org-ul">
+<li>If <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> is nonempty and <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is injective, then <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> has a left
+inverse.</li>
+<li>If <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective, then <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> has a right inverse.</li>
+<li>If <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> if bijective, then it has an inverse.</li>
+</ul>
+
+<p>
+<b>Proof.</b> For the first claim, let <img src="ltximg/15_Functions.org.temp_63ce1841abc5ec0e4bdb9428657893dd27ec9458.png" alt="15_Functions.org.temp_63ce1841abc5ec0e4bdb9428657893dd27ec9458.png" /> be any element of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />, and
+suppose <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is injective. Define <img src="ltximg/15_Functions.org.temp_ce6cfa1c6829d9e21a4353175b0240305069f43f.png" alt="15_Functions.org.temp_ce6cfa1c6829d9e21a4353175b0240305069f43f.png" /> by setting <img src="ltximg/15_Functions.org.temp_aa0024018fcb4a98ca4640f1db7f33f650f26e1a.png" alt="15_Functions.org.temp_aa0024018fcb4a98ca4640f1db7f33f650f26e1a.png" /> equal
+to any <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> such that <img src="ltximg/15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" alt="15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" />, if there is one, and <img src="ltximg/15_Functions.org.temp_63ce1841abc5ec0e4bdb9428657893dd27ec9458.png" alt="15_Functions.org.temp_63ce1841abc5ec0e4bdb9428657893dd27ec9458.png" />
+otherwise. Now, suppose <img src="ltximg/15_Functions.org.temp_bbb8cbd595080e96f5a528b32e8ac67d1269296b.png" alt="15_Functions.org.temp_bbb8cbd595080e96f5a528b32e8ac67d1269296b.png" />. By the definition of <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />, <img src="ltximg/15_Functions.org.temp_5fe58f8a3aedb482262eb62c88dac813758cd163.png" alt="15_Functions.org.temp_5fe58f8a3aedb482262eb62c88dac813758cd163.png" />
+has to have the property that <img src="ltximg/15_Functions.org.temp_84c167ae155cc4c97cca9bd8881eb765f16c64d8.png" alt="15_Functions.org.temp_84c167ae155cc4c97cca9bd8881eb765f16c64d8.png" />. Since <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is injective,
+<img src="ltximg/15_Functions.org.temp_59f8986f9ee49c0072a6f6e252b2d7f8f3193c1c.png" alt="15_Functions.org.temp_59f8986f9ee49c0072a6f6e252b2d7f8f3193c1c.png" />, so <img src="ltximg/15_Functions.org.temp_102e306ded2d443b306ece6f98ef29c0ec551e04.png" alt="15_Functions.org.temp_102e306ded2d443b306ece6f98ef29c0ec551e04.png" />.
+</p>
+
+<p>
+For the second claim, because <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective, we know that for
+every <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> in <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> there is any <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> such that <img src="ltximg/15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" alt="15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" />. Define <img src="ltximg/15_Functions.org.temp_14fd1e36407e2f94d95b8561c413c96e51506586.png" alt="15_Functions.org.temp_14fd1e36407e2f94d95b8561c413c96e51506586.png" /> by again setting <img src="ltximg/15_Functions.org.temp_296659d5f7a91da28678ac4ab57528c23e2e9983.png" alt="15_Functions.org.temp_296659d5f7a91da28678ac4ab57528c23e2e9983.png" /> equal to any such <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />. (In contrast to
+the previous paragraph, here we know that such an <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> exists, but it
+might not be unique.) Then, by the definition of <img src="ltximg/15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" alt="15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" />, we have <img src="ltximg/15_Functions.org.temp_f2b3c7ed88183a76b8178fafc87b237a46679d62.png" alt="15_Functions.org.temp_f2b3c7ed88183a76b8178fafc87b237a46679d62.png" />.
+</p>
+
+<hr>
+<p>
+Notice that the definition of <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> in the first part of the proof
+requires the function to "decide" whether there is an <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> such
+that <img src="ltximg/15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" alt="15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" />. There is nothing mathematically dubious about this
+definition, but if many situations, this cannot be done
+<i>algorithmically</i>; in other words, <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> might not be computable from
+the data. More interestingly, the definition of <img src="ltximg/15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" alt="15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" /> in the second part
+of the proof requires the function to "choose" a suitable value of <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />
+from among potentially many candidates. We will see later that this is
+a version of the <i>axiom of choice</i>. In the early twentieth century,
+the use of the axiom of choice in mathematics was hotly debated, but
+today it is commonplace.
+</p>
+
+<p>
+Using these equivalences and the results in the previous section, we
+can prove the following:
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> Let <img src="ltximg/15_Functions.org.temp_030904f6e83f3a4a9106030153633d4368298abd.png" alt="15_Functions.org.temp_030904f6e83f3a4a9106030153633d4368298abd.png" /> and <img src="ltximg/15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" alt="15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" />.
+</p>
+<ul class="org-ul">
+<li>if <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> are injective, then so is <img src="ltximg/15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" alt="15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" />.</li>
+<li>if <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> are surjective, then so is <img src="ltximg/15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" alt="15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" />.</li>
+</ul>
+
+<p>
+<b>Proof.</b> If <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> are injective, then they have left inverses
+<img src="ltximg/15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" alt="15_Functions.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" /> and <img src="ltximg/15_Functions.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="15_Functions.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />, respectively, in which case <img src="ltximg/15_Functions.org.temp_8ba8edffca13e6d1e6f1e8a327857719fe1855dd.png" alt="15_Functions.org.temp_8ba8edffca13e6d1e6f1e8a327857719fe1855dd.png" /> is a left inverse
+to <img src="ltximg/15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" alt="15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" />. The second statement is proved similarly.
+</p>
+
+<hr>
+<p>
+We can prove these two statements, however, without mentioning
+inverses at all. We leave that to you as an exercise.
+</p>
+
+<p>
+Notice that the expression <img src="ltximg/15_Functions.org.temp_9233403cab963f9850056f822df0df4728759b67.png" alt="15_Functions.org.temp_9233403cab963f9850056f822df0df4728759b67.png" /> can be used to define
+infinitely many functions with domain <img src="ltximg/15_Functions.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="15_Functions.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, such as:
+</p>
+<ul class="org-ul">
+<li>a function <img src="ltximg/15_Functions.org.temp_fe258742c09de5628f844bb3dcf98ed27b7f3c21.png" alt="15_Functions.org.temp_fe258742c09de5628f844bb3dcf98ed27b7f3c21.png" /></li>
+<li>a function <img src="ltximg/15_Functions.org.temp_bf4367d2b0d03dedc64bc6d26e90b74da318797d.png" alt="15_Functions.org.temp_bf4367d2b0d03dedc64bc6d26e90b74da318797d.png" /></li>
+<li>a function <img src="ltximg/15_Functions.org.temp_a6f3f641d76999b7d3e8a1a3bd8886a3b7541993.png" alt="15_Functions.org.temp_a6f3f641d76999b7d3e8a1a3bd8886a3b7541993.png" /></li>
+</ul>
+<p>
+Only the third one is surjective. Thus a specification of the
+function's codomain as well as the domain is essential to making sense
+of whether a function is surjective.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org52df08e" class="outline-3">
+<h3 id="org52df08e"><span class="section-number-3"> 15.3</span> Functions and Subsets of the Domain</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Suppose <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a function from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />. We may wish to reason about
+the behavior of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> on some subset <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. For example, we can say
+that <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> <i>is injective on</i> <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> if for every <img src="ltximg/15_Functions.org.temp_a0ef5bbadaf95b2da40f775a37e23aa26cc75c9d.png" alt="15_Functions.org.temp_a0ef5bbadaf95b2da40f775a37e23aa26cc75c9d.png" /> and <img src="ltximg/15_Functions.org.temp_dbc7edf07534ef84d9739b4c41d437bb5cdecfc4.png" alt="15_Functions.org.temp_dbc7edf07534ef84d9739b4c41d437bb5cdecfc4.png" /> in <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, if
+<img src="ltximg/15_Functions.org.temp_f7824805a3c31b310992fa5b5eb8860c8d263221.png" alt="15_Functions.org.temp_f7824805a3c31b310992fa5b5eb8860c8d263221.png" />, then <img src="ltximg/15_Functions.org.temp_b20a65b4a0f3cc82acc34bafd1c46dad1aceb4c0.png" alt="15_Functions.org.temp_b20a65b4a0f3cc82acc34bafd1c46dad1aceb4c0.png" />.
+</p>
+
+<p>
+If <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a function from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> and <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a subset of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />, we
+write <img src="ltximg/15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" alt="15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" /> to denote the <i>image of</i> <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> <i>on</i> <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, defined by
+<img src="ltximg/15_Functions.org.temp_58c9aa5218e2a2ee41f559f42e08d422e4fa62c4.png" alt="15_Functions.org.temp_58c9aa5218e2a2ee41f559f42e08d422e4fa62c4.png" />
+In words, <img src="ltximg/15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" alt="15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" /> is the set of elements of <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> that are "hit" by
+elements of <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> under the mapping <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />. Notice that there is an
+implicit existential quantifier here, so that reasoning about images
+invariables involves the corresponding rules.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> Suppose <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" />, and <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a subset of
+<img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. Then for any <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/15_Functions.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" alt="15_Functions.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" /> is in <img src="ltximg/15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" alt="15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" />.
+</p>
+
+<p>
+<b>Proof.</b> By definition, <img src="ltximg/15_Functions.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" alt="15_Functions.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" /> is in <img src="ltximg/15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" alt="15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" /> if and only if there
+is some <img src="ltximg/15_Functions.org.temp_5fe58f8a3aedb482262eb62c88dac813758cd163.png" alt="15_Functions.org.temp_5fe58f8a3aedb482262eb62c88dac813758cd163.png" /> in <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> such that <img src="ltximg/15_Functions.org.temp_61cfe5c922483a9ac0ba5466d55f69e7993ff94b.png" alt="15_Functions.org.temp_61cfe5c922483a9ac0ba5466d55f69e7993ff94b.png" />. But that holds for <img src="ltximg/15_Functions.org.temp_d3399df337de31bc3b17ab284e4404f837a3253e.png" alt="15_Functions.org.temp_d3399df337de31bc3b17ab284e4404f837a3253e.png" />.
+</p>
+
+<p>
+<b>Proposition.</b> Suppose <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> and <img src="ltximg/15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" alt="15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" />. Let <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> be
+a subset of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. Then
+<img src="ltximg/15_Functions.org.temp_973f6fd47b14615ce87f176c24f85820a1564af2.png" alt="15_Functions.org.temp_973f6fd47b14615ce87f176c24f85820a1564af2.png" />
+</p>
+
+<p>
+<b>Proof.</b> Suppose <img src="ltximg/15_Functions.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="15_Functions.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" /> is in <img src="ltximg/15_Functions.org.temp_3fd47d3fee16dd8f14a0df974018fcbccca3f5b3.png" alt="15_Functions.org.temp_3fd47d3fee16dd8f14a0df974018fcbccca3f5b3.png" />. Then for some <img src="ltximg/15_Functions.org.temp_980849fb228aa24d8c8e276f1028c43a3c7616ce.png" alt="15_Functions.org.temp_980849fb228aa24d8c8e276f1028c43a3c7616ce.png" />, <img src="ltximg/15_Functions.org.temp_baa8500f6e3f67e3066fcdc20c9742704bbddfca.png" alt="15_Functions.org.temp_baa8500f6e3f67e3066fcdc20c9742704bbddfca.png" />. By the previous proposition,
+<img src="ltximg/15_Functions.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" alt="15_Functions.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" /> is in <img src="ltximg/15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" alt="15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" />. Again by the previous proposition, <img src="ltximg/15_Functions.org.temp_2f171ed5f1fd789b3612e908b9e927cde19d8635.png" alt="15_Functions.org.temp_2f171ed5f1fd789b3612e908b9e927cde19d8635.png" /> is
+in <img src="ltximg/15_Functions.org.temp_ac264503cd0217f3455e087cb1022446929680cd.png" alt="15_Functions.org.temp_ac264503cd0217f3455e087cb1022446929680cd.png" />.
+</p>
+
+<p>
+Conversely, suppose <img src="ltximg/15_Functions.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="15_Functions.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" /> is in <img src="ltximg/15_Functions.org.temp_ac264503cd0217f3455e087cb1022446929680cd.png" alt="15_Functions.org.temp_ac264503cd0217f3455e087cb1022446929680cd.png" />. Then there is a <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> in <img src="ltximg/15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" alt="15_Functions.org.temp_b0a328fe2d5bb6de1176937e508823979c97c0e1.png" />
+such that <img src="ltximg/15_Functions.org.temp_c9694f3b87255a5829e9d50020b384306d05ad53.png" alt="15_Functions.org.temp_c9694f3b87255a5829e9d50020b384306d05ad53.png" />, and since <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> is in <img src="ltximg/15_Functions.org.temp_d40baa0a639eb0603652107f362c490008f131e2.png" alt="15_Functions.org.temp_d40baa0a639eb0603652107f362c490008f131e2.png" />, there is an <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in
+<img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> such that <img src="ltximg/15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" alt="15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" />. But then <img src="ltximg/15_Functions.org.temp_54cb66a936d0a8a94883c7fd9f556f587a47af47.png" alt="15_Functions.org.temp_54cb66a936d0a8a94883c7fd9f556f587a47af47.png" />, so <img src="ltximg/15_Functions.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="15_Functions.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" /> is in <img src="ltximg/15_Functions.org.temp_3fd47d3fee16dd8f14a0df974018fcbccca3f5b3.png" alt="15_Functions.org.temp_3fd47d3fee16dd8f14a0df974018fcbccca3f5b3.png" />.
+</p>
+
+<hr>
+<p>
+Notice that if <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a function from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />, then <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is
+surjective if and only if <img src="ltximg/15_Functions.org.temp_d10498bca75cdf89125b7979d17a7d892b33d42a.png" alt="15_Functions.org.temp_d10498bca75cdf89125b7979d17a7d892b33d42a.png" />. So the previous proposition is a
+generalization of the fact that the composition of surjective
+functions is surjective.
+</p>
+
+<p>
+Suppose <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a function from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />, and <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a subset of
+<img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. We can <i>view</i> <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> as a function from <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />, by simply
+ignoring the behavior of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> on elements outside of <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Properly
+speaking, this is another function, denoted <img src="ltximg/15_Functions.org.temp_f6a344080bbb3fcbc211e03ef1968e142b26be9d.png" alt="15_Functions.org.temp_f6a344080bbb3fcbc211e03ef1968e142b26be9d.png" /> and
+called "the restriction of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> to <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />." In other words, given <img src="ltximg/15_Functions.org.temp_5cec3270568737fdc5ad5c9a51a5ed5454d738ee.png" alt="15_Functions.org.temp_5cec3270568737fdc5ad5c9a51a5ed5454d738ee.png" /> and <img src="ltximg/15_Functions.org.temp_153e7dceb20f052310c1a68d550dea42fc56238f.png" alt="15_Functions.org.temp_153e7dceb20f052310c1a68d550dea42fc56238f.png" />, <img src="ltximg/15_Functions.org.temp_9a6e9715f56aa8103d6a2516a2d1817164ae8cfc.png" alt="15_Functions.org.temp_9a6e9715f56aa8103d6a2516a2d1817164ae8cfc.png" /> is the
+function defined by <img src="ltximg/15_Functions.org.temp_bdc2b9db206abe7881ea291d70c2e78b7f80e887.png" alt="15_Functions.org.temp_bdc2b9db206abe7881ea291d70c2e78b7f80e887.png" /> for every <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in
+<img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Notice that now "<img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is injective on <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />" means simply that the
+restriction of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> to <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is injective.
+</p>
+
+<p>
+There is another important operation on functions, known as the
+<i>preimage</i>. If <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> and <img src="ltximg/15_Functions.org.temp_2893f3736e7a0c77b01d7544e40f1573544ec1fd.png" alt="15_Functions.org.temp_2893f3736e7a0c77b01d7544e40f1573544ec1fd.png" />, then the
+<i>preimage of <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> under <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /></i>, denoted <img src="ltximg/15_Functions.org.temp_75da35e67e0b99bc595698d62f9a4bfa46f5a206.png" alt="15_Functions.org.temp_75da35e67e0b99bc595698d62f9a4bfa46f5a206.png" />, is defined by
+<img src="ltximg/15_Functions.org.temp_dc5ac0a5959d28e07a55ca34c31f533e94716e81.png" alt="15_Functions.org.temp_dc5ac0a5959d28e07a55ca34c31f533e94716e81.png" />
+that is, the set of elements of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> that get mapped into <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />. Notice
+that this makes sense even if <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> does not have an inverse; for a
+given <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> in <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, there may be no <img src="ltximg/15_Functions.org.temp_5539a96f4b683593f51d10efd0e01def37199890.png" alt="15_Functions.org.temp_5539a96f4b683593f51d10efd0e01def37199890.png" />'s with the property <img src="ltximg/15_Functions.org.temp_48f465e2c6e6933ab075fcd18d1e573148bc81a1.png" alt="15_Functions.org.temp_48f465e2c6e6933ab075fcd18d1e573148bc81a1.png" />,
+or there may be many. If <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> has an inverse, <img src="ltximg/15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" alt="15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" />, then for every
+<img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> in <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> there is exactly one <img src="ltximg/15_Functions.org.temp_e7f9c508d776c728904cdf9547a228d4b713cbe0.png" alt="15_Functions.org.temp_e7f9c508d776c728904cdf9547a228d4b713cbe0.png" /> with the property <img src="ltximg/15_Functions.org.temp_01c81754d6797e46999c1ce6fcd14e3893408376.png" alt="15_Functions.org.temp_01c81754d6797e46999c1ce6fcd14e3893408376.png" />, in which case, <img src="ltximg/15_Functions.org.temp_75da35e67e0b99bc595698d62f9a4bfa46f5a206.png" alt="15_Functions.org.temp_75da35e67e0b99bc595698d62f9a4bfa46f5a206.png" /> means the same thing whether you
+interpret it as the image of <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> under <img src="ltximg/15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" alt="15_Functions.org.temp_6e4d4800d777a5fd93eb88aeb2603f8bea1c7c71.png" /> or the preimage of <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />
+under <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> Suppose <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> and <img src="ltximg/15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" alt="15_Functions.org.temp_52eca5dd08a7a36306b3f09bf6da76957572cef8.png" />. Let <img src="ltximg/15_Functions.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="15_Functions.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> be
+a subset of <img src="ltximg/15_Functions.org.temp_1510ac420210136d64f71d28ef6a156ccfc3d04a.png" alt="15_Functions.org.temp_1510ac420210136d64f71d28ef6a156ccfc3d04a.png" />. Then
+<img src="ltximg/15_Functions.org.temp_e7278b56f399d674a27d048417d24b9bd59661fd.png" alt="15_Functions.org.temp_e7278b56f399d674a27d048417d24b9bd59661fd.png" />
+</p>
+
+<hr>
+<p>
+Here we give a long list of facts properties of images and
+preimages. Here, <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> denotes an arbitrary function from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />,
+<img src="ltximg/15_Functions.org.temp_dadd7c5ef61c5214452637af0ba7615d1c52790f.png" alt="15_Functions.org.temp_dadd7c5ef61c5214452637af0ba7615d1c52790f.png" /> denote arbitrary subsets of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />, and <img src="ltximg/15_Functions.org.temp_ed1a14ee48e6a2cd548c7d89f1bdfb92a861366b.png" alt="15_Functions.org.temp_ed1a14ee48e6a2cd548c7d89f1bdfb92a861366b.png" /> denote arbitrary subsets of <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />.
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/15_Functions.org.temp_e931794661291b4b74058182af0ac9f24506f7c6.png" alt="15_Functions.org.temp_e931794661291b4b74058182af0ac9f24506f7c6.png" />, and if <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is injective, <img src="ltximg/15_Functions.org.temp_7c3b363cc885e861c15059180ceab8d81aa2ccd8.png" alt="15_Functions.org.temp_7c3b363cc885e861c15059180ceab8d81aa2ccd8.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_9532199c0a1f6ec13607755a90639ed5e43d5ee2.png" alt="15_Functions.org.temp_9532199c0a1f6ec13607755a90639ed5e43d5ee2.png" />, and if <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective, <img src="ltximg/15_Functions.org.temp_083bdd5a62a0afa2f4397b2401c2819511056c98.png" alt="15_Functions.org.temp_083bdd5a62a0afa2f4397b2401c2819511056c98.png" />.</li>
+<li>If <img src="ltximg/15_Functions.org.temp_a57795558125e924e6092840183dd423c47228d4.png" alt="15_Functions.org.temp_a57795558125e924e6092840183dd423c47228d4.png" />, then <img src="ltximg/15_Functions.org.temp_9c6b99c08d2d2c1267fcf8320b3ccc1acdfddba3.png" alt="15_Functions.org.temp_9c6b99c08d2d2c1267fcf8320b3ccc1acdfddba3.png" />.</li>
+<li>If <img src="ltximg/15_Functions.org.temp_f36047beea18f8a28fce1173f6b41abb1e922b05.png" alt="15_Functions.org.temp_f36047beea18f8a28fce1173f6b41abb1e922b05.png" />, then <img src="ltximg/15_Functions.org.temp_771ebee19269974b87931c7811f00de7ae6b03f7.png" alt="15_Functions.org.temp_771ebee19269974b87931c7811f00de7ae6b03f7.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_455691bdb0b09ce78288dd02f6ceab8a4a0f1c5b.png" alt="15_Functions.org.temp_455691bdb0b09ce78288dd02f6ceab8a4a0f1c5b.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_23f1c8d86bc9e9579fccbdd8864d55e5b0cdf4fd.png" alt="15_Functions.org.temp_23f1c8d86bc9e9579fccbdd8864d55e5b0cdf4fd.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_4297446b99c6f910e02874a8be0326eb65e25305.png" alt="15_Functions.org.temp_4297446b99c6f910e02874a8be0326eb65e25305.png" />, and if <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is
+injective, <img src="ltximg/15_Functions.org.temp_86ac4e1b3160b4cc11a841187bdfb47dbb2d5024.png" alt="15_Functions.org.temp_86ac4e1b3160b4cc11a841187bdfb47dbb2d5024.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_33c1d5669f91d5926875978f43c9e8d3a353eefe.png" alt="15_Functions.org.temp_33c1d5669f91d5926875978f43c9e8d3a353eefe.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_8b7334a7aa20509037f1a36ca6228084d2a89650.png" alt="15_Functions.org.temp_8b7334a7aa20509037f1a36ca6228084d2a89650.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_699eb167c5ba35d9a28e8f427a37d8315a9d7f2b.png" alt="15_Functions.org.temp_699eb167c5ba35d9a28e8f427a37d8315a9d7f2b.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_3cafe8ac76c870acd85e867a9aae69b1b2314aa5.png" alt="15_Functions.org.temp_3cafe8ac76c870acd85e867a9aae69b1b2314aa5.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_cd033e0e2c6c6d84243d1ac8d42f4b2f8cc488df.png" alt="15_Functions.org.temp_cd033e0e2c6c6d84243d1ac8d42f4b2f8cc488df.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_1f56ca37bca7f6bbe530ba6d213ba2470f7e7d29.png" alt="15_Functions.org.temp_1f56ca37bca7f6bbe530ba6d213ba2470f7e7d29.png" />.</li>
+<li><img src="ltximg/15_Functions.org.temp_4b19cea89fd76de6d6a6ed164597217601288713.png" alt="15_Functions.org.temp_4b19cea89fd76de6d6a6ed164597217601288713.png" />.</li>
+</ul>
+
+<p>
+Proving identities like this is typically a matter of unfolding
+definitions and using basic logical inferences. Here is an example.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> Let <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> and <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> be sets, <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" />, <img src="ltximg/15_Functions.org.temp_9cdab17271ea8c46f9847ef42349b928ee0a5af5.png" alt="15_Functions.org.temp_9cdab17271ea8c46f9847ef42349b928ee0a5af5.png" />, and <img src="ltximg/15_Functions.org.temp_2893f3736e7a0c77b01d7544e40f1573544ec1fd.png" alt="15_Functions.org.temp_2893f3736e7a0c77b01d7544e40f1573544ec1fd.png" />. Then <img src="ltximg/15_Functions.org.temp_3cafe8ac76c870acd85e867a9aae69b1b2314aa5.png" alt="15_Functions.org.temp_3cafe8ac76c870acd85e867a9aae69b1b2314aa5.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Suppose <img src="ltximg/15_Functions.org.temp_9b0ef2f53cc13c1dcb0bd73c695e7dd42556469a.png" alt="15_Functions.org.temp_9b0ef2f53cc13c1dcb0bd73c695e7dd42556469a.png" />. Then <img src="ltximg/15_Functions.org.temp_cbbf6ffe9adc47d1ee8a646451fcb22c59105ac7.png" alt="15_Functions.org.temp_cbbf6ffe9adc47d1ee8a646451fcb22c59105ac7.png" />, and for some <img src="ltximg/15_Functions.org.temp_36446cf9df757258634f45b97ae167b477e3893b.png" alt="15_Functions.org.temp_36446cf9df757258634f45b97ae167b477e3893b.png" />, <img src="ltximg/15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" alt="15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" />. But this means that <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/15_Functions.org.temp_75da35e67e0b99bc595698d62f9a4bfa46f5a206.png" alt="15_Functions.org.temp_75da35e67e0b99bc595698d62f9a4bfa46f5a206.png" />, and so
+<img src="ltximg/15_Functions.org.temp_5af5dc371c4c45330702ece299d69911dd1070b0.png" alt="15_Functions.org.temp_5af5dc371c4c45330702ece299d69911dd1070b0.png" />. Since <img src="ltximg/15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" alt="15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" />, we have <img src="ltximg/15_Functions.org.temp_e707b9fe53438b25eda29578409a452ab087aa73.png" alt="15_Functions.org.temp_e707b9fe53438b25eda29578409a452ab087aa73.png" />, as needed. 
+</p>
+
+<p>
+Conversely, suppose <img src="ltximg/15_Functions.org.temp_8375195df6def9b301448b64a1d108750241d3b8.png" alt="15_Functions.org.temp_8375195df6def9b301448b64a1d108750241d3b8.png" />. Then for some <img src="ltximg/15_Functions.org.temp_786ce8b07e6dc3152bd965f30bf0d055aa41ac6e.png" alt="15_Functions.org.temp_786ce8b07e6dc3152bd965f30bf0d055aa41ac6e.png" />, we have <img src="ltximg/15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" alt="15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" />. For this <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, have <img src="ltximg/15_Functions.org.temp_fb0742aaf86a63feb043d2e15872a36a42d433f9.png" alt="15_Functions.org.temp_fb0742aaf86a63feb043d2e15872a36a42d433f9.png" />
+and <img src="ltximg/15_Functions.org.temp_48f465e2c6e6933ab075fcd18d1e573148bc81a1.png" alt="15_Functions.org.temp_48f465e2c6e6933ab075fcd18d1e573148bc81a1.png" />. Since <img src="ltximg/15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" alt="15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" />, we have <img src="ltximg/15_Functions.org.temp_cbbf6ffe9adc47d1ee8a646451fcb22c59105ac7.png" alt="15_Functions.org.temp_cbbf6ffe9adc47d1ee8a646451fcb22c59105ac7.png" />, and since <img src="ltximg/15_Functions.org.temp_36446cf9df757258634f45b97ae167b477e3893b.png" alt="15_Functions.org.temp_36446cf9df757258634f45b97ae167b477e3893b.png" />, we also have <img src="ltximg/15_Functions.org.temp_3d539332cbd0d8058b096155df78e560057e7233.png" alt="15_Functions.org.temp_3d539332cbd0d8058b096155df78e560057e7233.png" />, as required.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org4c7f757" class="outline-3">
+<h3 id="Functions_and_Relations"><a id="org4c7f757"></a><span class="section-number-3"> 15.4</span> Functions and Relations</h3>
+<div class="outline-text-3" id="text-Functions_and_Relations">
+<p>
+A binary relation <img src="ltximg/15_Functions.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" alt="15_Functions.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" /> on <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is <i>functional</i> if for every
+<img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> there exists a unique <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> in <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> such that <img src="ltximg/15_Functions.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" alt="15_Functions.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" />. If <img src="ltximg/15_Functions.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="15_Functions.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" />
+is a functional relation, we can define a function <img src="ltximg/15_Functions.org.temp_81573d7b1800fec940e28046617ddc3e60c573bc.png" alt="15_Functions.org.temp_81573d7b1800fec940e28046617ddc3e60c573bc.png" /> by
+setting <img src="ltximg/15_Functions.org.temp_531d51c3a5e22738eb2980e2c49cccbab665f760.png" alt="15_Functions.org.temp_531d51c3a5e22738eb2980e2c49cccbab665f760.png" /> to be equal to the unique <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> in <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> such that
+<img src="ltximg/15_Functions.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" alt="15_Functions.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" />. Conversely, it is not hard to see that if <img src="ltximg/15_Functions.org.temp_030904f6e83f3a4a9106030153633d4368298abd.png" alt="15_Functions.org.temp_030904f6e83f3a4a9106030153633d4368298abd.png" /> is
+any function, the relation <img src="ltximg/15_Functions.org.temp_168647c1520be4d2c5e3e13c98bd74d5e43fe7d2.png" alt="15_Functions.org.temp_168647c1520be4d2c5e3e13c98bd74d5e43fe7d2.png" /> defined by <img src="ltximg/15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" alt="15_Functions.org.temp_7398a41db0892781d0e66323b97578a6424d3264.png" /> is a
+functional relation. The relation <img src="ltximg/15_Functions.org.temp_fb948e61b709416ecdb82516945aef156dbae020.png" alt="15_Functions.org.temp_fb948e61b709416ecdb82516945aef156dbae020.png" /> is known as the <i>graph</i>
+of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />.
+</p>
+
+<p>
+It is not hard to check that functions and relations travel in pairs:
+if <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is the function associated with a functional relation <img src="ltximg/15_Functions.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="15_Functions.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" />, then
+<img src="ltximg/15_Functions.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="15_Functions.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> is the functional relation associated the function <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, and
+vice-versa. In set-theoretic foundations, a function is
+often defined <i>to be</i> a functional relation. Conversely, we have seen
+that in type-theoretic foundations like the one adopted by Lean,
+relations are often defined to be certain types of functions. We will
+discuss these matters later on, and in the meanwhile only remark that
+in everyday mathematical practice, the foundational details are not so
+important; what is important is simply that every function has a
+graph, and that any functional relation can be used to define a
+corresponding function.
+</p>
+
+<p>
+So far, we have been focusing on functions that take a single
+argument. We can also consider functions <img src="ltximg/15_Functions.org.temp_1f38fa1ad73ac7b83363d175c8174790b40b04e4.png" alt="15_Functions.org.temp_1f38fa1ad73ac7b83363d175c8174790b40b04e4.png" /> or <img src="ltximg/15_Functions.org.temp_bea8cb5e959620e2827c7a3c2c87e32e0ae27ed6.png" alt="15_Functions.org.temp_bea8cb5e959620e2827c7a3c2c87e32e0ae27ed6.png" />
+that take multiple arguments. For example, the addition function <img src="ltximg/15_Functions.org.temp_559f6f216dddc26d9f4b6779287dbccb89956c5b.png" alt="15_Functions.org.temp_559f6f216dddc26d9f4b6779287dbccb89956c5b.png" /> on the integers takes two integers and returns an
+integer. Remember, we can consider binary functions, ternary
+functions, and so on, and the number of arguments to a function is
+called its "arity."  One easy way to make sense of functions with
+multiple arguments is to think of them as unary functions from a
+cartesian product. We can think of a function <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> which takes two
+arguments, one in <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and one in <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and returns an argument in <img src="ltximg/15_Functions.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="15_Functions.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />
+as a unary function from <img src="ltximg/15_Functions.org.temp_aa5290827548bcb55b34388a5f71f5b813a2f901.png" alt="15_Functions.org.temp_aa5290827548bcb55b34388a5f71f5b813a2f901.png" /> to <img src="ltximg/15_Functions.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="15_Functions.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />, whereby <img src="ltximg/15_Functions.org.temp_0a157c14b3e3e3a7aef3263c5ce4dd76489e39ea.png" alt="15_Functions.org.temp_0a157c14b3e3e3a7aef3263c5ce4dd76489e39ea.png" />
+abbreviates <img src="ltximg/15_Functions.org.temp_c67c796a351dec603503544ddfc9d909c4de647b.png" alt="15_Functions.org.temp_c67c796a351dec603503544ddfc9d909c4de647b.png" />. We have seen that in dependent type theory
+(and in Lean) it is more convenient to think of such a function <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> as
+a function which takes an element of <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and returns a function from
+<img src="ltximg/15_Functions.org.temp_8555f2ee3a9819105ee6874618b2c2045ebd7793.png" alt="15_Functions.org.temp_8555f2ee3a9819105ee6874618b2c2045ebd7793.png" />, so that <img src="ltximg/15_Functions.org.temp_0a157c14b3e3e3a7aef3263c5ce4dd76489e39ea.png" alt="15_Functions.org.temp_0a157c14b3e3e3a7aef3263c5ce4dd76489e39ea.png" /> abbreviates <img src="ltximg/15_Functions.org.temp_33c5dac4a8ada3347751276d534c14448998ba82.png" alt="15_Functions.org.temp_33c5dac4a8ada3347751276d534c14448998ba82.png" />. Such a function
+<img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> maps <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to <img src="ltximg/15_Functions.org.temp_8555f2ee3a9819105ee6874618b2c2045ebd7793.png" alt="15_Functions.org.temp_8555f2ee3a9819105ee6874618b2c2045ebd7793.png" />, where <img src="ltximg/15_Functions.org.temp_8555f2ee3a9819105ee6874618b2c2045ebd7793.png" alt="15_Functions.org.temp_8555f2ee3a9819105ee6874618b2c2045ebd7793.png" /> is the set of functions
+from <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> to <img src="ltximg/15_Functions.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="15_Functions.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />.
+</p>
+
+<p>
+We will return to these different ways of modeling functions of higher
+arity later on, when we consider set-theoretic and type-theoretic
+foundations. One again, we remark that in ordinary mathematics, the
+foundational details to not matter much. The two choices above are
+inter-translatable, and sanction the same principles for reasoning
+about functions informally.
+</p>
+
+<p>
+In mathematics, we often also consider the notion of a <i>partial
+function</i> from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />, which is really a function from some subset
+of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />. The fact that <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a partial function from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />
+is sometimes written <img src="ltximg/15_Functions.org.temp_0df719964698d0176cfc670f17d8bb3eec1aa8cc.png" alt="15_Functions.org.temp_0df719964698d0176cfc670f17d8bb3eec1aa8cc.png" />, which should be
+interpreted as saying that <img src="ltximg/15_Functions.org.temp_d9c454ed770c87f171fc00ce6039a389adb9aac7.png" alt="15_Functions.org.temp_d9c454ed770c87f171fc00ce6039a389adb9aac7.png" /> for some subset <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> of
+<img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />. Intuitively, we think of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> as a function from <img src="ltximg/15_Functions.org.temp_ff49986b03c6172e96f4947ed4079a6cc093c494.png" alt="15_Functions.org.temp_ff49986b03c6172e96f4947ed4079a6cc093c494.png" /> which
+is simply "undefined" at some of its inputs; for example, we can think
+of <img src="ltximg/15_Functions.org.temp_4384fb04400fa760c53230b43d0e5c8b473cb336.png" alt="15_Functions.org.temp_4384fb04400fa760c53230b43d0e5c8b473cb336.png" /> defined by <img src="ltximg/15_Functions.org.temp_0fdd84fb5fdafd2fc42a2cdfa21d20b765f78d8b.png" alt="15_Functions.org.temp_0fdd84fb5fdafd2fc42a2cdfa21d20b765f78d8b.png" />,
+which is undefined at <img src="ltximg/15_Functions.org.temp_8ead4024ed9d28279090aa7f4c9977c94b35d715.png" alt="15_Functions.org.temp_8ead4024ed9d28279090aa7f4c9977c94b35d715.png" />, so that in reality <img src="ltximg/15_Functions.org.temp_635c5d05dc499ad22d5ec8db6277a32ce141387d.png" alt="15_Functions.org.temp_635c5d05dc499ad22d5ec8db6277a32ce141387d.png" />. The set <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is sometimes called the
+<i>domain of <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /></i>, in which case, there is no good name for <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />;
+others continue to call <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> the domain, and refer to <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> as the
+<i>domain of definition</i>. To indicate that a function <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is
+defined at <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, that is, that <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in the domain of definition of
+<img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, we sometimes write <img src="ltximg/15_Functions.org.temp_946b089113d3013e0581813a9fe7140303b10374.png" alt="15_Functions.org.temp_946b089113d3013e0581813a9fe7140303b10374.png" />. If <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> are two
+partial functions from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />, we write <img src="ltximg/15_Functions.org.temp_032301225f11e0cf91ad4b2530e91df3283c8352.png" alt="15_Functions.org.temp_032301225f11e0cf91ad4b2530e91df3283c8352.png" /> to mean
+that either <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> are both defined at <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and have the same
+value, or are both undefined at <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />. Notions of injectivity,
+surjectivity, and composition are extended to partial functions,
+generally as you would expect them to be.
+</p>
+
+<p>
+In terms of relations, a partial function <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> corresponds to a
+relation <img src="ltximg/15_Functions.org.temp_fb948e61b709416ecdb82516945aef156dbae020.png" alt="15_Functions.org.temp_fb948e61b709416ecdb82516945aef156dbae020.png" /> such that for every <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> there is at most one <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />
+such that <img src="ltximg/15_Functions.org.temp_fb948e61b709416ecdb82516945aef156dbae020.png" alt="15_Functions.org.temp_fb948e61b709416ecdb82516945aef156dbae020.png" /> holds. Mathematicians also sometimes consider
+<i>multifunctions</i> from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />, which correspond to relations
+<img src="ltximg/15_Functions.org.temp_fb948e61b709416ecdb82516945aef156dbae020.png" alt="15_Functions.org.temp_fb948e61b709416ecdb82516945aef156dbae020.png" /> such that for every <img src="ltximg/15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="15_Functions.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />, there is <i>at least</i>
+one <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> such that <img src="ltximg/15_Functions.org.temp_fb948e61b709416ecdb82516945aef156dbae020.png" alt="15_Functions.org.temp_fb948e61b709416ecdb82516945aef156dbae020.png" /> holds. There may be many such <img src="ltximg/15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="15_Functions.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />; you
+can think of these as functions which have more than one input
+value. If you think about it for a moment, you will see that a
+<i>partial multifunction</i> is essentially nothing more than an arbitrary
+relation.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3a7b234" class="outline-3">
+<h3 id="org3a7b234"><span class="section-number-3"> 15.5</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li>Let <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> be any function from <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" /> to <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" />, and let <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> be any
+function from <img src="ltximg/15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" alt="15_Functions.org.temp_133c7ef8e3cc45c7230e45a589a2f3377d07b132.png" /> to <img src="ltximg/15_Functions.org.temp_1510ac420210136d64f71d28ef6a156ccfc3d04a.png" alt="15_Functions.org.temp_1510ac420210136d64f71d28ef6a156ccfc3d04a.png" />.
+
+<ul class="org-ul">
+<li>Show that if <img src="ltximg/15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" alt="15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" /> is injective, then <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is injective.</li>
+<li>Give an example of functions <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> as above, such that that
+<img src="ltximg/15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" alt="15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" /> is injective, but <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is not injective.</li>
+<li>Show that if <img src="ltximg/15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" alt="15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" /> is injective and <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective, then
+<img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is injective.</li>
+</ul></li>
+
+<li>Let <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> be as in the last problem. Suppose <img src="ltximg/15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" alt="15_Functions.org.temp_16f2dbc10995b1d027433c153f8ca50591a6ec5b.png" /> is
+surjective.
+
+<ul class="org-ul">
+<li>Is <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> necessarily surjective? Either prove that it is, or give a
+counterexample.</li>
+<li>Is <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> necessarily surjective? Either prove that it is, or give a
+counterexample.</li>
+</ul></li>
+
+<li>A function <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> from <img src="ltximg/15_Functions.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="15_Functions.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" /> to <img src="ltximg/15_Functions.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="15_Functions.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" /> is said to be <i>strictly
+increasing</i> if whenever <img src="ltximg/15_Functions.org.temp_5898004699fffaed2eb19a8448615b49b2cf6fd2.png" alt="15_Functions.org.temp_5898004699fffaed2eb19a8448615b49b2cf6fd2.png" />, <img src="ltximg/15_Functions.org.temp_809f6aadd5b987719eb7c60a19042aad11b58264.png" alt="15_Functions.org.temp_809f6aadd5b987719eb7c60a19042aad11b58264.png" />.
+
+<ul class="org-ul">
+<li>Show that if <img src="ltximg/15_Functions.org.temp_06b841801865fca5a47a35bbcb44e3883a1c66b3.png" alt="15_Functions.org.temp_06b841801865fca5a47a35bbcb44e3883a1c66b3.png" /> is strictly increasing, then it is
+injective (and hence it has a left inverse).</li>
+<li>Show that if <img src="ltximg/15_Functions.org.temp_06b841801865fca5a47a35bbcb44e3883a1c66b3.png" alt="15_Functions.org.temp_06b841801865fca5a47a35bbcb44e3883a1c66b3.png" /> is strictly increasing, and <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is
+a right inverse to <img src="ltximg/15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="15_Functions.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, then <img src="ltximg/15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="15_Functions.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is strictly increasing.</li>
+</ul></li>
+
+<li>Let <img src="ltximg/15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" alt="15_Functions.org.temp_0be9c3b3bf3ec3a6f52ad1d43311900e3ce49f41.png" /> be any function, and let <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be subsets
+of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. Show that <img src="ltximg/15_Functions.org.temp_19a55fd6e3e5b9fd89bae365f2cdd6bca2f6b614.png" alt="15_Functions.org.temp_19a55fd6e3e5b9fd89bae365f2cdd6bca2f6b614.png" />.</li>
+
+<li>Let <img src="ltximg/15_Functions.org.temp_7d297f13f1fab189bd36f7695d39a8b216b289ca.png" alt="15_Functions.org.temp_7d297f13f1fab189bd36f7695d39a8b216b289ca.png" /> be any function, and let <img src="ltximg/15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="15_Functions.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="15_Functions.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be any
+subsets of <img src="ltximg/15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" alt="15_Functions.org.temp_98322274de1ba73ad29ee8654f040f2e9b5fa93d.png" />. Show <img src="ltximg/15_Functions.org.temp_3fadecfd0c5e0664c833401cb2b8fa4e79f548fb.png" alt="15_Functions.org.temp_3fadecfd0c5e0664c833401cb2b8fa4e79f548fb.png" />.</li>
+
+<li>Define notions of composition and inverse for binary relations that
+generalize the notions for functions.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

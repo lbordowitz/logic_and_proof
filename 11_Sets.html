@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 21:00 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-orgecc5829" class="outline-2">
+<h2 id="Sets"><a id="orgecc5829"></a><span class="section-number-2"> 11</span> Sets</h2>
+<div class="outline-text-2" id="text-Sets">
+<p>
+We have come to a turning point in this textbook. We will henceforth
+abandon natural deduction, for the most part, and focus on ordinary
+mathematical proofs. We will continue to think about how informal
+mathematics can be represented in symbolic terms, and how the rules of
+natural deduction play out in the informal setting. But the emphasis
+will be on writing ordinary mathematical arguments, not designing
+proof trees. Lean will continue to serve as a bridge between the
+informal and formal realms.
+</p>
+
+<p>
+In this chapter, we consider a notion that has come to play a
+fundamental role in mathematical reasoning, namely, that of a "set."
+</p>
+</div>
+
+
+<div id="outline-container-org079f10c" class="outline-3">
+<h3 id="org079f10c"><span class="section-number-3"> 11.1</span> Elementary Set Theory</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+In a publication in the journal <i>Mathematische Annalen</i> in 1895, the
+German mathematician Georg Cantor presented the following
+characterization of the notion of a <i>set</i> (or <i>Menge</i>, in his
+terminology):
+</p>
+<blockquote>
+<p>
+By a <i>set</i> we mean any collection M of determinate, distinct objects
+(called the <i>elements</i> of M) of our intuition or thought into a whole.
+</p>
+</blockquote>
+<p>
+Since then, the notion of a set has been used to unify a wide range of
+abstractions and constructions. Axiomatic set theory, which we will
+discuss in a later chapter, provides a foundation for mathematics in
+which everything can be viewed as a set.
+</p>
+
+<p>
+On a broad construal, <i>any</i> collection can be a set; for example, we
+can consider the set whose elements are Ringo Star, the number 7, and
+the set whose only member is the Empire State Building. With such a
+broad notion of set we have to be careful: Russell's paradox has us
+consider the set <img src="ltximg/11_Sets.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="11_Sets.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> of all sets that are not elements of themselves,
+which leads to a contradiction when we ask whether <img src="ltximg/11_Sets.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="11_Sets.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> is an element
+of itself. (Try it!) The axioms of set theory tell us what sets exist,
+and have been carefully designed to avoid paradoxical sets like that
+of the Russell paradox.
+</p>
+
+<p>
+In practice, mathematicians are not so freewheeling in their use of
+sets. Typically, one fixes a domain such as the natural numbers, and
+consider subsets of that domain. In other words, we consider sets of
+numbers, sets of points, sets of lines, and so on, rather than
+arbitrary "sets." In this text, we will adopt this convention: when we
+talk about sets, we are always implicitly talking about sets of
+elements of some domain.
+</p>
+
+<p>
+Given a set <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> of objects in some domain and an object <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, we write
+<img src="ltximg/11_Sets.org.temp_fb0742aaf86a63feb043d2e15872a36a42d433f9.png" alt="11_Sets.org.temp_fb0742aaf86a63feb043d2e15872a36a42d433f9.png" /> to say that <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is an element of <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Cantor's
+characterization suggests that whenever we have some property, <img src="ltximg/11_Sets.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="11_Sets.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" />, of
+a domain, we can form the set of elements that have that
+property. This is denoted using "set-builder notation" as <img src="ltximg/11_Sets.org.temp_22908acde85f9163c85b9e3adb588d4cc9e48573.png" alt="11_Sets.org.temp_22908acde85f9163c85b9e3adb588d4cc9e48573.png" />. For example, we can consider all the following sets of
+natural numbers:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/11_Sets.org.temp_fb96c4fcf5e334c2c37cb6c56f6951bf1a286d31.png" alt="11_Sets.org.temp_fb96c4fcf5e334c2c37cb6c56f6951bf1a286d31.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_a49548a2e88816ae05654277ba6d10218d7aeff8.png" alt="11_Sets.org.temp_a49548a2e88816ae05654277ba6d10218d7aeff8.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_e0234c3566f0286e682271a9281fa57ff0fa4cce.png" alt="11_Sets.org.temp_e0234c3566f0286e682271a9281fa57ff0fa4cce.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_1c8310b8a8e954f43238e26e642bf0fa9c08b00a.png" alt="11_Sets.org.temp_1c8310b8a8e954f43238e26e642bf0fa9c08b00a.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_6b4cdd0bb884d3cfce4d016a1f4beb7145a98fe6.png" alt="11_Sets.org.temp_6b4cdd0bb884d3cfce4d016a1f4beb7145a98fe6.png" /></li>
+</ul>
+<p>
+This last set is written more simply <img src="ltximg/11_Sets.org.temp_4d72ee4b769ab46cc0c9c7a66d51e8fd9b32dc53.png" alt="11_Sets.org.temp_4d72ee4b769ab46cc0c9c7a66d51e8fd9b32dc53.png" />. If the domain is
+not clear from the context, we can specify it by writing it
+explicitly, for example, in the expression <img src="ltximg/11_Sets.org.temp_0cf0bf28c1d4a85115503fcaf1125033074b1dcb.png" alt="11_Sets.org.temp_0cf0bf28c1d4a85115503fcaf1125033074b1dcb.png" />.
+</p>
+
+<p>
+Using set-builder notation, we can define a number of common sets and
+operations. The <i>empty set</i>, <img src="ltximg/11_Sets.org.temp_6955ea57396aa06dbf66beb3ea2121c99c4f03d5.png" alt="11_Sets.org.temp_6955ea57396aa06dbf66beb3ea2121c99c4f03d5.png" />, is the set with no elements:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_03e4ba4757171cf0776f26ba3d60e6206d17dd8f.png" alt="11_Sets.org.temp_03e4ba4757171cf0776f26ba3d60e6206d17dd8f.png" /></p>
+</div>
+<p>
+Dually, we can define the <i>universal set</i>, <img src="ltximg/11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" alt="11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" />, to be the set
+consisting of every element of the domain:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_ae987fa11f4d5444b49df0dde03a1d611017747e.png" alt="11_Sets.org.temp_ae987fa11f4d5444b49df0dde03a1d611017747e.png" /></p>
+</div>
+<p>
+Given to sets <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, we define their <i>union</i> to be the set of
+elements in either one:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_ec8be4cbd1ed0ca60a1d71b8bfae32043b42ae3c.png" alt="11_Sets.org.temp_ec8be4cbd1ed0ca60a1d71b8bfae32043b42ae3c.png" /></p>
+</div>
+<p>
+And we define their <i>intersection</i> to be the set of elements of both:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_6a8d2bd69c66c2770b7920fff35479ece963dae6.png" alt="11_Sets.org.temp_6a8d2bd69c66c2770b7920fff35479ece963dae6.png" /></p>
+</div>
+<p>
+We define the <i>complement</i> of a set of <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to be the set of elements
+that are not in <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_d1e869950a0992180cba2f0418fc932256022080.png" alt="11_Sets.org.temp_d1e869950a0992180cba2f0418fc932256022080.png" /></p>
+</div>
+<p>
+We define the <i>set difference</i> of two sets <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> to be the set
+of elements in <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> but not <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_55ece038a7106e6c465f65dcbacc0201e20cd2b2.png" alt="11_Sets.org.temp_55ece038a7106e6c465f65dcbacc0201e20cd2b2.png" /></p>
+</div>
+
+<p>
+Two sets are said to be equal if they have exactly the same
+elements. If <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are sets, <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is said to be a <i>subset</i> of
+<img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, written <img src="ltximg/11_Sets.org.temp_7740b7dfebbb2d072703c4cb26cf2d7b3905d789.png" alt="11_Sets.org.temp_7740b7dfebbb2d072703c4cb26cf2d7b3905d789.png" />, if every element of <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is an element of
+<img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />. Notice that <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is equal to <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> if and only if <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a subset of
+<img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is a subset of <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+
+<p>
+Notice also that just everything we have said about sets so far is
+readily representable in symbolic logic. We can render the defining
+properties of the basic sets and constructors as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_26f1af3f98a8c190ab0aeeeafc5195f43242d37c.png" alt="11_Sets.org.temp_26f1af3f98a8c190ab0aeeeafc5195f43242d37c.png" /></p>
+</div>
+<p>
+The assertion that <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a subset of <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> can be written <img src="ltximg/11_Sets.org.temp_3a10b619b4097dcea64725294a0103f79a4e21a4.png" alt="11_Sets.org.temp_3a10b619b4097dcea64725294a0103f79a4e21a4.png" />, and the assertion that <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is equal to be can be
+written <img src="ltximg/11_Sets.org.temp_77c80b17ccd322be05503ccd68c0c6a49d2aeb9e.png" alt="11_Sets.org.temp_77c80b17ccd322be05503ccd68c0c6a49d2aeb9e.png" />. These are all
+<i>universal</i> statements, that is, statements with universal
+quantifiers in front, followed by basic assertions and propositional
+connectives. What this means is that reasoning about sets formally
+often amounts to using nothing more than the rules for the universal
+quantifier together with the rules for propositional logic.
+</p>
+
+<p>
+Logicians sometimes describe ordinary mathematical proofs as
+<i>informal</i>, in contrast to the <i>formal proofs</i> in natural deduction.
+When writing informal proofs, the focus is on readability. Here is an
+example.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b>  Let <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and <img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> denote sets of elements of some
+domain, <img src="ltximg/11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" alt="11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" />. Then <img src="ltximg/11_Sets.org.temp_5c5dc86e0980b4a85d8ca0ddc96aa5f7133159ea.png" alt="11_Sets.org.temp_5c5dc86e0980b4a85d8ca0ddc96aa5f7133159ea.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Let <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> be arbitrary, and suppose <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_71b459eb71c10dd1d4fce777e4c8835f8399eac0.png" alt="11_Sets.org.temp_71b459eb71c10dd1d4fce777e4c8835f8399eac0.png" />. Then <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and either <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> or <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />. In
+the first case, <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and hence in <img src="ltximg/11_Sets.org.temp_f27c09993f98bac9ed38840f1a4ab67486fc6205.png" alt="11_Sets.org.temp_f27c09993f98bac9ed38840f1a4ab67486fc6205.png" />. In the
+second case, <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />, and hence <img src="ltximg/11_Sets.org.temp_c2544b7abaf83d98afbf58467a55218c41f248fe.png" alt="11_Sets.org.temp_c2544b7abaf83d98afbf58467a55218c41f248fe.png" />. Either way,
+we have that <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_5014148930806621d770ce0b3d486351cb574cb7.png" alt="11_Sets.org.temp_5014148930806621d770ce0b3d486351cb574cb7.png" />.
+</p>
+
+<p>
+Conversely, suppose <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_5014148930806621d770ce0b3d486351cb574cb7.png" alt="11_Sets.org.temp_5014148930806621d770ce0b3d486351cb574cb7.png" />. There are
+now two cases.
+</p>
+
+<p>
+First, suppose <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_f27c09993f98bac9ed38840f1a4ab67486fc6205.png" alt="11_Sets.org.temp_f27c09993f98bac9ed38840f1a4ab67486fc6205.png" />. Then <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in both <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and
+<img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />. Since <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, it is also in <img src="ltximg/11_Sets.org.temp_7d0cd97551586db55999da63f11eff7e0254e88d.png" alt="11_Sets.org.temp_7d0cd97551586db55999da63f11eff7e0254e88d.png" />, and so <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in
+<img src="ltximg/11_Sets.org.temp_f32e9295578cc0553091b0d2dcefec00f2701ae3.png" alt="11_Sets.org.temp_f32e9295578cc0553091b0d2dcefec00f2701ae3.png" />.
+</p>
+
+<p>
+The second case is similar: suppose <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_c2544b7abaf83d98afbf58467a55218c41f248fe.png" alt="11_Sets.org.temp_c2544b7abaf83d98afbf58467a55218c41f248fe.png" />. Then <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is
+in both <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />, and so also in <img src="ltximg/11_Sets.org.temp_7d0cd97551586db55999da63f11eff7e0254e88d.png" alt="11_Sets.org.temp_7d0cd97551586db55999da63f11eff7e0254e88d.png" />. Hence, in this case
+also, <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_f32e9295578cc0553091b0d2dcefec00f2701ae3.png" alt="11_Sets.org.temp_f32e9295578cc0553091b0d2dcefec00f2701ae3.png" />, as required.
+</p>
+
+<hr>
+<p>
+Notice that this proof does not look anything like a proof in
+symbolic logic. For one thing, ordinary proofs tend to favor words
+over symbols. Of course, mathematics uses symbols all the time, but
+not in place of words like "and" and "not"; you will rarely, if ever,
+see the symbols <img src="ltximg/11_Sets.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" alt="11_Sets.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" /> and <img src="ltximg/11_Sets.org.temp_75bef715537945d703b4766c0a0e8b9749c23828.png" alt="11_Sets.org.temp_75bef715537945d703b4766c0a0e8b9749c23828.png" /> in a mathematics textbook, unless
+it is a textbook specifically about logic.
+</p>
+
+<p>
+Similarly, the structure of an informal proof is conveyed with
+ordinary paragraphs and punctuation. Don't rely on pictorial diagrams,
+line breaks, and indentation to convey the structure of a
+proof. Rather, you should rely on literary devices like signposting
+and foreshadowing. It is often helpful to present an outline of a
+proof or the key ideas before delving into the details, and the
+introductory sentence of a paragraph can help guide a reader's
+expectations, just as it does in an expository essay.
+</p>
+
+<p>
+Nonetheless, you should be able to see elements of natural deduction
+implicitly in the proof above. In formal terms, the theorem is equivalent to
+the assertion
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_3c3478ba3ce1e2c7bbae294f0dd3fa945ad95489.png" alt="11_Sets.org.temp_3c3478ba3ce1e2c7bbae294f0dd3fa945ad95489.png" /></p>
+</div>
+<p>
+and the proof proceeds accordingly. The phrase "let <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> be arbitrary"
+is code for the <img src="ltximg/11_Sets.org.temp_5bfecd542b9f233311e8e63f9d65ceee48cfb069.png" alt="11_Sets.org.temp_5bfecd542b9f233311e8e63f9d65ceee48cfb069.png" /> introduction rule, and the form of the
+rest of the proof is a <img src="ltximg/11_Sets.org.temp_913e66c9e9758b9dbb052c8dc8ea875f6d4a113a.png" alt="11_Sets.org.temp_913e66c9e9758b9dbb052c8dc8ea875f6d4a113a.png" /> introduction. Saying that <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_2758b6097350969015c8ad68a98bf0682545a704.png" alt="11_Sets.org.temp_2758b6097350969015c8ad68a98bf0682545a704.png" /> is implicitly an "and," and the argument uses
+<img src="ltximg/11_Sets.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" alt="11_Sets.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" /> elimination to get <img src="ltximg/11_Sets.org.temp_fb0742aaf86a63feb043d2e15872a36a42d433f9.png" alt="11_Sets.org.temp_fb0742aaf86a63feb043d2e15872a36a42d433f9.png" /> and <img src="ltximg/11_Sets.org.temp_d082a5fdc19c770f37573bc76b4f627ba655c625.png" alt="11_Sets.org.temp_d082a5fdc19c770f37573bc76b4f627ba655c625.png" />. Saying <img src="ltximg/11_Sets.org.temp_1e3d4fa83bca2c3081d53565ac43e4504e1aa678.png" alt="11_Sets.org.temp_1e3d4fa83bca2c3081d53565ac43e4504e1aa678.png" /> is implicitly an "or," and the proof then splits on
+cases, depending on whether <img src="ltximg/11_Sets.org.temp_ed9db8c504e175630d8def4cc247b0dd9c7f71d8.png" alt="11_Sets.org.temp_ed9db8c504e175630d8def4cc247b0dd9c7f71d8.png" /> or <img src="ltximg/11_Sets.org.temp_bd9addccbba8286cdfc7d353b1409ef86f68330f.png" alt="11_Sets.org.temp_bd9addccbba8286cdfc7d353b1409ef86f68330f.png" />. 
+</p>
+
+<p>
+Modulo the unfolding of definition of intersection and union in terms
+of "and" and "or," the "only if" direction of the previous proof could
+be represented in natural deduction like this:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_743450b62b35a9859dd0be882af5bfdceb65744c.png" alt="11_Sets.org.temp_743450b62b35a9859dd0be882af5bfdceb65744c.png" /></p>
+</div>
+<p>
+In the next chapter, we will see that this logical structure is made
+manifest in Lean. But writing long proofs in natural deduction is not
+the most effective to communicate the mathematical ideas. So our goal
+here is to teach you to think in terms of natural deduction rules, but
+express the steps in ordinary English.
+</p>
+
+<p>
+Here is another example.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> <img src="ltximg/11_Sets.org.temp_074b27c4820a82be8ce7c08e7a03b748631425dc.png" alt="11_Sets.org.temp_074b27c4820a82be8ce7c08e7a03b748631425dc.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Let <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> be arbitrary, and suppose <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_b156d77b869b0f217ef8c1245a4791f3adc9fa19.png" alt="11_Sets.org.temp_b156d77b869b0f217ef8c1245a4791f3adc9fa19.png" />. Then <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_861e38bf5a4bc86446184857427690e2b10ea33d.png" alt="11_Sets.org.temp_861e38bf5a4bc86446184857427690e2b10ea33d.png" /> but not <img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />, and hence it
+is in <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> but not in <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> or <img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />. This means that <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> but not
+<img src="ltximg/11_Sets.org.temp_7d0cd97551586db55999da63f11eff7e0254e88d.png" alt="11_Sets.org.temp_7d0cd97551586db55999da63f11eff7e0254e88d.png" />, and so in <img src="ltximg/11_Sets.org.temp_4ee13b3fb8360593c393c6ee1096356b727425b2.png" alt="11_Sets.org.temp_4ee13b3fb8360593c393c6ee1096356b727425b2.png" />.
+</p>
+
+<p>
+Conversely, suppose <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_4ee13b3fb8360593c393c6ee1096356b727425b2.png" alt="11_Sets.org.temp_4ee13b3fb8360593c393c6ee1096356b727425b2.png" />. Then <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in
+<img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, but not in <img src="ltximg/11_Sets.org.temp_7d0cd97551586db55999da63f11eff7e0254e88d.png" alt="11_Sets.org.temp_7d0cd97551586db55999da63f11eff7e0254e88d.png" />. In particular, <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in neither <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> nor
+<img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />, because otherwise it would be in <img src="ltximg/11_Sets.org.temp_7d0cd97551586db55999da63f11eff7e0254e88d.png" alt="11_Sets.org.temp_7d0cd97551586db55999da63f11eff7e0254e88d.png" />. So <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_06f9a251bc55b25695241acb3e9b05867bcb75b5.png" alt="11_Sets.org.temp_06f9a251bc55b25695241acb3e9b05867bcb75b5.png" />, and hence in <img src="ltximg/11_Sets.org.temp_7a948675f1940ef2dca3b6ca71c8a938103c30c2.png" alt="11_Sets.org.temp_7a948675f1940ef2dca3b6ca71c8a938103c30c2.png" />.
+</p>
+
+<hr>
+<p>
+Perhaps the biggest difference between informal proofs and formal
+proofs is the level of detail. Informal proofs will often skip over
+details that are taken to be "straightforward" or "obvious," devoting
+more effort to spelling out inferences that are novel of unexpected.
+</p>
+
+<p>
+Writing a good proof is like writing a good essay. To convince your
+readers that the conclusion is correct, you have to get them to
+understand the argument, without overwhelming them with unnecessary
+details. It helps to have a specific audience in mind. Try speaking
+the argument aloud to friends, roommates, and family members; if their
+eyes glaze over, it is unreasonable to expect anonymous readers to do
+better.
+</p>
+
+<p>
+One of the best ways to learn to write good proofs is to <i>read</i> good
+proofs, and pay attention to the style of writing. Pick an example of
+a textbook that you find especially clear and engaging, and think
+about what makes it so.
+</p>
+
+<p>
+Natural deduction and formal verification can help you understand the
+components that make a proof <i>correct</i>, but you will have to develop
+an intuitive feel for what makes a proof easy and enjoyable to read.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org32c0219" class="outline-3">
+<h3 id="org32c0219"><span class="section-number-3"> 11.2</span> Calculations with Sets</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Calculation is a central to mathematics, and mathematical proofs often
+involve carrying out a sequence of calculations. Indeed, a calculation
+can be viewed as a proof in and of itself that two expressions
+describe the same entity.
+</p>
+
+<p>
+In high school algebra, students are often asked to prove identities
+like the following:
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> <img src="ltximg/11_Sets.org.temp_e43b78d900cd1f2e52b172c953c30b5220ed0fac.png" alt="11_Sets.org.temp_e43b78d900cd1f2e52b172c953c30b5220ed0fac.png" />,
+for every natural number <img src="ltximg/11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.
+</p>
+
+<hr>
+<p>
+In some places, students are asked to write proofs like this:
+</p>
+
+<hr>
+<p>
+<b>Proof.</b>
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_6f2a8fd1255e3e17be2406e9cb178e0efd997813.png" alt="11_Sets.org.temp_6f2a8fd1255e3e17be2406e9cb178e0efd997813.png" /></p>
+</div>
+
+<hr>
+<p>
+Mathematicians generally cringe when they see this. <i>Don't do it!</i> It
+looks like an instance of forward reasoning, where we start with a
+complex identity and end up proving <img src="ltximg/11_Sets.org.temp_c2c6a5ac0439702f734ea4ec06295223b8fb2e49.png" alt="11_Sets.org.temp_c2c6a5ac0439702f734ea4ec06295223b8fb2e49.png" />. Of course, what is really
+meant is that each line follows from the next. There is a way of
+expressing this, with the phrase "it suffices to show." The following
+presentation comes closer to mathematical vernacular:
+</p>
+
+<hr>
+<p>
+<b>Proof.</b> We want to show
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_51ae297b12db1db3578bc3b293c9d93fff42f5ad.png" alt="11_Sets.org.temp_51ae297b12db1db3578bc3b293c9d93fff42f5ad.png" /></p>
+</div>
+<p>
+To do that, it suffices to show
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_1f9d7bb73c78565e7c2882f3c6750dc89a899e36.png" alt="11_Sets.org.temp_1f9d7bb73c78565e7c2882f3c6750dc89a899e36.png" /></p>
+</div>
+<p>
+For that, it suffices to show
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_9a0bcf8fc2ec3a956c1eeb53e11fa820d554aa4f.png" alt="11_Sets.org.temp_9a0bcf8fc2ec3a956c1eeb53e11fa820d554aa4f.png" /></p>
+</div>
+<p>
+But this last equation is clearly true.
+</p>
+
+<hr>
+<p>
+The narrative doesn't flow well, however. Sometimes there are good
+reasons to work backwards in a proof, but in this case it is easy to
+present the proof in a more forward-directed manner. Here is one
+example:
+</p>
+
+<hr>
+<p>
+<b>Proof.</b> Calculating on the left-hand side, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_ab74ab6e7138613851cda8feb2a7675a3ce51a3a.png" alt="11_Sets.org.temp_ab74ab6e7138613851cda8feb2a7675a3ce51a3a.png" /></p>
+</div>
+<p>
+On the right-hand side, we also have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_85e1fa52b7a9ab739ef92239b2b609eab7082e3e.png" alt="11_Sets.org.temp_85e1fa52b7a9ab739ef92239b2b609eab7082e3e.png" /></p>
+</div>
+<p>
+So <img src="ltximg/11_Sets.org.temp_6fe3f0495d0d01f1e470b151bfb094d7745b3de9.png" alt="11_Sets.org.temp_6fe3f0495d0d01f1e470b151bfb094d7745b3de9.png" />, as required.
+</p>
+
+<hr>
+<p>
+Mathematicians often use the abbreviations "LHS" and "RHS" for
+"left-hand side" and "right-hand side," respectively, in situations
+like this.  In fact, here we can easily write the proof as a single
+forward-directed calculation:
+</p>
+
+<hr>
+<p>
+<b>Proof.</b>
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_5caf2fde13474a3bacb8a3fe5c8e7d4c3a94f141.png" alt="11_Sets.org.temp_5caf2fde13474a3bacb8a3fe5c8e7d4c3a94f141.png" /></p>
+</div>
+
+<hr>
+<p>
+Such a proof is clear, compact, and easy to read. The main challenge
+to the reader is to figure out what justifies each subsequent
+step. Mathematicians sometimes annotate such a calculation with
+additional information, or add a few words of explanation in the text
+before and/or after. But the ideal situation is to carry out the
+calculation is small enough steps so that each step is
+straightforward, and needs to no explanation. (And, once again, what
+counts as "straightforward" will vary depending on who is reading the
+proof.)
+</p>
+
+<p>
+We have said that two sets are equal if they have the same
+elements. In the previous section, we proved that two sets are equal
+by reasoning about the elements of each, but we can often be more
+efficient.  Assuming <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and <img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> are subsets of some domain
+<img src="ltximg/11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" alt="11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" />, the following identities hold:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/11_Sets.org.temp_7d04615abb0700dcc14c3a29fd21d7bc7969d09d.png" alt="11_Sets.org.temp_7d04615abb0700dcc14c3a29fd21d7bc7969d09d.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_f38bd5c3b6dafd7e86ae580a00c55c4eda6a8b80.png" alt="11_Sets.org.temp_f38bd5c3b6dafd7e86ae580a00c55c4eda6a8b80.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_164f8b81979eb1a684a2654b678194e0a7caa1c9.png" alt="11_Sets.org.temp_164f8b81979eb1a684a2654b678194e0a7caa1c9.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_d38c474e750eb7abc7a23f1e4ed55ba96eb93382.png" alt="11_Sets.org.temp_d38c474e750eb7abc7a23f1e4ed55ba96eb93382.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_4bb37a818865078eef6f6441697a30aae15e99e0.png" alt="11_Sets.org.temp_4bb37a818865078eef6f6441697a30aae15e99e0.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_e4f8246b79525e251d3fc7507481a61a63310d6c.png" alt="11_Sets.org.temp_e4f8246b79525e251d3fc7507481a61a63310d6c.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_2f3b47e7c4465e2b2c71878bf12f9d46d4c70030.png" alt="11_Sets.org.temp_2f3b47e7c4465e2b2c71878bf12f9d46d4c70030.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_3c83ed3ef706b65f01ec651f1e6e3eb8ee15b09a.png" alt="11_Sets.org.temp_3c83ed3ef706b65f01ec651f1e6e3eb8ee15b09a.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_ecb7577c9d31ffaff7c20641218a7e0530fbfdf3.png" alt="11_Sets.org.temp_ecb7577c9d31ffaff7c20641218a7e0530fbfdf3.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_832ed279ace331652af3c045d163408bfe536b38.png" alt="11_Sets.org.temp_832ed279ace331652af3c045d163408bfe536b38.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_d7e880bc2802242178b1dfbf88cc6c1f7ab4721e.png" alt="11_Sets.org.temp_d7e880bc2802242178b1dfbf88cc6c1f7ab4721e.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_70eb4316bdae6473b7a8d3e19cbb3128720eff64.png" alt="11_Sets.org.temp_70eb4316bdae6473b7a8d3e19cbb3128720eff64.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_16b83c4c78577c891fa99e3f287034773b7f9c4c.png" alt="11_Sets.org.temp_16b83c4c78577c891fa99e3f287034773b7f9c4c.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_11ad2e3861c19f7ce5cc0dc44c5fdd65c7f7844c.png" alt="11_Sets.org.temp_11ad2e3861c19f7ce5cc0dc44c5fdd65c7f7844c.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_f0e9763cbeb325899f30b3ba06179eaa510c4de5.png" alt="11_Sets.org.temp_f0e9763cbeb325899f30b3ba06179eaa510c4de5.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_e3cae2e0731c354127b31450bf5fb61b4b7e2983.png" alt="11_Sets.org.temp_e3cae2e0731c354127b31450bf5fb61b4b7e2983.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_fd48d538740dbee871087d719f3e6bbfa7b3f5d4.png" alt="11_Sets.org.temp_fd48d538740dbee871087d719f3e6bbfa7b3f5d4.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_9d4a05966a5598702a84089876752ecaea5676e0.png" alt="11_Sets.org.temp_9d4a05966a5598702a84089876752ecaea5676e0.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_1992876899a5b4e8570e181ddb0bac8a4709f49f.png" alt="11_Sets.org.temp_1992876899a5b4e8570e181ddb0bac8a4709f49f.png" /></li>
+</ul>
+<p>
+This allows us to prove further identities by calculating. Here is an example.
+</p>
+
+<hr>
+<p>
+<b>Theorem</b>. Let <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be subsets of some domain <img src="ltximg/11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" alt="11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" />. Then <img src="ltximg/11_Sets.org.temp_48cceb6aa3b6c0f02ddcb07be1672947b3698e24.png" alt="11_Sets.org.temp_48cceb6aa3b6c0f02ddcb07be1672947b3698e24.png" />.
+</p>
+
+<p>
+<b>Proof</b>.
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_8b8270ce0d2842574244d461ed540d0c8fb1aa73.png" alt="11_Sets.org.temp_8b8270ce0d2842574244d461ed540d0c8fb1aa73.png" /></p>
+</div>
+
+<hr>
+<p>
+Here is another example.
+</p>
+
+<hr>
+<p>
+<b>Theorem</b>. Let <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be subsets of some domain <img src="ltximg/11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" alt="11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" />. Then <img src="ltximg/11_Sets.org.temp_13955be54b4d4c7838e7964ba270be17baf53114.png" alt="11_Sets.org.temp_13955be54b4d4c7838e7964ba270be17baf53114.png" />.
+</p>
+
+<p>
+<b>Proof</b>.
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_466c5997e7026f8a879c6270b77367bdeca9bb5b.png" alt="11_Sets.org.temp_466c5997e7026f8a879c6270b77367bdeca9bb5b.png" /></p>
+</div>
+
+<hr>
+<p>
+Classically, you may have noticed that propositions, under logical
+equivalence, satisfy identities similar to sets. That is no
+coincidence; both are instances of <i>boolean algebras</i>. Here are the
+identities above translated to the language of a boolean algebra:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/11_Sets.org.temp_0ea3772c3594881cffee2f75ab2bda88967123fb.png" alt="11_Sets.org.temp_0ea3772c3594881cffee2f75ab2bda88967123fb.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_f8b31fd7c9dea0bed2d4904a93f3271470a5659e.png" alt="11_Sets.org.temp_f8b31fd7c9dea0bed2d4904a93f3271470a5659e.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_c98c81e2b12f39562c490f3d9ceba1f00106744a.png" alt="11_Sets.org.temp_c98c81e2b12f39562c490f3d9ceba1f00106744a.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_01e2698ba48ea2e3377e389233b23d14f2f874ae.png" alt="11_Sets.org.temp_01e2698ba48ea2e3377e389233b23d14f2f874ae.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_840f1933e8fe23d12b67310a7d994d568504c4ea.png" alt="11_Sets.org.temp_840f1933e8fe23d12b67310a7d994d568504c4ea.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_892db9191ea9487df4c4b0abca80848cd6246b92.png" alt="11_Sets.org.temp_892db9191ea9487df4c4b0abca80848cd6246b92.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_a4cacf31e62a90e6d7a8346ab16743e922fd8401.png" alt="11_Sets.org.temp_a4cacf31e62a90e6d7a8346ab16743e922fd8401.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_3d15417a157140607f5f9d595820cdceda7293db.png" alt="11_Sets.org.temp_3d15417a157140607f5f9d595820cdceda7293db.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_a76d83a4ee9807b5d97ff353c5b1959344f98a2c.png" alt="11_Sets.org.temp_a76d83a4ee9807b5d97ff353c5b1959344f98a2c.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_cfbf93e37096d1eaff45e0c680e65b6aa91bbfac.png" alt="11_Sets.org.temp_cfbf93e37096d1eaff45e0c680e65b6aa91bbfac.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_8d9137db20909a216b2498d1c9daef33d285ee04.png" alt="11_Sets.org.temp_8d9137db20909a216b2498d1c9daef33d285ee04.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_4c6d3a1c36145b9e25fc504ba1c418d858964158.png" alt="11_Sets.org.temp_4c6d3a1c36145b9e25fc504ba1c418d858964158.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_9d295b845106be026fb1696e252b6fe23000f9d7.png" alt="11_Sets.org.temp_9d295b845106be026fb1696e252b6fe23000f9d7.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_a74dbbefa9e2435fa339488abd0a8946aabbd371.png" alt="11_Sets.org.temp_a74dbbefa9e2435fa339488abd0a8946aabbd371.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_7cc59ad9ca44da79134a812f841daec948c73fd3.png" alt="11_Sets.org.temp_7cc59ad9ca44da79134a812f841daec948c73fd3.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_df62f7a8bc59f17bcfc9d4350f936a88a5045853.png" alt="11_Sets.org.temp_df62f7a8bc59f17bcfc9d4350f936a88a5045853.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_3ad705f55d98a2842273c3d18590f1cbee8bdd4d.png" alt="11_Sets.org.temp_3ad705f55d98a2842273c3d18590f1cbee8bdd4d.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_f6a40c6b7b3167b14af0ee35f20df1e26fff2fee.png" alt="11_Sets.org.temp_f6a40c6b7b3167b14af0ee35f20df1e26fff2fee.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_949904aadf8b85ad4024d355021140554e0e3744.png" alt="11_Sets.org.temp_949904aadf8b85ad4024d355021140554e0e3744.png" /></li>
+</ul>
+
+<p>
+Translated to propositions, the first theorem above is as follows:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be elements of a boolean algebra. Then <img src="ltximg/11_Sets.org.temp_2c8558d2c68e08b49bd0f5f5ed98d20c87530b66.png" alt="11_Sets.org.temp_2c8558d2c68e08b49bd0f5f5ed98d20c87530b66.png" />.
+</p>
+
+<p>
+<b>Proof.</b>
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_c29f50e09f7ef87780797ac6d7544ff56a406c70.png" alt="11_Sets.org.temp_c29f50e09f7ef87780797ac6d7544ff56a406c70.png" /></p>
+</div>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org3b9f76d" class="outline-3">
+<h3 id="org3b9f76d"><span class="section-number-3"> 11.3</span> Indexed Families of Sets</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+If <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" /> is a set, we will sometimes wish to consider a <i>family</i>
+<img src="ltximg/11_Sets.org.temp_206c33aa3a9b4ca3e86c7825df890d16614cbe16.png" alt="11_Sets.org.temp_206c33aa3a9b4ca3e86c7825df890d16614cbe16.png" /> of sets indexed by elements of <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" />. For example, we
+might be interested in a sequence
+<img src="ltximg/11_Sets.org.temp_4fe9ad6a32ab93f083572da68608924c0b18b7fe.png" alt="11_Sets.org.temp_4fe9ad6a32ab93f083572da68608924c0b18b7fe.png" /> 
+of sets indexed by the natural numbers. The concept is best illustrated by
+some examples.
+</p>
+<ul class="org-ul">
+<li>For each natural number <img src="ltximg/11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, we can define the set <img src="ltximg/11_Sets.org.temp_e40cb968c39f6998cffbee912598e014fd6fcef5.png" alt="11_Sets.org.temp_e40cb968c39f6998cffbee912598e014fd6fcef5.png" /> to be the
+set of people alive today that are of age <img src="ltximg/11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. For each age we have
+the corresponding set. Someone of age 20 is an element of the set
+<img src="ltximg/11_Sets.org.temp_fb156cb4ab77d52890ee84acfe1134f4c89664ba.png" alt="11_Sets.org.temp_fb156cb4ab77d52890ee84acfe1134f4c89664ba.png" />, while a newborn baby is an element of <img src="ltximg/11_Sets.org.temp_6f7bc4eaab241efee0f556fe9a9debd150265925.png" alt="11_Sets.org.temp_6f7bc4eaab241efee0f556fe9a9debd150265925.png" />. The set
+<img src="ltximg/11_Sets.org.temp_8cc0de67293c16929435d255bf69449760ba077c.png" alt="11_Sets.org.temp_8cc0de67293c16929435d255bf69449760ba077c.png" /> is empty. This family <img src="ltximg/11_Sets.org.temp_5bf4eec198a5c282a4d08c1149300bee598b58c6.png" alt="11_Sets.org.temp_5bf4eec198a5c282a4d08c1149300bee598b58c6.png" /> is a is a family
+of sets indexed by the natural numbers.</li>
+<li>For every real number <img src="ltximg/11_Sets.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="11_Sets.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> we can define <img src="ltximg/11_Sets.org.temp_2e93a6bfc68e7addb30c0e68643da7080fe50808.png" alt="11_Sets.org.temp_2e93a6bfc68e7addb30c0e68643da7080fe50808.png" /> to be the set of
+positive real numbers larger than <img src="ltximg/11_Sets.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="11_Sets.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" />, so <img src="ltximg/11_Sets.org.temp_270cc40b8ef7a2c65ac2915d98c46654627b45f3.png" alt="11_Sets.org.temp_270cc40b8ef7a2c65ac2915d98c46654627b45f3.png" />. Then <img src="ltximg/11_Sets.org.temp_9419c6e1ac09f25cc612e1ca27687d586b682810.png" alt="11_Sets.org.temp_9419c6e1ac09f25cc612e1ca27687d586b682810.png" /> is a family of
+sets indexed by the real numbers.</li>
+<li>For every natural number <img src="ltximg/11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> we can define <img src="ltximg/11_Sets.org.temp_fe702efed0100b1d7e27113c764dbc08b2d8bf46.png" alt="11_Sets.org.temp_fe702efed0100b1d7e27113c764dbc08b2d8bf46.png" /> as the set of divisors of <img src="ltximg/11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.</li>
+</ul>
+
+<p>
+Given a family <img src="ltximg/11_Sets.org.temp_90041a11075624b700990d05cb0d4c534b55a6c2.png" alt="11_Sets.org.temp_90041a11075624b700990d05cb0d4c534b55a6c2.png" /> of sets indexed by <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" />, we can form
+its <i>union</i>:
+</p>
+
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_f91f3d4fa4347a54bb8642908baef1baeb852d09.png" alt="11_Sets.org.temp_f91f3d4fa4347a54bb8642908baef1baeb852d09.png" /></p>
+</div>
+<p>
+We can also form the <i>intersection</i> of a family of sets:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_9b28b1d23f0de8596686271ab52a015c163ea5ef.png" alt="11_Sets.org.temp_9b28b1d23f0de8596686271ab52a015c163ea5ef.png" /></p>
+</div>
+<p>
+So an element <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_e1d963c97bd3451e3560012f42d666acb94c9add.png" alt="11_Sets.org.temp_e1d963c97bd3451e3560012f42d666acb94c9add.png" /> if and only
+if <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" alt="11_Sets.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" /> for <i>some</i> <img src="ltximg/11_Sets.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="11_Sets.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" /> in <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" />, and <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in
+<img src="ltximg/11_Sets.org.temp_abb049f6e2d43bc8c86f0de09e5f6f0278e8bdb6.png" alt="11_Sets.org.temp_abb049f6e2d43bc8c86f0de09e5f6f0278e8bdb6.png" /> if and only if <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" alt="11_Sets.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" /> for every <img src="ltximg/11_Sets.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="11_Sets.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />
+in <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" />. These operations are represented in symbolic logic by the existential
+and the universal quantifiers. We have:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/11_Sets.org.temp_f8261ef646ca89d3e6ad34cf067d9ab67df34b80.png" alt="11_Sets.org.temp_f8261ef646ca89d3e6ad34cf067d9ab67df34b80.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_6b4f61957f52080e780bf891e7e39571b33c290b.png" alt="11_Sets.org.temp_6b4f61957f52080e780bf891e7e39571b33c290b.png" /></li>
+</ul>
+
+<p>
+Returning to the examples above, we can compute the union and
+intersection of each family. For the first example, <img src="ltximg/11_Sets.org.temp_4f8dca06cb8a674bfab301a4c9693efffad0c3a3.png" alt="11_Sets.org.temp_4f8dca06cb8a674bfab301a4c9693efffad0c3a3.png" /> is the set of all living people, and <img src="ltximg/11_Sets.org.temp_5ae1b1387b409735c9cd33b1012c0f28533d1f76.png" alt="11_Sets.org.temp_5ae1b1387b409735c9cd33b1012c0f28533d1f76.png" />. Also, <img src="ltximg/11_Sets.org.temp_d2bf125aeba52438d28170a5ca59ebd5dabbbf92.png" alt="11_Sets.org.temp_d2bf125aeba52438d28170a5ca59ebd5dabbbf92.png" />, the set
+of all positive real numbers, and <img src="ltximg/11_Sets.org.temp_7c721163f84968944f11017a08a2a1184cd86349.png" alt="11_Sets.org.temp_7c721163f84968944f11017a08a2a1184cd86349.png" />. For the last example, we have <img src="ltximg/11_Sets.org.temp_ac716c563e3fade175361570921b233bec0d4f99.png" alt="11_Sets.org.temp_ac716c563e3fade175361570921b233bec0d4f99.png" /> and <img src="ltximg/11_Sets.org.temp_8132188c420a31b7cc784153aa9e38882da838c4.png" alt="11_Sets.org.temp_8132188c420a31b7cc784153aa9e38882da838c4.png" />, since 1 is a divisor of
+every natural number.
+</p>
+
+<p>
+Suppose that <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" /> contains just two elements, say <img src="ltximg/11_Sets.org.temp_b8ef32e6314cbfd6141e9dae5db9ab0abca61d37.png" alt="11_Sets.org.temp_b8ef32e6314cbfd6141e9dae5db9ab0abca61d37.png" />. Let
+<img src="ltximg/11_Sets.org.temp_90041a11075624b700990d05cb0d4c534b55a6c2.png" alt="11_Sets.org.temp_90041a11075624b700990d05cb0d4c534b55a6c2.png" /> be a family of sets indexed by <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" />. Because <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" /> has
+two elements, this family consists of just the two sets <img src="ltximg/11_Sets.org.temp_1b41343ab0fc76091c7b1b93720eea1416607670.png" alt="11_Sets.org.temp_1b41343ab0fc76091c7b1b93720eea1416607670.png" /> and
+<img src="ltximg/11_Sets.org.temp_15af79c6679091e7079b675ca311d4e92902cce6.png" alt="11_Sets.org.temp_15af79c6679091e7079b675ca311d4e92902cce6.png" />. Then the union and intersection of this family are just the
+union and intersection of the two sets:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_ae606784c79f100a659ecc30cb93c34fcd498512.png" alt="11_Sets.org.temp_ae606784c79f100a659ecc30cb93c34fcd498512.png" /></p>
+</div>
+<p>
+This means that the union and intersection of two sets are just a
+special case of the union and intersection of a family of sets.
+</p>
+
+<p>
+We also have equalities for unions and intersections of families of
+sets. Here are a few of them:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/11_Sets.org.temp_1a74e5e760a7855450f24a207a8b427dc4684516.png" alt="11_Sets.org.temp_1a74e5e760a7855450f24a207a8b427dc4684516.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_6b1541406438682d21b1061253c969e9c6676b3f.png" alt="11_Sets.org.temp_6b1541406438682d21b1061253c969e9c6676b3f.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_380ac5cc49141897b4c9bca17f61863f3efa3756.png" alt="11_Sets.org.temp_380ac5cc49141897b4c9bca17f61863f3efa3756.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_baafd23b1431f90b4c6eee52e349d6acaf42fb26.png" alt="11_Sets.org.temp_baafd23b1431f90b4c6eee52e349d6acaf42fb26.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_e1b00d17a59c9000e6abb47f5c07b9a9b0341ed6.png" alt="11_Sets.org.temp_e1b00d17a59c9000e6abb47f5c07b9a9b0341ed6.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_f2c6234a50bebbe98b7b19456b739ba77527d6e3.png" alt="11_Sets.org.temp_f2c6234a50bebbe98b7b19456b739ba77527d6e3.png" /></li>
+</ul>
+
+<p>
+In the last two lines, <img src="ltximg/11_Sets.org.temp_e9ad31b04a0173306792f7522f195fe86dd91b8d.png" alt="11_Sets.org.temp_e9ad31b04a0173306792f7522f195fe86dd91b8d.png" /> is indexed by two sets <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" /> and
+<img src="ltximg/11_Sets.org.temp_6cfa757abcae2aac2ddd06f3bd54e70b5bbc1618.png" alt="11_Sets.org.temp_6cfa757abcae2aac2ddd06f3bd54e70b5bbc1618.png" />. This means that for every <img src="ltximg/11_Sets.org.temp_9814a11a2aa7edfce9ca088aa1230c675683355c.png" alt="11_Sets.org.temp_9814a11a2aa7edfce9ca088aa1230c675683355c.png" /> and <img src="ltximg/11_Sets.org.temp_aabf92893cdbb6bc2e484a5155979b642bd5c1e5.png" alt="11_Sets.org.temp_aabf92893cdbb6bc2e484a5155979b642bd5c1e5.png" /> we have a set
+<img src="ltximg/11_Sets.org.temp_e9ad31b04a0173306792f7522f195fe86dd91b8d.png" alt="11_Sets.org.temp_e9ad31b04a0173306792f7522f195fe86dd91b8d.png" />. For the first four equalities, try to figure out what the
+rule means if the index set <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" /> contains two elements.
+</p>
+
+<p>
+Let's prove the first identity. Notice how the logical forms of the
+assertions <img src="ltximg/11_Sets.org.temp_05cc51924d889417ec22136501472b5124b82aff.png" alt="11_Sets.org.temp_05cc51924d889417ec22136501472b5124b82aff.png" /> and <img src="ltximg/11_Sets.org.temp_0e4319a3ea96d41d0cd347877cd7766d1e99ec3a.png" alt="11_Sets.org.temp_0e4319a3ea96d41d0cd347877cd7766d1e99ec3a.png" /> dictate the structure of the proof.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> be any subset of some domain <img src="ltximg/11_Sets.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="11_Sets.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" />, and let <img src="ltximg/11_Sets.org.temp_dbac241efcdd1e1bd666fba1cffe2d92003b9611.png" alt="11_Sets.org.temp_dbac241efcdd1e1bd666fba1cffe2d92003b9611.png" /> be a family of subsets of <img src="ltximg/11_Sets.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="11_Sets.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" /> indexed by <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" />. Then
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_2225e2a7d603cc349b345549d3921a23c9ecf4c8.png" alt="11_Sets.org.temp_2225e2a7d603cc349b345549d3921a23c9ecf4c8.png" /></p>
+</div>
+
+<p>
+<b>Proof.</b> Suppose <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_6adaf115f90a33796efdd1b8ead34a9cee6d52ce.png" alt="11_Sets.org.temp_6adaf115f90a33796efdd1b8ead34a9cee6d52ce.png" />. Then <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is
+in <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_1655e8152e99398df27b35dcc8ccd940f56391c0.png" alt="11_Sets.org.temp_1655e8152e99398df27b35dcc8ccd940f56391c0.png" /> for some <img src="ltximg/11_Sets.org.temp_041cd9be05f7d7af06f1e227f8de20cd1b655b37.png" alt="11_Sets.org.temp_041cd9be05f7d7af06f1e227f8de20cd1b655b37.png" />. So <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_cb829176d5129b76c6321f063a756ab357d4e528.png" alt="11_Sets.org.temp_cb829176d5129b76c6321f063a756ab357d4e528.png" />, and hence in <img src="ltximg/11_Sets.org.temp_339ec0d7a91d6870b8aedab7fedd1469d9b7197b.png" alt="11_Sets.org.temp_339ec0d7a91d6870b8aedab7fedd1469d9b7197b.png" />.
+</p>
+
+<p>
+Conversely, suppose <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_339ec0d7a91d6870b8aedab7fedd1469d9b7197b.png" alt="11_Sets.org.temp_339ec0d7a91d6870b8aedab7fedd1469d9b7197b.png" />. Then,
+for some <img src="ltximg/11_Sets.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" alt="11_Sets.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" /> in <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" />, <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_b7e186fa89d72864e8a286d40cec47cebcb2f46a.png" alt="11_Sets.org.temp_b7e186fa89d72864e8a286d40cec47cebcb2f46a.png" />. Hence <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and
+since <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is in <img src="ltximg/11_Sets.org.temp_1655e8152e99398df27b35dcc8ccd940f56391c0.png" alt="11_Sets.org.temp_1655e8152e99398df27b35dcc8ccd940f56391c0.png" />, it is in <img src="ltximg/11_Sets.org.temp_782141e568cb3c8b214d777c0e53f6a14fdf7a3e.png" alt="11_Sets.org.temp_782141e568cb3c8b214d777c0e53f6a14fdf7a3e.png" />. Hence <img src="ltximg/11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="11_Sets.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is
+in <img src="ltximg/11_Sets.org.temp_6adaf115f90a33796efdd1b8ead34a9cee6d52ce.png" alt="11_Sets.org.temp_6adaf115f90a33796efdd1b8ead34a9cee6d52ce.png" />, as required.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org08b9c39" class="outline-3">
+<h3 id="org08b9c39"><span class="section-number-3"> 11.4</span> Cartesian Product and Power Set</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+The <i>ordered pair</i> of two objects <img src="ltximg/11_Sets.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="11_Sets.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/11_Sets.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="11_Sets.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> is denoted <img src="ltximg/11_Sets.org.temp_cfc852d108876b2d1ba2b999452e5adfb1426dbe.png" alt="11_Sets.org.temp_cfc852d108876b2d1ba2b999452e5adfb1426dbe.png" />. We
+say that <img src="ltximg/11_Sets.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="11_Sets.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is the <i>first component</i> and <img src="ltximg/11_Sets.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="11_Sets.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> is the <i>second
+component</i> of the pair. Two pairs are only equal if the first
+component are equal and the second components are equal. In symbols,
+<img src="ltximg/11_Sets.org.temp_f7f410b1d6d742176ccf2cf7cafda16b340c1e15.png" alt="11_Sets.org.temp_f7f410b1d6d742176ccf2cf7cafda16b340c1e15.png" /> if and only if <img src="ltximg/11_Sets.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" alt="11_Sets.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" /> and <img src="ltximg/11_Sets.org.temp_f20a43c2e5dd0d591f331f8ba6e937aa662d6f69.png" alt="11_Sets.org.temp_f20a43c2e5dd0d591f331f8ba6e937aa662d6f69.png" />.
+</p>
+
+<p>
+Some axiomatic foundations take the notion of a pair to be
+primitive. In axiomatic set theory, it is common to <i>define</i> an
+ordered pair to be a particular set, namely
+<img src="ltximg/11_Sets.org.temp_9dfb87743e4c6e20bdc809dba33c8e91a75717ad.png" alt="11_Sets.org.temp_9dfb87743e4c6e20bdc809dba33c8e91a75717ad.png" />
+Notice that if <img src="ltximg/11_Sets.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" alt="11_Sets.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" />, this set has only one element:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_15716409a8ad62eeb28fb047d4fce628edb2a51d.png" alt="11_Sets.org.temp_15716409a8ad62eeb28fb047d4fce628edb2a51d.png" /></p>
+</div>
+<p>
+The following theorem shows that this definition is reasonable.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Using the definition of ordered pairs above, we have <img src="ltximg/11_Sets.org.temp_e032bb2fade97440a4ff5b06546fce4bc9b575fd.png" alt="11_Sets.org.temp_e032bb2fade97440a4ff5b06546fce4bc9b575fd.png" /> if and only if <img src="ltximg/11_Sets.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" alt="11_Sets.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" /> and <img src="ltximg/11_Sets.org.temp_f20a43c2e5dd0d591f331f8ba6e937aa662d6f69.png" alt="11_Sets.org.temp_f20a43c2e5dd0d591f331f8ba6e937aa662d6f69.png" />.
+</p>
+
+<p>
+<b>Proof.</b>  If <img src="ltximg/11_Sets.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" alt="11_Sets.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" /> and <img src="ltximg/11_Sets.org.temp_f20a43c2e5dd0d591f331f8ba6e937aa662d6f69.png" alt="11_Sets.org.temp_f20a43c2e5dd0d591f331f8ba6e937aa662d6f69.png" /> then clearly <img src="ltximg/11_Sets.org.temp_f7f410b1d6d742176ccf2cf7cafda16b340c1e15.png" alt="11_Sets.org.temp_f7f410b1d6d742176ccf2cf7cafda16b340c1e15.png" />.  For
+the other direction, suppose that <img src="ltximg/11_Sets.org.temp_f7f410b1d6d742176ccf2cf7cafda16b340c1e15.png" alt="11_Sets.org.temp_f7f410b1d6d742176ccf2cf7cafda16b340c1e15.png" />, which means
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_8addea4c4bdcfee41a93efe7e42030bc5611798a.png" alt="11_Sets.org.temp_8addea4c4bdcfee41a93efe7e42030bc5611798a.png" /></p>
+</div>
+<p>
+Suppose first that <img src="ltximg/11_Sets.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" alt="11_Sets.org.temp_cb157778d5e104c84e17b19b5c0ed96841e24735.png" />. Then <img src="ltximg/11_Sets.org.temp_2ca80f571d5843cf17c91e3b6cb517c0f2fcc6f8.png" alt="11_Sets.org.temp_2ca80f571d5843cf17c91e3b6cb517c0f2fcc6f8.png" />. This means that
+<img src="ltximg/11_Sets.org.temp_32f37c54fec737373b99ed3131892e14a8ae33bb.png" alt="11_Sets.org.temp_32f37c54fec737373b99ed3131892e14a8ae33bb.png" /> and <img src="ltximg/11_Sets.org.temp_a110e5bd665caeaec76b3c8f7682b94c44b3310d.png" alt="11_Sets.org.temp_a110e5bd665caeaec76b3c8f7682b94c44b3310d.png" />, from which we conclude that <img src="ltximg/11_Sets.org.temp_5d5cf2996831b203d02073bcc58ab2c3560f0e07.png" alt="11_Sets.org.temp_5d5cf2996831b203d02073bcc58ab2c3560f0e07.png" /> and <img src="ltximg/11_Sets.org.temp_cfb1facfc0b63f64f60443d70d982ec1d2453086.png" alt="11_Sets.org.temp_cfb1facfc0b63f64f60443d70d982ec1d2453086.png" />.
+</p>
+
+<p>
+Now suppose that <img src="ltximg/11_Sets.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" alt="11_Sets.org.temp_06e52285df078a93b514147347dd411f5df316c2.png" />. If <img src="ltximg/11_Sets.org.temp_52c81afbcb1a2bb34a0a25fe3e99d90648478f0e.png" alt="11_Sets.org.temp_52c81afbcb1a2bb34a0a25fe3e99d90648478f0e.png" /> then we conclude
+that <img src="ltximg/11_Sets.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="11_Sets.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/11_Sets.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="11_Sets.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> are both equal to <img src="ltximg/11_Sets.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="11_Sets.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" />, contradicting <img src="ltximg/11_Sets.org.temp_fe7fcd8828b7f082d15eb791f9fd59d3b9d47163.png" alt="11_Sets.org.temp_fe7fcd8828b7f082d15eb791f9fd59d3b9d47163.png" />. Since <img src="ltximg/11_Sets.org.temp_f42efc04d433a59e9f3f7646e04301dfcafafd15.png" alt="11_Sets.org.temp_f42efc04d433a59e9f3f7646e04301dfcafafd15.png" />, <img src="ltximg/11_Sets.org.temp_48de9116b042a061b0538cad39946505a58705ab.png" alt="11_Sets.org.temp_48de9116b042a061b0538cad39946505a58705ab.png" /> must be equal to <img src="ltximg/11_Sets.org.temp_0fc98b9adf4853f33a06bf267936d42bd0616bb1.png" alt="11_Sets.org.temp_0fc98b9adf4853f33a06bf267936d42bd0616bb1.png" />, which means
+that <img src="ltximg/11_Sets.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" alt="11_Sets.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" />. We know that <img src="ltximg/11_Sets.org.temp_da5078814a3f8650c98b11940ff9c81f12920c1c.png" alt="11_Sets.org.temp_da5078814a3f8650c98b11940ff9c81f12920c1c.png" />, and since we know <img src="ltximg/11_Sets.org.temp_3982cf97c38303ae43d4f155f35a5b2e1c1cdc1b.png" alt="11_Sets.org.temp_3982cf97c38303ae43d4f155f35a5b2e1c1cdc1b.png" />, we conclude <img src="ltximg/11_Sets.org.temp_c06542fad343e50f1ea20a6dc69bf24fabade03a.png" alt="11_Sets.org.temp_c06542fad343e50f1ea20a6dc69bf24fabade03a.png" />. This means that <img src="ltximg/11_Sets.org.temp_a15fb133435f4f68f22dd5141c71536790866b35.png" alt="11_Sets.org.temp_a15fb133435f4f68f22dd5141c71536790866b35.png" />, since <img src="ltximg/11_Sets.org.temp_bdc162a34cbade68722c5a306535af90c7eeff4d.png" alt="11_Sets.org.temp_bdc162a34cbade68722c5a306535af90c7eeff4d.png" />, we conclude that <img src="ltximg/11_Sets.org.temp_f20a43c2e5dd0d591f331f8ba6e937aa662d6f69.png" alt="11_Sets.org.temp_f20a43c2e5dd0d591f331f8ba6e937aa662d6f69.png" />.
+</p>
+
+<p>
+Hence in both cases we conclude that <img src="ltximg/11_Sets.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" alt="11_Sets.org.temp_4d4ce25c11beb50f19a4a2a7de776be8b647d955.png" /> and <img src="ltximg/11_Sets.org.temp_f20a43c2e5dd0d591f331f8ba6e937aa662d6f69.png" alt="11_Sets.org.temp_f20a43c2e5dd0d591f331f8ba6e937aa662d6f69.png" />, proving the
+theorem.
+</p>
+
+<hr>
+<p>
+Using ordered pairs we can define the <i>ordered triple</i> <img src="ltximg/11_Sets.org.temp_fd52b27748f0b99cd8d1fe9b15cb81a0e3c251ea.png" alt="11_Sets.org.temp_fd52b27748f0b99cd8d1fe9b15cb81a0e3c251ea.png" /> to be
+<img src="ltximg/11_Sets.org.temp_6b58075ad2a52383daf3adb4264c1e4554f5a358.png" alt="11_Sets.org.temp_6b58075ad2a52383daf3adb4264c1e4554f5a358.png" />. Then we can prove that <img src="ltximg/11_Sets.org.temp_67c9ca8cd805e73c552cb36ffc2e556c0f3ea9e4.png" alt="11_Sets.org.temp_67c9ca8cd805e73c552cb36ffc2e556c0f3ea9e4.png" /> if and
+only if <img src="ltximg/11_Sets.org.temp_62d6ba98ce59c8f19200644a354f85baa88e06a2.png" alt="11_Sets.org.temp_62d6ba98ce59c8f19200644a354f85baa88e06a2.png" />, <img src="ltximg/11_Sets.org.temp_2235dbecd907f9bc6672d9b266604f61c44a14c2.png" alt="11_Sets.org.temp_2235dbecd907f9bc6672d9b266604f61c44a14c2.png" /> and <img src="ltximg/11_Sets.org.temp_24982c509f1226093852bd8791f37241ef5d1232.png" alt="11_Sets.org.temp_24982c509f1226093852bd8791f37241ef5d1232.png" />, which you are asked to do in
+the exercises. We can also define ordered <img src="ltximg/11_Sets.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="11_Sets.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-tuples, which are
+sequence of <img src="ltximg/11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="11_Sets.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> objects, in a similar way.
+</p>
+
+<p>
+Given two sets <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, we define the <i>cartesian product</i> <img src="ltximg/11_Sets.org.temp_4379da6218f4c31b596f4b3199927c2f7922537b.png" alt="11_Sets.org.temp_4379da6218f4c31b596f4b3199927c2f7922537b.png" /> of these two sets as the set of all pairs where the first
+component is an element in <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and the second component is an element
+in <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />. In set-builder notation this means
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_d04866435418a03306ba59334395641146eb4290.png" alt="11_Sets.org.temp_d04866435418a03306ba59334395641146eb4290.png" /></p>
+</div>
+<p>
+Note that if <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are subsets of a particular domain <img src="ltximg/11_Sets.org.temp_eb6233edafa870c2a0f62a9a76b3ec4842383893.png" alt="11_Sets.org.temp_eb6233edafa870c2a0f62a9a76b3ec4842383893.png" />, the set <img src="ltximg/11_Sets.org.temp_aa5290827548bcb55b34388a5f71f5b813a2f901.png" alt="11_Sets.org.temp_aa5290827548bcb55b34388a5f71f5b813a2f901.png" /> need not be a subset of the same
+domain. However, it will be a subset of <img src="ltximg/11_Sets.org.temp_7422bee1361a429d91f2d4bddd5d5080745f04ab.png" alt="11_Sets.org.temp_7422bee1361a429d91f2d4bddd5d5080745f04ab.png" />.
+</p>
+
+<p>
+Given a set <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> we can define the <i>power set</i> <img src="ltximg/11_Sets.org.temp_6e8979564875a844e3f7f8582bb9c3e2fd8152f6.png" alt="11_Sets.org.temp_6e8979564875a844e3f7f8582bb9c3e2fd8152f6.png" /> to be
+the set of all subsets of <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. In set-builder notation we can write
+this as
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_fce6f947e277319ca4d1e7bd6d8a9dd46ac08fc1.png" alt="11_Sets.org.temp_fce6f947e277319ca4d1e7bd6d8a9dd46ac08fc1.png" /></p>
+</div>
+<p>
+If <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a subset of <img src="ltximg/11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" alt="11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" />, <img src="ltximg/11_Sets.org.temp_6e8979564875a844e3f7f8582bb9c3e2fd8152f6.png" alt="11_Sets.org.temp_6e8979564875a844e3f7f8582bb9c3e2fd8152f6.png" /> may not be a
+subset <img src="ltximg/11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" alt="11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" />, but it is always a subset of <img src="ltximg/11_Sets.org.temp_62813595957114caaa497b59489bb1899f97a0b9.png" alt="11_Sets.org.temp_62813595957114caaa497b59489bb1899f97a0b9.png" />.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org98b248e" class="outline-3">
+<h3 id="org98b248e"><span class="section-number-3"> 11.5</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li>Prove the following theorem: Let <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and <img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> be sets of
+elements of some domain. Then <img src="ltximg/11_Sets.org.temp_5c2c91d11212ce607d6925d7268cd02c2ed8d2d6.png" alt="11_Sets.org.temp_5c2c91d11212ce607d6925d7268cd02c2ed8d2d6.png" />. (Henceforth, if we don't specify natural deduction or
+Lean, ``prove'' and ``show'' mean give an ordinary mathematical
+proof, using ordinary mathematical language rather than symbolic
+logic.)</li>
+
+<li>Prove the following theorem: Let <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be sets of elements of
+some domain. Then <img src="ltximg/11_Sets.org.temp_8eec9076a33eff6b61651a5c1b5553b100c946a5.png" alt="11_Sets.org.temp_8eec9076a33eff6b61651a5c1b5553b100c946a5.png" />.</li>
+
+<li>Two sets <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are said to be <i>disjoint</i> if they have no
+element in common. Show that if <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are disjoint, <img src="ltximg/11_Sets.org.temp_4e4d0c09af1e64fa9ba00705ea981601dbb805c0.png" alt="11_Sets.org.temp_4e4d0c09af1e64fa9ba00705ea981601dbb805c0.png" />, and <img src="ltximg/11_Sets.org.temp_d302f451696297a93947a054042d041607443f92.png" alt="11_Sets.org.temp_d302f451696297a93947a054042d041607443f92.png" />, then <img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> and <img src="ltximg/11_Sets.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="11_Sets.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" /> are disjoint.</li>
+
+<li>Let <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be sets. Show <img src="ltximg/11_Sets.org.temp_72e500442329b8b416fff0374f926b6734525cfe.png" alt="11_Sets.org.temp_72e500442329b8b416fff0374f926b6734525cfe.png" />, by showing that both sides have
+the same elements.</li>
+
+<li>Let <img src="ltximg/11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="11_Sets.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="11_Sets.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and <img src="ltximg/11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="11_Sets.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> be subsets of some domain <img src="ltximg/11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" alt="11_Sets.org.temp_5ac2fc61ae727ea1c458492dfe391e5b3dd3f1d8.png" />. Give
+a calculational proof of the identity <img src="ltximg/11_Sets.org.temp_8813eae33a4a4cadd336567d8ffe609757fff0b3.png" alt="11_Sets.org.temp_8813eae33a4a4cadd336567d8ffe609757fff0b3.png" />, using the identities above. Also use the
+fact that, in general, <img src="ltximg/11_Sets.org.temp_f5fb26ecfc92e465156ab07774acd27977fc91d8.png" alt="11_Sets.org.temp_f5fb26ecfc92e465156ab07774acd27977fc91d8.png" />.</li>
+
+<li>Similarly, give a calculational proof of <img src="ltximg/11_Sets.org.temp_36b303e42ce5f4d62e2f04f3afffec308019457e.png" alt="11_Sets.org.temp_36b303e42ce5f4d62e2f04f3afffec308019457e.png" />.</li>
+
+<li>Give calculational proofs of the following:
+
+<ul class="org-ul">
+<li><img src="ltximg/11_Sets.org.temp_317a43b1d6cfb4a722fd6248e35d5ca41b5d706d.png" alt="11_Sets.org.temp_317a43b1d6cfb4a722fd6248e35d5ca41b5d706d.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_76f354a0476a4bc920787b473385932a2f1b4285.png" alt="11_Sets.org.temp_76f354a0476a4bc920787b473385932a2f1b4285.png" /></li>
+<li><img src="ltximg/11_Sets.org.temp_ee3b907e9ba22c36d05b31be8a2a968e8a03269d.png" alt="11_Sets.org.temp_ee3b907e9ba22c36d05b31be8a2a968e8a03269d.png" /></li>
+</ul></li>
+
+<li><p>
+Prove that if <img src="ltximg/11_Sets.org.temp_7a4d780e61281bc95175f7c489691ee11d404a14.png" alt="11_Sets.org.temp_7a4d780e61281bc95175f7c489691ee11d404a14.png" /> is a family indexed
+by two sets <img src="ltximg/11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="11_Sets.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" /> and <img src="ltximg/11_Sets.org.temp_6cfa757abcae2aac2ddd06f3bd54e70b5bbc1618.png" alt="11_Sets.org.temp_6cfa757abcae2aac2ddd06f3bd54e70b5bbc1618.png" />, then
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_5c17eabb9709ab6c71954d4450893f4f1d3127fd.png" alt="11_Sets.org.temp_5c17eabb9709ab6c71954d4450893f4f1d3127fd.png" /></p>
+</div>
+<p>
+Also, find a family <img src="ltximg/11_Sets.org.temp_7a4d780e61281bc95175f7c489691ee11d404a14.png" alt="11_Sets.org.temp_7a4d780e61281bc95175f7c489691ee11d404a14.png" /> where the
+reverse inclusion does not hold.
+</p></li>
+
+<li><p>
+Prove using calculational reasoning that
+</p>
+
+<div class="figure">
+<p><img src="ltximg/11_Sets.org.temp_4bef8a013949e1d0b680839eaf62c6f46c623d64.png" alt="11_Sets.org.temp_4bef8a013949e1d0b680839eaf62c6f46c623d64.png" /></p>
+</div>
+<p>
+The notation <img src="ltximg/11_Sets.org.temp_0f0ed3bc1948c18e5a1b6446190380eef37a5eee.png" alt="11_Sets.org.temp_0f0ed3bc1948c18e5a1b6446190380eef37a5eee.png" /> means <img src="ltximg/11_Sets.org.temp_2c1c2ec59ab495131e0327e50638cbbad682910e.png" alt="11_Sets.org.temp_2c1c2ec59ab495131e0327e50638cbbad682910e.png" />.
+</p></li>
+
+<li>Using the definition <img src="ltximg/11_Sets.org.temp_393ef75877ad14a3ed804d873d372fba8f8a15a3.png" alt="11_Sets.org.temp_393ef75877ad14a3ed804d873d372fba8f8a15a3.png" />, show that <img src="ltximg/11_Sets.org.temp_e475a3c7027aeda50a10db9af9975b5195c541bf.png" alt="11_Sets.org.temp_e475a3c7027aeda50a10db9af9975b5195c541bf.png" /> if and only if <img src="ltximg/11_Sets.org.temp_62d6ba98ce59c8f19200644a354f85baa88e06a2.png" alt="11_Sets.org.temp_62d6ba98ce59c8f19200644a354f85baa88e06a2.png" />, <img src="ltximg/11_Sets.org.temp_2235dbecd907f9bc6672d9b266604f61c44a14c2.png" alt="11_Sets.org.temp_2235dbecd907f9bc6672d9b266604f61c44a14c2.png" /> and <img src="ltximg/11_Sets.org.temp_24982c509f1226093852bd8791f37241ef5d1232.png" alt="11_Sets.org.temp_24982c509f1226093852bd8791f37241ef5d1232.png" />.</li>
+
+<li>Prove that <img src="ltximg/11_Sets.org.temp_45845613fabcbbf15423c6faf4b407662371887f.png" alt="11_Sets.org.temp_45845613fabcbbf15423c6faf4b407662371887f.png" /></li>
+
+<li>Prove that <img src="ltximg/11_Sets.org.temp_5952aa23682f0601e1ab2e281ef59dbbab3569e5.png" alt="11_Sets.org.temp_5952aa23682f0601e1ab2e281ef59dbbab3569e5.png" />. Find an expression for <img src="ltximg/11_Sets.org.temp_2090e06b0dc29b0f75210f3801c6246fd96bfbca.png" alt="11_Sets.org.temp_2090e06b0dc29b0f75210f3801c6246fd96bfbca.png" />
+consisting of unions of cartesian products, and prove that your
+expression is correct.</li>
+
+<li>Prove that that <img src="ltximg/11_Sets.org.temp_7740b7dfebbb2d072703c4cb26cf2d7b3905d789.png" alt="11_Sets.org.temp_7740b7dfebbb2d072703c4cb26cf2d7b3905d789.png" /> if and only if <img src="ltximg/11_Sets.org.temp_821b6ed5c488a693c789f4abb551c88c4513378b.png" alt="11_Sets.org.temp_821b6ed5c488a693c789f4abb551c88c4513378b.png" />.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 21:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-org955e8c2" class="outline-2">
+<h2 id="Semantics_of_Propositional_Logic"><a id="org955e8c2"></a><span class="section-number-2"> 6</span> Semantics of Propositional Logic</h2>
+<div class="outline-text-2" id="text-Semantics_of_Propositional_Logic">
+<p>
+Classically, we think of propositional variables as ranging over
+statements that can be true or false. And, intuitively, we think of
+a proof system as telling us what propositional formulas <i>have to</i> be
+true, no matter what the variables stand for. For example, the fact
+that we can prove <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> from the hypotheses <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d8082257a8b4b37e2b8cc61b1a2b663d907b9e59.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d8082257a8b4b37e2b8cc61b1a2b663d907b9e59.png" /> seems to tell us that whenever the hypotheses are true, then
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> has to be true as well.
+</p>
+
+<p>
+Making sense of this involves stepping outside the system and giving
+an account of truth &#x2014; more precisely, the conditions under which a
+propositional formula is true. This is one of the things that symbolic
+logic was designed to do, and the task belongs to the realm of
+<i>semantics</i>. Formulas and formal proofs are <i>syntactic</i> notions, which
+is to say, they are represented by symbols and symbolic
+structures. Truth is a <i>semantic</i> notion, in that it ascribes a type
+of <i>meaning</i> to certain formulas.
+</p>
+
+<p>
+Syntactically, we were able to ask and answer questions like the
+following:
+</p>
+<ul class="org-ul">
+<li>Given a set of hypotheses, <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />, and a formula, <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, can we
+derive <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> from <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />?</li>
+<li>What formulas can be derived from <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />?</li>
+<li>What hypotheses are needed to derive <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />?</li>
+</ul>
+
+<p>
+The questions we consider semantically are different:
+</p>
+<ul class="org-ul">
+<li>Given an assignment of truth values to the propositional
+variables occurring in a formula <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, is <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> true or false?</li>
+<li>Is there any truth assignment that makes <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> true?</li>
+<li>Which are the truth assignments that make <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> true?</li>
+</ul>
+
+<p>
+In this chapter, we will not provide a fully rigorous mathematical
+treatment of syntax and semantics. That subject matter is appropriate
+to a more advanced and focused course on mathematical logic. But we
+will discuss semantic issues in enough detail to give you a good sense
+of what it means to think semantically, as well as a sense of how to
+make pragmatic use of semantic notions.
+</p>
+</div>
+
+<div id="outline-container-orgf6ac249" class="outline-3">
+<h3 id="orgf6ac249"><span class="section-number-3"> 6.1</span> Truth Values and Assignments</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The first notion we will need is that of a <i>truth value</i>. We have
+already seen two, namely, "true" and "false." We will use the symbols
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" /> and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" /> to represent these in informal mathematics. These
+are the values that <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_5e63c8abf3b0c42012365b5702f80124df3a70e4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_5e63c8abf3b0c42012365b5702f80124df3a70e4.png" /> and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" alt="06_Semantics_of_Propositional_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" /> are intended to denote in
+natural deduction, and <code>true</code> and <code>false</code> are intended to denote in
+Lean.
+</p>
+
+<p>
+In this text, we will adopt a "classical" notion of truth, following
+our discussion in <a href="#" onclick="myModule.loadTutorial('05_Classical_Reasoning.html', 'Classical_Reasoning')">Chapter 5</a>. This can be understood in various ways,
+but, concretely, it comes down to this: we will assume that any
+proposition is either true or false (but, of course, not both). This
+conception of truth is what underlies the law of the excluded middle,
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_648f455393860e148fb987e1e4bdf6b4da52b1b1.png" alt="06_Semantics_of_Propositional_Logic.org.temp_648f455393860e148fb987e1e4bdf6b4da52b1b1.png" />. Semantically, we read this sentence as saying "either
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is true, or <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" alt="06_Semantics_of_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" /> is true." Since, in our semantic
+interpretation, <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" alt="06_Semantics_of_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" /> is true exactly when <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is false, the law of
+the excluded middle says that <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is either true or false.
+</p>
+
+<p>
+The next notion we will need is that of a <i>truth assignment</i>, which is
+simply a function that assigns a truth value to each element of a
+propositional variables. In this section, we will distinguish between
+propositional variables and arbitrary formulas by using letters <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_c654d515a8972119b9611e93c52bda75c99290c9.png" alt="06_Semantics_of_Propositional_Logic.org.temp_c654d515a8972119b9611e93c52bda75c99290c9.png" /> for the former and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_dbfeb1525c6641bac8542747bdbdcdff87f2d179.png" alt="06_Semantics_of_Propositional_Logic.org.temp_dbfeb1525c6641bac8542747bdbdcdff87f2d179.png" /> for the latter. For
+example, the function <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" /> defined by
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_e24c2d03c898ba3e404f590004626efe561553da.png" alt="06_Semantics_of_Propositional_Logic.org.temp_e24c2d03c898ba3e404f590004626efe561553da.png" /></li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_4543c0c9988eed2b83a92c347118e3ddcd68580b.png" alt="06_Semantics_of_Propositional_Logic.org.temp_4543c0c9988eed2b83a92c347118e3ddcd68580b.png" /></li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_6e8a35e0b39b93d808bfd73e1b0e6ae7bcdb942b.png" alt="06_Semantics_of_Propositional_Logic.org.temp_6e8a35e0b39b93d808bfd73e1b0e6ae7bcdb942b.png" /></li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_ea4d00b642341c233b147fee92468d945be003a7.png" alt="06_Semantics_of_Propositional_Logic.org.temp_ea4d00b642341c233b147fee92468d945be003a7.png" /></li>
+</ul>
+
+<p>
+is a truth assignment for the set of variables <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_e1c9fd43f99f97c4c3811495a6387915797dbcaa.png" alt="06_Semantics_of_Propositional_Logic.org.temp_e1c9fd43f99f97c4c3811495a6387915797dbcaa.png" />. 
+</p>
+
+<p>
+Intuitively, a truth assignment describes a possible "state of the
+world." Going back to the Malice and Alice puzzle, let's suppose the
+following letters are shorthand for the statements:
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="06_Semantics_of_Propositional_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> := Alice's brother was the victim</li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" alt="06_Semantics_of_Propositional_Logic.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" /> := Alice was the killer</li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="06_Semantics_of_Propositional_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> := Alice was in the bar</li>
+</ul>
+
+<p>
+In the world described by the solution to the puzzle, the first and
+third statements are true, and the second is false. So our truth
+assignment gives the value <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" /> to <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="06_Semantics_of_Propositional_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="06_Semantics_of_Propositional_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" />, and the value
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" /> to <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" alt="06_Semantics_of_Propositional_Logic.org.temp_1e3899392064ea39d646045be760d7c682f1c622.png" />.
+</p>
+
+<p>
+Once we have a truth assignment <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" /> to a set of propositional
+variables, we can extend it to a <i>valuation function</i> <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_6985ea375e881a430cdb17e80ad6f6f77abaede4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_6985ea375e881a430cdb17e80ad6f6f77abaede4.png" />, which
+assigns a value of true or false to every propositional formula that
+depends only on these variables. The function <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_6985ea375e881a430cdb17e80ad6f6f77abaede4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_6985ea375e881a430cdb17e80ad6f6f77abaede4.png" /> is defined
+recursively, which is to say, formulas are evaluated from the bottom
+up, so that value assigned to a compound formula is determined by the
+values assigned to its components. Formally, the function is defined
+as follows:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_03d0eeff6a2bc726976f93b5caa670fe69fbf62c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_03d0eeff6a2bc726976f93b5caa670fe69fbf62c.png" /></li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_ba8c197b6bfc30239c5cce0e9cc1ed5281827be9.png" alt="06_Semantics_of_Propositional_Logic.org.temp_ba8c197b6bfc30239c5cce0e9cc1ed5281827be9.png" /></li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_455a499f570a58b8a9ffc1c41231b18068152fee.png" alt="06_Semantics_of_Propositional_Logic.org.temp_455a499f570a58b8a9ffc1c41231b18068152fee.png" />, where <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_357826645657796a2c57aebc756663885a264ddb.png" alt="06_Semantics_of_Propositional_Logic.org.temp_357826645657796a2c57aebc756663885a264ddb.png" /> is any propositional variable.</li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_93e2792449518ff22fd7c9e3c443c03eed136cb4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_93e2792449518ff22fd7c9e3c443c03eed136cb4.png" /> if <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_4375fcdd9119911ffa9115afa982339eaf3e6d3c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_4375fcdd9119911ffa9115afa982339eaf3e6d3c.png" /> is <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" />, and vice
+versa.</li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_2ed9922f04d8bf544ff38479a0951dbb2cb11c89.png" alt="06_Semantics_of_Propositional_Logic.org.temp_2ed9922f04d8bf544ff38479a0951dbb2cb11c89.png" /> if <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_4375fcdd9119911ffa9115afa982339eaf3e6d3c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_4375fcdd9119911ffa9115afa982339eaf3e6d3c.png" /> and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_5dc398f08b66c5aaeb141e254e49723459b8c05f.png" alt="06_Semantics_of_Propositional_Logic.org.temp_5dc398f08b66c5aaeb141e254e49723459b8c05f.png" /> are both <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" />, and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" /> otherwise.</li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_49839f7d0bdf8b3a3e0027044e0f1d51a37d6b9f.png" alt="06_Semantics_of_Propositional_Logic.org.temp_49839f7d0bdf8b3a3e0027044e0f1d51a37d6b9f.png" /> if at least one of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_4375fcdd9119911ffa9115afa982339eaf3e6d3c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_4375fcdd9119911ffa9115afa982339eaf3e6d3c.png" /> and
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_5c16b7c4da42121942812db8829497cd3b81e7d6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_5c16b7c4da42121942812db8829497cd3b81e7d6.png" /> is <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" />; otherwise <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" />.</li>
+<li><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_31c9489d33885892787d3689999b9323c31fd9c4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_31c9489d33885892787d3689999b9323c31fd9c4.png" /> if either <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_5c16b7c4da42121942812db8829497cd3b81e7d6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_5c16b7c4da42121942812db8829497cd3b81e7d6.png" /> is <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" /> or
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_4375fcdd9119911ffa9115afa982339eaf3e6d3c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_4375fcdd9119911ffa9115afa982339eaf3e6d3c.png" /> is <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" />, and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" /> otherwise. (Equivalently,
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f9076d0007cfd47689d029d77e064f3f257e4cab.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f9076d0007cfd47689d029d77e064f3f257e4cab.png" /> if <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_4375fcdd9119911ffa9115afa982339eaf3e6d3c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_4375fcdd9119911ffa9115afa982339eaf3e6d3c.png" /> is <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" /> and
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_5c16b7c4da42121942812db8829497cd3b81e7d6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_5c16b7c4da42121942812db8829497cd3b81e7d6.png" /> is <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" />, and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" /> otherwise.)</li>
+</ul>
+
+<p>
+The rules for conjunction and disjunction are easy to understand. "<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />" is true exactly when <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are both true; "<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> or <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />"
+is true when at least one of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> or <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is true.
+</p>
+
+<p>
+Understanding the rule for implication is trickier. People are often
+surprised to hear that any if-then statement with a false hypothesis
+is supposed to be true. The statement "if I have two heads, then
+circles are squares" may sound like it ought to be false, but by our
+reckoning, it comes out true. To make sense of this, think about the
+difference between the two sentences:
+</p>
+<ul class="org-ul">
+<li>"If I have two heads, then circles are squares."</li>
+<li>"If I had two heads, then circles would be squares."</li>
+</ul>
+<p>
+The second sentence is an example of a <i>counterfactual</i>
+implication. It asserts something about how the world might change, if
+things were other than they actually are. Philosophers have studied
+counterfactuals for centuries, but mathematical logic is concerned
+with the first sentence, a <i>material</i> implication. The material
+implication asserts something about the way the world is right now,
+rather than the way it might have been. Since it is false that I
+have two heads, the statement "if I have two heads, then circles are
+squares" is true.
+</p>
+
+<p>
+Why do we evaluate material implication in this way? Once again, let
+us consider the true sentence "every natural number that is prime and
+greater than two is odd." We can interpret this sentence as saying
+that all of the (infinitely many) sentences in this list are true:
+</p>
+<ul class="org-ul">
+<li>if 0 is prime and greater than 2, then 0 is odd</li>
+<li>if 1 is prime and greater than 2, then 1 is odd</li>
+<li>if 2 is prime and greater than 2, then 2 is odd</li>
+<li>if 3 is prime and greater than 2, then 3 is odd</li>
+<li>&#x2026;</li>
+</ul>
+
+<p>
+The first sentence on this list is a lot like our "two heads" example,
+since both the hypothesis and the conclusion are false. But since it
+is an instance of a statement that is true in general, we are
+committed to assigning it the value <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" />.  The second sentence is a
+different: the hypothesis is still false, but here the conclusion is
+true. Together, these tell us that whenever the hypothesis is false,
+the conditional statement should be true. The fourth sentence has a
+true hypothesis and a true conclusion. So from the second and fourth
+sentences, we see that whenever the conclusion is true, the
+conditional should be true as well.  Finally, it seems clear that the
+sentence "if 3 is prime and greater than 2, then 3 is even" should
+<i>not</i> be true. This pattern, where the hypothesis is true and the
+conclusion is false, is the only one for which the conditional will be
+false.
+</p>
+
+<p>
+Let us motivate the semantics for material implication another way,
+using the deductive rules described in the last chapter. Notice that,
+if <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is true, we can prove <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" /> without any assumptions about
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+
+<div class="figure">
+<p><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_82e3652190bf8a62ab8725c27a3d0be0ce361969.png" alt="06_Semantics_of_Propositional_Logic.org.temp_82e3652190bf8a62ab8725c27a3d0be0ce361969.png" /></p>
+</div>
+<p>
+This follows from the proper reading of the implication introduction
+rule: given <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, one can always infer <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" />, and then cancel an
+assumption <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <i>if there is one</i>. If <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> was never used in the
+proof, the conclusion is simply weaker than it needs to be. This
+inference is validated in Lean:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-1' mode="ace/mode/lean" readonly="true">variables A B : Prop
+premise HB : B
+
+example : A → B :=
+assume HA : A, 
+  show B, from HB
+</juicy-ace-editor><div id='lean-full-code-1' style='display:none'>variables A B : Prop
+premise HB : B
+
+example : A → B :=
+assume HA : A, 
+  show B, from HB
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-1').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Similarly, if <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is false, we can prove <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" /> without any
+assumptions about <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_4159113d97eca1981c2692f638ee3774e63db774.png" alt="06_Semantics_of_Propositional_Logic.org.temp_4159113d97eca1981c2692f638ee3774e63db774.png" /></p>
+</div>
+<p>
+In Lean:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-2' mode="ace/mode/lean" readonly="true">variables A B : Prop
+premise HnA : ¬ A
+
+example : A → B :=
+assume HA : A, 
+  show B, from false.elim (HnA HA)
+</juicy-ace-editor><div id='lean-full-code-2' style='display:none'>variables A B : Prop
+premise HnA : ¬ A
+
+example : A → B :=
+assume HA : A, 
+  show B, from false.elim (HnA HA)
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-2').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Finally, if <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is true and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is false, we can prove <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_891e7fb974662e3c291c4975bbbc2d9833ef9d22.png" alt="06_Semantics_of_Propositional_Logic.org.temp_891e7fb974662e3c291c4975bbbc2d9833ef9d22.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_4555acc35ebce68b0655fb1f9744cab40eb3f0cb.png" alt="06_Semantics_of_Propositional_Logic.org.temp_4555acc35ebce68b0655fb1f9744cab40eb3f0cb.png" /></p>
+</div>
+<p>
+Once again, in Lean:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-3' mode="ace/mode/lean" readonly="true">variables A B : Prop
+premise HA : A
+premise HnB : ¬B
+
+example : ¬ (A → B) :=
+assume H : A → B,
+have HB : B, from H HA,
+show false, from HnB HB
+</juicy-ace-editor><div id='lean-full-code-3' style='display:none'>variables A B : Prop
+premise HA : A
+premise HnB : ¬B
+
+example : ¬ (A → B) :=
+assume H : A → B,
+have HB : B, from H HA,
+show false, from HnB HB
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-3').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Now that we have defined the truth of any formula relative to a truth
+assignment, we can answer our first semantic question: given an
+assignment <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" /> of truth values to the propositional variables occurring
+in some formula <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_ba5ddce7b6596b9bd5c8b96e8dacc8a546e0705a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_ba5ddce7b6596b9bd5c8b96e8dacc8a546e0705a.png" />, how do we determine whether or not <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_ba5ddce7b6596b9bd5c8b96e8dacc8a546e0705a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_ba5ddce7b6596b9bd5c8b96e8dacc8a546e0705a.png" /> is
+true?  This amounts to evaluating <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_02d405f896ad5640b8db15332074123a87377a3c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_02d405f896ad5640b8db15332074123a87377a3c.png" />, and the recursive
+definition of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_ba5ddce7b6596b9bd5c8b96e8dacc8a546e0705a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_ba5ddce7b6596b9bd5c8b96e8dacc8a546e0705a.png" /> gives a recipe: we evaluate the expressions
+occurring in <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_ba5ddce7b6596b9bd5c8b96e8dacc8a546e0705a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_ba5ddce7b6596b9bd5c8b96e8dacc8a546e0705a.png" /> from the bottom up, starting with the propositional
+variables, and using the evaluation of an expression's components to
+evaluate the expression itself. For example, suppose our truth
+assignment <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" /> makes <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> true and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> false. To evaluate <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f89d6ffeae7770168d529bc58d8da5eca9437c07.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f89d6ffeae7770168d529bc58d8da5eca9437c07.png" /> under <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" />, note that the expression <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_421ce85ec207aeea52f730b1dc2c597dd862ecc4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_421ce85ec207aeea52f730b1dc2c597dd862ecc4.png" /> comes out false and the expression <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" alt="06_Semantics_of_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" /> comes out
+true. Since a disjunction "false or true" is true, the entire formula
+is true.
+</p>
+
+<p>
+We can also go in the other direction: given a formula, we can attempt
+to find a truth assignment that will make it true (or false). In fact,
+we can use Lean to evaluate formulas for us. In the example that
+follows, you can assign any set of values to the proposition symbols
+<code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>, and <code>E</code>. When you run Lean on this input, the
+output of the <code>eval</code> statement is the value of the expression.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-4' mode="ace/mode/lean" readonly="true">-- Define your truth assignment here, by changing the true/false values as you wish.
+definition A : Prop := true
+definition B : Prop := false
+definition C : Prop := true
+definition D : Prop := true
+definition E : Prop := false
+
+-- Ignore this line.
+attribute A B C D E [reducible] 
+
+eval is_true ((A ∧ B) ∨ C)
+eval is_true (A → D)
+eval is_true (C → (D ∨ ¬E))
+eval is_true (¬(A ∧ B ∧ C ∧ D))
+</juicy-ace-editor><div id='lean-full-code-4' style='display:none'>-- Define your truth assignment here, by changing the true/false values as you wish.
+definition A : Prop := true
+definition B : Prop := false
+definition C : Prop := true
+definition D : Prop := true
+definition E : Prop := false
+
+-- Ignore this line.
+attribute A B C D E [reducible] 
+
+eval is_true ((A ∧ B) ∨ C)
+eval is_true (A → D)
+eval is_true (C → (D ∨ ¬E))
+eval is_true (¬(A ∧ B ∧ C ∧ D))
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-4').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Try varying the truth assignments, to see what happens. You can add
+your own formulas to the end of the input, and evaluate them as
+well. Try to find truth assignments that make each of the formulas
+tested above evaluate to true. For an extra challenge, try finding a single
+truth assignment that makes them all true at the same time.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaf6d2af" class="outline-3">
+<h3 id="orgaf6d2af"><span class="section-number-3"> 6.2</span> Truth Tables</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The second and third semantic questions we asked are a little trickier
+than the first. Given a formula <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, is there any truth assignment that 
+makes <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> true? If so, which truth assignments make <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> true?
+Instead of considering one particular truth
+assignment, these questions ask us to quantify over <i>all</i> possible truth
+assignments.
+</p>
+
+<p>
+Of course, the number of possible truth assignments depends on the
+number of propositional letters we're considering. Since each letter
+has two possible values, <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="06_Semantics_of_Propositional_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> letters will produce <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" alt="06_Semantics_of_Propositional_Logic.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" /> possible truth
+assignments. This number grows very quickly, so we'll mostly look at
+smaller formulas here.
+</p>
+
+<p>
+We'll use something called a <i>truth table</i> to figure out when, if
+ever, a formula is true.  On the left hand side of the truth table,
+we'll put all of the possible truth assignments for the present
+propositional letters. On the right hand side, we'll put the truth
+value of the entire formula under the corresponding assignment.
+</p>
+
+<p>
+To begin with, truth tables can be used to concisely summarize the
+semantics of our logical connectives:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_b92855ef07a019d2dd2f9cc39a141a08cb3b5d19.png" alt="06_Semantics_of_Propositional_Logic.org.temp_b92855ef07a019d2dd2f9cc39a141a08cb3b5d19.png" /></p>
+</div>
+<p>
+We will leave it to you to write the table for <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" alt="06_Semantics_of_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" />, as an easy
+exercise.
+</p>
+
+<p>
+For compound formulas, the style is much the same. Sometimes it can be
+helpful to include intermediate columns with the truth values of
+subformulas:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_466f16d0623d2f95df2905261a7e168a98a60931.png" alt="06_Semantics_of_Propositional_Logic.org.temp_466f16d0623d2f95df2905261a7e168a98a60931.png" /></p>
+</div>
+<p>
+By writing out the truth table for a formula, we can glance at the
+rows and see which truth assignments make the formula true. If all the
+entries in the final column are <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="06_Semantics_of_Propositional_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" />, as in the above example, the
+formula is said to be <i>valid</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf492b35" class="outline-3">
+<h3 id="orgf492b35"><span class="section-number-3"> 6.3</span> Soundness and Completeness</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Fix a deductive system, such as natural deduction. A propositional
+formula is said to be <i>provable</i> if there is a formal proof of it in
+the system. A propositional formula is said to be a <i>tautology</i>, or
+<i>valid</i>, if it is true under any truth assignment. Provability is a
+syntactic notion, insofar as it asserts the existence of a syntactic
+object, namely, a proof. Validity is a semantic notion, insofar as it
+has to do with truth assignments and valuations. But, intuitively,
+these notions should coincide: both express the idea that a formula
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> <i>has</i> to be true, or is <i>necessarily</i> true, and one would expect a
+good proof system to enable us to derive the valid formulas.
+</p>
+
+<p>
+Because of the way we have chosen our inference rules and defined the
+notion of a valuation, this intuition holds true. The statement that
+every provable formula is valid is known as <i>soundness</i>, and the
+statement that we can prove every valid formula is known as
+<i>completeness</i>.
+</p>
+
+<p>
+These notions extend to provability from hypotheses. If <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /> is a
+set of propositional formulas and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a propositional formula, then
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is said to be a <i>logical consequence</i> of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /> if, given any
+truth assignment that makes every formula in <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /> true, <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+true as well. In this extended setting, soundness says that if <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+provable from <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />, then <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a logical consequence of
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />. Completeness runs the other way: if <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a logical
+consequence of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />, it is provable from <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />.
+</p>
+
+<p>
+Notice that with the rules of natural deduction, a formula <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+provable from a set of hypotheses <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d7303e1591d90de1e05f0e9d5cc76fc793bf60bd.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d7303e1591d90de1e05f0e9d5cc76fc793bf60bd.png" /> if and
+only if the formula <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d34115aacf9d68198315fe70514edb07bb200e60.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d34115aacf9d68198315fe70514edb07bb200e60.png" /> is
+provable outright, that is, from no hypotheses. So, at least for
+finite sets of formulas <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />, the two statements of soundness and
+completeness are equivalent.
+</p>
+
+<p>
+Proving soundness and completeness belongs to the realm of
+<i>metatheory</i>, since it requires us to reason about our methods of
+reasoning. This is not a central focus of this book: we are more
+concerned with <i>using</i> logic and the notion of truth than with
+establishing their properties. But the notions of soundness and
+completeness play an important role in helping us understand the
+nature of the logical notions, and so we will try to provide some
+hints here as to why these properties hold for propositional logic.
+</p>
+
+<p>
+Proving soundness is easier than proving completeness. We wish to show
+that whenever <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is provable from a set of hypotheses, <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />, then
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a logical consequence of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />. In a later chapter, we will
+consider proofs by induction, which allows us to establish a property
+holds of a general collection of objects by showing that it holds of
+some "simple" ones and is preserved under the passage to objects that
+are more complex. In the case of natural deduction, it is enough to
+show that soundness holds of the most basic proofs &#x2014; using the
+assumption rule &#x2014; and that it is preserved under each rule of
+inference. The base case is easy: the assumption rule says that <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+provable from hypothesis <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and clearly every truth assignment that
+makes <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> true makes <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> true. The inductive steps are not much
+harder; it involves checking that the rules we have chosen mesh with
+the semantic notions. For example, suppose the last rule is the and
+introduction rule. In that case, we have a proof of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> from some
+hypotheses <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />, and a proof of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> from some hypotheses <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_5fee40130f8d4b40702593fcd7cb7698e18376a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_5fee40130f8d4b40702593fcd7cb7698e18376a6.png" />,
+and we combine these to form a proof of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" alt="06_Semantics_of_Propositional_Logic.org.temp_ed581df02323b4acaa207b8455be2bc949b9f31b.png" /> from the
+hypotheses in <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_b0dd1ac9d2f64c5502628f2baf74b541de8b82f4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_b0dd1ac9d2f64c5502628f2baf74b541de8b82f4.png" />, that is, the hypotheses in
+both. Inductively, we can assume that <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a logical consequence of
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /> and that <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is a logical consequence of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_5fee40130f8d4b40702593fcd7cb7698e18376a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_5fee40130f8d4b40702593fcd7cb7698e18376a6.png" />. Let <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" alt="06_Semantics_of_Propositional_Logic.org.temp_fed9b4c440a2111c9d9789476a6a073e5c7cbda9.png" /> be
+any truth assignment that makes every formula in <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_b0dd1ac9d2f64c5502628f2baf74b541de8b82f4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_b0dd1ac9d2f64c5502628f2baf74b541de8b82f4.png" />
+true. Then by the inductive hypothesis, we have that it makes <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+true, and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> true as well. By the definition of the valuation
+function, <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_fbd6ef5337504c9eec6898bb22fffc0829e394c1.png" alt="06_Semantics_of_Propositional_Logic.org.temp_fbd6ef5337504c9eec6898bb22fffc0829e394c1.png" />, as required.
+</p>
+
+<p>
+Proving completeness is harder. It suffices to show that if <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is any
+tautology, then <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is provable. One strategy is to show that natural
+deduction can simulate the method of truth tables. For example,
+suppose <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is build up from propositional variables <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="06_Semantics_of_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />. Then
+in natural deduction, we should be able to prove 
+</p>
+
+<div class="figure">
+<p><img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_16aa59c6575b27795e5b6f45c4a88fac9f4293c7.png" alt="06_Semantics_of_Propositional_Logic.org.temp_16aa59c6575b27795e5b6f45c4a88fac9f4293c7.png" /></p>
+</div>
+<p>
+with one disjunct for each line of the truth table. Then, we should
+be able to use each disjunct to "evaluate" each expression occurring
+in <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, proving it true or false in accordance with its valuation,
+until we have a proof of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> itself.
+</p>
+
+<p>
+A nicer way to proceed is to express the rules of natural deduction
+in a way that allows us to work backwards from <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> in search of a
+proof. In other words, first, we give a procedure for constructing a
+derivation of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> by working backwards from <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Then we argue that if
+the procedure fails, then, at the point where it fails, we can find a
+truth assignment that makes <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> false. As a result, if every truth
+assignment makes <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> true, the procedure returns a proof of <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="06_Semantics_of_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6f3cb42" class="outline-3">
+<h3 id="org6f3cb42"><span class="section-number-3"> 6.4</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-4">
+<ol class="org-ol">
+<li>Show that <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" />, <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_6581c5cc6ec29087c217297d610fff2f401c9596.png" alt="06_Semantics_of_Propositional_Logic.org.temp_6581c5cc6ec29087c217297d610fff2f401c9596.png" />, and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_3b93a08e22b549b96ff34f4e989148c0d61eccce.png" alt="06_Semantics_of_Propositional_Logic.org.temp_3b93a08e22b549b96ff34f4e989148c0d61eccce.png" />
+are logically equivalent, by writing out the truth table and
+showing that they have the same values for all truth assignments.</li>
+
+<li>Write out the truth table for <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_e6758e7495da02d9130fd26e1eef11148042692f.png" alt="06_Semantics_of_Propositional_Logic.org.temp_e6758e7495da02d9130fd26e1eef11148042692f.png" />.</li>
+
+<li>Show that <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" alt="06_Semantics_of_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" /> and <img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_556f35233641f328f759dce9b5f98a78b48a6155.png" alt="06_Semantics_of_Propositional_Logic.org.temp_556f35233641f328f759dce9b5f98a78b48a6155.png" /> are equivalent, by
+writing out the truth tables and showing that they have the same
+values for all truth assignments.</li>
+
+<li><p>
+Does the following entailment hold?
+<img src="ltximg/06_Semantics_of_Propositional_Logic.org.temp_61129e94f46ec8ed7fccb4f9d3a3f2f6f668c30c.png" alt="06_Semantics_of_Propositional_Logic.org.temp_61129e94f46ec8ed7fccb4f9d3a3f2f6f668c30c.png" /> 
+</p>
+
+<p>
+Justify your answer by writing out the truth table (sorry, it is
+long). Indicate clearly the rows where both hypotheses come out
+true.
+</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

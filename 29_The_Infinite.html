@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-12-03 Sat 17:37 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-org307ba8e" class="outline-2">
+<h2 id="The_Infinite"><a id="org307ba8e"></a><span class="section-number-2"> 29</span> The Infinite</h2>
+<div class="outline-text-2" id="text-The_Infinite">
+</div>
+
+<div id="outline-container-org7abc452" class="outline-3">
+<h3 id="org7abc452"><span class="section-number-3"> 29.1</span> Equinumerosity</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Remember that in <a href="#" onclick="myModule.loadTutorial('21_Combinatorics.html', 'Combinatorics')">Chapter 21</a> we defined, for each natural number <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />,
+the set <img src="ltximg/29_The_Infinite.org.temp_b98494f4f1faaf9d20b8eeaba03e3c9c400200a0.png" alt="29_The_Infinite.org.temp_b98494f4f1faaf9d20b8eeaba03e3c9c400200a0.png" />. We then said that a set <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+<i>finite</i> if there is a bijection between <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" /> for some <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. A
+set is said to be <i>infinite</i> if it is not finite.
+</p>
+
+<p>
+If <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are two finite sets, then they have the same
+cardinality if and only if there is a bijection between them. It turns
+out that the same notion of "having the same cardinality" makes sense
+even if <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are not finite.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> Two sets <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are said to be <i>equinumerous</i>,
+written <img src="ltximg/29_The_Infinite.org.temp_3a11e59ca8ac54c2ef123f363836ee3537e5033f.png" alt="29_The_Infinite.org.temp_3a11e59ca8ac54c2ef123f363836ee3537e5033f.png" />, if there is a bijection between
+them. Equivalently, we say that <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> <i>have the same
+cardinality</i>.
+</p>
+
+<hr>
+<p>
+At this stage, saying that <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> have the same cardinality may
+sound strange, because it is not clear that there is any object, "the
+cardinality of <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />," that they both "have." It turns out that, in
+set-theoretic foundations, there are certain objects &#x2014;
+generalizations of the natural numbers &#x2014; that one can use to measure
+the size of an infinite set. There are known as the "cardinal numbers"
+or "cardinals."  But they are irrelevant to our purposes here: for the
+rest of this chapter, when we say that <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> have the same
+cardinality, we mean neither more nor less than the fact that there is
+a bijection between them.
+</p>
+
+<p>
+The following theorem says, essentially, the equinumerosity is an
+equivalence relation. (The caveat is that so far we have spoke only of
+relations between sets, and the collection of all sets is not itself a
+set.)
+</p>
+
+<hr>
+<p>
+<b>Proposition</b>. Let <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and <img src="ltximg/29_The_Infinite.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="29_The_Infinite.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> be any sets.
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/29_The_Infinite.org.temp_2520d6aeb3dd9cd692fb0af729ac19329b2e5596.png" alt="29_The_Infinite.org.temp_2520d6aeb3dd9cd692fb0af729ac19329b2e5596.png" />.</li>
+<li>If <img src="ltximg/29_The_Infinite.org.temp_3a11e59ca8ac54c2ef123f363836ee3537e5033f.png" alt="29_The_Infinite.org.temp_3a11e59ca8ac54c2ef123f363836ee3537e5033f.png" />, then <img src="ltximg/29_The_Infinite.org.temp_ec16fbb6fc0bb6d588fb464e5e53dda5965b3133.png" alt="29_The_Infinite.org.temp_ec16fbb6fc0bb6d588fb464e5e53dda5965b3133.png" />.</li>
+<li>If <img src="ltximg/29_The_Infinite.org.temp_3a11e59ca8ac54c2ef123f363836ee3537e5033f.png" alt="29_The_Infinite.org.temp_3a11e59ca8ac54c2ef123f363836ee3537e5033f.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d2d985d8bdadfe7e42b242b3cc051dbf2e4bc0fb.png" alt="29_The_Infinite.org.temp_d2d985d8bdadfe7e42b242b3cc051dbf2e4bc0fb.png" /> then <img src="ltximg/29_The_Infinite.org.temp_92bd99aa4c2177ed996f1300c63e115b56b97cd4.png" alt="29_The_Infinite.org.temp_92bd99aa4c2177ed996f1300c63e115b56b97cd4.png" />.</li>
+</ul>
+
+<hr>
+<p>
+The proof is left as an exercise.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2226a2d" class="outline-3">
+<h3 id="org2226a2d"><span class="section-number-3"> 29.2</span> Countably Infinite Sets</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The set of natural numbers, <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, is a prototypical example of an
+infinite set. To see that it is infinite, suppose, on the other hand,
+that it is finite. This means that there is a bijection <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> between <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />
+and <img src="ltximg/29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />  for some natural number <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. We can restrict to the subset
+<img src="ltximg/29_The_Infinite.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" alt="29_The_Infinite.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" /> of <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, and thereby obtain an injective map from <img src="ltximg/29_The_Infinite.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" alt="29_The_Infinite.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" /> to
+<img src="ltximg/29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />. But this violates the pigeonhole principle, proved in <a href="#" onclick="myModule.loadTutorial('21_Combinatorics.html', 'Combinatorics')">Chapter 21</a>.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> A set <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is said to be <i>countably infinite</i> if it is
+equinumerous with <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />. A set <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is said to be <i>countable</i> if it is
+finite or countably infinite.
+</p>
+
+<hr>
+<p>
+Since the identity map <img src="ltximg/29_The_Infinite.org.temp_7458ccec73a4ac3aa91ad4fc7ace5a0ce9b47540.png" alt="29_The_Infinite.org.temp_7458ccec73a4ac3aa91ad4fc7ace5a0ce9b47540.png" /> is a bijection on any set, every
+set is equinumerous with itself, and thus <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> itself is countably
+infinite.
+</p>
+
+<p>
+The term "countably infinite" is meant to be evocative. Suppose <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+a countable set. By definition, there is a bijection <img src="ltximg/29_The_Infinite.org.temp_a62669a4c7d56ac1cf8eba8db045b55c15d1ce26.png" alt="29_The_Infinite.org.temp_a62669a4c7d56ac1cf8eba8db045b55c15d1ce26.png" />. So <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> has a "first" element <img src="ltximg/29_The_Infinite.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" alt="29_The_Infinite.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" />, a "second" element <img src="ltximg/29_The_Infinite.org.temp_97aecbb80f44be7d75ad910d79b20b81d9c2cb5c.png" alt="29_The_Infinite.org.temp_97aecbb80f44be7d75ad910d79b20b81d9c2cb5c.png" />, a
+"third" element <img src="ltximg/29_The_Infinite.org.temp_9f751e760d7d19b99002eb64730eef08fee85ed7.png" alt="29_The_Infinite.org.temp_9f751e760d7d19b99002eb64730eef08fee85ed7.png" />, and so on. Since <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a bijection, for
+every element <img src="ltximg/29_The_Infinite.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="29_The_Infinite.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> of <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/29_The_Infinite.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="29_The_Infinite.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is the <img src="ltximg/29_The_Infinite.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="29_The_Infinite.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />th element enumerated in this
+way, for a unique value of <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. That is, each element of <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+"counted" at some finite stage.
+</p>
+
+<p>
+With this definition in hand, it is natural to wonder which of our
+favorite sets are countable. Is the set of integers <img src="ltximg/29_The_Infinite.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" alt="29_The_Infinite.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" /> countable?
+How about the set of rationals <img src="ltximg/29_The_Infinite.org.temp_0dae70e7144394189639fdaf3d54f6522b4d89ad.png" alt="29_The_Infinite.org.temp_0dae70e7144394189639fdaf3d54f6522b4d89ad.png" />, or the set of reals <img src="ltximg/29_The_Infinite.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="29_The_Infinite.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" />? At
+this point, you should reflect on the logical form of the statement
+"<img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countable," and think about what is required to show that a
+set <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> does or does not have this property.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> The set of integers, <img src="ltximg/29_The_Infinite.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" alt="29_The_Infinite.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" />, is countable.
+</p>
+
+<p>
+<b>Proof.</b> We need to show that there exists a bijection between <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />
+ and <img src="ltximg/29_The_Infinite.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" alt="29_The_Infinite.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" />. Define <img src="ltximg/29_The_Infinite.org.temp_aea425b7aa2fb893bcb76dc1fede545b283c42ec.png" alt="29_The_Infinite.org.temp_aea425b7aa2fb893bcb76dc1fede545b283c42ec.png" /> as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/29_The_Infinite.org.temp_2db87fe99e2419e6910b4c77f2008e70200fa10a.png" alt="29_The_Infinite.org.temp_2db87fe99e2419e6910b4c77f2008e70200fa10a.png" /></p>
+</div>
+<p>
+We claim that <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a bijection. To see that it is injective, suppose
+<img src="ltximg/29_The_Infinite.org.temp_9bbed88a4207ca09b7eb2f47fbf90fff440003f4.png" alt="29_The_Infinite.org.temp_9bbed88a4207ca09b7eb2f47fbf90fff440003f4.png" />. If <img src="ltximg/29_The_Infinite.org.temp_22fd20da8f577797d47eb5b7e0ee3621059b4962.png" alt="29_The_Infinite.org.temp_22fd20da8f577797d47eb5b7e0ee3621059b4962.png" /> (and hence also <img src="ltximg/29_The_Infinite.org.temp_dc526746dc8e1bacedd8ed7d6bf417095a70b714.png" alt="29_The_Infinite.org.temp_dc526746dc8e1bacedd8ed7d6bf417095a70b714.png" />) is nonnegative, then
+<img src="ltximg/29_The_Infinite.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="29_The_Infinite.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> are even, in which case <img src="ltximg/29_The_Infinite.org.temp_846b2cb7f3bf1395ee3088c6a4b4d0ca31f967d3.png" alt="29_The_Infinite.org.temp_846b2cb7f3bf1395ee3088c6a4b4d0ca31f967d3.png" /> implies <img src="ltximg/29_The_Infinite.org.temp_79fdc3b3a76755c059181d2ed2adb636a86403db.png" alt="29_The_Infinite.org.temp_79fdc3b3a76755c059181d2ed2adb636a86403db.png" />. Otherwise, <img src="ltximg/29_The_Infinite.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="29_The_Infinite.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> are odd, and again <img src="ltximg/29_The_Infinite.org.temp_9909b828454509286955747db85185953c23a325.png" alt="29_The_Infinite.org.temp_9909b828454509286955747db85185953c23a325.png" />
+implies <img src="ltximg/29_The_Infinite.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" alt="29_The_Infinite.org.temp_6ea1a15eddd2b2bc859adef0ad49736e5d8933c1.png" />.
+</p>
+
+<p>
+To see that <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective, suppose <img src="ltximg/29_The_Infinite.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="29_The_Infinite.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is any integer. If <img src="ltximg/29_The_Infinite.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="29_The_Infinite.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is
+nonnegative, then <img src="ltximg/29_The_Infinite.org.temp_7b078c0cf97ee6bc56c4f346a60c6cd70b81cfd3.png" alt="29_The_Infinite.org.temp_7b078c0cf97ee6bc56c4f346a60c6cd70b81cfd3.png" />. If <img src="ltximg/29_The_Infinite.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="29_The_Infinite.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is strictly negative, then <img src="ltximg/29_The_Infinite.org.temp_72fdb84827f45eb56c9a8f78a821d14aa8690d25.png" alt="29_The_Infinite.org.temp_72fdb84827f45eb56c9a8f78a821d14aa8690d25.png" /> is also strictly negative, and hence <img src="ltximg/29_The_Infinite.org.temp_8a614cd7298fd4126ed85e8bd2d36210464ca438.png" alt="29_The_Infinite.org.temp_8a614cd7298fd4126ed85e8bd2d36210464ca438.png" /> is an odd
+natural number. In that case, it is not hard to check that <img src="ltximg/29_The_Infinite.org.temp_cc80f18930ea324e4b3796ea76149ec4ac94aaf2.png" alt="29_The_Infinite.org.temp_cc80f18930ea324e4b3796ea76149ec4ac94aaf2.png" />.
+</p>
+
+<hr>
+<p>
+We will now build up an arsenal of theorems that we can use to show
+that various sets are countable.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> A set <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countable if and only if <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is empty or there
+is a surjective function <img src="ltximg/29_The_Infinite.org.temp_f618ab14e759fd9e2b3f3f7eff8f6f2c3195e3db.png" alt="29_The_Infinite.org.temp_f618ab14e759fd9e2b3f3f7eff8f6f2c3195e3db.png" />.
+</p>
+
+<p>
+<b>Proof.</b> For the forward direction, suppose <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countable. Then it
+is either finite or countably infinite. If <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countably infinite,
+there is a bijection from <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> to <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and we are done. Suppose, then,
+that <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is finite. If <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is empty, we are done. Otherwise, for some
+<img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, there is a bijection <img src="ltximg/29_The_Infinite.org.temp_3cc240c82659b7c77951fab417e1b285baf85149.png" alt="29_The_Infinite.org.temp_3cc240c82659b7c77951fab417e1b285baf85149.png" />, with <img src="ltximg/29_The_Infinite.org.temp_899371d0d7d709ea761447b5d96001d7687cadd5.png" alt="29_The_Infinite.org.temp_899371d0d7d709ea761447b5d96001d7687cadd5.png" />. Define a
+function <img src="ltximg/29_The_Infinite.org.temp_a04ba5cd14765d3ed6a504387f8a81648e186127.png" alt="29_The_Infinite.org.temp_a04ba5cd14765d3ed6a504387f8a81648e186127.png" /> as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/29_The_Infinite.org.temp_9f78e76e37cd32a98e8076dcadd652292d7dfebe.png" alt="29_The_Infinite.org.temp_9f78e76e37cd32a98e8076dcadd652292d7dfebe.png" /></p>
+</div>
+<p>
+In other words, <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> enumerates the elements of <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> by using <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> first,
+and then repeating the element <img src="ltximg/29_The_Infinite.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" alt="29_The_Infinite.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" />. Clearly <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective, as
+required.
+</p>
+
+<p>
+In the other direction, if <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is finite, then it is countable, and we
+are done. So suppose <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is not finite. Then it is not empty, and so
+there is a surjective function <img src="ltximg/29_The_Infinite.org.temp_f618ab14e759fd9e2b3f3f7eff8f6f2c3195e3db.png" alt="29_The_Infinite.org.temp_f618ab14e759fd9e2b3f3f7eff8f6f2c3195e3db.png" />. We need to turn <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />
+into a <i>bijective</i> function. The problem is that <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> may not be
+injective, which is to say, elements in <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> may be enumerated more
+than once. The solution is to define a function, <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />, which eliminates
+all the duplicates. The idea is that <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> should enumerate the elements
+<img src="ltximg/29_The_Infinite.org.temp_5e4b0ca9998005b2740f38fcbc581273c9eebdae.png" alt="29_The_Infinite.org.temp_5e4b0ca9998005b2740f38fcbc581273c9eebdae.png" />, but skip over the ones that have already
+been enumerated. 
+</p>
+
+<p>
+To be precise, the function <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is defined recursively as follows:
+<img src="ltximg/29_The_Infinite.org.temp_fbbad9d671dc171588fd7d8b6042e734a20cdec0.png" alt="29_The_Infinite.org.temp_fbbad9d671dc171588fd7d8b6042e734a20cdec0.png" />, and for every <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />, <img src="ltximg/29_The_Infinite.org.temp_b6de8eacc11238ea595244e775198914e1d36e53.png" alt="29_The_Infinite.org.temp_b6de8eacc11238ea595244e775198914e1d36e53.png" />, where <img src="ltximg/29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" alt="29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" /> is the
+least natural number such that <img src="ltximg/29_The_Infinite.org.temp_557eb88972960f6c6a190bf23ddfbf1988e4c200.png" alt="29_The_Infinite.org.temp_557eb88972960f6c6a190bf23ddfbf1988e4c200.png" /> is not among <img src="ltximg/29_The_Infinite.org.temp_45a88f307e9a0a9313a0a4e1a56d4ff3f16e0e00.png" alt="29_The_Infinite.org.temp_45a88f307e9a0a9313a0a4e1a56d4ff3f16e0e00.png" />. The assumption that <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is infinite and <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is
+surjective guarantees that some such <img src="ltximg/29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" alt="29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" /> always exists.
+</p>
+
+<p>
+We only need to check that <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is a bijection. By definition, for
+every <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />, <img src="ltximg/29_The_Infinite.org.temp_e37a1fb4cd52349a1877de1750b323e55e4ed0ee.png" alt="29_The_Infinite.org.temp_e37a1fb4cd52349a1877de1750b323e55e4ed0ee.png" /> is different from <img src="ltximg/29_The_Infinite.org.temp_2980462b1c55c3fffc1873752145331d44e5bd2f.png" alt="29_The_Infinite.org.temp_2980462b1c55c3fffc1873752145331d44e5bd2f.png" />. This
+implies that <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is injective. But we can also show by induction that
+for every <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />, <img src="ltximg/29_The_Infinite.org.temp_df65accb464c75d958495c772160db9fc6270e3b.png" alt="29_The_Infinite.org.temp_df65accb464c75d958495c772160db9fc6270e3b.png" />. Since <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective, <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is too.
+</p>
+
+<hr>
+<p>
+In a manner similar to the way we proved that the integers are
+countable, we can prove the following:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> If <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are countably infinite, then so is <img src="ltximg/29_The_Infinite.org.temp_49d7f44817a8f452c45e22a0a66bfa05108fa2ee.png" alt="29_The_Infinite.org.temp_49d7f44817a8f452c45e22a0a66bfa05108fa2ee.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Suppose <img src="ltximg/29_The_Infinite.org.temp_f618ab14e759fd9e2b3f3f7eff8f6f2c3195e3db.png" alt="29_The_Infinite.org.temp_f618ab14e759fd9e2b3f3f7eff8f6f2c3195e3db.png" /> and <img src="ltximg/29_The_Infinite.org.temp_0ab195139feb756a14bce9cd780447e1bf4b0fbd.png" alt="29_The_Infinite.org.temp_0ab195139feb756a14bce9cd780447e1bf4b0fbd.png" /> are
+surjective. Then we can define a function <img src="ltximg/29_The_Infinite.org.temp_55d832b30a1a045e0cba198c9f542ef5da3723d9.png" alt="29_The_Infinite.org.temp_55d832b30a1a045e0cba198c9f542ef5da3723d9.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/29_The_Infinite.org.temp_8249b65248980156bec79ec738f4b9feda11c0b4.png" alt="29_The_Infinite.org.temp_8249b65248980156bec79ec738f4b9feda11c0b4.png" /></p>
+</div>
+<p>
+It is not hard to show that <img src="ltximg/29_The_Infinite.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" alt="29_The_Infinite.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" /> is surjective.
+</p>
+
+<hr>
+<p>
+Intuitively, if <img src="ltximg/29_The_Infinite.org.temp_039a9a809ac3819932900c52ddb6f2fba45c4497.png" alt="29_The_Infinite.org.temp_039a9a809ac3819932900c52ddb6f2fba45c4497.png" /> and <img src="ltximg/29_The_Infinite.org.temp_6f0eb4441742dae3f3082a35f2f9ca8831a65514.png" alt="29_The_Infinite.org.temp_6f0eb4441742dae3f3082a35f2f9ca8831a65514.png" />, then we can enumerate <img src="ltximg/29_The_Infinite.org.temp_6e1e2fb228c597c5cd49839ab257f4ac52c22459.png" alt="29_The_Infinite.org.temp_6e1e2fb228c597c5cd49839ab257f4ac52c22459.png" /> as <img src="ltximg/29_The_Infinite.org.temp_1227c0868c25f9b1f5b4a61f6aa2c30b9ad8525a.png" alt="29_The_Infinite.org.temp_1227c0868c25f9b1f5b4a61f6aa2c30b9ad8525a.png" />.
+</p>
+
+<p>
+The next two theorems are also helpful. The first says that to show
+that a set <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is countable, it is enough to "cover" it with a
+surjective function from a countable set. The second says that to show
+that a set <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countable, then it is enough to embed it in a
+countable set.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> If <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countable and <img src="ltximg/29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" alt="29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" /> is surjective, then
+<img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is countable.
+</p>
+
+<p>
+<b>Proof.</b> If <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countable, then there is a surjective function <img src="ltximg/29_The_Infinite.org.temp_484d0e99ed4cd07555301d748b12f4cd2ad087ec.png" alt="29_The_Infinite.org.temp_484d0e99ed4cd07555301d748b12f4cd2ad087ec.png" />, and <img src="ltximg/29_The_Infinite.org.temp_c7b17f239d720a6d9998c6edd1a75c6f55ec30d1.png" alt="29_The_Infinite.org.temp_c7b17f239d720a6d9998c6edd1a75c6f55ec30d1.png" /> is a surjective function from <img src="ltximg/29_The_Infinite.org.temp_d9acaa56d7cef9a44677399008612562d72d6c2e.png" alt="29_The_Infinite.org.temp_d9acaa56d7cef9a44677399008612562d72d6c2e.png" />.
+</p>
+
+<p>
+<b>Theorem.</b> If <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is countable and <img src="ltximg/29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" alt="29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" /> is injective, then
+<img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countable.
+</p>
+
+<p>
+<b>Proof.</b> Assuming <img src="ltximg/29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" alt="29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" /> is injective, it has a left inverse,
+<img src="ltximg/29_The_Infinite.org.temp_78e80b8b2375183bf6cc46f25f35914bb1320aba.png" alt="29_The_Infinite.org.temp_78e80b8b2375183bf6cc46f25f35914bb1320aba.png" />. Since <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> has a right inverse, <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, we know that <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is
+surjective, and we can apply the previous theorem.
+</p>
+
+<p>
+<b>Corollary.</b> If <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is countable and <img src="ltximg/29_The_Infinite.org.temp_7740b7dfebbb2d072703c4cb26cf2d7b3905d789.png" alt="29_The_Infinite.org.temp_7740b7dfebbb2d072703c4cb26cf2d7b3905d789.png" />, then <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+countable.
+</p>
+
+<p>
+<b>Proof.</b> The function <img src="ltximg/29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" alt="29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" /> defined by <img src="ltximg/29_The_Infinite.org.temp_f2947778ccb644b919f807fc4c9ce14abfb80c0e.png" alt="29_The_Infinite.org.temp_f2947778ccb644b919f807fc4c9ce14abfb80c0e.png" /> is
+injective.
+</p>
+
+<hr>
+<p>
+Remember that <img src="ltximg/29_The_Infinite.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" alt="29_The_Infinite.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" /> is the set of ordered pairs <img src="ltximg/29_The_Infinite.org.temp_1298305316c1a02e188ec846a9c85cfa10b10443.png" alt="29_The_Infinite.org.temp_1298305316c1a02e188ec846a9c85cfa10b10443.png" />
+where <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" /> and <img src="ltximg/29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" alt="29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" /> are natural numbers.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> <img src="ltximg/29_The_Infinite.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" alt="29_The_Infinite.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" /> is countable.
+</p>
+
+<p>
+<b>Proof.</b> Enumerate the elements as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/29_The_Infinite.org.temp_895cfcca20b6dae1841b189c54b892f98b9a4866.png" alt="29_The_Infinite.org.temp_895cfcca20b6dae1841b189c54b892f98b9a4866.png" /></p>
+</div>
+
+<hr>
+<p>
+If you think of the pairs as coordinates in the <img src="ltximg/29_The_Infinite.org.temp_5539a96f4b683593f51d10efd0e01def37199890.png" alt="29_The_Infinite.org.temp_5539a96f4b683593f51d10efd0e01def37199890.png" />-<img src="ltximg/29_The_Infinite.org.temp_694508a2d937a9451cf9c80c7463299bd786d5b8.png" alt="29_The_Infinite.org.temp_694508a2d937a9451cf9c80c7463299bd786d5b8.png" /> plane, the
+pairs are enumerated along diagonals: first the diagonal with pairs
+whose elements sum to <img src="ltximg/29_The_Infinite.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="29_The_Infinite.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, then the diagonal with pairs whose elements
+sum to <img src="ltximg/29_The_Infinite.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="29_The_Infinite.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" />, and so on. This is often called a "dovetailing" argument,
+because if you imagine drawing a line that weaves back and forth
+through the pairs enumerated this ways, it will be analogous to the a
+carpenter's practice of using a dovetail to join two pieces of
+wood. (And that term, in turn, comes from the similarity to a dove's
+tail.)
+</p>
+
+<p>
+As far as proofs go, the informal description above and the associated
+diagram are perfectly compelling. It is possible to describe a
+bijection between <img src="ltximg/29_The_Infinite.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" alt="29_The_Infinite.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" /> explicitly, however, in algebraic
+terms. You are asked to do this in the exercises.
+</p>
+
+<p>
+The previous theorem has a number of interesting consequences.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> If <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are countable, then so is <img src="ltximg/29_The_Infinite.org.temp_aa5290827548bcb55b34388a5f71f5b813a2f901.png" alt="29_The_Infinite.org.temp_aa5290827548bcb55b34388a5f71f5b813a2f901.png" />. 
+</p>
+
+<p>
+<b>Proof.</b> If <img src="ltximg/29_The_Infinite.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="29_The_Infinite.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> is any element of <img src="ltximg/29_The_Infinite.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" alt="29_The_Infinite.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" />, write <img src="ltximg/29_The_Infinite.org.temp_389478e1369d4c888cce0f4bb814a9256ba11fda.png" alt="29_The_Infinite.org.temp_389478e1369d4c888cce0f4bb814a9256ba11fda.png" /> and
+<img src="ltximg/29_The_Infinite.org.temp_35733a32e22820ba18be33de4447de7b3e40d124.png" alt="29_The_Infinite.org.temp_35733a32e22820ba18be33de4447de7b3e40d124.png" /> to denote the two components.  Let <img src="ltximg/29_The_Infinite.org.temp_d054291b9a39b3994a932f4f2bc891f6f8df06d9.png" alt="29_The_Infinite.org.temp_d054291b9a39b3994a932f4f2bc891f6f8df06d9.png" />
+be a surjection, as guaranteed by the previous theorem.  Suppose <img src="ltximg/29_The_Infinite.org.temp_484d0e99ed4cd07555301d748b12f4cd2ad087ec.png" alt="29_The_Infinite.org.temp_484d0e99ed4cd07555301d748b12f4cd2ad087ec.png" /> and <img src="ltximg/29_The_Infinite.org.temp_3ee27d4c5e2b47202e86b5aa564b581ee00994b6.png" alt="29_The_Infinite.org.temp_3ee27d4c5e2b47202e86b5aa564b581ee00994b6.png" /> be surjective. Then the function <img src="ltximg/29_The_Infinite.org.temp_ab992478fa2a90ebb8b6962c6966498ba3113db6.png" alt="29_The_Infinite.org.temp_ab992478fa2a90ebb8b6962c6966498ba3113db6.png" /> is a surjective function from <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> to <img src="ltximg/29_The_Infinite.org.temp_4379da6218f4c31b596f4b3199927c2f7922537b.png" alt="29_The_Infinite.org.temp_4379da6218f4c31b596f4b3199927c2f7922537b.png" />.
+</p>
+
+<p>
+<b>Theorem.</b> The set of rational numbers, <img src="ltximg/29_The_Infinite.org.temp_0dae70e7144394189639fdaf3d54f6522b4d89ad.png" alt="29_The_Infinite.org.temp_0dae70e7144394189639fdaf3d54f6522b4d89ad.png" />, is countable.
+</p>
+
+<p>
+<b>Proof.</b> By the previous theorem, we know that <img src="ltximg/29_The_Infinite.org.temp_ba79707aeb040e48b2271eb6ed2bbe15544536fc.png" alt="29_The_Infinite.org.temp_ba79707aeb040e48b2271eb6ed2bbe15544536fc.png" /> is
+countable. Define <img src="ltximg/29_The_Infinite.org.temp_194cd33efead0be84bb83ba43cb6ec5b7c4888b9.png" alt="29_The_Infinite.org.temp_194cd33efead0be84bb83ba43cb6ec5b7c4888b9.png" /> by
+</p>
+
+<div class="figure">
+<p><img src="ltximg/29_The_Infinite.org.temp_31c6dd4274f0ed00125b6c4ff671f27c83cad186.png" alt="29_The_Infinite.org.temp_31c6dd4274f0ed00125b6c4ff671f27c83cad186.png" /></p>
+</div>
+<p>
+Since every element of <img src="ltximg/29_The_Infinite.org.temp_0dae70e7144394189639fdaf3d54f6522b4d89ad.png" alt="29_The_Infinite.org.temp_0dae70e7144394189639fdaf3d54f6522b4d89ad.png" /> can be written as <img src="ltximg/29_The_Infinite.org.temp_cdac410e4238003a7398ac08aa5ddcd23a9e4ce3.png" alt="29_The_Infinite.org.temp_cdac410e4238003a7398ac08aa5ddcd23a9e4ce3.png" /> for some <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />
+and <img src="ltximg/29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" alt="29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" /> in <img src="ltximg/29_The_Infinite.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" alt="29_The_Infinite.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" />, <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is surjective.
+</p>
+
+<p>
+<b>Theorem.</b> Suppose that <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countable. For each <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, the set <img src="ltximg/29_The_Infinite.org.temp_797e371a125219cbe91c5b4b6195f0626eaf67f0.png" alt="29_The_Infinite.org.temp_797e371a125219cbe91c5b4b6195f0626eaf67f0.png" />
+is countable.
+</p>
+
+<p>
+<b>Proof.</b> Remember that we can identify the set of <img src="ltximg/29_The_Infinite.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="29_The_Infinite.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-tuples of
+elements from <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> with <img src="ltximg/29_The_Infinite.org.temp_beb6fcf932f2386c8d2615b6917e29d9bd783169.png" alt="29_The_Infinite.org.temp_beb6fcf932f2386c8d2615b6917e29d9bd783169.png" />, where there are <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />
+copies of <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> in the product. The result follows using induction on
+<img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.
+</p>
+
+<p>
+<b>Theorem.</b> Let <img src="ltximg/29_The_Infinite.org.temp_37ed70f88858e1fabb243acda4dce9279b237591.png" alt="29_The_Infinite.org.temp_37ed70f88858e1fabb243acda4dce9279b237591.png" /> be a family of sets indexed by the
+natural numbers, and suppose that each <img src="ltximg/29_The_Infinite.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" alt="29_The_Infinite.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" /> is countable. Then
+<img src="ltximg/29_The_Infinite.org.temp_0cfb77eeba5b6171cea4c90b7fb0635ecff6b0d2.png" alt="29_The_Infinite.org.temp_0cfb77eeba5b6171cea4c90b7fb0635ecff6b0d2.png" /> is countable.
+</p>
+
+<p>
+<b>Proof.</b> Suppose for each <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />, <img src="ltximg/29_The_Infinite.org.temp_5e968ab3c0db6d1a91116d2f6a4697c3efd5b291.png" alt="29_The_Infinite.org.temp_5e968ab3c0db6d1a91116d2f6a4697c3efd5b291.png" /> is a surjective function from
+<img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> to <img src="ltximg/29_The_Infinite.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" alt="29_The_Infinite.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" />. Then the function <img src="ltximg/29_The_Infinite.org.temp_302b642b3641029ba2144e4ff2bd2cdd13824c4d.png" alt="29_The_Infinite.org.temp_302b642b3641029ba2144e4ff2bd2cdd13824c4d.png" /> is a surjective
+function from <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> to <img src="ltximg/29_The_Infinite.org.temp_0cfb77eeba5b6171cea4c90b7fb0635ecff6b0d2.png" alt="29_The_Infinite.org.temp_0cfb77eeba5b6171cea4c90b7fb0635ecff6b0d2.png" />.
+</p>
+
+<p>
+<b>Theorem.</b> Suppose that <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countable. Then the set of finite
+sequences of elements of <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is countable.
+</p>
+
+<p>
+<b>Proof.</b> The set of finite sequences of elements of <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is equal to
+<img src="ltximg/29_The_Infinite.org.temp_7f4a8c802f8c7953d581690ff9d8ab383e0ff47d.png" alt="29_The_Infinite.org.temp_7f4a8c802f8c7953d581690ff9d8ab383e0ff47d.png" />, and we can apply the previous two theorems.
+</p>
+
+<hr>
+<p>
+Notice that the set of all alphanumeric characters and punctuation
+(say, represented as the set of all ASCII characters) is
+finite. Together with the last theorem, this implies that there are
+only countably many sentences in the English language (and, indeed,
+any language in which sentences are represented by finite sequences of
+symbols, chosen from any countable stock).
+</p>
+
+<p>
+At this stage, it might seem as though everything is countable. In the
+next section, we will see that this is not the case: the set of real
+numbers, <img src="ltximg/29_The_Infinite.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="29_The_Infinite.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" />, is not countable, and if <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is any set (finite or
+infinite), the powerset of <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/29_The_Infinite.org.temp_ac2d3d9c617c0ec51cf36f68b00c56ccf46da000.png" alt="29_The_Infinite.org.temp_ac2d3d9c617c0ec51cf36f68b00c56ccf46da000.png" />, is not equinumerous
+with <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org27e1dba" class="outline-3">
+<h3 id="org27e1dba"><span class="section-number-3"> 29.3</span> Cantor's Theorem</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+A set <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is <i>uncountable</i> if it is not countable. Our goal is to
+prove the following theorem, due to Georg Cantor.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> The set of real numbers is uncountable.
+</p>
+
+<p>
+<b>Proof.</b> Remember that <img src="ltximg/29_The_Infinite.org.temp_e96f4e833bcd2902f5e18c3280308d4cccb36e3d.png" alt="29_The_Infinite.org.temp_e96f4e833bcd2902f5e18c3280308d4cccb36e3d.png" /> denotes the closed interval <img src="ltximg/29_The_Infinite.org.temp_777c4336c7da72b6c34e9f5afb8ceb23a825e85f.png" alt="29_The_Infinite.org.temp_777c4336c7da72b6c34e9f5afb8ceb23a825e85f.png" />. It suffices to show that there is no
+surjective function <img src="ltximg/29_The_Infinite.org.temp_f539eda8092b12c733c655d0e111df032fd41035.png" alt="29_The_Infinite.org.temp_f539eda8092b12c733c655d0e111df032fd41035.png" />, since if <img src="ltximg/29_The_Infinite.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="29_The_Infinite.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" /> were
+countable, <img src="ltximg/29_The_Infinite.org.temp_e96f4e833bcd2902f5e18c3280308d4cccb36e3d.png" alt="29_The_Infinite.org.temp_e96f4e833bcd2902f5e18c3280308d4cccb36e3d.png" /> would be countable too.
+</p>
+
+<p>
+Recall that every real number <img src="ltximg/29_The_Infinite.org.temp_34c4fbd910b5038bf1e5611dd6e43155e3178f9c.png" alt="29_The_Infinite.org.temp_34c4fbd910b5038bf1e5611dd6e43155e3178f9c.png" /> has a decimal expansion of
+the form <img src="ltximg/29_The_Infinite.org.temp_1391fb3f17ee42bd5d4fc8ee3863c88621b3acc4.png" alt="29_The_Infinite.org.temp_1391fb3f17ee42bd5d4fc8ee3863c88621b3acc4.png" />, where each <img src="ltximg/29_The_Infinite.org.temp_c6526ec9c920694934618a5b676e8d5900b48f0b.png" alt="29_The_Infinite.org.temp_c6526ec9c920694934618a5b676e8d5900b48f0b.png" /> is a digit
+in <img src="ltximg/29_The_Infinite.org.temp_fb85e60461fcd163b8c4ec6cd51efacb091c2616.png" alt="29_The_Infinite.org.temp_fb85e60461fcd163b8c4ec6cd51efacb091c2616.png" />. More formally, we can write <img src="ltximg/29_The_Infinite.org.temp_583a542517730a8c6355e0c3547eb95ec8a1110c.png" alt="29_The_Infinite.org.temp_583a542517730a8c6355e0c3547eb95ec8a1110c.png" /> for each <img src="ltximg/29_The_Infinite.org.temp_3057c8428d6aa04b4e13dbf309094348b322c18a.png" alt="29_The_Infinite.org.temp_3057c8428d6aa04b4e13dbf309094348b322c18a.png" /> with <img src="ltximg/29_The_Infinite.org.temp_ac4ba4400cd08ec39a3ea50b609d5b46dfef3077.png" alt="29_The_Infinite.org.temp_ac4ba4400cd08ec39a3ea50b609d5b46dfef3077.png" />.
+</p>
+
+<p>
+(Notice that <img src="ltximg/29_The_Infinite.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="29_The_Infinite.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" /> can be written <img src="ltximg/29_The_Infinite.org.temp_c3f9d2333214d81916bf61d83b0749dc1bb0ecad.png" alt="29_The_Infinite.org.temp_c3f9d2333214d81916bf61d83b0749dc1bb0ecad.png" />. In general every
+other rational number in <img src="ltximg/29_The_Infinite.org.temp_e96f4e833bcd2902f5e18c3280308d4cccb36e3d.png" alt="29_The_Infinite.org.temp_e96f4e833bcd2902f5e18c3280308d4cccb36e3d.png" /> will have two representations of this
+form; for example, <img src="ltximg/29_The_Infinite.org.temp_39c4b3b099566fae1a23aa03a6b665b55381b0bb.png" alt="29_The_Infinite.org.temp_39c4b3b099566fae1a23aa03a6b665b55381b0bb.png" />. For
+concreteness, for these numbers we can choose the representation that
+ends with zeros.)
+</p>
+
+<p>
+As a result, we can write
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/29_The_Infinite.org.temp_aa27f345a37bc386afa49fef4750e1e6eec5a57a.png" alt="29_The_Infinite.org.temp_aa27f345a37bc386afa49fef4750e1e6eec5a57a.png" /></li>
+<li><img src="ltximg/29_The_Infinite.org.temp_e5a4e1ddfb55cc8c8893cf4579558cc49fed7b89.png" alt="29_The_Infinite.org.temp_e5a4e1ddfb55cc8c8893cf4579558cc49fed7b89.png" /></li>
+<li><img src="ltximg/29_The_Infinite.org.temp_38cb50144218b211925b96f75c69d8977321d49f.png" alt="29_The_Infinite.org.temp_38cb50144218b211925b96f75c69d8977321d49f.png" /></li>
+<li><img src="ltximg/29_The_Infinite.org.temp_915d2ea4bf921369716bddc185f2754be43e1986.png" alt="29_The_Infinite.org.temp_915d2ea4bf921369716bddc185f2754be43e1986.png" /></li>
+<li><img src="ltximg/29_The_Infinite.org.temp_abef2b3d53dcd77cd728d9d4555e987b8c0aace9.png" alt="29_The_Infinite.org.temp_abef2b3d53dcd77cd728d9d4555e987b8c0aace9.png" /></li>
+<li>&#x2026;</li>
+</ul>
+
+<p>
+(We use superscripts, <img src="ltximg/29_The_Infinite.org.temp_d6a9c12f70d4d590a71d35b1995944219e6f5c4e.png" alt="29_The_Infinite.org.temp_d6a9c12f70d4d590a71d35b1995944219e6f5c4e.png" />, to denote the digits of <img src="ltximg/29_The_Infinite.org.temp_c0268a622462a54130f9d9ad662628bf38bbf809.png" alt="29_The_Infinite.org.temp_c0268a622462a54130f9d9ad662628bf38bbf809.png" />. The superscripts
+do not mean the "<img src="ltximg/29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" alt="29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" />th power.")
+</p>
+
+<p>
+Our goal is to show that <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is not surjective. To that end, define a
+new sequence of digits <img src="ltximg/29_The_Infinite.org.temp_1f826d0c42a12ace04f9f27a7f78c61cbb3b7065.png" alt="29_The_Infinite.org.temp_1f826d0c42a12ace04f9f27a7f78c61cbb3b7065.png" /> by
+</p>
+
+<div class="figure">
+<p><img src="ltximg/29_The_Infinite.org.temp_b4ba3cbd039208b26f671b4c280c03b5f827f13d.png" alt="29_The_Infinite.org.temp_b4ba3cbd039208b26f671b4c280c03b5f827f13d.png" /></p>
+</div>
+<p>
+The define the real number <img src="ltximg/29_The_Infinite.org.temp_9fd9f396d919d34e813782800f1f391d51186949.png" alt="29_The_Infinite.org.temp_9fd9f396d919d34e813782800f1f391d51186949.png" />. Then, for
+each <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />, <img src="ltximg/29_The_Infinite.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="29_The_Infinite.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> differs from <img src="ltximg/29_The_Infinite.org.temp_c0268a622462a54130f9d9ad662628bf38bbf809.png" alt="29_The_Infinite.org.temp_c0268a622462a54130f9d9ad662628bf38bbf809.png" /> in the <img src="ltximg/29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" alt="29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" />th digit. But this means
+that for every <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />, <img src="ltximg/29_The_Infinite.org.temp_6a2dd6fcb0f155f6c4b2fc73309898cb3c5abad4.png" alt="29_The_Infinite.org.temp_6a2dd6fcb0f155f6c4b2fc73309898cb3c5abad4.png" />. Since <img src="ltximg/29_The_Infinite.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="29_The_Infinite.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> is not in the range of <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, and
+hence <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is not surjective. Since <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> was arbitrary, there is no
+surjective function from <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> to <img src="ltximg/29_The_Infinite.org.temp_e96f4e833bcd2902f5e18c3280308d4cccb36e3d.png" alt="29_The_Infinite.org.temp_e96f4e833bcd2902f5e18c3280308d4cccb36e3d.png" />.
+</p>
+
+<p>
+(We chose the digits <img src="ltximg/29_The_Infinite.org.temp_589b4d802d7fce3611012a506403dced871832d0.png" alt="29_The_Infinite.org.temp_589b4d802d7fce3611012a506403dced871832d0.png" /> and <img src="ltximg/29_The_Infinite.org.temp_12c9e14e82d2867cf78c33e1aeff37f508e51872.png" alt="29_The_Infinite.org.temp_12c9e14e82d2867cf78c33e1aeff37f508e51872.png" /> only to avoid <img src="ltximg/29_The_Infinite.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="29_The_Infinite.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> and <img src="ltximg/29_The_Infinite.org.temp_09c625746ad8ee0288acd529832a05a153adeb69.png" alt="29_The_Infinite.org.temp_09c625746ad8ee0288acd529832a05a153adeb69.png" />, to avoid
+the case where, for example, <img src="ltximg/29_The_Infinite.org.temp_a45c1cf9b6fff1f677878d4e9d174a6a6d20cc73.png" alt="29_The_Infinite.org.temp_a45c1cf9b6fff1f677878d4e9d174a6a6d20cc73.png" /> and <img src="ltximg/29_The_Infinite.org.temp_0cce0debb3d6d40728a1258f950190a87cadf561.png" alt="29_The_Infinite.org.temp_0cce0debb3d6d40728a1258f950190a87cadf561.png" />. Since there are no zeros or nines in <img src="ltximg/29_The_Infinite.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="29_The_Infinite.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" />, since the
+<img src="ltximg/29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" alt="29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" />th digit of <img src="ltximg/29_The_Infinite.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="29_The_Infinite.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> differs from <img src="ltximg/29_The_Infinite.org.temp_c0268a622462a54130f9d9ad662628bf38bbf809.png" alt="29_The_Infinite.org.temp_c0268a622462a54130f9d9ad662628bf38bbf809.png" />, it really is a different real
+number.)
+</p>
+
+<hr>
+<p>
+This remarkable proof is known as a "diagonalization argument." We are
+trying to construct a real number with a certain property, namely,
+that it is not in the range of <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />. We make a table of digits, in
+which the rows represent infinitely many constraints we have to
+satisfy (namely, that for each <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />, <img src="ltximg/29_The_Infinite.org.temp_6a2dd6fcb0f155f6c4b2fc73309898cb3c5abad4.png" alt="29_The_Infinite.org.temp_6a2dd6fcb0f155f6c4b2fc73309898cb3c5abad4.png" />), and the columns
+represent opportunities to satisfy that constraint (namely, by choosing
+the <img src="ltximg/29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" alt="29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" />th digit of <img src="ltximg/29_The_Infinite.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="29_The_Infinite.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> appropriately). The complete the construction
+by stepping along the diagonal, using the <img src="ltximg/29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" alt="29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" />th opportunity to satisfy
+the <img src="ltximg/29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" alt="29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" />th constraint. This technique is used often in logic and
+computability theory.
+</p>
+
+<p>
+The following provides another example of an uncountable set.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> The power set of the natural numbers, <img src="ltximg/29_The_Infinite.org.temp_3332a84d6364a9b74677d0b457cf3eabf009a568.png" alt="29_The_Infinite.org.temp_3332a84d6364a9b74677d0b457cf3eabf009a568.png" />, is
+uncountable.
+</p>
+
+<p>
+<b>Proof.</b> Let <img src="ltximg/29_The_Infinite.org.temp_794a7dfddabd3accd3abba5653e1459e5a63f4a4.png" alt="29_The_Infinite.org.temp_794a7dfddabd3accd3abba5653e1459e5a63f4a4.png" /> be any function. Once again,
+our goal is to show that <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is not surjective. Let <img src="ltximg/29_The_Infinite.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="29_The_Infinite.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> be the set of
+natural numbers, defined as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/29_The_Infinite.org.temp_031ade44ff4dceb011719c3420414d454740ca35.png" alt="29_The_Infinite.org.temp_031ade44ff4dceb011719c3420414d454740ca35.png" /></p>
+</div>
+<p>
+In words, for every natural number, <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is in <img src="ltximg/29_The_Infinite.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="29_The_Infinite.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> if and only if
+it is not in <img src="ltximg/29_The_Infinite.org.temp_dc526746dc8e1bacedd8ed7d6bf417095a70b714.png" alt="29_The_Infinite.org.temp_dc526746dc8e1bacedd8ed7d6bf417095a70b714.png" />. Then clearly for every <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/29_The_Infinite.org.temp_ac7cc0b29db29aa622cd364ff9cbb2bfe825fc30.png" alt="29_The_Infinite.org.temp_ac7cc0b29db29aa622cd364ff9cbb2bfe825fc30.png" />. So <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />
+is not surjective.
+</p>
+
+<hr>
+<p>
+We can also view this as a diagonalization argument: draw a table with
+rows and columns indexed by the natural numbers, where the entry in
+the <img src="ltximg/29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" alt="29_The_Infinite.org.temp_c2243f27c10eac7dae95b7203b49ce40004dd928.png" />th row and <img src="ltximg/29_The_Infinite.org.temp_e95f4290c8ac62016594c8e671b1120046cf8e35.png" alt="29_The_Infinite.org.temp_e95f4290c8ac62016594c8e671b1120046cf8e35.png" />th column is "yes" if <img src="ltximg/29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" alt="29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" /> is an element of
+<img src="ltximg/29_The_Infinite.org.temp_c0268a622462a54130f9d9ad662628bf38bbf809.png" alt="29_The_Infinite.org.temp_c0268a622462a54130f9d9ad662628bf38bbf809.png" />, and "no" otherwise. The set <img src="ltximg/29_The_Infinite.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="29_The_Infinite.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> is constructed by switching
+"yes" and "no" entries along the diagonal.
+</p>
+
+<p>
+In fact, exactly the same argument yields the following:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> For every set <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, there is no surjective function from <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+to <img src="ltximg/29_The_Infinite.org.temp_ac2d3d9c617c0ec51cf36f68b00c56ccf46da000.png" alt="29_The_Infinite.org.temp_ac2d3d9c617c0ec51cf36f68b00c56ccf46da000.png" />.
+</p>
+
+<p>
+<b>Proof.</b> As above, if <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is any function from <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to <img src="ltximg/29_The_Infinite.org.temp_ac2d3d9c617c0ec51cf36f68b00c56ccf46da000.png" alt="29_The_Infinite.org.temp_ac2d3d9c617c0ec51cf36f68b00c56ccf46da000.png" />,
+the set <img src="ltximg/29_The_Infinite.org.temp_3bdc6fc3a82ff869afbabe970ddd2a3090ed039f.png" alt="29_The_Infinite.org.temp_3bdc6fc3a82ff869afbabe970ddd2a3090ed039f.png" /> is not in the range of
+<img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />.
+</p>
+
+<hr>
+<p>
+This shows that there is an endless hierarchy of infinities. For
+example, in the sequence <img src="ltximg/29_The_Infinite.org.temp_ef6bd6c3bd32e2dd0897699cd8ff745db408a3a0.png" alt="29_The_Infinite.org.temp_ef6bd6c3bd32e2dd0897699cd8ff745db408a3a0.png" />, there is an injective function mapping
+each set into the next, but no surjective function. The union of all
+those sets is even larger still, and then we can take the power set of
+<i>that</i>, and so on. Set theorists are still today investigating the
+structure within this hierarchy.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga01255c" class="outline-3">
+<h3 id="orga01255c"><span class="section-number-3"> 29.4</span> An Alternative Definition of the Infinite</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+One thing that distinguishes the infinite from the finite is that an
+infinite set can have the same size as a proper subset of itself. For
+example, the natural numbers, the set of even numbers, and the set of
+perfect squares are all equinumerous, even though the latter two are
+strictly contained among the natural numbers. 
+</p>
+
+<p>
+In the nineteenth century, the mathematician Richard Dedekind used
+this curious property to <i>define</i> what it means to be infinite. We can
+show that his definition is equivalent to ours, but the proof requires
+the axiom of choice.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> A set is <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> <i>Dedekind infinite</i> if <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is equinumerous
+with a proper subset of itself, and finite otherwise.
+</p>
+
+<p>
+<b>Theorem.</b> A set is Dedekind infinite if and only it is infinite.
+</p>
+
+<p>
+<b>Proof.</b> Suppose <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is Dedekind infinite. We need to show it is not
+finite; suppose, to the contrary, it is bijective with <img src="ltximg/29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" /> for some
+<img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Composing bijections, we have that <img src="ltximg/29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" /> is bijective with a
+proper subset of itself. This means that there is an injective
+function <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> from <img src="ltximg/29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" /> to a proper subset of <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Modifying <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, we
+can get an injective function from <img src="ltximg/29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="29_The_Infinite.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" /> into <img src="ltximg/29_The_Infinite.org.temp_b2c6c4e30f9a0d26a262cbb4b148290ac36bbc27.png" alt="29_The_Infinite.org.temp_b2c6c4e30f9a0d26a262cbb4b148290ac36bbc27.png" />, contradicting
+the pigeonhole principle.
+</p>
+
+<p>
+Suppose, on the other hand, that <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is infinite. We need to show that
+there is an injective function <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> from <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to a proper subset of itself
+(because then <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a bijection between <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and the range of
+<img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />). Choose a sequence of distinct element <img src="ltximg/29_The_Infinite.org.temp_5d33c8dcd6f4e817c6d593164aa6a1009b83495b.png" alt="29_The_Infinite.org.temp_5d33c8dcd6f4e817c6d593164aa6a1009b83495b.png" /> of
+<img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Let <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> map each <img src="ltximg/29_The_Infinite.org.temp_ce29c3da8688ef13d90ba61c9aea7f33dd868367.png" alt="29_The_Infinite.org.temp_ce29c3da8688ef13d90ba61c9aea7f33dd868367.png" /> to <img src="ltximg/29_The_Infinite.org.temp_234f3cf4ab17c3c227b903b1dbc286264b027d5a.png" alt="29_The_Infinite.org.temp_234f3cf4ab17c3c227b903b1dbc286264b027d5a.png" />, but leave every other
+element of <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> fixed. Then <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is injective, but <img src="ltximg/29_The_Infinite.org.temp_127dc7156f2b93158b1068af50027f69fe590e87.png" alt="29_The_Infinite.org.temp_127dc7156f2b93158b1068af50027f69fe590e87.png" /> is not in the
+range of <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, as required.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org25d857d" class="outline-3">
+<h3 id="The_Cantor-Bernstein_Theorem"><a id="org25d857d"></a><span class="section-number-3"> 29.5</span> The Cantor-Bernstein Theorem</h3>
+<div class="outline-text-3" id="text-The_Cantor-Bernstein_Theorem">
+<p>
+Saying that <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are equinumerous means, intuitively, that <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> have the same side. There is also a natural way of saying that
+<img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is not larger than <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />:
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> For two sets <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, we say the cardinality of <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+less than or equal to the cardinality of <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, written <img src="ltximg/29_The_Infinite.org.temp_0e2ce84176e08694498cb48b6b175558ee19bafd.png" alt="29_The_Infinite.org.temp_0e2ce84176e08694498cb48b6b175558ee19bafd.png" />, 
+when there is an injection <img src="ltximg/29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" alt="29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" />.
+</p>
+
+<hr>
+<p>
+As an exercise, we ask you to show that <img src="ltximg/29_The_Infinite.org.temp_d2d5c6775d776ab30b61c69dbcb790c7a8dba9e4.png" alt="29_The_Infinite.org.temp_d2d5c6775d776ab30b61c69dbcb790c7a8dba9e4.png" /> is a <i>preorder</i>,
+which is to say, it is reflexive and transitive. Here is a natural
+question: does <img src="ltximg/29_The_Infinite.org.temp_0e2ce84176e08694498cb48b6b175558ee19bafd.png" alt="29_The_Infinite.org.temp_0e2ce84176e08694498cb48b6b175558ee19bafd.png" /> and <img src="ltximg/29_The_Infinite.org.temp_3ec99df748ffad0d4f41efdac27c57a13e526400.png" alt="29_The_Infinite.org.temp_3ec99df748ffad0d4f41efdac27c57a13e526400.png" /> imply <img src="ltximg/29_The_Infinite.org.temp_3a11e59ca8ac54c2ef123f363836ee3537e5033f.png" alt="29_The_Infinite.org.temp_3a11e59ca8ac54c2ef123f363836ee3537e5033f.png" />? In
+other words, assuming there are injective functions <img src="ltximg/29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" alt="29_The_Infinite.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" /> and
+<img src="ltximg/29_The_Infinite.org.temp_78e80b8b2375183bf6cc46f25f35914bb1320aba.png" alt="29_The_Infinite.org.temp_78e80b8b2375183bf6cc46f25f35914bb1320aba.png" />, is there necessarily a bijection from <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />?
+</p>
+
+<p>
+The answer is "yes," but the proof is tricky. The result is known as
+the <i>Cantor-Bernstein Theorem</i>, and we state it without proof.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> For any sets <img src="ltximg/29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="29_The_Infinite.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="29_The_Infinite.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, if <img src="ltximg/29_The_Infinite.org.temp_0e2ce84176e08694498cb48b6b175558ee19bafd.png" alt="29_The_Infinite.org.temp_0e2ce84176e08694498cb48b6b175558ee19bafd.png" /> and <img src="ltximg/29_The_Infinite.org.temp_3002f327edc04ecc68f07e5b66e408b7c74bb8ee.png" alt="29_The_Infinite.org.temp_3002f327edc04ecc68f07e5b66e408b7c74bb8ee.png" />, then <img src="ltximg/29_The_Infinite.org.temp_3a11e59ca8ac54c2ef123f363836ee3537e5033f.png" alt="29_The_Infinite.org.temp_3a11e59ca8ac54c2ef123f363836ee3537e5033f.png" />.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org39c0692" class="outline-3">
+<h3 id="org39c0692"><span class="section-number-3"> 29.6</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li>Show that equinumerosity is reflexive, symmetric, and transitive.</li>
+
+<li>Show that the function <img src="ltximg/29_The_Infinite.org.temp_ac0103d1f54b775622ae0f8adc054702848e3ddf.png" alt="29_The_Infinite.org.temp_ac0103d1f54b775622ae0f8adc054702848e3ddf.png" /> is a bijection between
+the interval <img src="ltximg/29_The_Infinite.org.temp_e5f14377cf2a37cd4a8f46fa775f5b18aff662d7.png" alt="29_The_Infinite.org.temp_e5f14377cf2a37cd4a8f46fa775f5b18aff662d7.png" /> and <img src="ltximg/29_The_Infinite.org.temp_c194c9f724ff32b6a302966262289afb8099743e.png" alt="29_The_Infinite.org.temp_c194c9f724ff32b6a302966262289afb8099743e.png" />.</li>
+
+<li>Show that the <img src="ltximg/29_The_Infinite.org.temp_f09019c387ecb8debdf13256bc648ca8d7ff40be.png" alt="29_The_Infinite.org.temp_f09019c387ecb8debdf13256bc648ca8d7ff40be.png" /> gives a bijection between
+<img src="ltximg/29_The_Infinite.org.temp_cd16b467608a4c3ec866343d8b7570cf3861d584.png" alt="29_The_Infinite.org.temp_cd16b467608a4c3ec866343d8b7570cf3861d584.png" /> and <img src="ltximg/29_The_Infinite.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="29_The_Infinite.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" />.</li>
+
+<li><p>
+Define a function <img src="ltximg/29_The_Infinite.org.temp_0a83f91089ffc3ff60971cc788db760811be5429.png" alt="29_The_Infinite.org.temp_0a83f91089ffc3ff60971cc788db760811be5429.png" /> by <img src="ltximg/29_The_Infinite.org.temp_7a2aa0f4d6b09daa0f351f9876ce359f261e4979.png" alt="29_The_Infinite.org.temp_7a2aa0f4d6b09daa0f351f9876ce359f261e4979.png" />. This goal of this problem is to
+show that <img src="ltximg/29_The_Infinite.org.temp_6cfa757abcae2aac2ddd06f3bd54e70b5bbc1618.png" alt="29_The_Infinite.org.temp_6cfa757abcae2aac2ddd06f3bd54e70b5bbc1618.png" /> is a bijection from <img src="ltximg/29_The_Infinite.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" alt="29_The_Infinite.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" /> to <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />.
+</p>
+
+<p>
+a. Draw a picture indicating which pairs are sent to <img src="ltximg/29_The_Infinite.org.temp_8da4b22910a63d43fc168672275560e451989c36.png" alt="29_The_Infinite.org.temp_8da4b22910a63d43fc168672275560e451989c36.png" />.
+</p>
+
+<p>
+b. Let <img src="ltximg/29_The_Infinite.org.temp_75bdd2281210a3510d9633b506bb881023245a55.png" alt="29_The_Infinite.org.temp_75bdd2281210a3510d9633b506bb881023245a55.png" />. Show that <img src="ltximg/29_The_Infinite.org.temp_b74f42b7509f5f81f18bebeaff0e7bdb9960e5d5.png" alt="29_The_Infinite.org.temp_b74f42b7509f5f81f18bebeaff0e7bdb9960e5d5.png" /> is equal the number of pairs
+    <img src="ltximg/29_The_Infinite.org.temp_332d7350498188223842e19ebb8aa73f67dac12b.png" alt="29_The_Infinite.org.temp_332d7350498188223842e19ebb8aa73f67dac12b.png" /> such that either <img src="ltximg/29_The_Infinite.org.temp_6544950b588f6da11d0b123bf80007a45bbe4350.png" alt="29_The_Infinite.org.temp_6544950b588f6da11d0b123bf80007a45bbe4350.png" />, or <img src="ltximg/29_The_Infinite.org.temp_1d173f871f62db188a3eb34d727f15c4827b607d.png" alt="29_The_Infinite.org.temp_1d173f871f62db188a3eb34d727f15c4827b607d.png" />
+    and <img src="ltximg/29_The_Infinite.org.temp_3c23acda96b05a74123cf6d430ab1c032009208c.png" alt="29_The_Infinite.org.temp_3c23acda96b05a74123cf6d430ab1c032009208c.png" />. (Use the fact that <img src="ltximg/29_The_Infinite.org.temp_94991b83ff4aa34d2cf728e410ffb9e5947a5c3e.png" alt="29_The_Infinite.org.temp_94991b83ff4aa34d2cf728e410ffb9e5947a5c3e.png" />.)
+</p>
+
+<p>
+c. Conclude that <img src="ltximg/29_The_Infinite.org.temp_6cfa757abcae2aac2ddd06f3bd54e70b5bbc1618.png" alt="29_The_Infinite.org.temp_6cfa757abcae2aac2ddd06f3bd54e70b5bbc1618.png" /> is surjective: to find <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" /> and <img src="ltximg/29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" alt="29_The_Infinite.org.temp_71abefde6d358b3e44c7520edfd993b8ec48ef8c.png" /> such that
+   <img src="ltximg/29_The_Infinite.org.temp_6e0daf29f01739e2719390567dc672e8f445c9f4.png" alt="29_The_Infinite.org.temp_6e0daf29f01739e2719390567dc672e8f445c9f4.png" />, it suffices to find the largest <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> such that
+   <img src="ltximg/29_The_Infinite.org.temp_39f0db26c80a3dc1ff943fa49da31d04ef21c36b.png" alt="29_The_Infinite.org.temp_39f0db26c80a3dc1ff943fa49da31d04ef21c36b.png" />, let <img src="ltximg/29_The_Infinite.org.temp_a79ba5a6a89373b1be30b268ef40e60acbfd79e6.png" alt="29_The_Infinite.org.temp_a79ba5a6a89373b1be30b268ef40e60acbfd79e6.png" />, and let <img src="ltximg/29_The_Infinite.org.temp_1bb68dae8fa85c80279fc969656b9906572e2bcd.png" alt="29_The_Infinite.org.temp_1bb68dae8fa85c80279fc969656b9906572e2bcd.png" />.
+</p>
+
+<p>
+d. Conclude that <img src="ltximg/29_The_Infinite.org.temp_6cfa757abcae2aac2ddd06f3bd54e70b5bbc1618.png" alt="29_The_Infinite.org.temp_6cfa757abcae2aac2ddd06f3bd54e70b5bbc1618.png" /> is injective: if <img src="ltximg/29_The_Infinite.org.temp_fd7bb529f50641639b8128a603c38a256b166aaa.png" alt="29_The_Infinite.org.temp_fd7bb529f50641639b8128a603c38a256b166aaa.png" />, let <img src="ltximg/29_The_Infinite.org.temp_39df89f3cdce07478bea09f4927d379e77bb39fd.png" alt="29_The_Infinite.org.temp_39df89f3cdce07478bea09f4927d379e77bb39fd.png" /> and <img src="ltximg/29_The_Infinite.org.temp_ffba04864f2c2451b1b430c2b8e2d640b88acf21.png" alt="29_The_Infinite.org.temp_ffba04864f2c2451b1b430c2b8e2d640b88acf21.png" />. Argue that <img src="ltximg/29_The_Infinite.org.temp_2ec7dd240a1c9571149eb1508530e2147fbd6fc9.png" alt="29_The_Infinite.org.temp_2ec7dd240a1c9571149eb1508530e2147fbd6fc9.png" />, and so <img src="ltximg/29_The_Infinite.org.temp_6fb2336f060d00f0972080df7ccc054454178d19.png" alt="29_The_Infinite.org.temp_6fb2336f060d00f0972080df7ccc054454178d19.png" />
+   and <img src="ltximg/29_The_Infinite.org.temp_776f4bf9c4d673e77c438da9a19cb76e02492e11.png" alt="29_The_Infinite.org.temp_776f4bf9c4d673e77c438da9a19cb76e02492e11.png" />.
+</p></li>
+
+<li>Let <img src="ltximg/29_The_Infinite.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="29_The_Infinite.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> be the set of functions from <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> to <img src="ltximg/29_The_Infinite.org.temp_54f81069629c43717bef719a35facdfb7b151cb6.png" alt="29_The_Infinite.org.temp_54f81069629c43717bef719a35facdfb7b151cb6.png" />.  Use a
+diagonal argument to show that <img src="ltximg/29_The_Infinite.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="29_The_Infinite.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> is uncountable. (Notice that you
+can think of a function <img src="ltximg/29_The_Infinite.org.temp_f04c2896c764a21934dddc382a4c97bfbc8e9b92.png" alt="29_The_Infinite.org.temp_f04c2896c764a21934dddc382a4c97bfbc8e9b92.png" /> as an infinite
+sequence of 0's and 1's, given by <img src="ltximg/29_The_Infinite.org.temp_5e4b0ca9998005b2740f38fcbc581273c9eebdae.png" alt="29_The_Infinite.org.temp_5e4b0ca9998005b2740f38fcbc581273c9eebdae.png" />. So,
+given a function <img src="ltximg/29_The_Infinite.org.temp_edac0a1f8e311369827161a76a440d1a70e4d823.png" alt="29_The_Infinite.org.temp_edac0a1f8e311369827161a76a440d1a70e4d823.png" /> which, for each natural number <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, returns
+an infinite sequence of 0's and 1's, you need to find a sequence
+that is not in the image of <img src="ltximg/29_The_Infinite.org.temp_caaa6544e3e1368836ddca3c0aeefe65ae310ee4.png" alt="29_The_Infinite.org.temp_caaa6544e3e1368836ddca3c0aeefe65ae310ee4.png" />.)</li>
+
+<li><p>
+If <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> and <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> are functions from <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> to <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, say that <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />
+<img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> if there is some <img src="ltximg/29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="29_The_Infinite.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> such that for
+every <img src="ltximg/29_The_Infinite.org.temp_825ad3481602e328542339b31815059b890f51be.png" alt="29_The_Infinite.org.temp_825ad3481602e328542339b31815059b890f51be.png" />, <img src="ltximg/29_The_Infinite.org.temp_2ae9b62eb023c5b8194270bfd055067cf65e0b3b.png" alt="29_The_Infinite.org.temp_2ae9b62eb023c5b8194270bfd055067cf65e0b3b.png" />. In other words, from some point
+on, <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is bigger than <img src="ltximg/29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="29_The_Infinite.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />.
+</p>
+
+<p>
+Show that if <img src="ltximg/29_The_Infinite.org.temp_bcfe1e319e391f5ca4ede5ce6df43b616541b62e.png" alt="29_The_Infinite.org.temp_bcfe1e319e391f5ca4ede5ce6df43b616541b62e.png" /> is any sequence of functions
+from <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> to <img src="ltximg/29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="29_The_Infinite.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, indexed by the natural numbers, then there is
+a function <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> that eventually dominates each <img src="ltximg/29_The_Infinite.org.temp_5e968ab3c0db6d1a91116d2f6a4697c3efd5b291.png" alt="29_The_Infinite.org.temp_5e968ab3c0db6d1a91116d2f6a4697c3efd5b291.png" />.  (Hint:
+construct <img src="ltximg/29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="29_The_Infinite.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> so that for each <img src="ltximg/29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="29_The_Infinite.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />, <img src="ltximg/29_The_Infinite.org.temp_13d124d267b40d3aef39dbb79429d9b9a6b4f633.png" alt="29_The_Infinite.org.temp_13d124d267b40d3aef39dbb79429d9b9a6b4f633.png" /> for every <img src="ltximg/29_The_Infinite.org.temp_d1fb97c41855109cd28db8da839996c36174f80a.png" alt="29_The_Infinite.org.temp_d1fb97c41855109cd28db8da839996c36174f80a.png" />.)
+</p></li>
+
+<li>Show that the relation <img src="ltximg/29_The_Infinite.org.temp_d2d5c6775d776ab30b61c69dbcb790c7a8dba9e4.png" alt="29_The_Infinite.org.temp_d2d5c6775d776ab30b61c69dbcb790c7a8dba9e4.png" /> defined in <a href="#" onclick="myModule.scrollTutorialTo('The_Cantor-Bernstein_Theorem')">Section 29.5</a> is
+reflexive and transitive.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

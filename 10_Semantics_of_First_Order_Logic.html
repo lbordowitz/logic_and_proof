@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 20:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-org5dbcd7c" class="outline-2">
+<h2 id="Semantics_of_First_Order_Logic"><a id="org5dbcd7c"></a><span class="section-number-2"> 10</span> Semantics of First Order Logic</h2>
+<div class="outline-text-2" id="text-Semantics_of_First_Order_Logic">
+<p>
+In <a href="#" onclick="myModule.loadTutorial('06_Semantics_of_Propositional_Logic.html', 'Semantics_of_Propositional_Logic')">Chapter 6</a>, we emphasized a distinction between the <i>syntax</i> and the
+<i>semantics</i> of propositional logic. Syntactic questions have to do
+with the formal structure of formulas and the conditions under which
+different types of formulas can be derived. Semantic questions, on the
+other hand, concern the <i>truth</i> of a formula relative to some truth
+assignment.
+</p>
+
+<p>
+As you might expect, we can make a similar distinction in the setting
+of first order logic. The previous two chapters have focused mainly on
+syntax, but some semantic ideas have slipped in. Recall the running
+example with domain of interest <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, constant symbols 0, 1, 2, 3,
+function symbols <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_17b40d1b77d9907d0ba443f1c4de9d01b6d9d0b7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_17b40d1b77d9907d0ba443f1c4de9d01b6d9d0b7.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_bc2d320999b3165aae742544f20eb52181a69d62.png" alt="10_Semantics_of_First_Order_Logic.org.temp_bc2d320999b3165aae742544f20eb52181a69d62.png" />, and predicate symbols
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_284922cdbd5991beba3923bd9bc986dc1e7d3605.png" alt="10_Semantics_of_First_Order_Logic.org.temp_284922cdbd5991beba3923bd9bc986dc1e7d3605.png" />, etc. We know that the
+sentence <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_59e766bba4041c5692ca80e620497228187bacd0.png" alt="10_Semantics_of_First_Order_Logic.org.temp_59e766bba4041c5692ca80e620497228187bacd0.png" /> is true in this example, if
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_246949d99022dc0d810847b773eb7260ccd82124.png" alt="10_Semantics_of_First_Order_Logic.org.temp_246949d99022dc0d810847b773eb7260ccd82124.png" /> is interpreted as the less-than relation on the natural
+numbers. But if we consider the domain <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" /> instead of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, that
+same formula becomes false. The sentence <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_267deaffc29a6c281cfd75df2214d4c64b386ea6.png" alt="10_Semantics_of_First_Order_Logic.org.temp_267deaffc29a6c281cfd75df2214d4c64b386ea6.png" /> is also
+false if we consider the domain <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, but (somewhat perversely)
+interpret the predicate <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_48ee0c37e4432a72f7336b043649d71ea61b5a13.png" alt="10_Semantics_of_First_Order_Logic.org.temp_48ee0c37e4432a72f7336b043649d71ea61b5a13.png" /> as the relation "<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is
+greater than <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="10_Semantics_of_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />" on the natural numbers.
+</p>
+
+<p>
+This indicates that the truth or falsity or a first order sentence can
+depend on how we interpret the quantifiers and basic relations of the
+language. But some formulas are true under any interpretation: for
+instance, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_a6c40c09ab7dab8994c7f1911a85bb61ede02fa4.png" alt="10_Semantics_of_First_Order_Logic.org.temp_a6c40c09ab7dab8994c7f1911a85bb61ede02fa4.png" /> is true of under
+all the interpretations considered in the last paragraph, and, indeed,
+under any interpretation we choose. A sentence like this is said to be
+<i>valid</i>; this is the analogue of a tautology in propositional logic,
+which is true under every possible truth assignment.
+</p>
+
+<p>
+We can broaden the analogy: a "model" in first order logic is
+the analogue of a truth assignment in propositional logic. In the
+propositional case, choosing a truth assignment allowed us to assign
+truth values to all formulas of the language; now, choosing an
+model will allow us to assign truth values to all sentences
+of a first order language. The aim of the next section is to make this
+notion more precise.
+</p>
+</div>
+
+<div id="outline-container-org7de5c59" class="outline-3">
+<h3 id="org7de5c59"><span class="section-number-3"> 10.1</span> Interpretations</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The symbols of the language in our running example &#x2013; 0, 1,
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_17b40d1b77d9907d0ba443f1c4de9d01b6d9d0b7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_17b40d1b77d9907d0ba443f1c4de9d01b6d9d0b7.png" />, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" alt="10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" />, and so on &#x2013; have very indicative
+names. When we interpret sentences of this language over the domain
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, for example, it is clear for which elements of the domain
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" alt="10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" /> "should" be true, and for which it "should" be false. But
+let us consider a first order language that has only two unary
+predicate symbols <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_418b0ae90b3b3324bc4d93f77951385a8d9f4023.png" alt="10_Semantics_of_First_Order_Logic.org.temp_418b0ae90b3b3324bc4d93f77951385a8d9f4023.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_5e16351f2606118cd425b8e9b55439e3aa7444d7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_5e16351f2606118cd425b8e9b55439e3aa7444d7.png" />. If we take our domain
+to be <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, is the sentence <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_8e5e416d763644cd11782e2714534a423e54e701.png" alt="10_Semantics_of_First_Order_Logic.org.temp_8e5e416d763644cd11782e2714534a423e54e701.png" />
+true or false?
+</p>
+
+<p>
+The answer, of course, is that we don't have enough information to
+say. There's no "obvious" meaning to the predicates <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_418b0ae90b3b3324bc4d93f77951385a8d9f4023.png" alt="10_Semantics_of_First_Order_Logic.org.temp_418b0ae90b3b3324bc4d93f77951385a8d9f4023.png" /> or
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_5e16351f2606118cd425b8e9b55439e3aa7444d7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_5e16351f2606118cd425b8e9b55439e3aa7444d7.png" />, at least not when we apply them to natural numbers. To
+make sense of the sentence, we need to know which numbers are fancy
+and which ones are tall. Perhaps multiples of 10 are fancy, and even
+numbers are tall; in this case, the formula is true, since every
+multiple of 10 is even. Perhaps prime numbers are fancy and odd
+numbers are tall; then the formula is false, since 2 is fancy but not
+tall.
+</p>
+
+<p>
+We call each of these descriptions an <i>interpretation</i> of the
+predicate symbols <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_418b0ae90b3b3324bc4d93f77951385a8d9f4023.png" alt="10_Semantics_of_First_Order_Logic.org.temp_418b0ae90b3b3324bc4d93f77951385a8d9f4023.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_5e16351f2606118cd425b8e9b55439e3aa7444d7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_5e16351f2606118cd425b8e9b55439e3aa7444d7.png" /> in the domain
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />. Formally, an interpretation of a unary predicate <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="10_Semantics_of_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> in a
+domain <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" /> is the set of elements of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" /> for which <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="10_Semantics_of_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> is true. For an
+example, the "standard" interpretation of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" alt="10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" /> in <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" /> that
+we used above was just the set of prime natural numbers.
+</p>
+
+<p>
+We can interpret constant, function, and relation symbols in a similar
+way.  An interpretation of constant symbol <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="10_Semantics_of_First_Order_Logic.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> in domain <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" /> is an
+element of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" />.  An interpretation of a function symbol <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_de2d620977b791caa88b2ebae0c0503f8665a385.png" alt="10_Semantics_of_First_Order_Logic.org.temp_de2d620977b791caa88b2ebae0c0503f8665a385.png" /> with
+arity <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is a function that maps <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" /> to another
+element of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" />. An interpretation of a relation symbol <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> with arity
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is the set of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> tuples of elements of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" /> for which <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> is true.
+</p>
+
+<p>
+It is important to emphasize the difference between a syntactic
+predicate symbol (or function symbol, or constant symbol) and the
+semantic predicate (or function, or object) to which it is
+interpreted. The former is a symbol, relates to other symbols, and has
+no meaning on its own until we specify an interpretation. Strictly
+speaking, it makes no sense to write <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_181a236f0fea66d3c39c2527623f0262538e5b34.png" alt="10_Semantics_of_First_Order_Logic.org.temp_181a236f0fea66d3c39c2527623f0262538e5b34.png" />, where
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" alt="10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" /> is a predicate symbol and 3 is a natural number, since
+the argument to <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" alt="10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" /> is supposed to be a syntactic
+term. Sometimes we may obscure this distinction, as above when we
+specified a language with constant symbols 0, 1, and 2. But there is
+still a fundamental distinction between the objects of the domain and
+the symbols we use to represent them.
+</p>
+
+<p>
+Sometimes, when we interpret a language in a particular domain, it is
+useful to implicitly introduce new constant symbols into the language
+to denote elements of this domain. Specifically, for each element <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />
+of the domain, we introduce a constant symbol <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_1c6b9acc57252d92c115c684fc44b3f8b97d3b49.png" alt="10_Semantics_of_First_Order_Logic.org.temp_1c6b9acc57252d92c115c684fc44b3f8b97d3b49.png" />, which is
+interpreted as <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />. Then, the expression <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_5e7cda33dad382b7eab8227ff86cdb97e49125b4.png" alt="10_Semantics_of_First_Order_Logic.org.temp_5e7cda33dad382b7eab8227ff86cdb97e49125b4.png" /> <i>does</i>
+make sense.  Interpreting the predicate symbol <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" alt="10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" /> in the
+natural way, this expression will evaluate to true. We think of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_ef4b813af350d73457588a743d4eb1ef160c9927.png" alt="10_Semantics_of_First_Order_Logic.org.temp_ef4b813af350d73457588a743d4eb1ef160c9927.png" /> as a linguistic "name" that represents the natural number 3, in the
+same way that the word "Madonna" is a name that represents the
+flesh-and-blood pop singer.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9adef55" class="outline-3">
+<h3 id="org9adef55"><span class="section-number-3"> 10.2</span> Truth in a Model</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Fix a first-order language. Suppose we have chosen a domain <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" /> to
+interpret the language, along with an interpretation in <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" /> of each of
+the symbols of that language. We will call this structure &#x2014; the
+domain <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" />, paired with the interpretation &#x2014; a <i>model</i> for the
+language. A model for a first-order language is directly analogous to
+a truth assignment for propositional logic, because it provides all
+the information we need to determine the truth value of each sentence
+in the language.
+</p>
+
+<p>
+The procedure for evaluating the truth of a sentence based on a model
+works the way you think it should, but the formal description is
+subtle. Recall the difference between <i>terms</i> and <i>assertions</i> that we
+made earlier in Chapter 4.  Terms, like <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_9c277c05123d6fa1176b0ac039b3f73a2f9f94cb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_9c277c05123d6fa1176b0ac039b3f73a2f9f94cb.png" />, or <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_a6dc8e75ddc1ca4e62e72a18653429cdf9be0898.png" alt="10_Semantics_of_First_Order_Logic.org.temp_a6dc8e75ddc1ca4e62e72a18653429cdf9be0898.png" />,
+are meant to represent objects. A term does not have a truth value,
+since (for example) it makes no sense to ask whether 3 is true or
+false. Assertions, like <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_81f7072a0ebb0beacae687e5397d65dea3f3a31b.png" alt="10_Semantics_of_First_Order_Logic.org.temp_81f7072a0ebb0beacae687e5397d65dea3f3a31b.png" />, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_80b8c6b02cdf83e9d45a5489eaef04f1fc9a6b38.png" alt="10_Semantics_of_First_Order_Logic.org.temp_80b8c6b02cdf83e9d45a5489eaef04f1fc9a6b38.png" />, or <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_755bde0925b562f899edc0356cf82b2b6eb122b9.png" alt="10_Semantics_of_First_Order_Logic.org.temp_755bde0925b562f899edc0356cf82b2b6eb122b9.png" />, apply predicate or relation symbols to
+terms to produce statements that could be true or false.
+</p>
+
+<p>
+The interpretation of a term in a model is an element of the domain of
+that model.  The model directly specifies how to interpret constant
+symbols. To interpret a term <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_2b0bd76ab15521bc7513dcda8be5b342a30d80ee.png" alt="10_Semantics_of_First_Order_Logic.org.temp_2b0bd76ab15521bc7513dcda8be5b342a30d80ee.png" /> created by applying a
+function symbol to another term, we interpret the term <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="10_Semantics_of_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" />, and then
+apply the interpretation of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> to this term. (This process makes
+sense, since the interpretation of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is a function on the
+domain.) This generalizes to functions of higher arity in the obvious
+way. We will not yet interpret terms that include free variables like
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="10_Semantics_of_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, since these terms do not pick out unique elements of the
+domain. (The variable <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> could potentially refer to any object.)
+</p>
+
+<p>
+For example, suppose we have a language with two constant symbols, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />
+and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, a unary function symbol <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />, and a binary function symbol
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />. Let <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" /> be the model with domain <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, where <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> are
+interpreted as <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_589b4d802d7fce3611012a506403dced871832d0.png" alt="10_Semantics_of_First_Order_Logic.org.temp_589b4d802d7fce3611012a506403dced871832d0.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_9a070c48c78b66a2a37864dd91e8d3d89955e36d.png" alt="10_Semantics_of_First_Order_Logic.org.temp_9a070c48c78b66a2a37864dd91e8d3d89955e36d.png" />, respectively, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d8a1d6af6c76152ea698e3138eaddf0bdfe60393.png" /> is interpreted as the
+function which maps any natural number <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> to <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_4f3d99e56806cfafbfdef116afbd377f1dc743f7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_4f3d99e56806cfafbfdef116afbd377f1dc743f7.png" />, and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" /> is the
+addition function. Then the term <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_0df91ab3bc4a1bb247450b63eea428ca5a29e946.png" alt="10_Semantics_of_First_Order_Logic.org.temp_0df91ab3bc4a1bb247450b63eea428ca5a29e946.png" /> denotes the natural
+number <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_ce785491c3bd0a0ceb4ebaacbde975b55d25ab8c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_ce785491c3bd0a0ceb4ebaacbde975b55d25ab8c.png" />.
+</p>
+
+<p>
+Similarly, the interpretation of an assertion is a value <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="10_Semantics_of_First_Order_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" /> or
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" />. For the sake of brevity, we will introduce new notation
+here: if <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is an assertion and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" /> is a model of the
+language of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, we write <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_276775585f6be37e2b65f75f7188bd84466d7991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_276775585f6be37e2b65f75f7188bd84466d7991.png" /> to mean that
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> evaluates to <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" alt="10_Semantics_of_First_Order_Logic.org.temp_266c51115bfefbe09260fddc1ba02f1c9200a49a.png" /> in <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" />, and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_607968db75041ab314905b4ce9994da172eba34d.png" alt="10_Semantics_of_First_Order_Logic.org.temp_607968db75041ab314905b4ce9994da172eba34d.png" />
+to mean that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> evaluates to <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" />. (You can read the symbol
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_46d97e553dc0e9763e535b52549257ea1247c2a7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_46d97e553dc0e9763e535b52549257ea1247c2a7.png" /> as "satisfies" or "validates.")
+</p>
+
+<p>
+To interpret a predicate or relation applied to some terms, we first
+interpret those terms, and then see if the interpretation of the
+relation symbol is true of those objects. To continue with the
+example, suppose our language also has a relation symbol <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_900de9b93790df17a65b8a69c2501e61a8d685bf.png" alt="10_Semantics_of_First_Order_Logic.org.temp_900de9b93790df17a65b8a69c2501e61a8d685bf.png" />, and
+we extend <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" /> to interpret <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> as the greater-than-or-equal-to
+relation. Then we have <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_aeb5995121a4434a54040778e8d12ef6186a71b5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_aeb5995121a4434a54040778e8d12ef6186a71b5.png" />, since 3 is not
+greater than 5, but <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_4ee3ad6c1c59eb65793be4be9de03c5a1c20440a.png" alt="10_Semantics_of_First_Order_Logic.org.temp_4ee3ad6c1c59eb65793be4be9de03c5a1c20440a.png" />, since 14 is greater
+than 5.
+</p>
+
+<p>
+Interpreting expressions using the logical connectives <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" alt="10_Semantics_of_First_Order_Logic.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" />,
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_56ef8f500c587b8ecabc52cc190fe4f230623b46.png" alt="10_Semantics_of_First_Order_Logic.org.temp_56ef8f500c587b8ecabc52cc190fe4f230623b46.png" />, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_1304cf6e7eb1dabe66cfa3f7f9322aa62b12ce50.png" alt="10_Semantics_of_First_Order_Logic.org.temp_1304cf6e7eb1dabe66cfa3f7f9322aa62b12ce50.png" />, and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_75bef715537945d703b4766c0a0e8b9749c23828.png" alt="10_Semantics_of_First_Order_Logic.org.temp_75bef715537945d703b4766c0a0e8b9749c23828.png" /> works exactly as it did in the propositional
+setting. <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_633925d686f15029f7428ceb25106967669383ce.png" alt="10_Semantics_of_First_Order_Logic.org.temp_633925d686f15029f7428ceb25106967669383ce.png" /> exactly when <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_dffdb39974b089e292f4e562ebcf7a7c0e53152a.png" alt="10_Semantics_of_First_Order_Logic.org.temp_dffdb39974b089e292f4e562ebcf7a7c0e53152a.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_fcfbd98993e8933f47080725755e82ec4efdec5b.png" alt="10_Semantics_of_First_Order_Logic.org.temp_fcfbd98993e8933f47080725755e82ec4efdec5b.png" />, and so on.
+</p>
+
+<p>
+We still need to explain how to interpret existential and universal
+expressions.  We saw that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c5828eccc8f68011c03908d73ff02856b9572371.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c5828eccc8f68011c03908d73ff02856b9572371.png" /> intuitively meant that there
+was <i>some</i> element of the domain that would make <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> true, when
+we "replaced" the variable <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> with that element. To make this a bit
+more precise, we say that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c0cf882d21531d94111f6e9bf6f9a4ccbad8eaaa.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c0cf882d21531d94111f6e9bf6f9a4ccbad8eaaa.png" /> exactly when
+there is an element <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in the domain of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" /> such that, when we
+interpret <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> as <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />, then <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_276775585f6be37e2b65f75f7188bd84466d7991.png" alt="10_Semantics_of_First_Order_Logic.org.temp_276775585f6be37e2b65f75f7188bd84466d7991.png" />. To continue the
+example above, we have <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_93fbe6c550d40eb6d5b5593e5f72a96ce4ce88fe.png" alt="10_Semantics_of_First_Order_Logic.org.temp_93fbe6c550d40eb6d5b5593e5f72a96ce4ce88fe.png" />, since when we
+interpret <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> as 6 we have <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c753661956938234a64288e9eac87f4d6c114731.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c753661956938234a64288e9eac87f4d6c114731.png" />.
+</p>
+
+<p>
+More concisely, we can say that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c0cf882d21531d94111f6e9bf6f9a4ccbad8eaaa.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c0cf882d21531d94111f6e9bf6f9a4ccbad8eaaa.png" /> when there
+is an <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in the domain of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" /> such that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_1ba1aecfa053edfad4216b781f11cfb52b040d2d.png" alt="10_Semantics_of_First_Order_Logic.org.temp_1ba1aecfa053edfad4216b781f11cfb52b040d2d.png" />. The notation <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b8a82a5eba3ec8ab0ed551fb71b29c1b3ef0cf4e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b8a82a5eba3ec8ab0ed551fb71b29c1b3ef0cf4e.png" /> indicates that every
+occurrence of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> has been replaced by the symbol <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_7c45052141fb4efa904513c0fcf60d6d3efa883c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_7c45052141fb4efa904513c0fcf60d6d3efa883c.png" />.
+</p>
+
+<p>
+Finally, remember that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d58b2978ce86f2883636109feb06f1e1250f5b14.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d58b2978ce86f2883636109feb06f1e1250f5b14.png" /> meant that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> was true
+for all possible values of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />. We make this precise by saying that
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_fa76c8ac04eef48c73c7e9c894e2fad47d908d33.png" alt="10_Semantics_of_First_Order_Logic.org.temp_fa76c8ac04eef48c73c7e9c894e2fad47d908d33.png" /> exactly when for every element <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in the
+domain of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" />, interpreting <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> as <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> gives that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_dffdb39974b089e292f4e562ebcf7a7c0e53152a.png" alt="10_Semantics_of_First_Order_Logic.org.temp_dffdb39974b089e292f4e562ebcf7a7c0e53152a.png" />. Alternatively, we can say that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_fa76c8ac04eef48c73c7e9c894e2fad47d908d33.png" alt="10_Semantics_of_First_Order_Logic.org.temp_fa76c8ac04eef48c73c7e9c894e2fad47d908d33.png" />
+when for every <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in the domain of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" />, we have <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f7327360e0afd739d9db70e5b146f04175c39567.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f7327360e0afd739d9db70e5b146f04175c39567.png" />. In our example above, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_253a2abc8698244f5a98c2d35d9bca22fbaa8a2f.png" alt="10_Semantics_of_First_Order_Logic.org.temp_253a2abc8698244f5a98c2d35d9bca22fbaa8a2f.png" />, since when we interpret <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> as 2 we do not have <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_42ed90c3426e6d650d9e2152c11d0ac67574dc65.png" alt="10_Semantics_of_First_Order_Logic.org.temp_42ed90c3426e6d650d9e2152c11d0ac67574dc65.png" />.
+</p>
+
+<p>
+These rules allow us to determine the truth value of any <i>sentence</i> in
+a model.  (Remember, a sentence is a formula with no free variables.)
+There are some subtleties: for instance, we've implicitly assumed that
+our formula doesn't quantify over the same variable twice, as in <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_05e66e496c9d112d29381651eb5cd43368aefd4f.png" alt="10_Semantics_of_First_Order_Logic.org.temp_05e66e496c9d112d29381651eb5cd43368aefd4f.png" />. But for the most part, the interpretation process
+tells us to "read" a formula as talking directly about objects in the
+domain.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org558a610" class="outline-3">
+<h3 id="org558a610"><span class="section-number-3"> 10.3</span> Examples</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Take a simple language with no constant symbols, one relation symbol
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="10_Semantics_of_First_Order_Logic.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />, and one binary function symbol <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_5753432a6c5ba0aa2fea916832580e882fec6a13.png" alt="10_Semantics_of_First_Order_Logic.org.temp_5753432a6c5ba0aa2fea916832580e882fec6a13.png" />. Our model <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" /> will have
+domain <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, and the symbols will be interpreted as the standard
+less-than-or-equal-to relation and addition function.
+</p>
+
+<p>
+Think about the following questions before you read the answers below.
+Remember, our domain is <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, not <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" /> or any other number system.
+</p>
+
+<ol class="org-ol">
+<li>Is it true that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b0ec477ea86491a83b950c5a6792644bb231d3be.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b0ec477ea86491a83b950c5a6792644bb231d3be.png" />? What about <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c3673955a8ae2d22424e7425f5d2608bf4b95d7a.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c3673955a8ae2d22424e7425f5d2608bf4b95d7a.png" />?</li>
+<li>Similarly, what about <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_a131331192d713543f1fea62156dfb85dcb64628.png" alt="10_Semantics_of_First_Order_Logic.org.temp_a131331192d713543f1fea62156dfb85dcb64628.png" />? <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f6e20dda30c677fbbe6f8d2917a02afb744afc39.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f6e20dda30c677fbbe6f8d2917a02afb744afc39.png" />?</li>
+<li>Do the sentences <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_9e4212469ac76c29251d31eeff1c0757015aff78.png" alt="10_Semantics_of_First_Order_Logic.org.temp_9e4212469ac76c29251d31eeff1c0757015aff78.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b7bdeaef897b7ca5fec6bb39997eb7d681b85b84.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b7bdeaef897b7ca5fec6bb39997eb7d681b85b84.png" /> mean the same thing? Are they true or false?</li>
+<li>Can you think of a formula <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> in this language, with one free
+variable <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, such that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_fa76c8ac04eef48c73c7e9c894e2fad47d908d33.png" alt="10_Semantics_of_First_Order_Logic.org.temp_fa76c8ac04eef48c73c7e9c894e2fad47d908d33.png" /> but <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c0f97c608f912b0d0903408c6457de43b3c08a74.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c0f97c608f912b0d0903408c6457de43b3c08a74.png" />?</li>
+</ol>
+
+<p>
+These questions indicate a subtle, and often tricky, interplay between
+the universal and existential quantifiers. Once you've thought about
+them a bit, read the answers:
+</p>
+
+<ol class="org-ol">
+<li>Both of these statements are true. For the former, we can (for
+example) interpret <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> as the natural number 0. Then, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_9d79b64d559394d3bd3c437e22895e81dbaad256.png" alt="10_Semantics_of_First_Order_Logic.org.temp_9d79b64d559394d3bd3c437e22895e81dbaad256.png" />, so the existential is true.  For the latter, pick an
+arbitrary natural number <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />; it is still the case that when we
+interpret <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> as <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, we have <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b4dc8eea82edc678cb57e93a2e521c9ef50d2bb3.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b4dc8eea82edc678cb57e93a2e521c9ef50d2bb3.png" />.</li>
+<li>The first statement is true, since we can interpret <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> as 0. The
+second statement, though, is false. When we interpret <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> as 1 (or,
+in fact, as any natural number besides 0), we see that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_67e2548ee9bd6ad257b5fc07106adc775062b16a.png" alt="10_Semantics_of_First_Order_Logic.org.temp_67e2548ee9bd6ad257b5fc07106adc775062b16a.png" />.</li>
+<li>These sentences do <i>not</i> mean the same thing, although in the
+specified model, both are true. The first expresses that some
+natural number is less than or equal to every natural number. This
+is true: 0 is less than or equal to every natural number. The
+second sentence says that for every natural number, there is
+another natural number at least as big. Again, this is true: every
+natural number <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is less than or equal to <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />. If we took our
+domain to be <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" /> instead of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, the first sentence would be
+false, while the second would still be true.</li>
+<li>The situation described here is impossible in our model. If <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_2ed71b83b2e00697ce57bd7cfc921707ad248acd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_2ed71b83b2e00697ce57bd7cfc921707ad248acd.png" />, then <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_05ff8616d2a3f85b3073760c43ceeabcd181b5b9.png" alt="10_Semantics_of_First_Order_Logic.org.temp_05ff8616d2a3f85b3073760c43ceeabcd181b5b9.png" />,
+which implies that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c0cf882d21531d94111f6e9bf6f9a4ccbad8eaaa.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c0cf882d21531d94111f6e9bf6f9a4ccbad8eaaa.png" />.  The only time this
+situation can happen is when the domain of our model is empty.</li>
+</ol>
+
+<p>
+Now consider a different language with constant symbol 2, predicate
+symbols <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" alt="10_Semantics_of_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_9edb8c8cc5371d5e61536da5cf533bf0f8f53f26.png" alt="10_Semantics_of_First_Order_Logic.org.temp_9edb8c8cc5371d5e61536da5cf533bf0f8f53f26.png" />, and binary relation <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" />,
+interpreted in the natural way over domain <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />. The sentence <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_588a2cd4061d72b4a81aaff9990c7e6cc25a2a2a.png" alt="10_Semantics_of_First_Order_Logic.org.temp_588a2cd4061d72b4a81aaff9990c7e6cc25a2a2a.png" /> expresses the fact
+that every prime number bigger than 2 is odd. It is an example of
+<i>relativization</i>, discussed in <a href="#" onclick="myModule.loadTutorial('07_First_Order_Logic.html', 'Relativization_and_Sorts')">Section 7.4</a>. We can now see
+semantically how relativization works. This sentence is true in our
+model if, for every natural number <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, interpreting <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> as <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> makes
+the sentence true. If we interpret <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> as 0, 1, or 2, or as any
+non-prime number, the hypothesis of the implication is false, and thus
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c67b5258a309ecfa78d27fb7e26b5a10c28e4e4d.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c67b5258a309ecfa78d27fb7e26b5a10c28e4e4d.png" /> is true. Otherwise, if we interpret <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />
+as a prime number bigger than 2, both the hypothesis and conclusion of
+the implication are true, and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_c67b5258a309ecfa78d27fb7e26b5a10c28e4e4d.png" alt="10_Semantics_of_First_Order_Logic.org.temp_c67b5258a309ecfa78d27fb7e26b5a10c28e4e4d.png" /> is again
+true. Thus the universal statement holds. It was an example like this
+that partially motivated our semantics for implication back in Chapter
+3; any other choice would make relativization impossible.
+</p>
+
+<p>
+For the next example, we will consider models that are given by a
+rectangular grid of "dots." Each dot has a color (red, blue, or green)
+and a size (small or large). We use the letter <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> to represent a
+large red dot and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="10_Semantics_of_First_Order_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> to represent a small red dot, and similarly for
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f4f1cc565529bc86f38efac766dd61458984a0ee.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f4f1cc565529bc86f38efac766dd61458984a0ee.png" />.
+</p>
+
+<p>
+The logical language we use to describe our dot world has predicates
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_eaa67d8de87d3538bd29cda8d67ec32a5a4d159a.png" alt="10_Semantics_of_First_Order_Logic.org.temp_eaa67d8de87d3538bd29cda8d67ec32a5a4d159a.png" />, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_432653bfc9ad8d40cdc89dd6d4e998450da12814.png" alt="10_Semantics_of_First_Order_Logic.org.temp_432653bfc9ad8d40cdc89dd6d4e998450da12814.png" />, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cdb7b47e00ddbd21451a4ac9ac6c20d0bd6d448e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cdb7b47e00ddbd21451a4ac9ac6c20d0bd6d448e.png" />, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_7cc7b611ec996095e7df11dd72746490b1f9cb11.png" alt="10_Semantics_of_First_Order_Logic.org.temp_7cc7b611ec996095e7df11dd72746490b1f9cb11.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_e7c17a90583b954a960ece6e3c7296ee7f494a09.png" alt="10_Semantics_of_First_Order_Logic.org.temp_e7c17a90583b954a960ece6e3c7296ee7f494a09.png" />,
+which are interpreted in the obvious ways. The relation <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_5da5751477d5dbb730795d04d68d5b6cafe98f06.png" alt="10_Semantics_of_First_Order_Logic.org.temp_5da5751477d5dbb730795d04d68d5b6cafe98f06.png" /> is true if the dots referred to by <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="10_Semantics_of_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> are touching, not
+on a diagonal. The relations <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_3bc1963558a8a4399cfe4e654a18af6096519d54.png" alt="10_Semantics_of_First_Order_Logic.org.temp_3bc1963558a8a4399cfe4e654a18af6096519d54.png" />,
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_bf0af1fdd04d18c3258ea473303ebbe674bd01df.png" alt="10_Semantics_of_First_Order_Logic.org.temp_bf0af1fdd04d18c3258ea473303ebbe674bd01df.png" />, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_9727b0be596b27af8423e5b363f8ed1d14fe44af.png" alt="10_Semantics_of_First_Order_Logic.org.temp_9727b0be596b27af8423e5b363f8ed1d14fe44af.png" />, and
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_ae016fb7bf9c8b6084af2ebc0758a3f951d4f0e5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_ae016fb7bf9c8b6084af2ebc0758a3f951d4f0e5.png" /> are also self-explanatory. The relation
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_1287032a3a7f056de87891b01fd9b1d4f3179fe6.png" alt="10_Semantics_of_First_Order_Logic.org.temp_1287032a3a7f056de87891b01fd9b1d4f3179fe6.png" /> is true if the dot referred to by <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is
+left of the dot referred to by <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="10_Semantics_of_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, regardless of what rows the dots
+are in. The interpretations of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58e3e2228a42c3b6e9ea8b89c5c8cedf3b5f6c29.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58e3e2228a42c3b6e9ea8b89c5c8cedf3b5f6c29.png" />, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_422c6503d914a88e29179b0d7b72870542f9edf1.png" alt="10_Semantics_of_First_Order_Logic.org.temp_422c6503d914a88e29179b0d7b72870542f9edf1.png" />,
+and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_06c3e6dbf4499bef368526c72385cb3ae066e82f.png" alt="10_Semantics_of_First_Order_Logic.org.temp_06c3e6dbf4499bef368526c72385cb3ae066e82f.png" /> are similar.
+</p>
+
+<p>
+Consider the following sentences:
+</p>
+<ol class="org-ol">
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_8adb57595b8f0d88ac132ef53b5dc690f3a56ad1.png" alt="10_Semantics_of_First_Order_Logic.org.temp_8adb57595b8f0d88ac132ef53b5dc690f3a56ad1.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_53e2d729a41db5b0a6da6de7982dea974d0a4db1.png" alt="10_Semantics_of_First_Order_Logic.org.temp_53e2d729a41db5b0a6da6de7982dea974d0a4db1.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f479546587381de1c9aeae7d1539a5e4df4b8698.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f479546587381de1c9aeae7d1539a5e4df4b8698.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_2bb09f3607842b1143436ed58c358b7d6b771fba.png" alt="10_Semantics_of_First_Order_Logic.org.temp_2bb09f3607842b1143436ed58c358b7d6b771fba.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_5970d51fcf940a7929b09462d604743ac3268b99.png" alt="10_Semantics_of_First_Order_Logic.org.temp_5970d51fcf940a7929b09462d604743ac3268b99.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_36d8e9cc3f1a87b554c92c43761f140a974a1779.png" alt="10_Semantics_of_First_Order_Logic.org.temp_36d8e9cc3f1a87b554c92c43761f140a974a1779.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_ea16024e8a9a6530b1f01acf00817747c4cd29cf.png" alt="10_Semantics_of_First_Order_Logic.org.temp_ea16024e8a9a6530b1f01acf00817747c4cd29cf.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_ad0765159bf5b1074f5530b03190a5c380847606.png" alt="10_Semantics_of_First_Order_Logic.org.temp_ad0765159bf5b1074f5530b03190a5c380847606.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_95954dde67b8cc62dca4ff150fe21453c0d71e78.png" alt="10_Semantics_of_First_Order_Logic.org.temp_95954dde67b8cc62dca4ff150fe21453c0d71e78.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_52ca53ee44faf33774ef568dd163e578b8f1e0cc.png" alt="10_Semantics_of_First_Order_Logic.org.temp_52ca53ee44faf33774ef568dd163e578b8f1e0cc.png" /></li>
+</ol>
+
+<p>
+We can evaluate them in this particular model:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_9746541fdaa64981b94a5326936ee6e35763d4e2.png" alt="10_Semantics_of_First_Order_Logic.org.temp_9746541fdaa64981b94a5326936ee6e35763d4e2.png" /></p>
+</div>
+<p>
+There they have the following truth values:
+</p>
+<ol class="org-ol">
+<li>false</li>
+<li>true</li>
+<li>false</li>
+<li>false</li>
+<li>true</li>
+<li>true</li>
+<li>false</li>
+<li>true</li>
+<li>false</li>
+<li>false</li>
+</ol>
+
+<p>
+For each sentence, see if you can find a model that makes the sentence
+true, and another that makes it false. For an extra challenge, try to
+make all of the sentences true simultaneously. Notice that you can use
+any number of rows and any number of columns.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org99171c7" class="outline-3">
+<h3 id="org99171c7"><span class="section-number-3"> 10.4</span> Validity and Logical Consequence</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+We have seen that whether a formula is true or false often depends on
+the model we choose. Some formulas, though, are true in every possible
+model. An example we saw earlier was <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_7fa2aba661a889d552f6a4b36fe553808127d710.png" alt="10_Semantics_of_First_Order_Logic.org.temp_7fa2aba661a889d552f6a4b36fe553808127d710.png" />. Why is this sentence valid? Suppose <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" /> is an
+arbitrary model of the language, and suppose <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is an arbitrary
+element of the domain of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" />. Either <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_195623d0396181784a34ec9648da3f4790afdbe1.png" alt="10_Semantics_of_First_Order_Logic.org.temp_195623d0396181784a34ec9648da3f4790afdbe1.png" /> or <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d0439ab2e13f626b867fa2e0241af066028ff014.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d0439ab2e13f626b867fa2e0241af066028ff014.png" />.  In either case, the
+propositional semantics of implication guarantee that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d677f5effabc7645c3fb69571e35fb5c6d895aff.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d677f5effabc7645c3fb69571e35fb5c6d895aff.png" />. We often write <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_43eebb04aa774c5accd78b425ab344f50265a11a.png" alt="10_Semantics_of_First_Order_Logic.org.temp_43eebb04aa774c5accd78b425ab344f50265a11a.png" /> to mean that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a valid.
+</p>
+
+<p>
+In the propositional setting, there is an easy method to figure out if
+a formula is a tautology or not. Writing the truth table and checking
+for any rows ending with <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" alt="10_Semantics_of_First_Order_Logic.org.temp_f961bd9aef5a084f49c224d8decb036b163a48f6.png" /> is algorithmic, and we know from the
+beginning exactly how large the truth table will be. Unfortunately, we
+cannot do the same for first-order formulas. Any language has
+infinitely many models, so a "first-order" truth table would be
+infinitely long. To make matters worse, even checking whether a
+formula is true in a single model can be a non-algorithmic task. To
+decide whether a universal statement like <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_184bda8ca828ca8817bcd1c1dfe2c9ffbd01a0f4.png" alt="10_Semantics_of_First_Order_Logic.org.temp_184bda8ca828ca8817bcd1c1dfe2c9ffbd01a0f4.png" /> is true in a
+model with an infinite domain, we might have to check whether <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" alt="10_Semantics_of_First_Order_Logic.org.temp_abd5d7efbf571e6a2d39a5ea6137d15142143223.png" /> is
+true of infinitely many elements.
+</p>
+
+<p>
+This is not to say that we can <i>never</i> figure out if a first-order
+sentence is a tautology. For example, we have argued that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_5c6c24d2fae4da367c19f6188ee94617da2df401.png" alt="10_Semantics_of_First_Order_Logic.org.temp_5c6c24d2fae4da367c19f6188ee94617da2df401.png" /> was one. It is just a more
+difficult question than for propositional logic.
+</p>
+
+<p>
+As was the case with propositional logic, we can extend the notion of
+validity to a notion of logical consequence. Fix a first-order
+language, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" />. Suppose <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /> is a set of sentences in <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" />, and
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a sentence of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" />. We will say that <i><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a
+logical consequence of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /></i> if every model of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /> is a model
+of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. This is one way of spelling out that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a
+"necessary consequence" of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />: under any interpretation, if the
+hypotheses in <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /> come out true, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is true as well.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga272d4e" class="outline-3">
+<h3 id="orga272d4e"><span class="section-number-3"> 10.5</span> Soundness and Completeness</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+In propositional logic, we saw a close connection between the provable
+formulas and the tautologies &#x2013; specifically, a formula is provable if
+and only if it is a tautology. More generally, we say that a formula
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a logical consequence of a set of hypotheses, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />,
+if and only if there is a natural deduction proof of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> from
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />. It turns out that the analogous statements hold for first
+order logic.
+</p>
+
+<p>
+The "soundness" direction &#x2014; the fact that if <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is provable
+from <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /> then <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is true in any model of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /> &#x2014; at
+any provable formula is a tautology &#x2013; holds for reasons that are
+similar to the reasons it holds in the propositional
+case. Specifically, the proof proceeds by showing that each rule of
+natural deduction preserves the truth in a model.
+</p>
+
+<p>
+The completeness theorem for first order logic was first proved by
+Kurt Gödel in his 1929 dissertation. Another, simpler proof was later
+provided by Leon Henkin.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> If a formula <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a logical consequence of a set of
+ sentences <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />, then <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is provable from <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />.
+</p>
+
+<hr>
+<p>
+Compared to the version for propositional logic, the first order
+completeness theorem is harder to prove. We will not go into too much
+detail here, but will indicate some of the main ideas. A set of
+sentences is said to be <i>consistent</i> if you cannot prove a
+contradiction from those hypotheses. Most of the work in Henkin's
+proof is done by the following "model existence" theorem:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Every consistent set of sentences has a model.
+</p>
+
+<hr>
+<p>
+From this theorem, it is easy to deduce the completeness
+theorem. Suppose there is no proof of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> from <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />. Then
+the set <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_1ade24d95c63b1f675437229a912fc5fe841de4b.png" alt="10_Semantics_of_First_Order_Logic.org.temp_1ade24d95c63b1f675437229a912fc5fe841de4b.png" /> is consistent. (If we could
+prove <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" alt="10_Semantics_of_First_Order_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" /> from <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_1ade24d95c63b1f675437229a912fc5fe841de4b.png" alt="10_Semantics_of_First_Order_Logic.org.temp_1ade24d95c63b1f675437229a912fc5fe841de4b.png" />, then by the
+<i>reductio ad absurdum</i> rule we could prove <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> from
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />.) By the model existence theorem, that means that there is a
+model <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68d75046a7c3686e486014e803fbb86a77cf5eb7.png" /> of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_1ade24d95c63b1f675437229a912fc5fe841de4b.png" alt="10_Semantics_of_First_Order_Logic.org.temp_1ade24d95c63b1f675437229a912fc5fe841de4b.png" />. But this is a model
+of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" /> that is not a model of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, which means that
+<img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is not a logical consequence of <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" alt="10_Semantics_of_First_Order_Logic.org.temp_58d6fdeb6cee3969df547edb4609d78c9fc1c44c.png" />.
+</p>
+
+<p>
+The proof of the model existence theorem is intricate. Somehow, from a
+consistent set of sentences, one has to "build" a model. The strategy
+is to build the model out of syntactic entities, in other words, to
+use terms in an expanded language as the elements of the domain.
+</p>
+
+<p>
+The moral here is much the same as it was for propositional
+logic. Because we have developed our syntactic rules with a certain
+semantics in mind, the two exhibit different sides of the same coin:
+the provable sentences are exactly the ones that are true in all
+models, and the sentences that are provable from a set of hypotheses
+are exactly the ones that are true in all models of those
+hypotheses. 
+</p>
+
+<p>
+We therefore have another way to answer the question posed in the
+previous section. To show that a sentence is a tautology, there is no
+need to check its proof in every possible model. Rather, it suffices to
+produce a proof.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8d9e6f8" class="outline-3">
+<h3 id="org8d9e6f8"><span class="section-number-3"> 10.6</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li><p>
+In a first-order language with a binary relation, <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_3b1b38dd49f642ad920aeff21d08810ad73b9bd5.png" />,
+consider the following sentences:
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_1bc2e04e4964943b16729b0fae2836897f1388b8.png" alt="10_Semantics_of_First_Order_Logic.org.temp_1bc2e04e4964943b16729b0fae2836897f1388b8.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d72efa2b6912324c91c348a0422bdb18147fcfee.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d72efa2b6912324c91c348a0422bdb18147fcfee.png" /></li>
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d82f18906e3d8cb77b9a03843bce6d13d97feaa2.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d82f18906e3d8cb77b9a03843bce6d13d97feaa2.png" /></li>
+</ul>
+<p>
+For each of the following structures, determine whether of each of
+those sentences is true or false.
+</p>
+
+<ul class="org-ul">
+<li>the structure <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_344c84ff6af71a8262f8c746d48e1a0d7b551297.png" alt="10_Semantics_of_First_Order_Logic.org.temp_344c84ff6af71a8262f8c746d48e1a0d7b551297.png" />, that is, the interpretation in
+the natural numbers where <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> is <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="10_Semantics_of_First_Order_Logic.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /></li>
+<li>the structure <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_e569db087468261d1a8d15fbc192bdaf28a344c3.png" alt="10_Semantics_of_First_Order_Logic.org.temp_e569db087468261d1a8d15fbc192bdaf28a344c3.png" /></li>
+<li>the structure <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d143e6de40ac0996c2d03179e9ceb9e054f515da.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d143e6de40ac0996c2d03179e9ceb9e054f515da.png" /></li>
+<li>the structure <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_8652112a5458c31383276f9c303a5fd3142d8625.png" alt="10_Semantics_of_First_Order_Logic.org.temp_8652112a5458c31383276f9c303a5fd3142d8625.png" />, that is, the interpretation in
+the natural numbers where <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> is the ``divides'' relation</li>
+<li>the structure <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_68dbb2871b09c1346a5e622241d68567ae8036df.png" alt="10_Semantics_of_First_Order_Logic.org.temp_68dbb2871b09c1346a5e622241d68567ae8036df.png" />, that is, the
+interpretation where variables range over sets of natural
+numbers, where <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" alt="10_Semantics_of_First_Order_Logic.org.temp_dfa41f9d3e75a0893a006d4e6c05b957dd59673e.png" /> is interpreted as the subset relation.</li>
+</ul></li>
+
+<li>Create a 4 x 4 "dots" world that makes all of the following
+sentences true:
+
+<ul class="org-ul">
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_8adb57595b8f0d88ac132ef53b5dc690f3a56ad1.png" alt="10_Semantics_of_First_Order_Logic.org.temp_8adb57595b8f0d88ac132ef53b5dc690f3a56ad1.png" /></li>
+
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_497b51ca2324e120b61a2b230baea5ee7c4231a2.png" alt="10_Semantics_of_First_Order_Logic.org.temp_497b51ca2324e120b61a2b230baea5ee7c4231a2.png" /></li>
+
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_ea5c2af480c5c69184a40762d55bb4ee4bd3b001.png" alt="10_Semantics_of_First_Order_Logic.org.temp_ea5c2af480c5c69184a40762d55bb4ee4bd3b001.png" /></li>
+
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_90fedf213c593816201052304a209a7ac879064d.png" alt="10_Semantics_of_First_Order_Logic.org.temp_90fedf213c593816201052304a209a7ac879064d.png" /></li>
+
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_339ccc8fc21748527bff544eb83fb7a6707c9ad1.png" alt="10_Semantics_of_First_Order_Logic.org.temp_339ccc8fc21748527bff544eb83fb7a6707c9ad1.png" /></li>
+
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_be361184b1e22f0113eff99d79b51150051d9cb5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_be361184b1e22f0113eff99d79b51150051d9cb5.png" /></li>
+
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_ea16024e8a9a6530b1f01acf00817747c4cd29cf.png" alt="10_Semantics_of_First_Order_Logic.org.temp_ea16024e8a9a6530b1f01acf00817747c4cd29cf.png" /></li>
+
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_ad0765159bf5b1074f5530b03190a5c380847606.png" alt="10_Semantics_of_First_Order_Logic.org.temp_ad0765159bf5b1074f5530b03190a5c380847606.png" /></li>
+
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_52e8925521502f0287f75059a60f57dccc8495f2.png" alt="10_Semantics_of_First_Order_Logic.org.temp_52e8925521502f0287f75059a60f57dccc8495f2.png" /></li>
+
+<li><img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_95080a96657df0d8dbf3d522560e6025dabd4c76.png" alt="10_Semantics_of_First_Order_Logic.org.temp_95080a96657df0d8dbf3d522560e6025dabd4c76.png" /></li>
+</ul></li>
+
+<li>Fix a first-order language <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" />, and let <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be any two
+sentences in <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" />. Remember that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_03cd3c05039581a18e085796f0d03b866e25fed5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_03cd3c05039581a18e085796f0d03b866e25fed5.png" /> means that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+valid. Unpacking the definition, show that if <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_a6d4e9d8f2496809a25857010263170f562e29a4.png" alt="10_Semantics_of_First_Order_Logic.org.temp_a6d4e9d8f2496809a25857010263170f562e29a4.png" />, then <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_03cd3c05039581a18e085796f0d03b866e25fed5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_03cd3c05039581a18e085796f0d03b866e25fed5.png" /> and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_15bbc2973eeaa0426fdcd127893a0067eecfb8e9.png" alt="10_Semantics_of_First_Order_Logic.org.temp_15bbc2973eeaa0426fdcd127893a0067eecfb8e9.png" />.</li>
+
+<li>Give a concrete example to show that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_351263db72120835849a3b0a266cb8aaff5f5f1f.png" alt="10_Semantics_of_First_Order_Logic.org.temp_351263db72120835849a3b0a266cb8aaff5f5f1f.png" /> does
+not necessarily imply <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_03cd3c05039581a18e085796f0d03b866e25fed5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_03cd3c05039581a18e085796f0d03b866e25fed5.png" /> or <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_15bbc2973eeaa0426fdcd127893a0067eecfb8e9.png" alt="10_Semantics_of_First_Order_Logic.org.temp_15bbc2973eeaa0426fdcd127893a0067eecfb8e9.png" />. In other
+words, pick a language <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" alt="10_Semantics_of_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" /> and choose particular sentences <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+and <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> such that <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_454a2b03e9bbd58443ca50360be2588e72d2d909.png" alt="10_Semantics_of_First_Order_Logic.org.temp_454a2b03e9bbd58443ca50360be2588e72d2d909.png" /> is valid, but neither <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="10_Semantics_of_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+nor <img src="ltximg/10_Semantics_of_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="10_Semantics_of_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is valid.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

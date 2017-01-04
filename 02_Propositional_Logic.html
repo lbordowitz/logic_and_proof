@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 21:03 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-org7c90874" class="outline-2">
+<h2 id="Propositional_Logic"><a id="org7c90874"></a><span class="section-number-2"> 2</span> Propositional Logic</h2>
+<div class="outline-text-2" id="text-Propositional_Logic">
+</div>
+
+<div id="outline-container-org3873974" class="outline-3">
+<h3 id="org3873974"><span class="section-number-3"> 2.1</span> A Puzzle</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The following puzzle, titled "Malice and Alice," is from George
+J.&nbsp;Summers' <i>Logical Deduction Puzzles</i>.
+</p>
+
+<hr>
+<p>
+Alice, Alice's husband, their son, their daughter, and Alice's brother
+were involved in a murder. One of the five killed one of the other
+four. The following facts refer to the five people mentioned:
+</p>
+
+<ol class="org-ol">
+<li>A man and a woman were together in a bar at the time of the murder.</li>
+<li>The victim and the killer were together on a beach at the time of
+the murder.</li>
+<li>One of Alice's two children was alone at the time of the murder.</li>
+<li>Alice and her husband were not together at the time of the murder.</li>
+<li>The victim's twin was not the killer.</li>
+<li>The killer was younger than the victim.</li>
+</ol>
+
+<p>
+Which one of the five was the victim?
+</p>
+
+<hr>
+<p>
+Take some time to try to work out a solution. (You should assume that
+the victim's twin is one of the five people mentioned.) Summers' book
+offers the following hint: "First find the locations of two pairs of
+people at the time of the murder, and then determine who the killer
+and the victim were so that no condition is contradicted."
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga63652d" class="outline-3">
+<h3 id="orga63652d"><span class="section-number-3"> 2.2</span> A Solution</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+If you have worked on the puzzle, you may have noticed a few
+things. First, it is helpful to draw a diagram, and to be systematic
+about searching for an answer. The number of characters, locations,
+and attributes is finite, so that there are only finitely many
+possible "states of affairs" that need to be considered. The numbers
+are also small enough so that systematic search through all the
+possibilities, though tedious, will eventually get you to the right
+answer. This is a special feature of logic puzzles like this; you
+would not expect to show, for example, that every even number greater
+than two can be written as a sum of primes by running through all the
+possibilities.
+</p>
+
+<p>
+Another thing that you may have noticed is that the question seems to
+presuppose that there is a unique answer to the question, which is to
+say, of all the states of affairs that meet the list of conditions,
+there is only one person who can possibly be the killer. <i>A priori</i>,
+without that assumption, there is a difference between finding <i>some</i>
+person who could have been the victim, and show that that person <i>had</i>
+to be the victim. In other words, there is a difference between
+exhibiting some state of affairs that meets the criteria, and
+demonstrating conclusively that no other solution is possible.
+</p>
+
+<p>
+The published solution in the book not only produces a state of
+affairs that meets the criterion, but at the same time proves that
+this is the only one that does so. It is quoted below, in full.
+</p>
+
+<hr>
+<p>
+From <code>[1]</code>, <code>[2]</code>, and <code>[3]</code>, the roles of the five people were as
+follows: Man and Woman in the bar, Killer and Victim on the beach, and
+Child alone.
+</p>
+
+<p>
+Then, from <code>[4]</code>, either Alice's husband was in the bar and Alice was
+on the beach, or Alice was in the bar and Alice's husband was on the
+beach.
+</p>
+
+<p>
+If Alice's husband was in the bar, the woman he was with was his
+daughter, the child who was alone was his son, and Alice and her
+brother were on the beach. Then either Alice or her brother was the
+victim; so the other was the killer. But, from <code>[5]</code>, the victim had a
+twin, and this twin was innocent. Since by Alice and her brother could
+only be twins to each other, this situation is impossible. Therefore
+Alice's husband was not in the bar.
+</p>
+
+<p>
+So Alice was in the bar. If Alice was in the bar, she was with her
+brother or her son.
+</p>
+
+<p>
+If Alice was with her brother, her husband was on the beach with one
+of the two children. From <code>[5]</code>, the victim could not be her husband,
+because none of the others could be his twin; so the killer was her
+husband and the victim was the child he was with. But this situation
+is impossible, because it contradicts <code>[6]</code>. Therefore, Alice was not
+with her brother in the bar.
+</p>
+
+<p>
+So Alice was with her son in the bar. Then the child who was alone was
+her daughter. Therefore, Alice's husband was with Alice's brother on
+the beach. From previous reasoning, the victim could not be Alice's
+husband. But the victim could be Alice's brother because Alice could
+be his twin. 
+</p>
+
+<p>
+So <i>Alice's brother was the victim</i> and Alice's husband was the
+killer.
+</p>
+
+<hr>
+<p>
+This argument relies on some "extralogical" elements, for example,
+that a father cannot be younger than his child, and that a parent and
+his or her child cannot be twins. But the argument also involves a
+number of common logical terms and associated patterns of
+inference. In the next section, we will focus on some of the key
+logical terms occurring in the argument above, words like "and," "or,"
+"not," and "if &#x2026; then."
+</p>
+
+<p>
+Our goal is to give an account of the patterns of inference that
+govern the use of those terms. To that end, using the methods of
+symbolic logic, we will introduce variables <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, <img src="ltximg/02_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="02_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />, &#x2026; to
+stand for fundamental statements, or <i>propositions</i>, and symbols
+<img src="ltximg/02_Propositional_Logic.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" alt="02_Propositional_Logic.org.temp_943241f8b9ef5aeddf5ddd1a3d2c955095eb95ab.png" />, <img src="ltximg/02_Propositional_Logic.org.temp_56ef8f500c587b8ecabc52cc190fe4f230623b46.png" alt="02_Propositional_Logic.org.temp_56ef8f500c587b8ecabc52cc190fe4f230623b46.png" />, <img src="ltximg/02_Propositional_Logic.org.temp_75bef715537945d703b4766c0a0e8b9749c23828.png" alt="02_Propositional_Logic.org.temp_75bef715537945d703b4766c0a0e8b9749c23828.png" />, and <img src="ltximg/02_Propositional_Logic.org.temp_1304cf6e7eb1dabe66cfa3f7f9322aa62b12ce50.png" alt="02_Propositional_Logic.org.temp_1304cf6e7eb1dabe66cfa3f7f9322aa62b12ce50.png" /> to stand for "and," "or," "not,"
+and "if &#x2026; then &#x2026; ," respectively. Doing so will let us focus on the way
+that compound statements are built up from basic ones using the
+logical terms, while abstracting away from the specific content. We
+will also adopt a stylized notation for representing inferences as
+<i>rules</i>: an the like inscription
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_7a04367a2d4775cbee4f45bf82b73055a7a98ae4.png" alt="02_Propositional_Logic.org.temp_7a04367a2d4775cbee4f45bf82b73055a7a98ae4.png" /></p>
+</div>
+<p>
+indicates that statement <img src="ltximg/02_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="02_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" /> is a <i>logical consequence</i> of <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+and <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb8440c8" class="outline-3">
+<h3 id="orgb8440c8"><span class="section-number-3"> 2.3</span> Rules of Inference</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-orgc4b8b4f" class="outline-4">
+<h4 id="orgc4b8b4f"><span class="section-number-4"> 2.3.1</span> Implication</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+The first pattern of inference we will discuss, involving the "if
+&#x2026; then &#x2026;" construct, can be hard to discern. Its use is largely
+implicit in the solution above. The inference in the fourth paragraph,
+spelled out in greater detail, runs as follows:
+</p>
+
+<hr>
+<p>
+If Alice was in the bar, Alice was with her brother or son.
+</p>
+
+<p>
+Alice was in the bar.
+</p>
+
+<p>
+Alice was with her brother or son.
+</p>
+
+<hr>
+<p>
+This rule is sometimes known as <i>modus ponens</i>, or "implication
+elimination," since it tells us how to use an implication in an
+argument. As a rule, it is expressed as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_a8e6723578dc54c9bf265115d5542a76ebf1a22d.png" alt="02_Propositional_Logic.org.temp_a8e6723578dc54c9bf265115d5542a76ebf1a22d.png" /></p>
+</div>
+<p>
+Read this as saying that if you have a proof of <img src="ltximg/02_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" alt="02_Propositional_Logic.org.temp_3a9090234befeadc30f2545de2a44cc4fe6badf4.png" />, possibly
+from some hypotheses, and a proof of <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, possibly from hypotheses,
+then combining these yields a proof of <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, from the hypotheses in
+both subproofs.
+</p>
+
+<p>
+The rule for deriving an "if &#x2026; then" statement is more
+subtle. Consider the beginning of the third paragraph, which argues
+that if Alice's husband was in the bar, then Alice or her brother
+was the victim. Abstracting away some of the details, the argument has
+the following form:
+</p>
+
+<hr>
+<p>
+Suppose Alice's husband was in the bar.
+</p>
+
+<p>
+Then &#x2026;
+</p>
+
+<p>
+Then &#x2026;
+</p>
+
+<p>
+Then Alice or her brother was the victim.
+</p>
+
+<p>
+Thus, if Alice's husband was in the bar, then Alice or her brother was the 
+victim.
+</p>
+
+<hr>
+<p>
+This is a form of <i>hypothetical reasoning</i>. On the supposition that
+<img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> holds, we argue that <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> holds as well. If we are successful, we
+have shown that <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> implies <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, without supposing <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. In other
+words, the temporary assumption that <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> holds is "canceled" by making
+it explicit in the conclusion.
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_64b3782c97409f4121561d213870746bbd054700.png" alt="02_Propositional_Logic.org.temp_64b3782c97409f4121561d213870746bbd054700.png" /></p>
+</div>
+<p>
+The hypothesis is given the label <img src="ltximg/02_Propositional_Logic.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="02_Propositional_Logic.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" />; when the introduction rule is
+applied, the label <img src="ltximg/02_Propositional_Logic.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="02_Propositional_Logic.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" /> indicates the relevant hypothesis. The line
+over the hypothesis indicates that the assumption has been "canceled"
+by the introduction rule.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8d36ffa" class="outline-4">
+<h4 id="org8d36ffa"><span class="section-number-4"> 2.3.2</span> Conjunction</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+As was the case for implication, other logical connectives are
+generally characterized by their <i>introduction</i> and <i>elimination</i>
+rules. An introduction rule shows how to establish a claim involving
+the connective, while an elimination rule shows how to use such a
+statement that contains the connective to derive others.
+</p>
+
+<p>
+Let us consider, for example, the case of conjunction, that is, the
+word "and." Informally, we establish a conjunction by establishing
+each conjunct. For example, informally we might argue:
+</p>
+
+<hr>
+<p>
+Alice's brother was the victim.
+</p>
+
+<p>
+Alice's husband was the killer.
+</p>
+
+<p>
+Therefore Alice's brother was the victim and Alice's husband was the
+killer.
+</p>
+
+<hr>
+<p>
+The inference seems almost too obvious to state explicitly, since the
+word "and" simply combines the two assertions into one. Informal
+proofs often downplay the distinction. In symbolic logic, the rule
+reads as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_49ac1c31167e7f19f258ea3dd6234868a682153e.png" alt="02_Propositional_Logic.org.temp_49ac1c31167e7f19f258ea3dd6234868a682153e.png" /></p>
+</div>
+
+<p>
+The two elimination rules allow us to extract the two components:
+</p>
+
+<hr>
+<p>
+Alice's husband was in the bar and Alice was on the beach.
+</p>
+
+<p>
+So Alice's husband was in the bar.
+</p>
+
+<hr>
+<p>
+Or:
+</p>
+
+<hr>
+<p>
+Alice's husband was in the bar and Alice was on the beach.
+</p>
+
+<p>
+So Alice's was on the beach.
+</p>
+
+<hr>
+<p>
+In symbols, these patterns are rendered as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_a2b9c48f30efe15a0d71b56ea30d469c06a84122.png" alt="02_Propositional_Logic.org.temp_a2b9c48f30efe15a0d71b56ea30d469c06a84122.png" /></p>
+</div>
+<p>
+Here the <img src="ltximg/02_Propositional_Logic.org.temp_8e7cc17c0678c6cd1ba29f5c0c00a45cbf4af413.png" alt="02_Propositional_Logic.org.temp_8e7cc17c0678c6cd1ba29f5c0c00a45cbf4af413.png" /> and <img src="ltximg/02_Propositional_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="02_Propositional_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> stand for "left" and "right". 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org09c1725" class="outline-4">
+<h4 id="org09c1725"><span class="section-number-4"> 2.3.3</span> Negation and Falsity</h4>
+<div class="outline-text-4" id="text-1-3-3">
+<p>
+In logical terms, showing "not A" amounts to showing that A leads to a
+contradiction. For example:
+</p>
+
+<hr>
+<p>
+Suppose Alice's husband was in the bar. 
+</p>
+
+<p>
+&#x2026;
+</p>
+
+<p>
+This situation is impossible. 
+</p>
+
+<p>
+Therefore Alice's husband was not in the bar.
+</p>
+
+<hr>
+<p>
+This is another form of hypothetical reasoning, similar to that used
+in establishing an "if &#x2026; then" statement: we temporarily assume A,
+show that leads to a contradiction, and conclude that "not A"
+holds. In symbols, the rule reads as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_701b9b427ccc2e7a814ae46a667a33ce124212ea.png" alt="02_Propositional_Logic.org.temp_701b9b427ccc2e7a814ae46a667a33ce124212ea.png" /></p>
+</div>
+
+<p>
+The elimination rule is dual to these. It expresses that if we have
+both "A" and "not A," then we have a contradiction. This pattern is
+illustrated in the informal argument below, which is implicit in the
+fourth paragraph of the solution to "Malice and Alice."
+</p>
+
+<hr>
+<p>
+The killer was Alice's husband and the victim was the child he was
+with.
+</p>
+
+<p>
+So the killer was not younger than his victim.
+</p>
+
+<p>
+But according to <code>[6]</code>, the killer was younger than his victim.
+</p>
+
+<p>
+This situation is impossible.
+</p>
+
+<hr>
+<p>
+In symbolic logic, the rule of inference is expressed as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_7fa28aee15a2c0ccd62f500dec2cb8c3388b2385.png" alt="02_Propositional_Logic.org.temp_7fa28aee15a2c0ccd62f500dec2cb8c3388b2385.png" /></p>
+</div>
+<p>
+Notice also that in the symbolic framework, we have introduced a new
+symbol, <img src="ltximg/02_Propositional_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" alt="02_Propositional_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" />. It corresponds to natural language phrases like "this
+is a contradiction" or "this is impossible."
+</p>
+
+<p>
+What are the rules governing <img src="ltximg/02_Propositional_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" alt="02_Propositional_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" />? In the proof system we will
+introduce in the next chapter, there is no introduction rule; "false"
+is false, and there should be no way to prove it, other than extract
+it from contradictory hypotheses. On the other hand, the system
+provides a rule that allows us to conclude anything from a
+contradiction:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_f0e8f15c50a2a21d12869d74714e7986067167c0.png" alt="02_Propositional_Logic.org.temp_f0e8f15c50a2a21d12869d74714e7986067167c0.png" /></p>
+</div>
+<p>
+The elimination rule also has the fancy Latin name, <i>ex falso sequitur
+quodlibet</i>, which means "anything you want follows from falsity."
+</p>
+
+<p>
+This elimination rule is harder to motivate from a natural language
+perspective, but, nonetheless, it is needed to capture common patterns
+of inference. One way to understand it is this. Consider the following
+statement:
+</p>
+
+<hr>
+<p>
+For every natural number <img src="ltximg/02_Propositional_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="02_Propositional_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, if <img src="ltximg/02_Propositional_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="02_Propositional_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is prime and greater than 2, then
+<img src="ltximg/02_Propositional_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="02_Propositional_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is odd.
+</p>
+
+<hr>
+<p>
+We would like to say that this is a true statement. But if it is true,
+then it is true of any particular number <img src="ltximg/02_Propositional_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="02_Propositional_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Taking <img src="ltximg/02_Propositional_Logic.org.temp_e62b3f122ad8b60e27eb1c9a46bee4bb6f8ec5d5.png" alt="02_Propositional_Logic.org.temp_e62b3f122ad8b60e27eb1c9a46bee4bb6f8ec5d5.png" />, we have
+the statement:
+</p>
+
+<hr>
+<p>
+If 2 is prime and greater than 2, then 2 is odd.
+</p>
+
+<hr>
+<p>
+In this conditional statement, both the antecedent and succedent are
+false. The fact that we are committed to saying that this statement is
+true shows that we should be able to prove, one way or another, that
+the statement 2 is odd follows from the false statement that 2 is
+prime and greater than 2. The <i>ex falso</i> neatly encapsulates this sort
+of inference.
+</p>
+
+<p>
+Notice that if we define <img src="ltximg/02_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" alt="02_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" /> to be <img src="ltximg/02_Propositional_Logic.org.temp_9eb1ac6b4f02410feea1ca6215e48d255300a699.png" alt="02_Propositional_Logic.org.temp_9eb1ac6b4f02410feea1ca6215e48d255300a699.png" />, then the rules
+for negation introduction and elimination are nothing more than
+implication introduction and elimination, respectively. We can think
+of <img src="ltximg/02_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" alt="02_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" /> expressed colorfully by saying "if <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is true, then pigs
+have wings," where "pigs have wings" is stands for <img src="ltximg/02_Propositional_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" alt="02_Propositional_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" />.
+</p>
+
+<p>
+Having introduced a symbol for "false," it is only fair to introduce a
+symbol for "true." In contrast to "false," "true" has no elimination
+rule, only an introduction rule:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_1fbd28df5bbd9f5c9b7875218ab23749b79732fd.png" alt="02_Propositional_Logic.org.temp_1fbd28df5bbd9f5c9b7875218ab23749b79732fd.png" /></p>
+</div>
+<p>
+Put simply, "true" is true. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbd3e87b" class="outline-4">
+<h4 id="orgbd3e87b"><span class="section-number-4"> 2.3.4</span> Disjunction</h4>
+<div class="outline-text-4" id="text-1-3-4">
+<p>
+The introduction rules for disjunction, otherwise known as "or," are
+straightforward. For example, the claim that condition <code>[3]</code> is met in
+the proposed solution can be justified as follows:
+</p>
+
+<hr>
+<p>
+Alice's daughter was alone at the time of the murder.
+</p>
+
+<p>
+Therefore, either Alice's daughter was alone at the time of the
+murder, or Alice's son was alone at the time of the murder.
+</p>
+
+<hr>
+<p>
+In symbolic terms, the two introduction rules are as
+follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_c0ccd35b13ea6b2b00af370a0aa6c53277ca2abf.png" alt="02_Propositional_Logic.org.temp_c0ccd35b13ea6b2b00af370a0aa6c53277ca2abf.png" /></p>
+</div>
+<p>
+Here, again, the <img src="ltximg/02_Propositional_Logic.org.temp_8e7cc17c0678c6cd1ba29f5c0c00a45cbf4af413.png" alt="02_Propositional_Logic.org.temp_8e7cc17c0678c6cd1ba29f5c0c00a45cbf4af413.png" /> and <img src="ltximg/02_Propositional_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="02_Propositional_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> stand for "left" and "right". 
+</p>
+
+<p>
+The disjunction elimination rule is trickier, but it represents a
+natural form of case-based hypothetical reasoning. The instances that
+occur in the solution to "Malice and Alice" are all special cases of
+this rule, so it will be helpful to make up a new example to
+illustrate the general phenomenon. Suppose, in the argument above, we
+had established that either Alice's brother or her son was in the bar,
+and we wanted to argue for the conclusion that her husband was on the
+beach. One option is to argue by cases: first, consider the case that
+her brother was in the bar, and argue for the conclusion on the basis
+of that assumption; then consider the case that her son was in the
+bar, and argue for the same conclusion, this time on the basis of the
+second assumption. Since the two cases are exhaustive, if we know that
+the conclusion holds in each case, we know that it holds outright. The
+pattern looks something like this:
+</p>
+
+<hr>
+<p>
+Either Alice's brother was in the bar, or Alice's son was in the bar.
+</p>
+
+<p>
+Suppose, in the first case, that her brother was in the bar. Then
+&#x2026; Therefore, her husband was on the beach.
+</p>
+
+<p>
+On the other hand, suppose her son was in the bar. In that case,
+&#x2026; Therefore, in this case also, her husband was on the beach.
+</p>
+
+<p>
+Either way, we have established that her husband was on the beach.
+</p>
+
+<hr>
+<p>
+In symbols, this pattern is expressed as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_b39db6c12dd15bf0b4e860cf3e3c0a9730292a1c.png" alt="02_Propositional_Logic.org.temp_b39db6c12dd15bf0b4e860cf3e3c0a9730292a1c.png" /></p>
+</div>
+
+<p>
+What makes this pattern confusing is that it requires two instances of
+nested hypothetical reasoning: in the first block of parentheses, we
+temporarily assume <code>A</code>, and in the second block, we temporarily assume
+<code>B</code>. When the dust settles, we have established <code>C</code> outright.
+</p>
+
+<p>
+There is another pattern of reasoning that is commonly used with "or,"
+as in the following example:
+</p>
+
+<hr>
+<p>
+Either Alice's husband was in the bar, or Alice was in the bar.
+</p>
+
+<p>
+Alice's husband was not in the bar.
+</p>
+
+<p>
+So Alice was in the bar.
+</p>
+
+<hr>
+<p>
+In symbols, we would render this rule as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_a7227b7c85ba0faed235a07e578c2797d90488d8.png" alt="02_Propositional_Logic.org.temp_a7227b7c85ba0faed235a07e578c2797d90488d8.png" /></p>
+</div>
+<p>
+We will see in the next chapter that it is possible to <i>derive</i> this
+rule from the others. As a result, we will <i>not</i> take this to be a
+fundamental rule of inference in our system.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3ef099f" class="outline-4">
+<h4 id="org3ef099f"><span class="section-number-4"> 2.3.5</span> If and only if</h4>
+<div class="outline-text-4" id="text-1-3-5">
+<p>
+In mathematical arguments, it is common to say of two statements, <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+and <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, that "<img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> holds if and only if <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> holds." This assertion is
+sometimes abbreviated "<img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> iff <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />," and means simply that <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> implies
+<img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> and <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> implies <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. It is not essential that we introduce a new
+symbol into our logical language to model this connective, since the
+statement can be expressed, as we just did, in terms of "implies" and
+"and." But notice that the length of the expression doubles because
+<img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are each repeated. The logical abbreviation is therefore
+convenient, as well as natural.
+</p>
+
+<p>
+The conditions of "Malice and Alice" imply that Alice is in the bar
+if and only if Alice's husband is on the beach. Such a statement is
+established by arguing for each implication in turn:
+</p>
+
+<hr>
+<p>
+I claim that Alice is in the bar if and only if Alice's husband is on
+the beach.
+</p>
+
+<p>
+To see this, first suppose that Alice is in the bar.
+</p>
+
+<p>
+Then &#x2026;
+</p>
+
+<p>
+Hence Alice's husband is on the beach.
+</p>
+
+<p>
+Conversely, suppose Alice's husband is on the beach.
+</p>
+
+<p>
+Then &#x2026;
+</p>
+
+<p>
+Hence Alice is in the bar.
+</p>
+
+<hr>
+<p>
+Notice that with this example, we have varied the form of
+presentation, stating the conclusion first, rather than at the end of
+the argument. This kind of "signposting" is common in informal
+arguments, in that is helps guide the reader's expectations and
+foreshadow where the argument is going. The fact that formal systems
+of deduction do not generally model such nuances marks a difference
+between formal and informal arguments, a topic we will return to
+below.
+</p>
+
+<p>
+The introduction is modeled in natural deduction as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_5b29d3e93dc762c073a7777b15ce10a8fe17986d.png" alt="02_Propositional_Logic.org.temp_5b29d3e93dc762c073a7777b15ce10a8fe17986d.png" /></p>
+</div>
+
+<p>
+The elimination rules for iff are unexciting. In informal language,
+here is the "left" rule:
+</p>
+
+<hr>
+<p>
+Alice is in the bar if and only if Alice's husband is on the beach.
+</p>
+
+<p>
+Alice is in the bar.
+</p>
+
+<p>
+Hence, Alice's husband is on the beach.
+</p>
+
+<hr>
+<p>
+The "right" rule simply runs in the opposite direction. 
+</p>
+
+<hr>
+<p>
+Alice is in the bar if and only if Alice's husband is on the beach.
+</p>
+
+<p>
+Alice's husband is on the beach.
+</p>
+
+<p>
+Hence, Alice is in the bar.
+</p>
+
+<hr>
+<p>
+Rendered in natural deduction, the rules are as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_49066c135aacaf43a4ba9e961f27f86bc2a2ce48.png" alt="02_Propositional_Logic.org.temp_49066c135aacaf43a4ba9e961f27f86bc2a2ce48.png" /></p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc79c21d" class="outline-4">
+<h4 id="orgc79c21d"><span class="section-number-4"> 2.3.6</span> Proof by Contradiction</h4>
+<div class="outline-text-4" id="text-1-3-6">
+<p>
+We saw an example of an informal argument that implicitly uses the
+introduction rule for negation:
+</p>
+
+<hr>
+<p>
+Suppose Alice's husband was in the bar. 
+</p>
+
+<p>
+&#x2026;
+</p>
+
+<p>
+This situation is impossible. 
+</p>
+
+<p>
+Therefore Alice's husband was not in the bar.
+</p>
+
+<hr>
+<p>
+Consider the following argument:
+</p>
+
+<hr>
+<p>
+Suppose Alice's husband was not on the beach.
+</p>
+
+<p>
+&#x2026;
+</p>
+
+<p>
+This situation is impossible.
+</p>
+
+<p>
+Therefore Alice's husband was on the beach.
+</p>
+
+<hr>
+<p>
+At first glance, you might think this argument follows the same
+pattern as the one before. But a closer look should reveal a
+difference: in the first argument, a negation is <i>introduced</i> into the
+conclusion, whereas in the second, it is <i>eliminated</i> from the
+hypothesis. Using negation introduction to close the second argument
+would yield the conclusion "It is not the case that Alice's husband
+was not on the beach." The rule of inference that replaces the
+conclusion with the positive statement that Alice's husband <i>was</i> on
+the beach is called a <i>proof by contradiction</i>. (It also has a fancy
+name, <i>reductio ad absurdum</i>, "reduction to an absurdity.")
+</p>
+
+<p>
+It may be hard to see the difference between the two rules, because we
+commonly take the statement "Alice's husband was not not on the beach"
+to be a roundabout and borderline ungrammatical way of saying that
+Alice's husband was on the beach. Indeed, the rule is equivalent to
+adding an axiom that says that for every statement A, "not not A" is
+equivalent to A.
+</p>
+
+<p>
+There is a style of doing mathematics known as "constructive
+mathematics" that denies the equivalence of "not not A" and
+A. Constructive arguments tend to have much better computational
+interpretations; a proof that something is true should provide
+explicit evidence that the statement is true, rather than evidence
+that it can't possibly be false. We will discuss constructive
+reasoning in a later chapter. Nonetheless, proof by contradiction is
+used extensively in contemporary mathematics, and so, in the
+meanwhile, we will use proof by contradiction freely as one of our
+basic rules.
+</p>
+
+<p>
+In natural deduction, proof by contradiction is expressed by the
+following pattern:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/02_Propositional_Logic.org.temp_9d218c518930c5bc32ac0daa9a63d530f5ee04bc.png" alt="02_Propositional_Logic.org.temp_9d218c518930c5bc32ac0daa9a63d530f5ee04bc.png" /></p>
+</div>
+<p>
+The assumption <img src="ltximg/02_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" alt="02_Propositional_Logic.org.temp_c9fc0b9f87a04276e5274737b465662205a69233.png" /> is canceled at the final inference. 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgafeceac" class="outline-3">
+<h3 id="orgafeceac"><span class="section-number-3"> 2.4</span> The Language of Propositional Logic</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+The language of propositional logic starts with symbols <img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, <img src="ltximg/02_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="02_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />,
+&#x2026; which are intended to range over basic assertions, or
+propositions, which can be true or false. Compound expressions are
+built up using parentheses and the logical symbols introduced in the
+last section. For example,
+<img src="ltximg/02_Propositional_Logic.org.temp_3a4ee48a2d14186a1bcade6ea01f6109ca6d3856.png" alt="02_Propositional_Logic.org.temp_3a4ee48a2d14186a1bcade6ea01f6109ca6d3856.png" />
+is an example of a propositional formula.
+</p>
+
+<p>
+When writing expressions in symbolic logic, we will adopt the an order
+of operations which allow us to drop superfluous parentheses. When
+parsing an expression:
+</p>
+<ul class="org-ul">
+<li>negation binds most tightly</li>
+<li>then conjunctions and disjunctions, from right to left</li>
+<li>and finally implications and bi-implications.</li>
+</ul>
+<p>
+So, for example, the expression <img src="ltximg/02_Propositional_Logic.org.temp_ace3b80f722e8c2d279d113e8832219bed35dd64.png" alt="02_Propositional_Logic.org.temp_ace3b80f722e8c2d279d113e8832219bed35dd64.png" /> is
+understood as <img src="ltximg/02_Propositional_Logic.org.temp_e22bf21dac5de9df570744886f83a72f05a6b736.png" alt="02_Propositional_Logic.org.temp_e22bf21dac5de9df570744886f83a72f05a6b736.png" />
+</p>
+
+<p>
+For example, suppose we assign the following variables:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />: Alice's husband was in the bar</li>
+<li><img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />: Alice was on the beach</li>
+<li><img src="ltximg/02_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="02_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />: Alice was in the bar</li>
+<li><img src="ltximg/02_Propositional_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" alt="02_Propositional_Logic.org.temp_b7f9655d6888ac5930fa89b136cd08c8ba025991.png" />: Alice's husband was on the beach</li>
+</ul>
+<p>
+Then the statement "either Alice's husband was in the bar and Alice was
+on the beach, or Alice was in the bar and Alice's husband was on the
+beach would be rendered as 
+<img src="ltximg/02_Propositional_Logic.org.temp_82a98eb72f3f8976e9e78d709da352dccde38a64.png" alt="02_Propositional_Logic.org.temp_82a98eb72f3f8976e9e78d709da352dccde38a64.png" />
+</p>
+
+<p>
+Sometimes the appropriate translation is not so straightforward,
+however.  Because natural language is more flexible and nuanced, a
+degree of abstraction and regimentation is needed to carry out the
+translation. Sometimes different translations are arguably
+reasonable. In happy situations, alternative translations will be
+logically equivalent, in the sense that one can derive each from the
+other using purely logical rules. In less happy situations, the
+translations will not be equivalent, in which case the original
+statement is simply ambiguous, from a logical point of view. In cases
+like that, choosing a symbolic reprensetation helps clarify the
+intended meaning.
+</p>
+
+<p>
+Consider, for example, a statement like "Alice was with her son on the
+beach, but her husband was alone." We might choose variables as follows:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="02_Propositional_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />: Alice was on the beach</li>
+<li><img src="ltximg/02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="02_Propositional_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />: Alice's son was on the beach</li>
+<li><img src="ltximg/02_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" alt="02_Propositional_Logic.org.temp_d5420fe138f4d39b6f52f71250e99e0a36aaaab5.png" />: Alice's husband was alone</li>
+</ul>
+<p>
+In that case, we might represent the statement in symbols as <img src="ltximg/02_Propositional_Logic.org.temp_2baa235ba74f3730f65dc91a4410facad55b7ed6.png" alt="02_Propositional_Logic.org.temp_2baa235ba74f3730f65dc91a4410facad55b7ed6.png" />. Using the word "with" may seem to connote more
+that the fact that Alice and her son were both on the beach; for
+example, it seems to connote that they aware of each others' presence,
+interacting, etc. Similarly, although we have translated the word
+"but" and "and," the word "but" also convey information; in this case,
+it seems to emphasize a contrast, while in other situations, it can be
+used to assert a fact that is contrary to expectations. In both cases,
+then, the logical rendering models certain features of the original
+sentence while abstracting others.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgeb9a5b8" class="outline-3">
+<h3 id="orgeb9a5b8"><span class="section-number-3"> 2.5</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li><p>
+Here is another (gruesome) logic puzzle by George J.&nbsp;Summers,
+called ``Murder in the Family.''
+</p>
+
+<blockquote>
+<p>
+Murder occurred one evening in the home of a father and mother
+and their son and daughter. One member of the family murdered
+another member, the third member witnessed the crime, and the
+fourth member was an accessory after the fact.
+</p>
+
+<ol class="org-ol">
+<li>The accessory and the witness were of opposite sex.</li>
+<li>The oldest member and the witness were of opposite sex.</li>
+<li>The youngest member and the victim were of opposite sex.</li>
+<li>The accessory was older than the victim.</li>
+<li>The father was the oldest member.</li>
+<li>The murderer was not the youngest member.</li>
+</ol>
+
+<p>
+Which of the four&#x2014;father, mother, son, or daughter&#x2014;was the
+murderer?
+</p>
+</blockquote>
+
+<p>
+Solve this puzzle, and <i>write a clear argument</i> to establish that
+your answer is correct.
+</p></li>
+
+<li><p>
+Using the mnemonoic <code>F</code> (Father), <code>M</code> (Mother), <code>D</code> (Daughter), <code>S</code>
+(Son), <code>M</code> (Murderer), <code>V</code> (Victim), <code>W</code> (Witness), <code>A</code>
+(Accessory), <code>O</code> (Oldest), <code>Y</code> (Youngest), we can define
+propositional variables like <code>FM</code> (Father is the Murderer), <code>DV</code>
+(Daughter is the Victim), <code>FO</code> (Father is Oldest), <code>VY</code> (Victim is
+Youngest), etc. Notice that only the son or daughter can be the
+youngest, and only the mother or father can be the oldest. 
+</p>
+
+<p>
+With these conventions, the first clue can be represented 
+<img src="ltximg/02_Propositional_Logic.org.temp_7204bce3cc717236a834c9543f1fe97976feabbd.png" alt="02_Propositional_Logic.org.temp_7204bce3cc717236a834c9543f1fe97976feabbd.png" />
+in other words, if the father or son was the accessory, then the
+mother or daughter was the witness, and vice-versa. Represent the
+other five clues in a similar manner.
+</p>
+
+<p>
+Representing the fourth clue is tricky. Try to write down a formula
+that describes all the possibilities that are not ruled out by the
+information.
+</p></li>
+
+<li><p>
+Consider the following three hypotheses:
+</p>
+
+<ul class="org-ul">
+<li>Alan likes kangaroos, and either Betty likes frogs or Carl likes
+hamsters.</li>
+<li>If Betty likes frogs, then Alan doesn't like kangaroos.</li>
+<li>If Carl likes hamsters, then Betty likes frogs.</li>
+</ul>
+<p>
+Write a clear argument to show that these three hypotheses are
+contradictory.
+</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

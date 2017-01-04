@@ -1,0 +1,1948 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 20:58 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-org5023053" class="outline-2">
+<h2 id="First_Order_Logic_in_Lean"><a id="org5023053"></a><span class="section-number-2"> 9</span> First Order Logic in Lean</h2>
+<div class="outline-text-2" id="text-First_Order_Logic_in_Lean">
+</div>
+
+<div id="outline-container-org63079b0" class="outline-3">
+<h3 id="org63079b0"><span class="section-number-3"> 9.1</span> Functions, Predicates, and Relations</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+In the last chapter, we discussed the language of first-order
+logic. We will see in the course of this book that Lean's built-in
+logic is much more expressive; but it <i>includes</i> first-order logic,
+which is to say, anything that can be expressed (and proved) in
+first-order logic can be expressed (and proved) in Lean.
+</p>
+
+<p>
+Lean is based on a foundational framework called <i>type theory</i>, in
+which every variable is assumed to range elements of some <i>type</i>. You
+can think of a type as being a "universe," or a "domain of discourse,"
+in the sense of first-order logic. 
+</p>
+
+<p>
+For example, suppose we want to work with a first-order language with
+one constant symbol, one unary function symbol, one binary function
+symbol, one unary relation symbol, and one binary relation symbol. We
+can declare a new type <code>U</code> (for "universe") and the relevant symbols
+as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-1' mode="ace/mode/lean" readonly="true">constant U : Type
+
+constant c : U
+constant f : U → U
+constant g : U → U → U
+constant P : U → Prop
+constant R : U → U → Prop
+</juicy-ace-editor><div id='lean-full-code-1' style='display:none'>constant U : Type
+
+constant c : U
+constant f : U → U
+constant g : U → U → U
+constant P : U → Prop
+constant R : U → U → Prop
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-1').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+We can then use them as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-2' mode="ace/mode/lean" readonly="true">variables x y : U
+
+check c
+check f c
+check g x y
+check g x (f c)
+
+check P (g x (f c))
+check R x y</juicy-ace-editor><div id='lean-full-code-2' style='display:none'>constant U : Type
+
+constant c : U
+constant f : U → U
+constant g : U → U → U
+constant P : U → Prop
+constant R : U → U → Prop
+
+variables x y : U
+
+check c
+check f c
+check g x y
+check g x (f c)
+
+check P (g x (f c))
+check R x y
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-2').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The <code>check</code> command tells us that the first four expressions have type
+<code>U</code>, and that the last two have type <code>Prop</code>. Roughly, this means that
+the first four expressions correspond to terms of first-order logic,
+and that the last two correspond to formulas.
+</p>
+
+<p>
+Note all the following:
+</p>
+<ul class="org-ul">
+<li>A unary function is represented as an object of type <code>U → U</code> and a
+binary function is represented as an object of type <code>U → U → U</code>,
+using the same notation as for implication between propositions.</li>
+<li>We write, for example, <code>f x</code> to denote the result of applying <code>f</code> to
+<code>x</code>, and <code>g x y</code> to denote the result of applying <code>g</code> to <code>x</code> and
+<code>y</code>, again just as we did when using modus ponens for first-order
+logic. Parentheses are needed in the expression <code>g x (f c)</code> to
+ensure that <code>f c</code> is parsed as a single argument.</li>
+<li>A unary predicate is presented as an object of type <code>U → Prop</code> and a
+binary function is represented as an object of type <code>U → U →
+  Prop</code>. You can think of a binary relation <code>R</code> as being a function
+that takes two arguments in the universe, <code>U</code>, and returns a
+proposition.</li>
+<li>We write <code>P x</code> to denote the assertion that <code>P</code> holds of <code>x</code>, and <code>R
+  x y</code> to denote that <code>R</code> holds of <code>x</code> and <code>y</code>.</li>
+</ul>
+
+<p>
+You may reasonably wonder what difference there is between a constant
+and a variable in Lean. The following declarations also work:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-3' mode="ace/mode/lean" readonly="true">variable U : Type
+
+variable c : U
+variable f : U → U
+variable g : U → U → U
+variable P : U → Prop
+variable R : U → U → Prop
+
+variables x y : U
+
+check c
+check f c
+check g x y
+check g x (f c)
+
+check P (g x (f c))
+check R x y
+</juicy-ace-editor><div id='lean-full-code-3' style='display:none'>variable U : Type
+
+variable c : U
+variable f : U → U
+variable g : U → U → U
+variable P : U → Prop
+variable R : U → U → Prop
+
+variables x y : U
+
+check c
+check f c
+check g x y
+check g x (f c)
+
+check P (g x (f c))
+check R x y
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-3').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Although the examples function in much the same way, the <code>constant</code>
+and <code>variable</code> commands do very different things. The <code>constant</code>
+command declares a new object, axiomatically, and adds it to the list
+of objects Lean knows about. In contrast, when it is first executed,
+the <code>variable</code> command does not create anything. Rather, it tells Lean
+that whenever we enter an expression using the corresponding
+identifier, it should create a temporary variable of the corresponding
+type.
+</p>
+
+<p>
+Many types are already declared in Lean's standard library. For
+example, there is a type written <code>nat</code> or <code>ℕ</code>, that denotes the
+natural numbers:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-4' mode="ace/mode/lean" readonly="true">check nat
+check ℕ
+</juicy-ace-editor><div id='lean-full-code-4' style='display:none'>check nat
+check ℕ
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-4').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+You can enter the unicode <code>ℕ</code> with <code>\nat</code> or <code>\N</code>. The two expressions
+mean the same thing.
+</p>
+
+<p>
+Using this built-in type, we can model the language of arithmetic, as
+described in the last chapter, as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-5' mode="ace/mode/lean" readonly="true">namespace hide
+
+constant mul : ℕ → ℕ → ℕ
+constant add : ℕ → ℕ → ℕ
+constant square : ℕ → ℕ
+constant even : ℕ → Prop
+constant odd : ℕ → Prop
+constant prime : ℕ → Prop
+constant divides : ℕ → ℕ → Prop
+constant lt : ℕ → ℕ → Prop
+constant zero : ℕ
+constant one : ℕ
+
+end hide
+</juicy-ace-editor><div id='lean-full-code-5' style='display:none'>namespace hide
+
+constant mul : ℕ → ℕ → ℕ
+constant add : ℕ → ℕ → ℕ
+constant square : ℕ → ℕ
+constant even : ℕ → Prop
+constant odd : ℕ → Prop
+constant prime : ℕ → Prop
+constant divides : ℕ → ℕ → Prop
+constant lt : ℕ → ℕ → Prop
+constant zero : ℕ
+constant one : ℕ
+
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-5').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+We have used the <code>namespace</code> command to avoid conflicts with
+identifiers that are already declared in the Lean library. (Outside
+the namespace, the constant <code>mul</code> we just declared is named
+<code>hide.mul</code>.) We can again use the <code>check</code> command to try them out:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-6' mode="ace/mode/lean" readonly="true">variables w x y z : ℕ
+
+check mul x y
+check add x y
+check square x
+check even x</juicy-ace-editor><div id='lean-full-code-6' style='display:none'>namespace hide
+
+constant mul : ℕ → ℕ → ℕ
+constant add : ℕ → ℕ → ℕ
+constant square : ℕ → ℕ
+constant even : ℕ → Prop
+constant odd : ℕ → Prop
+constant prime : ℕ → Prop
+constant divides : ℕ → ℕ → Prop
+constant lt : ℕ → ℕ → Prop
+constant zero : ℕ
+constant one : ℕ
+
+variables w x y z : ℕ
+
+check mul x y
+check add x y
+check square x
+check even x
+
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-6').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+We can even declare infix notation of binary operations and relations:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-7' mode="ace/mode/lean" readonly="true">infix + := add
+infix * := mul
+infix &lt; := lt</juicy-ace-editor><div id='lean-full-code-7' style='display:none'>namespace hide
+
+constant mul : ℕ → ℕ → ℕ
+constant add : ℕ → ℕ → ℕ
+constant square : ℕ → ℕ
+constant even : ℕ → Prop
+constant odd : ℕ → Prop
+constant prime : ℕ → Prop
+constant divides : ℕ → ℕ → Prop
+constant lt : ℕ → ℕ → Prop
+constant zero : ℕ
+constant one : ℕ
+
+variables w x y z : ℕ
+
+check mul x y
+check add x y
+check square x
+check even x 
+
+infix + := add
+infix * := mul
+infix &lt; := lt
+
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-7').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+(Getting notation for numerals <code>1</code>, <code>2</code>, <code>3</code>, &#x2026; is trickier.) With
+all this in place, the examples above can be rendered as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-8' mode="ace/mode/lean" readonly="true">check even (x + y + z) ∧ prime ((x + one) * y * y)
+check ¬ (square (x + y * z) = w) ∨ x + y &lt; z
+check x &lt; y ∧ even x ∧ even y → x + one &lt; y</juicy-ace-editor><div id='lean-full-code-8' style='display:none'>namespace hide
+
+constant mul : ℕ → ℕ → ℕ
+constant add : ℕ → ℕ → ℕ
+constant square : ℕ → ℕ
+constant even : ℕ → Prop
+constant odd : ℕ → Prop
+constant prime : ℕ → Prop
+constant divides : ℕ → ℕ → Prop
+constant lt : ℕ → ℕ → Prop
+constant zero : ℕ
+constant one : ℕ
+
+variables w x y z : ℕ
+
+check mul x y
+check add x y
+check square x
+check even x 
+
+infix + := add
+infix * := mul
+infix &lt; := lt
+
+check even (x + y + z) ∧ prime ((x + one) * y * y)
+check ¬ (square (x + y * z) = w) ∨ x + y &lt; z
+check x &lt; y ∧ even x ∧ even y → x + one &lt; y
+
+end hide
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-8').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+In fact, all of the functions, predicates, and relations discussed
+here, except for the "square" function and "prime," are defined in the
+core Lean library. They become available to us when we put the commands
+<code>import data.nat</code> and <code>open nat</code> at the top of a file in Lean.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-9' mode="ace/mode/lean" readonly="true">import data.nat
+open nat
+
+constant square : ℕ → ℕ
+constant prime : ℕ → Prop
+
+variables w x y z : ℕ
+
+check even (x + y + z) ∧ prime ((x + 1) * y * y)
+check ¬ (square (x + y * z) = w) ∨ x + y &lt; z
+check x &lt; y ∧ even x ∧ even y → x + 1 &lt; y
+</juicy-ace-editor><div id='lean-full-code-9' style='display:none'>import data.nat
+open nat
+
+constant square : ℕ → ℕ
+constant prime : ℕ → Prop
+
+variables w x y z : ℕ
+
+check even (x + y + z) ∧ prime ((x + 1) * y * y)
+check ¬ (square (x + y * z) = w) ∨ x + y &lt; z
+check x &lt; y ∧ even x ∧ even y → x + 1 &lt; y
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-9').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Here, we declare the constants <code>square</code> and <code>prime</code> axiomatically, but
+refer to the other operations and predicates in the Lean library. In
+this book, we will often proceed in this way, telling you explicitly
+what facts from the library you should use for exercises.
+</p>
+
+<p>
+Again, note the following aspects of syntax:
+</p>
+<ul class="org-ul">
+<li>In contrast to ordinary mathematical notation, in Lean, functions
+are applied without parentheses or commas. For example, we write
+<code>square x</code> and <code>add x y</code> instead of <img src="ltximg/09_First_Order_Logic_in_Lean.org.temp_7283f87ee3080c8371b3262175163777355ba10f.png" alt="09_First_Order_Logic_in_Lean.org.temp_7283f87ee3080c8371b3262175163777355ba10f.png" /> and
+<img src="ltximg/09_First_Order_Logic_in_Lean.org.temp_a04394fa1cd83d2f0062a3708912ebbffa608108.png" alt="09_First_Order_Logic_in_Lean.org.temp_a04394fa1cd83d2f0062a3708912ebbffa608108.png" />.</li>
+<li>The same holds for predicates and relations: we write <code>even x</code> and
+<code>lt x y</code> instead of <img src="ltximg/09_First_Order_Logic_in_Lean.org.temp_f9f953fec370de45e583f534baac7638627a5794.png" alt="09_First_Order_Logic_in_Lean.org.temp_f9f953fec370de45e583f534baac7638627a5794.png" /> and <img src="ltximg/09_First_Order_Logic_in_Lean.org.temp_48ee0c37e4432a72f7336b043649d71ea61b5a13.png" alt="09_First_Order_Logic_in_Lean.org.temp_48ee0c37e4432a72f7336b043649d71ea61b5a13.png" />, as one might
+do in symbolic logic.</li>
+<li>The notation <code>add : ℕ → ℕ → ℕ</code> indicates that addition takes two
+arguments, both natural numbers, and returns a natural number.</li>
+<li>Similarly, the notation <code>divides : ℕ → ℕ → Prop</code> indicates that
+<code>divides</code> is a binary relation, which takes two natural numbers as
+arguments and forms a proposition. In other words, <code>divides x y</code>
+expresses the assertion that <code>x</code> divides <code>y</code>.</li>
+</ul>
+
+<p>
+Lean can help us distinguish between terms and formulas. If we <code>check</code>
+the expression <code>x + y + 1</code> in Lean, we are told it has type <code>ℕ</code>, which
+is to say, it denotes a natural number. If we <code>check</code> the expression
+<code>even (x + y + 1)</code>, we are told that it has type <code>Prop</code>, which is to
+say, it expresses a proposition.
+</p>
+
+<p>
+In <a href="#" onclick="myModule.loadTutorial('07_First_Order_Logic.html', 'First_Order_Logic')">Chapter 7</a> we considered many-sorted logic, where one can have
+multiple universes. For example, we might want to use first-order
+logic for geometry, with quantifiers ranging over points and lines. In
+Lean, we can model this as by introducing a new type for each sort:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-10' mode="ace/mode/lean" readonly="true">variables Point Line : Type
+variable  on : Point → Line → Prop
+</juicy-ace-editor><div id='lean-full-code-10' style='display:none'>variables Point Line : Type
+variable  on : Point → Line → Prop
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-10').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+We can then express that two distinct points determine a line as
+follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-11' mode="ace/mode/lean" readonly="true">check ∀ (p q : Point) (L M : Line),
+	p ≠ q → on p L → on q L → on p M → on q M → L = M</juicy-ace-editor><div id='lean-full-code-11' style='display:none'>variables Point Line : Type
+variable  on : Point → Line → Prop
+
+check ∀ (p q : Point) (L M : Line),
+	p ≠ q → on p L → on q L → on p M → on q M → L = M
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-11').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Notice that we have followed the convention of using iterated
+implication rather than conjunction in the antecedent. In fact, Lean
+is smart enough to infer what sorts of objects <code>p</code>, <code>q</code>, <code>L</code>, and <code>M</code> 
+are from the fact that they are used with the relation <code>on</code>, so we
+could have written, more simply, this:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-12' mode="ace/mode/lean" readonly="true">check ∀ p q L M, p ≠ q → on p L → on q L → on p M → on q M → L = M</juicy-ace-editor><div id='lean-full-code-12' style='display:none'>variables Point Line : Type
+variable  on : Point → Line → Prop
+
+check ∀ p q L M, p ≠ q → on p L → on q L → on p M → on q M → L = M
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-12').text());">Try it yourself &raquo;</button></div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge21fdcf" class="outline-3">
+<h3 id="orge21fdcf"><span class="section-number-3"> 9.2</span> Using the Universal Quantifier</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+In Lean, you can enter the universal quantifier by writing <code>\all</code>. The
+motivating examples from <a href="#" onclick="myModule.loadTutorial('07_First_Order_Logic.html', 'Functions_Predicates_and_Relations')">Section 7.1</a> are rendered as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-13' mode="ace/mode/lean" readonly="true">import data.nat
+open nat
+
+constant prime : ℕ → Prop
+
+check ∀ x, (even x ∨ odd x) ∧ ¬ (even x ∧ odd x)
+check ∀ x, even x ↔ 2 ∣ x
+check ∀ x, even x → even (x^2)
+check ∀ x, even x ↔ odd (x + 1)
+check ∀ x, prime x ∧ x &gt; 2 → odd x
+check ∀ x y z, x ∣ y → y ∣ z → x ∣ z
+</juicy-ace-editor><div id='lean-full-code-13' style='display:none'>import data.nat
+open nat
+
+constant prime : ℕ → Prop
+
+check ∀ x, (even x ∨ odd x) ∧ ¬ (even x ∧ odd x)
+check ∀ x, even x ↔ 2 ∣ x
+check ∀ x, even x → even (x^2)
+check ∀ x, even x ↔ odd (x + 1)
+check ∀ x, prime x ∧ x &gt; 2 → odd x
+check ∀ x y z, x ∣ y → y ∣ z → x ∣ z
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-13').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Remember that Lean expects a comma after the universal quantifier, and
+gives it the <i>widest</i> scope possible. For example, <code>∀ x, P ∨ Q</code> is
+interpreted as <code>∀ x, (P ∨ Q)</code>, and we would write <code>(∀ x, P) ∨ Q</code> to
+limit the scope. If you prefer, you can use the plain ascii expression
+<code>forall</code> instead of the unicode <code>∀</code>.
+</p>
+
+<p>
+In Lean, then, the pattern for proving a universal statement is
+rendered as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-14' mode="ace/mode/lean" readonly="true">variable U : Type
+variable P : U → Prop
+
+example : ∀ x, P x :=
+take x,
+show P x, from sorry
+</juicy-ace-editor><div id='lean-full-code-14' style='display:none'>variable U : Type
+variable P : U → Prop
+
+example : ∀ x, P x :=
+take x,
+show P x, from sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-14').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Read <code>take x</code> as "fix and arbitrary value <code>x</code> of <code>U</code>." Since we are
+allowed to rename bound variables at will, we can equivalently write
+either of the following:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-15' mode="ace/mode/lean" readonly="true">variable U : Type
+variable P : U → Prop
+
+example : ∀ y, P y :=
+take x,
+show P x, from sorry
+
+example : ∀ x, P x :=
+take y,
+show P y, from sorry
+</juicy-ace-editor><div id='lean-full-code-15' style='display:none'>variable U : Type
+variable P : U → Prop
+
+example : ∀ y, P y :=
+take x,
+show P x, from sorry
+
+example : ∀ x, P x :=
+take y,
+show P y, from sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-15').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+This constitutes the introduction rule for the universal
+quantifier. It is very similar to the introduction rule for
+implication: instead of using <code>assume</code> to temporarily introduce an
+assumption, we use <code>take</code> to temporarily introduce a new object,
+<code>y</code>. (In fact, <code>assume</code> and <code>take</code> are both alternate syntax for a
+single internal construct in Lean, which can also be denoted by <code>λ</code>.)
+</p>
+
+<p>
+The elimination rule is, similarly, implemented as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-16' mode="ace/mode/lean" readonly="true">variable U : Type
+variable P : U → Prop
+premise H : ∀ x, P x
+variable a : U
+
+example : P a :=
+show P a, from H a
+</juicy-ace-editor><div id='lean-full-code-16' style='display:none'>variable U : Type
+variable P : U → Prop
+premise H : ∀ x, P x
+variable a : U
+
+example : P a :=
+show P a, from H a
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-16').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Observe the notation: <code>P a</code> is obtained by "applying" the hypothesis
+<code>H</code> to <code>a</code>. Once again, note the similarity to the elimination rule
+for implication.
+</p>
+
+<p>
+Here is an example of how it is used:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-17' mode="ace/mode/lean" readonly="true">variable U : Type
+variables A B : U → Prop
+
+example (H1 : ∀ x, A x → B x) (H2 : ∀ x, A x) : ∀ x, B x :=
+take y,
+have H3 : A y, from H2 y,
+have H4 : A y → B y, from H1 y,
+show B y, from H4 H3
+</juicy-ace-editor><div id='lean-full-code-17' style='display:none'>variable U : Type
+variables A B : U → Prop
+
+example (H1 : ∀ x, A x → B x) (H2 : ∀ x, A x) : ∀ x, B x :=
+take y,
+have H3 : A y, from H2 y,
+have H4 : A y → B y, from H1 y,
+show B y, from H4 H3
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-17').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Here is an even shorter version of the same proof, where we avoid
+using <code>have</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-18' mode="ace/mode/lean" readonly="true">example (H1 : ∀ x, A x → B x) (H2 : ∀ x, A x) : ∀ x, B x :=
+take y,
+show B y, from H1 y (H2 y)</juicy-ace-editor><div id='lean-full-code-18' style='display:none'>variable U : Type
+variables A B : U → Prop
+
+example (H1 : ∀ x, A x → B x) (H2 : ∀ x, A x) : ∀ x, B x :=
+take y,
+show B y, from H1 y (H2 y)
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-18').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+You should talk through the steps, here. Applying <code>H1</code> to <code>y</code> yields a
+proof of <code>A y → B y</code>, which we then apply to <code>H2 y</code>, which is a proof
+of <code>A y</code>. The result is the proof of <code>B y</code> that we are after.
+</p>
+
+<p>
+In the last chapter, we considered the following proof in natural
+deduction:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/09_First_Order_Logic_in_Lean.org.temp_dd6f9f2bfa1c5ab90b2795d77a7261754b641450.png" alt="09_First_Order_Logic_in_Lean.org.temp_dd6f9f2bfa1c5ab90b2795d77a7261754b641450.png" /></p>
+</div>
+<p>
+Here is the same proof rendered in Lean:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-19' mode="ace/mode/lean" readonly="true">variable U : Type
+variables A B : U → Prop
+
+example : (∀ x, A x) → (∀ x, B x) → (∀ x, A x ∧ B x) :=
+assume HA : ∀ x, A x,
+assume HB : ∀ x, B x,
+take y,
+have Ay : A y, from HA y,
+have By : B y, from HB y,
+show A y ∧ B y, from and.intro Ay By
+</juicy-ace-editor><div id='lean-full-code-19' style='display:none'>variable U : Type
+variables A B : U → Prop
+
+example : (∀ x, A x) → (∀ x, B x) → (∀ x, A x ∧ B x) :=
+assume HA : ∀ x, A x,
+assume HB : ∀ x, B x,
+take y,
+have Ay : A y, from HA y,
+have By : B y, from HB y,
+show A y ∧ B y, from and.intro Ay By
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-19').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Here is an alternative version, using the "anonymous" versions of <code>have</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-20' mode="ace/mode/lean" readonly="true">variable U : Type
+variables A B : U → Prop
+
+example : (∀ x, A x) → (∀ x, B x) → (∀ x, A x ∧ B x) :=
+assume HA : ∀ x, A x,
+assume HB : ∀ x, B x,
+take y,
+have A y, from HA y,
+have B y, from HB y,
+show A y ∧ B y, from and.intro `A y` `B y`
+</juicy-ace-editor><div id='lean-full-code-20' style='display:none'>variable U : Type
+variables A B : U → Prop
+
+example : (∀ x, A x) → (∀ x, B x) → (∀ x, A x ∧ B x) :=
+assume HA : ∀ x, A x,
+assume HB : ∀ x, B x,
+take y,
+have A y, from HA y,
+have B y, from HB y,
+show A y ∧ B y, from and.intro `A y` `B y`
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-20').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+The exercises below ask you to prove the barber paradox, which was
+discussed in the last chapter. You can do that using only
+propositional reasoning and the rules for the universal quantifer that
+we have just discussed.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbc57ad4" class="outline-3">
+<h3 id="orgbc57ad4"><span class="section-number-3"> 9.3</span> Using the Existential Quantifier</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+In Lean, you can type the existential quantifier, <code>∃</code>, by writing
+<code>\ex</code>.  If you prefer you can use the ascii equivalent, <code>exists</code>.  The
+introduction rule is <code>exists.intro</code> and requires two arguments: a
+term, and a proof that that term satisfies the required property.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-21' mode="ace/mode/lean" readonly="true">variable U : Type
+variable P : U → Prop
+
+example (y : U) (H : P y) : ∃ x, P x :=
+exists.intro y H
+</juicy-ace-editor><div id='lean-full-code-21' style='display:none'>variable U : Type
+variable P : U → Prop
+
+example (y : U) (H : P y) : ∃ x, P x :=
+exists.intro y H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-21').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The elimination rule for the existential quantifier is given by the
+<code>obtain</code> command.  Given a term of type <code>∃x, P x</code> we can use it to get
+a new variable <code>y</code> and the assumption that <code>P y</code> holds.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-22' mode="ace/mode/lean" readonly="true">variable U : Type
+variable P : U → Prop
+variable Q : Prop
+
+example (H1 : ∃ x, P x) (H2 : ∀ x, P x → Q) : Q :=
+obtain (y : U) (H : P y), from H1,
+have H3 : P y → Q, from H2 y,
+show Q, from H3 H
+</juicy-ace-editor><div id='lean-full-code-22' style='display:none'>variable U : Type
+variable P : U → Prop
+variable Q : Prop
+
+example (H1 : ∃ x, P x) (H2 : ∀ x, P x → Q) : Q :=
+obtain (y : U) (H : P y), from H1,
+have H3 : P y → Q, from H2 y,
+show Q, from H3 H
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-22').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+You can often use <code>obtain</code> without specifying the type of the object
+and the assumption. If you write <code>obtain y H</code> instead of <code>obtain (y : U)
+(H : P y)</code> in the first line of the previous proof, that is also
+accepted.
+</p>
+
+<p>
+The following example uses both the introduction and the elimination
+rules for the existential quantifier.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-23' mode="ace/mode/lean" readonly="true">variable U : Type
+variables A B : U → Prop
+
+example : (∃ x, A x ∧ B x) → ∃ x, A x :=
+assume H1 : ∃ x, A x ∧ B x,
+obtain y (H2 : A y ∧ B y), from H1,
+have H3 : A y, from and.left H2,
+show ∃ x, A x, from exists.intro y H3
+</juicy-ace-editor><div id='lean-full-code-23' style='display:none'>variable U : Type
+variables A B : U → Prop
+
+example : (∃ x, A x ∧ B x) → ∃ x, A x :=
+assume H1 : ∃ x, A x ∧ B x,
+obtain y (H2 : A y ∧ B y), from H1,
+have H3 : A y, from and.left H2,
+show ∃ x, A x, from exists.intro y H3
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-23').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Notice the parentheses in the hypothesis; if we left them out,
+everything after the first <code>∃ x</code> would be included in the scope of
+that quantifier. From the hypothesis, we obtain a <code>y</code> that satisfies <code>A y
+∧ B y</code>, and hence <code>A y</code> in particular. So <code>y</code> is enough to witness the
+conclusion.
+</p>
+
+<p>
+The following example is more involved:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-24' mode="ace/mode/lean" readonly="true">example : (∃ x, A x ∨ B x) → (∃ x, A x) ∨ (∃ x, B x) :=
+assume H1 : ∃ x, A x ∨ B x,
+obtain y (H2 : A y ∨ B y), from H1,
+or.elim H2
+  (assume H3 : A y, 
+    have H4 : ∃ x, A x, from exists.intro y H3,
+    show (∃ x, A x) ∨ (∃ x, B x), from or.inl H4)
+  (assume H3 : B y, 
+    have H4 : ∃ x, B x, from exists.intro y H3,
+    show (∃ x, A x) ∨ (∃ x, B x), from or.inr H4)</juicy-ace-editor><div id='lean-full-code-24' style='display:none'>variable U : Type
+variables A B : U → Prop
+
+example : (∃ x, A x ∨ B x) → (∃ x, A x) ∨ (∃ x, B x) :=
+assume H1 : ∃ x, A x ∨ B x,
+obtain y (H2 : A y ∨ B y), from H1,
+or.elim H2
+  (assume H3 : A y, 
+    have H4 : ∃ x, A x, from exists.intro y H3,
+    show (∃ x, A x) ∨ (∃ x, B x), from or.inl H4)
+  (assume H3 : B y, 
+    have H4 : ∃ x, B x, from exists.intro y H3,
+    show (∃ x, A x) ∨ (∃ x, B x), from or.inr H4)
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-24').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Note again the placement of parentheses in the statement.
+</p>
+
+<p>
+In the last chapter, we considered the following natural deduction
+proof:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/09_First_Order_Logic_in_Lean.org.temp_fa6a16884f40cfc3b10e24bc237c69322ef1c029.png" alt="09_First_Order_Logic_in_Lean.org.temp_fa6a16884f40cfc3b10e24bc237c69322ef1c029.png" /></p>
+</div>
+<p>
+Here is a proof of the same implication in Lean:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-25' mode="ace/mode/lean" readonly="true">variable U : Type
+variables A B : U → Prop
+
+example : (∀ x, A x → ¬ B x) → ¬ ∃ x, A x ∧ B x :=
+assume H1 : ∀ x, A x → ¬ B x,
+assume H2 : ∃ x, A x ∧ B x,
+obtain x (H3 : A x ∧ B x), from H2,
+have H4 : A x, from and.left H3,
+have H5 : B x, from and.right H3,
+have H6 : ¬ B x, from H1 x H4,
+show false, from H6 H5
+</juicy-ace-editor><div id='lean-full-code-25' style='display:none'>variable U : Type
+variables A B : U → Prop
+
+example : (∀ x, A x → ¬ B x) → ¬ ∃ x, A x ∧ B x :=
+assume H1 : ∀ x, A x → ¬ B x,
+assume H2 : ∃ x, A x ∧ B x,
+obtain x (H3 : A x ∧ B x), from H2,
+have H4 : A x, from and.left H3,
+have H5 : B x, from and.right H3,
+have H6 : ¬ B x, from H1 x H4,
+show false, from H6 H5
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-25').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Here, the <code>obtain</code> command is used to get a value <code>x</code> satisfying <code>A x
+∧ B x</code>. The name is arbitrary; we could just as well have used <code>z</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-26' mode="ace/mode/lean" readonly="true">example : (∀ x, A x → ¬ B x) → ¬ ∃ x, A x ∧ B x :=
+assume H1 : ∀ x, A x → ¬ B x,
+assume H2 : ∃ x, A x ∧ B x,
+obtain z (H3 : A z ∧ B z), from H2,
+have H4 : A z, from and.left H3,
+have H5 : B z, from and.right H3,
+have H6 : ¬ B z, from H1 z H4,
+show false, from H6 H5</juicy-ace-editor><div id='lean-full-code-26' style='display:none'>variable U : Type
+variables A B : U → Prop
+
+example : (∀ x, A x → ¬ B x) → ¬ ∃ x, A x ∧ B x :=
+assume H1 : ∀ x, A x → ¬ B x,
+assume H2 : ∃ x, A x ∧ B x,
+obtain z (H3 : A z ∧ B z), from H2,
+have H4 : A z, from and.left H3,
+have H5 : B z, from and.right H3,
+have H6 : ¬ B z, from H1 z H4,
+show false, from H6 H5
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-26').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Here is another example of the exists-elimination rule:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-27' mode="ace/mode/lean" readonly="true">variable U : Type
+variable u : U
+variable P : Prop
+
+example : (∃x : U, P) ↔ P :=
+iff.intro
+  (assume H1 : ∃x, P, 
+    obtain x (H2 : P), from H1,
+    H2)
+  (assume H1 : P, 
+    exists.intro u H1)
+</juicy-ace-editor><div id='lean-full-code-27' style='display:none'>variable U : Type
+variable u : U
+variable P : Prop
+
+example : (∃x : U, P) ↔ P :=
+iff.intro
+  (assume H1 : ∃x, P, 
+    obtain x (H2 : P), from H1,
+    H2)
+  (assume H1 : P, 
+    exists.intro u H1)
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-27').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+It is subtle: the proof does not go through if we do not declare a
+variable <code>u</code> of type <code>U</code>, even though <code>u</code> does not appear in the
+statement of the theorem. The semantics of first-order logic,
+discussed in the next chapter, presuppose that the universe is
+nonempty. In Lean, however, it is possible for a type to be empty, and
+so the proof above depends on the fact that there is an element <code>u</code> in
+<code>U</code>.
+</p>
+
+<p>
+The <code>obtain</code> command is actually quite powerful. It can do nested
+exists-eliminations, so that the second proof below is just a shorter
+version of the first:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-28' mode="ace/mode/lean" readonly="true">variables (U : Type) (R : U → U → Prop)
+
+example : (∃ x, ∃ y, R x y) → (∃ y, ∃ x, R x y) :=
+assume H1,
+obtain x (H2 : ∃ y, R x y), from H1,
+obtain y (H3 : R x y), from H2,
+exists.intro y (exists.intro x H3)
+
+example : (∃ x, ∃ y, R x y) → (∃ y, ∃ x, R x y) :=
+assume H1,
+obtain x y (H3 : R x y), from H1,
+exists.intro y (exists.intro x H3)
+</juicy-ace-editor><div id='lean-full-code-28' style='display:none'>variables (U : Type) (R : U → U → Prop)
+
+example : (∃ x, ∃ y, R x y) → (∃ y, ∃ x, R x y) :=
+assume H1,
+obtain x (H2 : ∃ y, R x y), from H1,
+obtain y (H3 : R x y), from H2,
+exists.intro y (exists.intro x H3)
+
+example : (∃ x, ∃ y, R x y) → (∃ y, ∃ x, R x y) :=
+assume H1,
+obtain x y (H3 : R x y), from H1,
+exists.intro y (exists.intro x H3)
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-28').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+You can also use it to extract the components of an "and":
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-29' mode="ace/mode/lean" readonly="true">variables A B : Prop
+
+example : A ∧ B → B ∧ A :=
+assume H1,
+obtain (H2 : A) (H3 : B), from H1,
+show B ∧ A, from and.intro H3 H2
+</juicy-ace-editor><div id='lean-full-code-29' style='display:none'>variables A B : Prop
+
+example : A ∧ B → B ∧ A :=
+assume H1,
+obtain (H2 : A) (H3 : B), from H1,
+show B ∧ A, from and.intro H3 H2
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-29').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+You can also introduce an anonymous hypothesis using backticks, and
+then refer to it later on using backticks again, just as with the
+anonymous <code>have</code> expression. However, we cannot use the keyword <code>this</code>
+for variables introduced by <code>obtain</code>.
+</p>
+
+<p>
+These features are all illustrated in the following example:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-30' mode="ace/mode/lean" readonly="true">variable U : Type
+variables P R : U → Prop
+variable Q : Prop
+
+example (H1 : ∃x, P x ∧ R x) (H2 : ∀x, P x → R x → Q) : Q :=
+obtain y `P y` `R y`, from H1,
+show Q, from H2 y `P y` `R y`
+</juicy-ace-editor><div id='lean-full-code-30' style='display:none'>variable U : Type
+variables P R : U → Prop
+variable Q : Prop
+
+example (H1 : ∃x, P x ∧ R x) (H2 : ∀x, P x → R x → Q) : Q :=
+obtain y `P y` `R y`, from H1,
+show Q, from H2 y `P y` `R y`
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-30').text());">Try it yourself &raquo;</button></div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org99d961e" class="outline-3">
+<h3 id="org99d961e"><span class="section-number-3"> 9.4</span> Equality and calculational proofs</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+In Lean, reflexivity, symmetry, and transitivity are called <code>eq.refl</code>,
+<code>eq.symm</code>, and <code>eq.trans</code>, and the second substitution rule is called
+<code>eq.subst</code>. Their uses are illustrated below.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-31' mode="ace/mode/lean" readonly="true">variable A : Type
+
+variables x y z : A
+variable P : A → Prop
+
+example : x = x :=
+show x = x, from eq.refl x
+
+example : y = x :=
+have H : x = y, from sorry,
+show y = x, from eq.symm H
+
+example : x = z :=
+have H1 : x = y, from sorry,
+have H2 : y = z, from sorry,
+show x = z, from eq.trans H1 H2
+
+example : P y :=
+have H1 : x = y, from sorry,
+have H2 : P x, from sorry,
+show P y, from eq.subst H1 H2
+</juicy-ace-editor><div id='lean-full-code-31' style='display:none'>variable A : Type
+
+variables x y z : A
+variable P : A → Prop
+
+example : x = x :=
+show x = x, from eq.refl x
+
+example : y = x :=
+have H : x = y, from sorry,
+show y = x, from eq.symm H
+
+example : x = z :=
+have H1 : x = y, from sorry,
+have H2 : y = z, from sorry,
+show x = z, from eq.trans H1 H2
+
+example : P y :=
+have H1 : x = y, from sorry,
+have H2 : P x, from sorry,
+show P y, from eq.subst H1 H2
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-31').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The rule <code>eq.refl</code> above takes <code>x</code> as an argument, because there is no
+hypothesis to infer it from. All the other rules take their premises
+as arguments. 
+</p>
+
+<p>
+It is often the case, however, that Lean can figure out which instance
+of reflexivity you have in mind from the context, and there is an
+abbreviation, <code>rfl</code>, which does not take any arguments. Moreover, if
+you type <code>open eq.ops</code>, there is additional convenient notation you
+can use for symmetry, transitivity, and substitution:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-32' mode="ace/mode/lean" readonly="true">open eq.ops
+
+example : x = x :=
+show x = x, from rfl
+
+example : y = x :=
+have H : x = y, from sorry,
+show y = x, from H⁻¹
+
+example : x = z :=
+have H1 : x = y, from sorry,
+have H2 : y = z, from sorry,
+show x = z, from H1 ⬝ H2
+
+example : P y :=
+have H1 : x = y, from sorry,
+have H2 : P x, from sorry,
+show P y, from H1 ▸ H2</juicy-ace-editor><div id='lean-full-code-32' style='display:none'>variable A : Type
+
+variables x y z : A
+variable P : A → Prop
+
+open eq.ops
+
+example : x = x :=
+show x = x, from rfl
+
+example : y = x :=
+have H : x = y, from sorry,
+show y = x, from H⁻¹
+
+example : x = z :=
+have H1 : x = y, from sorry,
+have H2 : y = z, from sorry,
+show x = z, from H1 ⬝ H2
+
+example : P y :=
+have H1 : x = y, from sorry,
+have H2 : P x, from sorry,
+show P y, from H1 ▸ H2
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-32').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+You can type <code>⁻¹</code> using either <code>\sy</code> or <code>\inv</code>, for "symmetry" or
+"inverse." You can type <code>⬝</code> using <code>\tr</code>, for transitivity, and you can
+type <code>▸</code> using <code>\t</code>.
+</p>
+
+<p>
+Here is an example:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-33' mode="ace/mode/lean" readonly="true">variables (A : Type) (x y z : A)
+
+example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+have H3 : x = y, from eq.symm H1,
+show x = z, from eq.trans H3 H2
+</juicy-ace-editor><div id='lean-full-code-33' style='display:none'>variables (A : Type) (x y z : A)
+
+example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+have H3 : x = y, from eq.symm H1,
+show x = z, from eq.trans H3 H2
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-33').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+This proof can be written more concisely:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-34' mode="ace/mode/lean" readonly="true">example : y = x → y = z → x = z :=
+assume H1 H2, eq.trans (eq.symm H1) H2</juicy-ace-editor><div id='lean-full-code-34' style='display:none'>variables (A : Type) (x y z : A)
+
+example : y = x → y = z → x = z :=
+assume H1 H2, eq.trans (eq.symm H1) H2
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-34').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+Because calculation is so important in mathematics, however, Lean
+provides more efficient ways of carrying them out. One is the
+<code>rewrite</code> tactic. Typing <code>begin</code> and <code>end</code> in a Lean proof puts Lean
+into "tactic mode," which means that Lean then expects a list of
+instructions. The command <code>rewrite</code> then uses identities to change the
+goal. For example, the previous proof could be written as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-35' mode="ace/mode/lean" readonly="true">example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+show x = z, 
+  begin
+    rewrite -H1,
+    apply H2
+  end</juicy-ace-editor><div id='lean-full-code-35' style='display:none'>variables (A : Type) (x y z : A)
+
+example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+show x = z, 
+  begin
+    rewrite -H1,
+    apply H2
+  end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-35').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+The first command changes the goal <code>x = z</code> to <code>y = z</code>; the minus sign
+before <code>H1</code> tells Lean to use the equation in the reverse
+direction. After that, we can finish the goal by applying <code>H2</code>.
+</p>
+
+<p>
+An alternative is to rewrite the goal using <code>H1</code> and <code>H2</code>, which
+reduces the goal to <code>x = x</code>. When that happens, <code>rewrite</code>
+automatically applies reflexivity.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-36' mode="ace/mode/lean" readonly="true">example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+show x = z, 
+  begin
+    rewrite -H1,
+    rewrite H2
+  end</juicy-ace-editor><div id='lean-full-code-36' style='display:none'>variables (A : Type) (x y z : A)
+
+example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+show x = z, 
+  begin
+    rewrite -H1,
+    rewrite H2
+  end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-36').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+In fact, a sequence of rewrites can be combined, using square brackets:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-37' mode="ace/mode/lean" readonly="true">example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+show x = z, 
+  begin
+    rewrite [-H1, H2]
+  end</juicy-ace-editor><div id='lean-full-code-37' style='display:none'>variables (A : Type) (x y z : A)
+
+example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+show x = z, 
+  begin
+    rewrite [-H1, H2]
+  end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-37').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+And when you reduce a proof to a single tactic, you can use <code>by</code>
+instead of <code>begin ... end</code>.
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-38' mode="ace/mode/lean" readonly="true">example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+show x = z, by rewrite [-H1, H2]</juicy-ace-editor><div id='lean-full-code-38' style='display:none'>variables (A : Type) (x y z : A)
+
+example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+show x = z, by rewrite [-H1, H2]
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-38').text());">Try it yourself &raquo;</button></div>
+</div>
+
+<p>
+We will see in the coming chapters that in ordinary mathematical
+proofs, one commonly carries out calculations in a format like this:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/09_First_Order_Logic_in_Lean.org.temp_ac7ed4196a1b538e166d11d7cbea1244eb937c73.png" alt="09_First_Order_Logic_in_Lean.org.temp_ac7ed4196a1b538e166d11d7cbea1244eb937c73.png" /></p>
+</div>
+<p>
+Lean has a mechanism to model calculational proofs like this. Whenever
+a proof of an equation is expected, you can provide a proof using the
+identifier <code>calc</code>, following by a chain of equalities and
+justification, in the following form:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-text">calc
+  e1 = e2    : justification 1
+    ... = e3 : justification 2
+    ... = e4 : justification 3
+    ... = e5 : justification 4
+</pre>
+</div>
+<p>
+The chain can go on as long as needed. Each justification is the name
+of the assumption or theorem that is used. For example, the previous
+proof could be written as follows:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-40' mode="ace/mode/lean" readonly="true">example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+calc
+    x = y : eq.symm H1
+  ... = z : H2 </juicy-ace-editor><div id='lean-full-code-40' style='display:none'>variables (A : Type) (x y z : A)
+
+example : y = x → y = z → x = z :=
+assume H1 : y = x,
+assume H2 : y = z,
+calc
+    x = y : eq.symm H1
+  ... = z : H2 
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-40').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+As usual, the syntax is finicky; notice that there are no
+commas in the <code>calc</code> expression, and the colons and dots need to be
+entered exactly in that form. All that varies are the expressions <code>e1,
+e2, e3, ...</code> and the justifications themselves.
+</p>
+
+<p>
+The <code>calc</code> environment is most powerful when used in conjunction with
+<code>rewrite</code>, since we can then rewrite expressions with facts from the
+library. For example, Lean's library has a number of basic identities
+for the integers, such as these:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-41' mode="ace/mode/lean" readonly="true">import data.int
+open int
+
+variables x y z : int
+
+example : x + 0 = x :=
+add_zero x
+
+example : 0 + x = x :=
+zero_add x
+
+example : (x + y) + z = x + (y + z) :=
+add.assoc x y z
+
+example : x + y = y + x :=
+add.comm x y
+
+example : (x * y) * z = x * (y * z) :=
+mul.assoc x y z
+
+example : x * y = y * x :=
+mul.comm x y
+
+example : x * (y + z) = x * y + x * z :=
+left_distrib x y z
+
+example : (x + y) * z = x * z + y * z :=
+right_distrib x y z
+</juicy-ace-editor><div id='lean-full-code-41' style='display:none'>import data.int
+open int
+
+variables x y z : int
+
+example : x + 0 = x :=
+add_zero x
+
+example : 0 + x = x :=
+zero_add x
+
+example : (x + y) + z = x + (y + z) :=
+add.assoc x y z
+
+example : x + y = y + x :=
+add.comm x y
+
+example : (x * y) * z = x * (y * z) :=
+mul.assoc x y z
+
+example : x * y = y * x :=
+mul.comm x y
+
+example : x * (y + z) = x * y + x * z :=
+left_distrib x y z
+
+example : (x + y) * z = x * z + y * z :=
+right_distrib x y z
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-41').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+You can also write the type of integers as <code>ℤ</code>, entered with either
+<code>\Z</code> or <code>\int</code>. Notice that, for example, <code>add.comm</code> is the theorem <code>∀
+x y, x + y = y + x</code>. So to instantiate it to <code>s + t = t + s</code>, you
+write <code>add.comm s t</code>. Using these axioms, here is the calculation
+above rendered in Lean, as a theorem about the integers:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-42' mode="ace/mode/lean" readonly="true">import data.int
+open int
+
+example (x y z : int) : (x + y) + z = (x + z) + y :=
+calc
+  (x + y) + z = x + (y + z) : add.assoc
+	  ... = x + (z + y) : add.comm
+	  ... = (x + z) + y : add.assoc
+</juicy-ace-editor><div id='lean-full-code-42' style='display:none'>import data.int
+open int
+
+example (x y z : int) : (x + y) + z = (x + z) + y :=
+calc
+  (x + y) + z = x + (y + z) : add.assoc
+	  ... = x + (z + y) : add.comm
+	  ... = (x + z) + y : add.assoc
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-42').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Using <code>rewrite</code> is more efficient, though at times we have to provide
+information to specify where the rules are used:
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-43' mode="ace/mode/lean" readonly="true">example (x y z : int) : (x + y) + z = (x + z) + y :=
+calc
+  (x + y) + z = x + (y + z) : by rewrite add.assoc
+	  ... = x + (z + y) : by rewrite [add.comm y z]
+	  ... = (x + z) + y : by rewrite add.assoc</juicy-ace-editor><div id='lean-full-code-43' style='display:none'>import data.int
+open int
+
+example (x y z : int) : (x + y) + z = (x + z) + y :=
+calc
+  (x + y) + z = x + (y + z) : by rewrite add.assoc
+	  ... = x + (z + y) : by rewrite [add.comm y z]
+	  ... = (x + z) + y : by rewrite add.assoc
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-43').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+In that case, we can use a single <code>rewrite</code>:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-44' mode="ace/mode/lean" readonly="true">example (x y z : int) : (x + y) + z = (x + z) + y :=
+by rewrite [add.assoc, add.comm y z, add.assoc]</juicy-ace-editor><div id='lean-full-code-44' style='display:none'>import data.int
+open int
+
+example (x y z : int) : (x + y) + z = (x + z) + y :=
+by rewrite [add.assoc, add.comm y z, add.assoc]
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-44').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+If you check the proof before the sequence of <code>rewrites</code> is
+sufficient, the error message will display the remaining goal.
+</p>
+
+<p>
+Here is another example:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-45' mode="ace/mode/lean" readonly="true">import data.int
+open int
+
+variables a b d c : int
+
+example : (a + b) * (c + d) = a * c + b * c + a * d + b * d :=
+calc
+  (a + b) * (c + d) = (a + b) * c + (a + b) * d : by rewrite left_distrib
+    ... = (a * c + b * c) + (a + b) * d         : by rewrite right_distrib
+    ... = (a * c + b * c) + (a * d + b * d)     : by rewrite right_distrib
+    ... = a * c + b * c + a * d + b * d         : by rewrite -add.assoc
+</juicy-ace-editor><div id='lean-full-code-45' style='display:none'>import data.int
+open int
+
+variables a b d c : int
+
+example : (a + b) * (c + d) = a * c + b * c + a * d + b * d :=
+calc
+  (a + b) * (c + d) = (a + b) * c + (a + b) * d : by rewrite left_distrib
+    ... = (a * c + b * c) + (a + b) * d         : by rewrite right_distrib
+    ... = (a * c + b * c) + (a * d + b * d)     : by rewrite right_distrib
+    ... = a * c + b * c + a * d + b * d         : by rewrite -add.assoc
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-45').text());">Try it yourself &raquo;</button></div>
+</div>
+<p>
+Once again, we can get by with a shorter proof:
+</p>
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-46' mode="ace/mode/lean" readonly="true">example : (a + b) * (c + d) = a * c + b * c + a * d + b * d :=
+by rewrite [left_distrib, *right_distrib, -add.assoc]</juicy-ace-editor><div id='lean-full-code-46' style='display:none'>import data.int
+open int
+
+variables a b d c : int
+
+example : (a + b) * (c + d) = a * c + b * c + a * d + b * d :=
+by rewrite [left_distrib, *right_distrib, -add.assoc]
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-46').text());">Try it yourself &raquo;</button></div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2822156" class="outline-3">
+<h3 id="org2822156"><span class="section-number-3"> 9.5</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li><p>
+Fill in the <code>sorry</code>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-47' mode="ace/mode/lean" readonly="true">section
+  variable A : Type
+  variable f : A → A
+  variable P : A → Prop
+  premise  H : ∀ x, P x → P (f x)
+
+  -- Show the following:
+  example : ∀ y, P y → P (f (f y)) :=
+  sorry
+end
+</juicy-ace-editor><div id='lean-full-code-47' style='display:none'>section
+  variable A : Type
+  variable f : A → A
+  variable P : A → Prop
+  premise  H : ∀ x, P x → P (f x)
+
+  -- Show the following:
+  example : ∀ y, P y → P (f (f y)) :=
+  sorry
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-47').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Fill in the <code>sorry</code>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-48' mode="ace/mode/lean" readonly="true">section
+  variable U : Type
+  variables A B : U → Prop
+
+  example : (∀ x, A x ∧ B x) → ∀ x, A x :=
+  sorry
+end
+</juicy-ace-editor><div id='lean-full-code-48' style='display:none'>section
+  variable U : Type
+  variables A B : U → Prop
+
+  example : (∀ x, A x ∧ B x) → ∀ x, A x :=
+  sorry
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-48').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Fill in the <code>sorry</code>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-49' mode="ace/mode/lean" readonly="true">section
+  variable U : Type
+  variables A B C : U → Prop
+
+  premise H1 : ∀ x, A x ∨ B x
+  premise H2 : ∀ x, A x → C x
+  premise H3 : ∀ x, B x → C x
+
+  example : ∀ x, C x :=
+  sorry
+end
+</juicy-ace-editor><div id='lean-full-code-49' style='display:none'>section
+  variable U : Type
+  variables A B C : U → Prop
+
+  premise H1 : ∀ x, A x ∨ B x
+  premise H2 : ∀ x, A x → C x
+  premise H3 : ∀ x, B x → C x
+
+  example : ∀ x, C x :=
+  sorry
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-49').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Fill in the <code>sorry</code>'s below, to prove the barber paradox.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-50' mode="ace/mode/lean" readonly="true">open classical   -- not needed, but you can use it
+
+-- This is an exercise from Chapter 4. Use it as an axiom here.
+axiom not_iff_not_self (P : Prop) : ¬ (P ↔ ¬ P)
+
+example (Q : Prop) : ¬ (Q ↔ ¬ Q) :=
+not_iff_not_self Q
+
+section
+  variable Person : Type
+  variable shaves : Person → Person → Prop
+  variable barber : Person
+  premise H : ∀ x, shaves barber x ↔ ¬ shaves x x
+
+  -- Show the following:
+  example : false :=
+  sorry
+end
+</juicy-ace-editor><div id='lean-full-code-50' style='display:none'>open classical   -- not needed, but you can use it
+
+-- This is an exercise from Chapter 4. Use it as an axiom here.
+axiom not_iff_not_self (P : Prop) : ¬ (P ↔ ¬ P)
+
+example (Q : Prop) : ¬ (Q ↔ ¬ Q) :=
+not_iff_not_self Q
+
+section
+  variable Person : Type
+  variable shaves : Person → Person → Prop
+  variable barber : Person
+  premise H : ∀ x, shaves barber x ↔ ¬ shaves x x
+
+  -- Show the following:
+  example : false :=
+  sorry
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-50').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Fill in the <code>sorry</code>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-51' mode="ace/mode/lean" readonly="true">section
+  variable U : Type
+  variables A B : U → Prop
+
+  example : (∃ x, A x) → ∃ x, A x ∨ B x :=
+  sorry
+end
+</juicy-ace-editor><div id='lean-full-code-51' style='display:none'>section
+  variable U : Type
+  variables A B : U → Prop
+
+  example : (∃ x, A x) → ∃ x, A x ∨ B x :=
+  sorry
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-51').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Fill in the <code>sorry</code>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-52' mode="ace/mode/lean" readonly="true">section
+  variable U : Type
+  variables A B : U → Prop
+
+  premise H1 : ∀ x, A x → B x
+  premise H2 : ∃ x, A x
+
+  example : ∃ x, B x :=
+  sorry
+end
+</juicy-ace-editor><div id='lean-full-code-52' style='display:none'>section
+  variable U : Type
+  variables A B : U → Prop
+
+  premise H1 : ∀ x, A x → B x
+  premise H2 : ∃ x, A x
+
+  example : ∃ x, B x :=
+  sorry
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-52').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Fill in the <code>sorry</code>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-53' mode="ace/mode/lean" readonly="true">variable  U : Type
+variables A B C : U → Prop
+
+example (H1 : ∃ x, A x ∧ B x) (H2 : ∀ x, B x → C x) :
+    ∃ x, A x ∧ C x :=
+sorry
+</juicy-ace-editor><div id='lean-full-code-53' style='display:none'>variable  U : Type
+variables A B C : U → Prop
+
+example (H1 : ∃ x, A x ∧ B x) (H2 : ∀ x, B x → C x) :
+    ∃ x, A x ∧ C x :=
+sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-53').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Complete these proofs.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-54' mode="ace/mode/lean" readonly="true">variable  U : Type
+variables A B C : U → Prop
+
+example : (¬ ∃ x, A x) → ∀ x, ¬ A x :=
+sorry
+
+example : (∀ x, ¬ A x) → ¬ ∃ x, A x :=
+sorry
+</juicy-ace-editor><div id='lean-full-code-54' style='display:none'>variable  U : Type
+variables A B C : U → Prop
+
+example : (¬ ∃ x, A x) → ∀ x, ¬ A x :=
+sorry
+
+example : (∀ x, ¬ A x) → ¬ ∃ x, A x :=
+sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-54').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Fill in the <code>sorry</code>.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-55' mode="ace/mode/lean" readonly="true">variable  U : Type
+variables R : U → U → Prop
+
+example : (∃ x, ∀ y, R x y) → ∀ y, ∃ x, R x y :=
+sorry
+</juicy-ace-editor><div id='lean-full-code-55' style='display:none'>variable  U : Type
+variables R : U → U → Prop
+
+example : (∃ x, ∀ y, R x y) → ∀ y, ∃ x, R x y :=
+sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-55').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Do the following.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-56' mode="ace/mode/lean" readonly="true">import data.nat
+open nat
+
+-- You can use the facts "odd_succ_of_even" and "odd_mul_of_odd_of_odd".
+-- Their use is illustrated in the next two examples.
+
+example (x : ℕ) (H1 : even x) : odd (x + 1) :=
+odd_succ_of_even H1
+
+example (x y : ℕ) (H1 : odd x) (H2 : odd y) : odd (x * y) :=
+odd_mul_of_odd_of_odd H1 H2
+
+-- Show the following:
+example : ∀ x y z : ℕ, odd x → odd y → even z → odd ((x * y) * (z + 1)) :=
+sorry
+</juicy-ace-editor><div id='lean-full-code-56' style='display:none'>import data.nat
+open nat
+
+-- You can use the facts "odd_succ_of_even" and "odd_mul_of_odd_of_odd".
+-- Their use is illustrated in the next two examples.
+
+example (x : ℕ) (H1 : even x) : odd (x + 1) :=
+odd_succ_of_even H1
+
+example (x y : ℕ) (H1 : odd x) (H2 : odd y) : odd (x * y) :=
+odd_mul_of_odd_of_odd H1 H2
+
+-- Show the following:
+example : ∀ x y z : ℕ, odd x → odd y → even z → odd ((x * y) * (z + 1)) :=
+sorry
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-56').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+The following exercise shows that in the presence of reflexivity,
+the rules for symmetry and transitivity are equivalent to a single rule.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-57' mode="ace/mode/lean" readonly="true">theorem foo {A : Type} {a b c : A} : a = b → c = b → a = c :=
+sorry
+
+-- notice that you can now use foo as a rule. The curly braces mean that
+-- you do not have to give A, a, b, or c
+
+section
+  variable A : Type
+  variables a b c : A
+
+  example (H1 : a = b) (H2 : c = b) : a = c :=
+  foo H1 H2
+end
+
+section
+  variable {A : Type}
+  variables {a b c : A}
+
+  -- replace the sorry with a proof, using foo and rfl, *without* using eq.symm.
+  proposition my_symm (H : b = a) : a = b :=
+  sorry
+
+  -- now use foo, rfl, and my_symm to prove transitivity
+  proposition my_trans (H1 : a = b) (H2 : b = c) : a = c :=
+  sorry
+end
+</juicy-ace-editor><div id='lean-full-code-57' style='display:none'>theorem foo {A : Type} {a b c : A} : a = b → c = b → a = c :=
+sorry
+
+-- notice that you can now use foo as a rule. The curly braces mean that
+-- you do not have to give A, a, b, or c
+
+section
+  variable A : Type
+  variables a b c : A
+
+  example (H1 : a = b) (H2 : c = b) : a = c :=
+  foo H1 H2
+end
+
+section
+  variable {A : Type}
+  variables {a b c : A}
+
+  -- replace the sorry with a proof, using foo and rfl, *without* using eq.symm.
+  proposition my_symm (H : b = a) : a = b :=
+  sorry
+
+  -- now use foo, rfl, and my_symm to prove transitivity
+  proposition my_trans (H1 : a = b) (H2 : b = c) : a = c :=
+  sorry
+end
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-57').text());">Try it yourself &raquo;</button></div>
+</div></li>
+
+<li><p>
+Replace each "sorry" below by the correct axiom from the list.
+</p>
+
+<div class="org-src-container">
+<juicy-ace-editor id='lean-juicy-ace-editor-58' mode="ace/mode/lean" readonly="true">import data.int
+open int
+
+-- these are the axioms for a commutative ring
+
+check @add.assoc
+check @add.comm
+check @add_zero
+check @zero_add
+check @mul.assoc
+check @mul.comm
+check @mul_one
+check @one_mul
+check @left_distrib
+check @right_distrib
+check @add.left_inv
+check @add.right_inv
+check @sub_eq_add_neg
+
+variables x y z : int
+
+theorem t1 : x - x = 0 :=
+calc
+  x - x = x + -x : sub_eq_add_neg
+    ... = 0      : add.right_inv
+
+theorem t2 (H : x + y = x + z) : y = z :=
+calc
+  y     = 0 + y        : zero_add
+    ... = (-x + x) + y : add.left_inv
+    ... = -x + (x + y) : add.assoc
+    ... = -x + (x + z) : H
+    ... = (-x + x) + z : add.assoc
+    ... = 0 + z        : add.left_inv
+    ... = z            : zero_add
+
+theorem t3 (H : x + y = z + y) : x = z :=
+calc
+  x     = x + 0        : sorry
+    ... = x + (y + -y) : sorry
+    ... = (x + y) + -y : sorry
+    ... = (z + y) + -y : H
+    ... = z + (y + -y) : sorry
+    ... = z + 0        : sorry
+    ... = z            : sorry
+
+theorem t4 (H : x + y = 0) : x = -y :=
+calc
+  x     = x + 0        : add_zero
+    ... = x + (y + -y) : add.right_inv
+    ... = (x + y) + -y : add.assoc
+    ... = 0 + -y       : H
+    ... = -y           : zero_add 
+
+theorem t5 : x * 0 = 0 :=
+have H1 : x * 0 + x * 0 = x * 0 + 0, from
+  calc
+    x * 0 + x * 0 = x * (0 + 0) : sorry
+	      ... = x * 0       : sorry
+	      ... = x * 0 + 0   : sorry,
+show x * 0 = 0, from t2 _ _ _ H1
+
+theorem t6 : x * (-y) = -(x * y) :=
+have H1 : x * (-y) + x * y = 0, from
+  calc
+    x * (-y) + x * y = x * (-y + y) : sorry
+		 ... = x * 0        : sorry
+		 ... = 0            : t5 x,
+show x * (-y) = -(x * y), from t4 _ _ H1
+
+theorem t7 : x + x = 2 * x :=
+calc
+  x + x = 1 * x + 1 * x : one_mul
+    ... = (1 + 1) * x   : sorry
+    ... = 2 * x         : rfl
+</juicy-ace-editor><div id='lean-full-code-58' style='display:none'>import data.int
+open int
+
+-- these are the axioms for a commutative ring
+
+check @add.assoc
+check @add.comm
+check @add_zero
+check @zero_add
+check @mul.assoc
+check @mul.comm
+check @mul_one
+check @one_mul
+check @left_distrib
+check @right_distrib
+check @add.left_inv
+check @add.right_inv
+check @sub_eq_add_neg
+
+variables x y z : int
+
+theorem t1 : x - x = 0 :=
+calc
+  x - x = x + -x : sub_eq_add_neg
+    ... = 0      : add.right_inv
+
+theorem t2 (H : x + y = x + z) : y = z :=
+calc
+  y     = 0 + y        : zero_add
+    ... = (-x + x) + y : add.left_inv
+    ... = -x + (x + y) : add.assoc
+    ... = -x + (x + z) : H
+    ... = (-x + x) + z : add.assoc
+    ... = 0 + z        : add.left_inv
+    ... = z            : zero_add
+
+theorem t3 (H : x + y = z + y) : x = z :=
+calc
+  x     = x + 0        : sorry
+    ... = x + (y + -y) : sorry
+    ... = (x + y) + -y : sorry
+    ... = (z + y) + -y : H
+    ... = z + (y + -y) : sorry
+    ... = z + 0        : sorry
+    ... = z            : sorry
+
+theorem t4 (H : x + y = 0) : x = -y :=
+calc
+  x     = x + 0        : add_zero
+    ... = x + (y + -y) : add.right_inv
+    ... = (x + y) + -y : add.assoc
+    ... = 0 + -y       : H
+    ... = -y           : zero_add 
+
+theorem t5 : x * 0 = 0 :=
+have H1 : x * 0 + x * 0 = x * 0 + 0, from
+  calc
+    x * 0 + x * 0 = x * (0 + 0) : sorry
+	      ... = x * 0       : sorry
+	      ... = x * 0 + 0   : sorry,
+show x * 0 = 0, from t2 _ _ _ H1
+
+theorem t6 : x * (-y) = -(x * y) :=
+have H1 : x * (-y) + x * y = 0, from
+  calc
+    x * (-y) + x * y = x * (-y + y) : sorry
+		 ... = x * 0        : sorry
+		 ... = 0            : t5 x,
+show x * (-y) = -(x * y), from t4 _ _ H1
+
+theorem t7 : x + x = 2 * x :=
+calc
+  x + x = 1 * x + 1 * x : one_mul
+    ... = (1 + 1) * x   : sorry
+    ... = 2 * x         : rfl
+</div><div class='no-print' align="left"><button type="button" onclick="invoke_leanjs($('#lean-full-code-58').text());">Try it yourself &raquo;</button></div>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

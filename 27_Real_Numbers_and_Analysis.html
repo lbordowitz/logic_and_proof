@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-12-03 Sat 17:37 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-org29ea73e" class="outline-2">
+<h2 id="The_Real_Numbers"><a id="org29ea73e"></a><span class="section-number-2"> 27</span> The Real Numbers</h2>
+<div class="outline-text-2" id="text-The_Real_Numbers">
+</div>
+
+<div id="outline-container-org4a50247" class="outline-3">
+<h3 id="org4a50247"><span class="section-number-3"> 27.1</span> The Number Systems</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+We have already come across some of the fundamental number systems:
+the natural numbers, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" alt="27_Real_Numbers_and_Analysis.org.temp_f13a4ceb8c13ea11b74114e24c41977969456c41.png" />, the integers, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" alt="27_Real_Numbers_and_Analysis.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" />, and the rationals,
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0dae70e7144394189639fdaf3d54f6522b4d89ad.png" alt="27_Real_Numbers_and_Analysis.org.temp_0dae70e7144394189639fdaf3d54f6522b4d89ad.png" />. In a sense, each subsequent element of the list was designed to
+remedy defects in the previous system: we can subtract any integer
+from any other integer and end up with another integer, and we can
+divide any rational number by a nonzero rational number and end up
+with a rational number.
+</p>
+
+<p>
+The integers satisfy all of the following properties:
+</p>
+
+<ul class="org-ul">
+<li>Addition is associative and commutative.</li>
+<li>There is an additive identity, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="27_Real_Numbers_and_Analysis.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, and every element <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> has an
+additive inverse, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b74dfd5dcc2e3915dbd12e14e81c73f674a3482c.png" alt="27_Real_Numbers_and_Analysis.org.temp_b74dfd5dcc2e3915dbd12e14e81c73f674a3482c.png" />.</li>
+<li>Multiplication is associative and commutative.</li>
+<li>There is a multiplicative identity, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="27_Real_Numbers_and_Analysis.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" />.</li>
+<li>Multiplication distributes over addition: for every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, and
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="27_Real_Numbers_and_Analysis.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />, we have <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2c073ee44f844b7858a066823a8e667f86e3907b.png" alt="27_Real_Numbers_and_Analysis.org.temp_2c073ee44f844b7858a066823a8e667f86e3907b.png" />.</li>
+<li>The ordering <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="27_Real_Numbers_and_Analysis.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> is a total order.</li>
+<li>For any elements <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="27_Real_Numbers_and_Analysis.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />, if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" alt="27_Real_Numbers_and_Analysis.org.temp_ffb50412aa28bbd8841b3038bc294c53ffc626d0.png" /> then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_902ff54291aebaadd2d817d4d5037842e33ee5a3.png" alt="27_Real_Numbers_and_Analysis.org.temp_902ff54291aebaadd2d817d4d5037842e33ee5a3.png" />.</li>
+<li>For any elements <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_89ba09b0706eb686a20c3d79f7b8cba8d9905343.png" alt="27_Real_Numbers_and_Analysis.org.temp_89ba09b0706eb686a20c3d79f7b8cba8d9905343.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_13f540f2a864647fd385ea1de8c04b7b46906318.png" alt="27_Real_Numbers_and_Analysis.org.temp_13f540f2a864647fd385ea1de8c04b7b46906318.png" /> then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e06f58b7ce9bee27992191428ae219ebec2bea07.png" alt="27_Real_Numbers_and_Analysis.org.temp_e06f58b7ce9bee27992191428ae219ebec2bea07.png" />.</li>
+</ul>
+
+<p>
+The first five clauses say that with <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_98bc3d8ab8350fc0391df6dfb3ce7cddc16fb588.png" alt="27_Real_Numbers_and_Analysis.org.temp_98bc3d8ab8350fc0391df6dfb3ce7cddc16fb588.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5753432a6c5ba0aa2fea916832580e882fec6a13.png" alt="27_Real_Numbers_and_Analysis.org.temp_5753432a6c5ba0aa2fea916832580e882fec6a13.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="27_Real_Numbers_and_Analysis.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="27_Real_Numbers_and_Analysis.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" />, the
+integers form a <i>commutative ring</i>, and the last three say that
+together with <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="27_Real_Numbers_and_Analysis.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" />, the structure is an <i>ordered ring</i>. The natural
+numbers lack additive inverses, so they satisfy a slightly weaker set
+of axioms that make them an <i>ordered semiring</i>. On the other hand, the
+rational numbers also form an ordered ring, satisfying the following
+additional property:
+</p>
+
+<ul class="org-ul">
+<li>Every nonzero element has a multiplicative inverse, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2bd9b53f5e628ff77e03b8856a2f27e1e0ec6169.png" alt="27_Real_Numbers_and_Analysis.org.temp_2bd9b53f5e628ff77e03b8856a2f27e1e0ec6169.png" />.</li>
+</ul>
+
+<p>
+This makes them an instance of an <i>ordered field</i>.
+</p>
+
+<p>
+It is worth knowing that once we have the natural numbers, it is
+possible to <i>construct</i> the integers and rational numbers, using
+set-theoretic constructions you have already seen. For example, we can
+take an integer to be a pair <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_8b00ec8e2188a424c4d3848350f2d40948b0ce9f.png" alt="27_Real_Numbers_and_Analysis.org.temp_8b00ec8e2188a424c4d3848350f2d40948b0ce9f.png" /> of natural numbers where <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="27_Real_Numbers_and_Analysis.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" /> is
+either 0 or 1, with the intention that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a6de29f0e01dfe027285910eaa57cf2fa24c2e30.png" alt="27_Real_Numbers_and_Analysis.org.temp_a6de29f0e01dfe027285910eaa57cf2fa24c2e30.png" /> represents the
+positive integer <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="27_Real_Numbers_and_Analysis.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_dcff26b016b7cbec9ac63557c36d249488d0ddbd.png" alt="27_Real_Numbers_and_Analysis.org.temp_dcff26b016b7cbec9ac63557c36d249488d0ddbd.png" /> represents the negative integer
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a51c2797d8b7b185f68eecf198782ff192351257.png" alt="27_Real_Numbers_and_Analysis.org.temp_a51c2797d8b7b185f68eecf198782ff192351257.png" />. (We use <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a51c2797d8b7b185f68eecf198782ff192351257.png" alt="27_Real_Numbers_and_Analysis.org.temp_a51c2797d8b7b185f68eecf198782ff192351257.png" /> instead of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b8ab21ad9f873c1de6a1595bd9d6d486d729a935.png" alt="27_Real_Numbers_and_Analysis.org.temp_b8ab21ad9f873c1de6a1595bd9d6d486d729a935.png" /> to avoid having two
+representations of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="27_Real_Numbers_and_Analysis.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />.) With this definition, the integers are simply
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_61fd0399fc5826a37157ec24500987259b1aa2a7.png" alt="27_Real_Numbers_and_Analysis.org.temp_61fd0399fc5826a37157ec24500987259b1aa2a7.png" />. We can then go on to define the operations of
+addition and multiplication, the additive inverse, and the order
+relation, and prove they have the desired properties.
+</p>
+
+<p>
+This construction has the side effect that the natural numbers
+themselves are not integers; for example, we have to distinguish
+between the natural number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" />, and the integer <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" />. In Lean, for
+example, this is the case. In ordinary mathematics, it is common to
+think of the natural numbers as a subset of the integers. Once we
+construct the integers, however, we can throw away the old version of
+the natural numbers, and afterwards identify the natural numbers as
+nonnegative integers. 
+</p>
+
+<p>
+We can do the same for the rationals, defining them to be the set of
+pairs <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfc852d108876b2d1ba2b999452e5adfb1426dbe.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfc852d108876b2d1ba2b999452e5adfb1426dbe.png" /> in <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a944d75fe824270f02a84d480c8ccac3b41ad9a7.png" alt="27_Real_Numbers_and_Analysis.org.temp_a944d75fe824270f02a84d480c8ccac3b41ad9a7.png" />, where either <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6191d859daed35d8f6b1fa69431ad3426af50c31.png" alt="27_Real_Numbers_and_Analysis.org.temp_6191d859daed35d8f6b1fa69431ad3426af50c31.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e32ebd5dc345aacaa1a106a72399da02c6394986.png" alt="27_Real_Numbers_and_Analysis.org.temp_e32ebd5dc345aacaa1a106a72399da02c6394986.png" />,
+or <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d2d5e173cb328c7b6222ff28229078c5267e0eab.png" alt="27_Real_Numbers_and_Analysis.org.temp_d2d5e173cb328c7b6222ff28229078c5267e0eab.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="27_Real_Numbers_and_Analysis.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> have no common divisor (other than <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="27_Real_Numbers_and_Analysis.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" /> and
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_89406b92e84370b122dc953656c2ed0d2ce25869.png" alt="27_Real_Numbers_and_Analysis.org.temp_89406b92e84370b122dc953656c2ed0d2ce25869.png" />). The idea is that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfc852d108876b2d1ba2b999452e5adfb1426dbe.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfc852d108876b2d1ba2b999452e5adfb1426dbe.png" /> represents <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_657138f32d5245598edd23a3118859ce48e2c369.png" alt="27_Real_Numbers_and_Analysis.org.temp_657138f32d5245598edd23a3118859ce48e2c369.png" />. With this
+definition, the rationals are really a subset of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a944d75fe824270f02a84d480c8ccac3b41ad9a7.png" alt="27_Real_Numbers_and_Analysis.org.temp_a944d75fe824270f02a84d480c8ccac3b41ad9a7.png" />, and
+we can then define all the operations accordingly.
+</p>
+
+<p>
+In the next section, we will define a more sophisticated approach, one
+which will scale to a definition of the real numbers. And in a later
+chapter, we will show how to construct the natural numbers from the
+axioms of set theory. This shows that we can construct all the number
+systems from the bottom up.
+</p>
+
+<p>
+But first, let us pause for a moment to consider why the real numbers
+are needed. We have seen that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" /> has no rational square root. This
+means, in a sense, that there is a "gap" in the rationals: the are
+rationals whose squares are arbitrarily close to 2, but there is no
+rational <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> with the property that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a1b2853d7e3a9222cc7a181d271597a281bd9a11.png" alt="27_Real_Numbers_and_Analysis.org.temp_a1b2853d7e3a9222cc7a181d271597a281bd9a11.png" />. But it seems
+intuitively clear that there should be some <i>number</i> with that
+property: <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_fbc7a9aaf899f339cc64b22c2b2f1783cc8f8c45.png" alt="27_Real_Numbers_and_Analysis.org.temp_fbc7a9aaf899f339cc64b22c2b2f1783cc8f8c45.png" /> is the length of the diagonal of a square with
+side length <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="27_Real_Numbers_and_Analysis.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" />. Similarly, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_dd3985928380b2625a60f327a1fda74c8a7ac898.png" alt="27_Real_Numbers_and_Analysis.org.temp_dd3985928380b2625a60f327a1fda74c8a7ac898.png" />, the area of a circle with radius 1,
+is missing from the rationals. These are the kinds of defects that
+the real numbers are designed to repair.
+</p>
+
+<p>
+You may be used to thinking of real numbers as (potentially) infinite
+decimals: for example, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_18659525fb33f7e85cffe9d10fe5f28127a69081.png" alt="27_Real_Numbers_and_Analysis.org.temp_18659525fb33f7e85cffe9d10fe5f28127a69081.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_828144c23d057d9562f406eed4280f287b045ed5.png" alt="27_Real_Numbers_and_Analysis.org.temp_828144c23d057d9562f406eed4280f287b045ed5.png" />. A central goal of this chapter is to make the "&#x2026;"
+precise. The idea is that we can take an infinite decimal to represent
+a sequence of rational approximations. For example, we can approximate
+the square root of 2 with the sequence <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_10a3a25f5eafcc66013225b8e447fce583c9955b.png" alt="27_Real_Numbers_and_Analysis.org.temp_10a3a25f5eafcc66013225b8e447fce583c9955b.png" />.
+We would like to define <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_fbc7a9aaf899f339cc64b22c2b2f1783cc8f8c45.png" alt="27_Real_Numbers_and_Analysis.org.temp_fbc7a9aaf899f339cc64b22c2b2f1783cc8f8c45.png" /> to be the "limit" of that sequence,
+but we have seen that the sequence does not have a limit in the
+rationals. So we have to construct new objects, the real numbers, to
+serve that purpose.
+</p>
+
+<p>
+In fact, we will define the real numbers, more or less, to <i>be</i> such
+sequences of rational approximations. But we will have to deal with
+the fact that, for example, there are <i>lots</i> of ways of approximating
+the square root of two. For example, we can just as well approach it
+from above, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a4786bfc1f8632f6d27aa7171fcfa77fa5e99c45.png" alt="27_Real_Numbers_and_Analysis.org.temp_a4786bfc1f8632f6d27aa7171fcfa77fa5e99c45.png" />, or by oscillating above and below.
+The next section will show us how to "glue" all these sequences
+together and treat them as a single object.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1d4221b" class="outline-3">
+<h3 id="Quotient_Constructions"><a id="org1d4221b"></a><span class="section-number-3"> 27.2</span> Quotient Constructions</h3>
+<div class="outline-text-3" id="text-Quotient_Constructions">
+<p>
+Let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> be any set, and let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> be any equivalence relation on
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Recall from <a href="#" onclick="myModule.loadTutorial('11_Sets.html', 'Sets')">Chapter 11</a> that we can assign to every element <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> of
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> the equivalence class <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" alt="27_Real_Numbers_and_Analysis.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" />, where <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_7bb81d075dfbaed2e99651c7be7eda0a7795b052.png" alt="27_Real_Numbers_and_Analysis.org.temp_7bb81d075dfbaed2e99651c7be7eda0a7795b052.png" /> means <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ff71574ddb3ac86f298a2c074565b47e9d8cc6a1.png" alt="27_Real_Numbers_and_Analysis.org.temp_ff71574ddb3ac86f298a2c074565b47e9d8cc6a1.png" />. This assignment has the property that for every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="27_Real_Numbers_and_Analysis.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfafb7ccb843fac9bd1289769d1d0c920f405c22.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfafb7ccb843fac9bd1289769d1d0c920f405c22.png" /> if and only if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5f0e84d8e23fe064feaf69a3a49c65e2d1e56e65.png" alt="27_Real_Numbers_and_Analysis.org.temp_5f0e84d8e23fe064feaf69a3a49c65e2d1e56e65.png" />.
+</p>
+
+<p>
+Given any set <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and equivalence relation <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" />, define <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_45aeb390a81e8c32679710ea4b5297b383fb3783.png" alt="27_Real_Numbers_and_Analysis.org.temp_45aeb390a81e8c32679710ea4b5297b383fb3783.png" /> to be the set <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e8d90ae99eccff5d5f708ec7a5319aaba0934f0b.png" alt="27_Real_Numbers_and_Analysis.org.temp_e8d90ae99eccff5d5f708ec7a5319aaba0934f0b.png" /> of
+<i>equivalence classes</i> of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> modulo <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" />. This set is called "<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+modulo <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_00ba0e1d8e86df5aae9af763ed057c87e5ff7921.png" alt="27_Real_Numbers_and_Analysis.org.temp_00ba0e1d8e86df5aae9af763ed057c87e5ff7921.png" />," or the <i>quotient</i> of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> by <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" />.  You
+can think of this as the set <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> where equivalent elements are "glued
+together" to make a coarser set.
+</p>
+
+<p>
+For example, if we consider the integers <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" alt="27_Real_Numbers_and_Analysis.org.temp_320af236751828bcb16d70ce8c03ff69f3f9e86e.png" /> with <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> denoting
+equivalence modulo 5 (as in <a href="#" onclick="myModule.loadTutorial('19_Elementary_Number_Theory.html', 'Elementary_Number_Theory')">Chapter 19</a>), then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_fb20c252a7e001e69643c984a86620d7888079cb.png" alt="27_Real_Numbers_and_Analysis.org.temp_fb20c252a7e001e69643c984a86620d7888079cb.png" />
+is just <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ec4eebb6080785035ec9e95cbb2770188f7b1215.png" alt="27_Real_Numbers_and_Analysis.org.temp_ec4eebb6080785035ec9e95cbb2770188f7b1215.png" />. We can define addition on
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_fb20c252a7e001e69643c984a86620d7888079cb.png" alt="27_Real_Numbers_and_Analysis.org.temp_fb20c252a7e001e69643c984a86620d7888079cb.png" /> by <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_3d5d48c8780a4bd48c59c6b69824ea07f73949b5.png" alt="27_Real_Numbers_and_Analysis.org.temp_3d5d48c8780a4bd48c59c6b69824ea07f73949b5.png" />. For this definition
+to make sense, it is important to know that the right-hand side does
+not depend on which representatives of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" alt="27_Real_Numbers_and_Analysis.org.temp_2e6bee267982978dcf8c494dcefeafa5e313eceb.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_294109f910557f3e3fe3a7de0731c204ecf0ef6c.png" alt="27_Real_Numbers_and_Analysis.org.temp_294109f910557f3e3fe3a7de0731c204ecf0ef6c.png" /> we choose. In
+other words, we need to know that whenever <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0de27e86fe3d2fef30479e103e5c3f0cbc997e95.png" alt="27_Real_Numbers_and_Analysis.org.temp_0de27e86fe3d2fef30479e103e5c3f0cbc997e95.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f37d0b019ebbec74f20fffec3f15864c8bd11414.png" alt="27_Real_Numbers_and_Analysis.org.temp_f37d0b019ebbec74f20fffec3f15864c8bd11414.png" />, then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c384a717214fff525239fc07e0bf295fb050a4c1.png" alt="27_Real_Numbers_and_Analysis.org.temp_c384a717214fff525239fc07e0bf295fb050a4c1.png" />. This, in turn, is equivalent to
+saying that if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0ddc22d6c36650225a19a376dbfd6738ffb11b97.png" alt="27_Real_Numbers_and_Analysis.org.temp_0ddc22d6c36650225a19a376dbfd6738ffb11b97.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_627ea0f2d2bd9265644a9ff026513365ca759ca6.png" alt="27_Real_Numbers_and_Analysis.org.temp_627ea0f2d2bd9265644a9ff026513365ca759ca6.png" />, then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b63217dc75a6d97b8a1e45a05c92b44aa4a48d34.png" alt="27_Real_Numbers_and_Analysis.org.temp_b63217dc75a6d97b8a1e45a05c92b44aa4a48d34.png" />. In other words, we require that the operation of addition
+<i>respects</i> the equivalence relation, and we saw in <a href="#" onclick="myModule.loadTutorial('19_Elementary_Number_Theory.html', 'Elementary_Number_Theory')">Chapter 19</a> that
+this is in fact the case.
+</p>
+
+<p>
+This general strategy for transferring a function defined on a set to
+a function defined on a quotient of that set is given by the following
+theorem.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be any sets, let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> be any
+equivalence relation defined on <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" alt="27_Real_Numbers_and_Analysis.org.temp_6b1205d52e2de7a8216ce9b53a37f72c0ac7734b.png" />. Suppose
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="27_Real_Numbers_and_Analysis.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> respects the equivalence relation, which is to say, for every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />
+and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ddcb2df83b51112cf3bc457ba46bb4fa8cf63492.png" alt="27_Real_Numbers_and_Analysis.org.temp_ddcb2df83b51112cf3bc457ba46bb4fa8cf63492.png" /> in <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0ddc22d6c36650225a19a376dbfd6738ffb11b97.png" alt="27_Real_Numbers_and_Analysis.org.temp_0ddc22d6c36650225a19a376dbfd6738ffb11b97.png" />, then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_59c79e619ed425be97043eb47ab6463394c12793.png" alt="27_Real_Numbers_and_Analysis.org.temp_59c79e619ed425be97043eb47ab6463394c12793.png" />. Then there is
+a unique function <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_dbd3483a2eeb89fc07ca8a6675c1610fce717bbd.png" alt="27_Real_Numbers_and_Analysis.org.temp_dbd3483a2eeb89fc07ca8a6675c1610fce717bbd.png" />, defined by
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_3759ca80f5a8e0cb04e6d3a4e0e942fc185e72a4.png" alt="27_Real_Numbers_and_Analysis.org.temp_3759ca80f5a8e0cb04e6d3a4e0e942fc185e72a4.png" /> for every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.
+</p>
+
+<p>
+<b>Proof.</b> We have defined the value of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e7a0f11d652fc5f6c8d526b727c7819343e116da.png" alt="27_Real_Numbers_and_Analysis.org.temp_e7a0f11d652fc5f6c8d526b727c7819343e116da.png" /> on an equivalence class
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> by writing <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5f9644887e8bc17596f6a969505a883f149d9685.png" alt="27_Real_Numbers_and_Analysis.org.temp_5f9644887e8bc17596f6a969505a883f149d9685.png" />, and setting <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_41959bd98937fde313265ee40e3751f0a9621243.png" alt="27_Real_Numbers_and_Analysis.org.temp_41959bd98937fde313265ee40e3751f0a9621243.png" />. In other
+words, we say that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e9e50ea5e880bb79bfc9204146a182fac23b222a.png" alt="27_Real_Numbers_and_Analysis.org.temp_e9e50ea5e880bb79bfc9204146a182fac23b222a.png" /> if and only if there is an <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> such
+that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5f9644887e8bc17596f6a969505a883f149d9685.png" alt="27_Real_Numbers_and_Analysis.org.temp_5f9644887e8bc17596f6a969505a883f149d9685.png" />, and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_61b6d126a65f9aa87aa8711149fd84fd1101cf5d.png" alt="27_Real_Numbers_and_Analysis.org.temp_61b6d126a65f9aa87aa8711149fd84fd1101cf5d.png" />. What is dubious about the definition
+is that, a priori, it might depend on how we express <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in that form;
+in other words, we need to show that there is a <i>unique</i> <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> meeting
+this description. Specifically, we need to know that if
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cdcd131900afbfc257306d238980bd73f0ac8c30.png" alt="27_Real_Numbers_and_Analysis.org.temp_cdcd131900afbfc257306d238980bd73f0ac8c30.png" />, then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_59c79e619ed425be97043eb47ab6463394c12793.png" alt="27_Real_Numbers_and_Analysis.org.temp_59c79e619ed425be97043eb47ab6463394c12793.png" />. But since <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0de27e86fe3d2fef30479e103e5c3f0cbc997e95.png" alt="27_Real_Numbers_and_Analysis.org.temp_0de27e86fe3d2fef30479e103e5c3f0cbc997e95.png" /> is
+equivalent to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0ddc22d6c36650225a19a376dbfd6738ffb11b97.png" alt="27_Real_Numbers_and_Analysis.org.temp_0ddc22d6c36650225a19a376dbfd6738ffb11b97.png" />, this amounts to saying that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="27_Real_Numbers_and_Analysis.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> respects
+the equivalence relation, which is exactly what we have assumed.
+</p>
+
+<hr>
+<p>
+Mathematicians often "define" <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e7a0f11d652fc5f6c8d526b727c7819343e116da.png" alt="27_Real_Numbers_and_Analysis.org.temp_e7a0f11d652fc5f6c8d526b727c7819343e116da.png" /> by the equation <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2f1c3a8b447a64d384960ff7ecf6db62f8e63e61.png" alt="27_Real_Numbers_and_Analysis.org.temp_2f1c3a8b447a64d384960ff7ecf6db62f8e63e61.png" />, and then express the proof above as a proof that "<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e7a0f11d652fc5f6c8d526b727c7819343e116da.png" alt="27_Real_Numbers_and_Analysis.org.temp_e7a0f11d652fc5f6c8d526b727c7819343e116da.png" /> is
+well defined." This is confusing. What they really mean is what the
+theorem says, namely, that there is a unique function meeting that
+description.
+</p>
+
+<p>
+To construct the integers, start with <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" alt="27_Real_Numbers_and_Analysis.org.temp_c2468392c49dcb0aaf4a960e988721f1be5b37ed.png" />. Think of the
+pair of natural numbers <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_da5740e286578dcdc9f08eb9076d161847e51a69.png" alt="27_Real_Numbers_and_Analysis.org.temp_da5740e286578dcdc9f08eb9076d161847e51a69.png" /> as representing <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0131a3256c6c31ec8ca2f12f64b2b15ea854bcdf.png" alt="27_Real_Numbers_and_Analysis.org.temp_0131a3256c6c31ec8ca2f12f64b2b15ea854bcdf.png" />, where the
+subtraction takes place in the integers (which we haven't constructed
+yet!). For example, both <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_eac12398237db91d9a1910411d6a4c2f6eff6d90.png" alt="27_Real_Numbers_and_Analysis.org.temp_eac12398237db91d9a1910411d6a4c2f6eff6d90.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2a2c1e4ba3a520e0712b3164e25a06399d250f0b.png" alt="27_Real_Numbers_and_Analysis.org.temp_2a2c1e4ba3a520e0712b3164e25a06399d250f0b.png" /> represent the integer
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b5214365d9a8931b9b9e2acb1349c31b8b836f4e.png" alt="27_Real_Numbers_and_Analysis.org.temp_b5214365d9a8931b9b9e2acb1349c31b8b836f4e.png" />. Intuitively, the pairs <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_da5740e286578dcdc9f08eb9076d161847e51a69.png" alt="27_Real_Numbers_and_Analysis.org.temp_da5740e286578dcdc9f08eb9076d161847e51a69.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_4611b1afb2601f72b3efbcf43494597e79bd751e.png" alt="27_Real_Numbers_and_Analysis.org.temp_4611b1afb2601f72b3efbcf43494597e79bd751e.png" /> will represent
+the same integer when <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1b483c17fc9450987ca12fad4a9ffa7b5e04d770.png" alt="27_Real_Numbers_and_Analysis.org.temp_1b483c17fc9450987ca12fad4a9ffa7b5e04d770.png" />, but we cannot say this yet,
+because we have not yet defined the appropriate notion of
+subtraction. But the equation is equivalent to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_068430de27a4b344e7aaed26495c5d7ed5af684f.png" alt="27_Real_Numbers_and_Analysis.org.temp_068430de27a4b344e7aaed26495c5d7ed5af684f.png" />, and
+<i>this</i> makes sense with addition on the natural numbers.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> Define the relation <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> on <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a503f560a65cf393298d0e9b19a0ac2c36b4d5ad.png" alt="27_Real_Numbers_and_Analysis.org.temp_a503f560a65cf393298d0e9b19a0ac2c36b4d5ad.png" /> by <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_039bc578609707f6159a20b20d882be9371a5d8b.png" alt="27_Real_Numbers_and_Analysis.org.temp_039bc578609707f6159a20b20d882be9371a5d8b.png" /> if and only if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_068430de27a4b344e7aaed26495c5d7ed5af684f.png" alt="27_Real_Numbers_and_Analysis.org.temp_068430de27a4b344e7aaed26495c5d7ed5af684f.png" />.
+</p>
+
+<p>
+<b>Proposition.</b> <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> is an equivalence relation.
+</p>
+
+<p>
+<b>Proof.</b> For reflexivity, it is clear that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_9f591e67f795912b1d31aa092b095e76646e5caa.png" alt="27_Real_Numbers_and_Analysis.org.temp_9f591e67f795912b1d31aa092b095e76646e5caa.png" />,
+since <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0cb8018c07af9de771c99197ace33228719f8642.png" alt="27_Real_Numbers_and_Analysis.org.temp_0cb8018c07af9de771c99197ace33228719f8642.png" />.
+</p>
+
+<p>
+For symmetry, suppose <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_039bc578609707f6159a20b20d882be9371a5d8b.png" alt="27_Real_Numbers_and_Analysis.org.temp_039bc578609707f6159a20b20d882be9371a5d8b.png" />. This means <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_54d6196497cbdc9c900fba5627527a3489d96e92.png" alt="27_Real_Numbers_and_Analysis.org.temp_54d6196497cbdc9c900fba5627527a3489d96e92.png" />. But the symmetry of equality implies <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6540292369238fe54ba396eed5c4d0ebe478e696.png" alt="27_Real_Numbers_and_Analysis.org.temp_6540292369238fe54ba396eed5c4d0ebe478e696.png" />, as required.
+</p>
+
+<p>
+For transitivity, suppose <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_039bc578609707f6159a20b20d882be9371a5d8b.png" alt="27_Real_Numbers_and_Analysis.org.temp_039bc578609707f6159a20b20d882be9371a5d8b.png" />, and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f0dfa16c25daf8cc185d549040540f39be2e9e6e.png" alt="27_Real_Numbers_and_Analysis.org.temp_f0dfa16c25daf8cc185d549040540f39be2e9e6e.png" />. Then we have <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_068430de27a4b344e7aaed26495c5d7ed5af684f.png" alt="27_Real_Numbers_and_Analysis.org.temp_068430de27a4b344e7aaed26495c5d7ed5af684f.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b6794e292466a0a8315937311066559f0486b542.png" alt="27_Real_Numbers_and_Analysis.org.temp_b6794e292466a0a8315937311066559f0486b542.png" />. Adding these equations, we get
+</p>
+
+<div class="figure">
+<p><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_86cd0781147fee1381845d80a368113495fcd9c0.png" alt="27_Real_Numbers_and_Analysis.org.temp_86cd0781147fee1381845d80a368113495fcd9c0.png" /></p>
+</div>
+<p>
+Subtracting <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5059d2022ecd27e0640d5609fa1e1c2777a6be5e.png" alt="27_Real_Numbers_and_Analysis.org.temp_5059d2022ecd27e0640d5609fa1e1c2777a6be5e.png" /> from both sides, we get <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_233f4fad53d85f37a7589acc2d8f54fdd272e388.png" alt="27_Real_Numbers_and_Analysis.org.temp_233f4fad53d85f37a7589acc2d8f54fdd272e388.png" />,
+which is equivalent to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6e77511f50953dcb3202f5d5ba47e0cc49bb4cf0.png" alt="27_Real_Numbers_and_Analysis.org.temp_6e77511f50953dcb3202f5d5ba47e0cc49bb4cf0.png" />, as required.
+</p>
+
+<hr>
+<p>
+We can now define the integers to be <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2310f6379054481638d3a9f14973ea2f6fe87ec1.png" alt="27_Real_Numbers_and_Analysis.org.temp_2310f6379054481638d3a9f14973ea2f6fe87ec1.png" />. How should we define addition? If <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5044b8f4180744ed2a9e6d51335e450a8d88fd34.png" alt="27_Real_Numbers_and_Analysis.org.temp_5044b8f4180744ed2a9e6d51335e450a8d88fd34.png" />
+represents <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0131a3256c6c31ec8ca2f12f64b2b15ea854bcdf.png" alt="27_Real_Numbers_and_Analysis.org.temp_0131a3256c6c31ec8ca2f12f64b2b15ea854bcdf.png" />, and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b47c8e9a750c81af32d1996a0818df1357d83aa2.png" alt="27_Real_Numbers_and_Analysis.org.temp_b47c8e9a750c81af32d1996a0818df1357d83aa2.png" /> represents <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b0e3604d524f71b926b9e1ec5c5db8fbdb6d1e66.png" alt="27_Real_Numbers_and_Analysis.org.temp_b0e3604d524f71b926b9e1ec5c5db8fbdb6d1e66.png" />, then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e3b18022cda2834c60c064691e090f33978ccb5d.png" alt="27_Real_Numbers_and_Analysis.org.temp_e3b18022cda2834c60c064691e090f33978ccb5d.png" /> should represent <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1413756802834f7e59011792ccd40ce1bbfcfa7c.png" alt="27_Real_Numbers_and_Analysis.org.temp_1413756802834f7e59011792ccd40ce1bbfcfa7c.png" />. Thus, it makes
+sense to define <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ea8aebb1d1cd2c7fa035f6736374fc736c62582d.png" alt="27_Real_Numbers_and_Analysis.org.temp_ea8aebb1d1cd2c7fa035f6736374fc736c62582d.png" /> to be <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b4e488c71896551584761c997d268f0aa1738b90.png" alt="27_Real_Numbers_and_Analysis.org.temp_b4e488c71896551584761c997d268f0aa1738b90.png" />. For
+this to work, we need to know that the operation which sends <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_da5740e286578dcdc9f08eb9076d161847e51a69.png" alt="27_Real_Numbers_and_Analysis.org.temp_da5740e286578dcdc9f08eb9076d161847e51a69.png" />
+and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_332d7350498188223842e19ebb8aa73f67dac12b.png" alt="27_Real_Numbers_and_Analysis.org.temp_332d7350498188223842e19ebb8aa73f67dac12b.png" /> to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1c6feb34439c9ead751a8b9a29a0ffe399202295.png" alt="27_Real_Numbers_and_Analysis.org.temp_1c6feb34439c9ead751a8b9a29a0ffe399202295.png" /> respects the equivalence relation.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> If <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_039bc578609707f6159a20b20d882be9371a5d8b.png" alt="27_Real_Numbers_and_Analysis.org.temp_039bc578609707f6159a20b20d882be9371a5d8b.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_3cdfdea9933eaffb3e43ce60a34220419a7f59ad.png" alt="27_Real_Numbers_and_Analysis.org.temp_3cdfdea9933eaffb3e43ce60a34220419a7f59ad.png" />, then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_7b1171f33c8a91366b3f4b76585ea56d8621e6a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_7b1171f33c8a91366b3f4b76585ea56d8621e6a0.png" />.
+</p>
+
+<p>
+<b>Proof.</b> The first equivalence means <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_068430de27a4b344e7aaed26495c5d7ed5af684f.png" alt="27_Real_Numbers_and_Analysis.org.temp_068430de27a4b344e7aaed26495c5d7ed5af684f.png" />, and the second
+means <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_abb6523f4d7cf64799d93f8f79c68378bea9a79c.png" alt="27_Real_Numbers_and_Analysis.org.temp_abb6523f4d7cf64799d93f8f79c68378bea9a79c.png" />. Adding the two equations, we get <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a8d38a8e78178d6a0787dd53617a336ccf4828d2.png" alt="27_Real_Numbers_and_Analysis.org.temp_a8d38a8e78178d6a0787dd53617a336ccf4828d2.png" />, which is exactly the same as
+saying <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_7b1171f33c8a91366b3f4b76585ea56d8621e6a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_7b1171f33c8a91366b3f4b76585ea56d8621e6a0.png" />.
+</p>
+
+<hr>
+<p>
+Every natural number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="27_Real_Numbers_and_Analysis.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> can be represented by the integer <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_9ac85e642afaf058f0839c011f25d193bbd8f479.png" alt="27_Real_Numbers_and_Analysis.org.temp_9ac85e642afaf058f0839c011f25d193bbd8f479.png" />,
+and, in particular, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="27_Real_Numbers_and_Analysis.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> is represented by <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ba230a4668b47081206b7b10ab4d7e1210660257.png" alt="27_Real_Numbers_and_Analysis.org.temp_ba230a4668b47081206b7b10ab4d7e1210660257.png" />. Moreover, if
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5044b8f4180744ed2a9e6d51335e450a8d88fd34.png" alt="27_Real_Numbers_and_Analysis.org.temp_5044b8f4180744ed2a9e6d51335e450a8d88fd34.png" /> is any integer, we can define its negation to be <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f704da81c0187994b71ca5439369bab4e58f748d.png" alt="27_Real_Numbers_and_Analysis.org.temp_f704da81c0187994b71ca5439369bab4e58f748d.png" />, since <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d606168bf25b50249a14f358d68509737c636ea4.png" alt="27_Real_Numbers_and_Analysis.org.temp_d606168bf25b50249a14f358d68509737c636ea4.png" />, since
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a8644f86f97772d4472138b38d0ed0ffa166c77e.png" alt="27_Real_Numbers_and_Analysis.org.temp_a8644f86f97772d4472138b38d0ed0ffa166c77e.png" />. In short, we have "invented" the
+negative numbers!
+</p>
+
+<p>
+We could go on this way to define multiplication and the ordering on
+the integers, and prove that they have the desired properties. We
+could also carry out a similar construction for the rational
+numbers. Here, we would start with the set <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_77d662b2fef6ecc5524acc23f778d1e826460574.png" alt="27_Real_Numbers_and_Analysis.org.temp_77d662b2fef6ecc5524acc23f778d1e826460574.png" />,
+where <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f466c219187f3398d866c79be64d65d6a77b2435.png" alt="27_Real_Numbers_and_Analysis.org.temp_f466c219187f3398d866c79be64d65d6a77b2435.png" /> denotes the strictly positive integers. The idea, of
+course, is that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfc852d108876b2d1ba2b999452e5adfb1426dbe.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfc852d108876b2d1ba2b999452e5adfb1426dbe.png" /> represents <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d62941817db8df480a94536cc1c9ca334cd9871e.png" alt="27_Real_Numbers_and_Analysis.org.temp_d62941817db8df480a94536cc1c9ca334cd9871e.png" />. With that in mind, it
+makes sense to define <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_334d7332bf2801c7f72a6f4216bebc54696916fc.png" alt="27_Real_Numbers_and_Analysis.org.temp_334d7332bf2801c7f72a6f4216bebc54696916fc.png" /> if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_69fc626f8bf4126df7276a8e4627ca4b56c8e75c.png" alt="27_Real_Numbers_and_Analysis.org.temp_69fc626f8bf4126df7276a8e4627ca4b56c8e75c.png" />. We could
+go on to define addition, multiplication, and the ordering there,
+too. The details are tedious, however, and not very illuminating. So
+we turn, instead, to a construction of the real numbers.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org84eac50" class="outline-3">
+<h3 id="Constructing_the_Real_Numbers"><a id="org84eac50"></a><span class="section-number-3"> 27.3</span> Constructing the Real Numbers</h3>
+<div class="outline-text-3" id="text-Constructing_the_Real_Numbers">
+<p>
+The problem we face is that the sequence <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_7776ca620354b1f7dcb765e4eb2cda3d920c8af8.png" alt="27_Real_Numbers_and_Analysis.org.temp_7776ca620354b1f7dcb765e4eb2cda3d920c8af8.png" /> of rational numbers seems to approach a value that <i>would</i> be
+the square root of 2, but there is no rational number that can play
+that role. The next definition captures the notion that this sequence
+of numbers "seems to approach a value," without referring to a value
+that it is approaching.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> A sequence of rational numbers <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_86583c4214d778e3d44f3ded32e403da9bff7534.png" alt="27_Real_Numbers_and_Analysis.org.temp_86583c4214d778e3d44f3ded32e403da9bff7534.png" /> is
+<i>Cauchy</i> if for every rational number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" alt="27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" />, there is some
+natural number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_135c9a9da28804970333682ee0528a8b047ecd85.png" alt="27_Real_Numbers_and_Analysis.org.temp_135c9a9da28804970333682ee0528a8b047ecd85.png" /> such that for all <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_72e70be0247c648ca18f74854369e394ca47997c.png" alt="27_Real_Numbers_and_Analysis.org.temp_72e70be0247c648ca18f74854369e394ca47997c.png" />, we have
+that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ffb591ace76abd6fe55566cad5e009fdd6424436.png" alt="27_Real_Numbers_and_Analysis.org.temp_ffb591ace76abd6fe55566cad5e009fdd6424436.png" />.
+</p>
+
+<hr>
+<p>
+Roughly speaking, a Cauchy sequence is one where the elements become
+arbitrarily close, not just to their successors but to all following
+elements. It is common in mathematics to use <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_83c7ab0e3e3764974d44ea68e47709bb9b374a6c.png" alt="27_Real_Numbers_and_Analysis.org.temp_83c7ab0e3e3764974d44ea68e47709bb9b374a6c.png" /> to represent
+a quantity that is intended to denote something small; you should read
+the phrase "for every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" alt="27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" />" as saying "no matter how
+small <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_83c7ab0e3e3764974d44ea68e47709bb9b374a6c.png" alt="27_Real_Numbers_and_Analysis.org.temp_83c7ab0e3e3764974d44ea68e47709bb9b374a6c.png" /> is." So a sequence is Cauchy if, for any
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" alt="27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" />, no matter how small, there is some point <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" alt="27_Real_Numbers_and_Analysis.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" />,
+beyond which the elements stay within a distance of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_83c7ab0e3e3764974d44ea68e47709bb9b374a6c.png" alt="27_Real_Numbers_and_Analysis.org.temp_83c7ab0e3e3764974d44ea68e47709bb9b374a6c.png" /> of
+one another.
+</p>
+
+<p>
+Cauchy sequences can be used to describe these gaps in the rationals,
+but, as noted above, many Cauchy sequences can be used to describe the
+same gap. At this stage, it is slightly misleading to say that they
+"approach the same point," since there is no rational point that they
+approach; a more precise statement is that the sequences eventually
+become arbitrarily close.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> Two Cauchy sequences <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f6361ac2a20a7e0645e62b85d57105a74f4a82dc.png" alt="27_Real_Numbers_and_Analysis.org.temp_f6361ac2a20a7e0645e62b85d57105a74f4a82dc.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d969b2ff0e263b4f37d5eb208a11fb4619ea8d18.png" alt="27_Real_Numbers_and_Analysis.org.temp_d969b2ff0e263b4f37d5eb208a11fb4619ea8d18.png" /> are <i>equivalent</i> if for every rational number
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" alt="27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" />, there is some natural number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_135c9a9da28804970333682ee0528a8b047ecd85.png" alt="27_Real_Numbers_and_Analysis.org.temp_135c9a9da28804970333682ee0528a8b047ecd85.png" /> such that
+for all <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_eb323a5974c8102322114b7c5e9d5a432f3f4d7a.png" alt="27_Real_Numbers_and_Analysis.org.temp_eb323a5974c8102322114b7c5e9d5a432f3f4d7a.png" />, we have that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a098890069326d880336e26dae17920711273f0a.png" alt="27_Real_Numbers_and_Analysis.org.temp_a098890069326d880336e26dae17920711273f0a.png" />. We will
+write <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_35205d8ab8085dd921d0633bfb2501fc70b3539f.png" alt="27_Real_Numbers_and_Analysis.org.temp_35205d8ab8085dd921d0633bfb2501fc70b3539f.png" /> to express that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="27_Real_Numbers_and_Analysis.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> is equivalent to<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" />.
+</p>
+
+<p>
+<b>Proposition.</b> <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" alt="27_Real_Numbers_and_Analysis.org.temp_a912c3280d4799424810ab9db57ed2a5ced063a0.png" /> is an equivalence relation on
+Cauchy sequences.
+</p>
+
+<p>
+<b>Proof.</b> Reflexivity and symmetry are easy, so let us prove
+transitivity. Suppose <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f0954af41624eb56a398e5f32c797ddd07b46a37.png" alt="27_Real_Numbers_and_Analysis.org.temp_f0954af41624eb56a398e5f32c797ddd07b46a37.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ab607846acec5d9343625e79a603404545896c10.png" alt="27_Real_Numbers_and_Analysis.org.temp_ab607846acec5d9343625e79a603404545896c10.png" />. We want to show that the sequence <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b5ab1e3d9f34eb7e6f7586619d5da92f4265a4d8.png" alt="27_Real_Numbers_and_Analysis.org.temp_b5ab1e3d9f34eb7e6f7586619d5da92f4265a4d8.png" /> is equivalent to
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c2ec10d86e5e21a1ed02732dfb81c1eea719aea3.png" alt="27_Real_Numbers_and_Analysis.org.temp_c2ec10d86e5e21a1ed02732dfb81c1eea719aea3.png" />. So, given any <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" alt="27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" />, choose <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0714d905158674d456ae9d1878f3ece6266f0b13.png" alt="27_Real_Numbers_and_Analysis.org.temp_0714d905158674d456ae9d1878f3ece6266f0b13.png" /> large enough
+such that for every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_7c41b790cc0eb5e91a03c9106f106b3baba63fd1.png" alt="27_Real_Numbers_and_Analysis.org.temp_7c41b790cc0eb5e91a03c9106f106b3baba63fd1.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5b8ff3572eb0f1ed62358c76b27ccdc6ddee8160.png" alt="27_Real_Numbers_and_Analysis.org.temp_5b8ff3572eb0f1ed62358c76b27ccdc6ddee8160.png" />. Choose another number, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b48be2e3ce6a7e593360ad2443129c27b1e860c2.png" alt="27_Real_Numbers_and_Analysis.org.temp_b48be2e3ce6a7e593360ad2443129c27b1e860c2.png" />, so that for every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f16025d445cc49723851d73807ef4162014d4d49.png" alt="27_Real_Numbers_and_Analysis.org.temp_f16025d445cc49723851d73807ef4162014d4d49.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d816e9823bb319fbc0fac12f486b0f51e2e553e3.png" alt="27_Real_Numbers_and_Analysis.org.temp_d816e9823bb319fbc0fac12f486b0f51e2e553e3.png" />. Let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_eb2eeb83ffe39105454785f8de2e3438d864eeb0.png" alt="27_Real_Numbers_and_Analysis.org.temp_eb2eeb83ffe39105454785f8de2e3438d864eeb0.png" />. Then
+for every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_eb323a5974c8102322114b7c5e9d5a432f3f4d7a.png" alt="27_Real_Numbers_and_Analysis.org.temp_eb323a5974c8102322114b7c5e9d5a432f3f4d7a.png" />, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1ea839e50fa10dae7586505f5d79ae2a398673f8.png" alt="27_Real_Numbers_and_Analysis.org.temp_1ea839e50fa10dae7586505f5d79ae2a398673f8.png" /></p>
+</div>
+<p>
+as required.
+</p>
+
+<hr>
+<p>
+Notice that the proof uses the <i>triangle inequality</i>, which states for
+any rational numbers <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="27_Real_Numbers_and_Analysis.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_674fcd7dea56012c642b8f851ddabb1ed0c95b67.png" alt="27_Real_Numbers_and_Analysis.org.temp_674fcd7dea56012c642b8f851ddabb1ed0c95b67.png" />. If we
+define <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_3e29748368b43562725326f62a80623a9a09bdd4.png" alt="27_Real_Numbers_and_Analysis.org.temp_3e29748368b43562725326f62a80623a9a09bdd4.png" /> to be the maximum of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_7c7ddb7d108e25bb17f35631c94b9009ca2413e8.png" alt="27_Real_Numbers_and_Analysis.org.temp_7c7ddb7d108e25bb17f35631c94b9009ca2413e8.png" />, the triangle
+inequality in fact holds for any ordered ring:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="27_Real_Numbers_and_Analysis.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> be elements of any ordered ring. Then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0c168b75d0a2c0d781a879dff361bf9fa0d003bd.png" alt="27_Real_Numbers_and_Analysis.org.temp_0c168b75d0a2c0d781a879dff361bf9fa0d003bd.png" />.
+</p>
+
+<p>
+<b>Proof.</b> By the definition of absolute value, it suffices to show that
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_13e3c9fb51ad16b4877621452e929ab46668a249.png" alt="27_Real_Numbers_and_Analysis.org.temp_13e3c9fb51ad16b4877621452e929ab46668a249.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_11ec982afe8f3e8734757166f34e029d49ee6c3b.png" alt="27_Real_Numbers_and_Analysis.org.temp_11ec982afe8f3e8734757166f34e029d49ee6c3b.png" />. The first claim
+follows from the fact that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5e2cb53cb144ac086f57489eab95e2901b029a32.png" alt="27_Real_Numbers_and_Analysis.org.temp_5e2cb53cb144ac086f57489eab95e2901b029a32.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_43af5d90d206300873ba17257e659df1803a6577.png" alt="27_Real_Numbers_and_Analysis.org.temp_43af5d90d206300873ba17257e659df1803a6577.png" />. For the
+second claim, we similarly have <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5344b0f7c7038f56022a428173be46d58ac7af97.png" alt="27_Real_Numbers_and_Analysis.org.temp_5344b0f7c7038f56022a428173be46d58ac7af97.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_3040a314e4f6ca997b8e7af43580123a5e5f8e21.png" alt="27_Real_Numbers_and_Analysis.org.temp_3040a314e4f6ca997b8e7af43580123a5e5f8e21.png" />, so
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_4ffd1484d08609971040bb94861309712acd8d4a.png" alt="27_Real_Numbers_and_Analysis.org.temp_4ffd1484d08609971040bb94861309712acd8d4a.png" />.
+</p>
+
+<hr>
+<p>
+In the theorem above, if we let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_08171a21659281431ad66e883edf71c47b35e9f4.png" alt="27_Real_Numbers_and_Analysis.org.temp_08171a21659281431ad66e883edf71c47b35e9f4.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a20f09623d8685a71896184ea8ba79f62f9c4c52.png" alt="27_Real_Numbers_and_Analysis.org.temp_a20f09623d8685a71896184ea8ba79f62f9c4c52.png" />, we get
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2e60a16c32faada0e96c365ccc384e04fd4ff585.png" alt="27_Real_Numbers_and_Analysis.org.temp_2e60a16c32faada0e96c365ccc384e04fd4ff585.png" />. The fact that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_3c2f68d0a738741fa2b70a4b961682250813fa1b.png" alt="27_Real_Numbers_and_Analysis.org.temp_3c2f68d0a738741fa2b70a4b961682250813fa1b.png" /> represents
+the distance between <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> on the number line explains the name:
+for any three "points" <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="27_Real_Numbers_and_Analysis.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />, the distance from <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="27_Real_Numbers_and_Analysis.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />
+can't be any greater than the distance from <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="27_Real_Numbers_and_Analysis.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> plus the
+distance from <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="27_Real_Numbers_and_Analysis.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="27_Real_Numbers_and_Analysis.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />. 
+</p>
+
+<p>
+We now let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> be the set of Cauchy sequences of rationals, and define
+the real numbers, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" />, to be <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_8e5173ebb8b74a2545f8bde1eb9ed6424bd33413.png" alt="27_Real_Numbers_and_Analysis.org.temp_8e5173ebb8b74a2545f8bde1eb9ed6424bd33413.png" />. In other words,
+the real numbers are the set of Cauchy sequence of rationals, modulo
+the equivalence relation we just defined.
+</p>
+
+<p>
+Having the set <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" /> by itself is not enough: we also would like to
+know how to add, subtract, multiply, and divide real numbers. As with
+the integers, we need to define operations on the underlying set, and
+then show that they respect the equivalence relation. For example, we
+will say how to add Cauchy sequences of rationals, and then show that
+if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_9ac38858c905b20dbc1e785f4061e645376dae3c.png" alt="27_Real_Numbers_and_Analysis.org.temp_9ac38858c905b20dbc1e785f4061e645376dae3c.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_093a73957152ba317a7b13e55055535f7becd7e2.png" alt="27_Real_Numbers_and_Analysis.org.temp_093a73957152ba317a7b13e55055535f7becd7e2.png" />, then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ccaec608d935ca49085ecc890853f78c44682fa4.png" alt="27_Real_Numbers_and_Analysis.org.temp_ccaec608d935ca49085ecc890853f78c44682fa4.png" />. We can then lift this definition to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" /> by defining <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1d8fbf776469256708b2973be0e29625a66a389a.png" alt="27_Real_Numbers_and_Analysis.org.temp_1d8fbf776469256708b2973be0e29625a66a389a.png" /> to be <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_05622659773f44cfa218e1ad026fbd45285f56c4.png" alt="27_Real_Numbers_and_Analysis.org.temp_05622659773f44cfa218e1ad026fbd45285f56c4.png" />.
+</p>
+
+<p>
+Luckily, it is easy to define addition, subtraction, and
+multiplication on Cauchy sequences. If <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f6361ac2a20a7e0645e62b85d57105a74f4a82dc.png" alt="27_Real_Numbers_and_Analysis.org.temp_f6361ac2a20a7e0645e62b85d57105a74f4a82dc.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_4a1597d7055d6faae4f0854fe0431d81a510b20b.png" alt="27_Real_Numbers_and_Analysis.org.temp_4a1597d7055d6faae4f0854fe0431d81a510b20b.png" /> are Cauchy sequences, let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_82b45d7bc916f492aa956bdb4a1dbfc7a132ffee.png" alt="27_Real_Numbers_and_Analysis.org.temp_82b45d7bc916f492aa956bdb4a1dbfc7a132ffee.png" />, and similarly for subtraction and multiplication. It is
+trickier to show that these sequences are Cauchy themselves, and to
+show that the operations have the appropriate algebraic properties. We
+ask you to prove some of these properties in the exercises.
+</p>
+
+<p>
+We can identify each rational number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" /> with the constant Cauchy
+sequence <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_64b0383e22794a19fd1b719b735eeae523241abe.png" alt="27_Real_Numbers_and_Analysis.org.temp_64b0383e22794a19fd1b719b735eeae523241abe.png" />, so the real numbers include all the
+rationals. The next step is to abstract away the details of the
+particular construction we have chosen, so that henceforth we can work
+with the real numbers abstractly, and no longer think of them as given
+by equivalence classes of Cauchy sequences of rationals.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0b32be5" class="outline-3">
+<h3 id="org0b32be5"><span class="section-number-3"> 27.4</span> The Completeness of the Real Numbers</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+We constructed the real numbers to fill in the gaps in the rationals.
+How do we know that we have got them all? Perhaps we need to construct
+even more numbers, using Cauchy sequences of reals? The next theorem
+tells us that, on the contrary, there is no need to extend the reals
+any further in this way.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> Let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> be a real number. A sequence <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1f826d0c42a12ace04f9f27a7f78c61cbb3b7065.png" alt="27_Real_Numbers_and_Analysis.org.temp_1f826d0c42a12ace04f9f27a7f78c61cbb3b7065.png" />
+of real numbers <i>converges</i> to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> if, for every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" alt="27_Real_Numbers_and_Analysis.org.temp_1c8f5fcd1a7571c6d08a73e3019771d67b895d31.png" />,
+there is an <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" alt="27_Real_Numbers_and_Analysis.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" /> such that for every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_eb323a5974c8102322114b7c5e9d5a432f3f4d7a.png" alt="27_Real_Numbers_and_Analysis.org.temp_eb323a5974c8102322114b7c5e9d5a432f3f4d7a.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_119e0304f7025ac2bb032c144bb88f54cc624a05.png" alt="27_Real_Numbers_and_Analysis.org.temp_119e0304f7025ac2bb032c144bb88f54cc624a05.png" />.
+</p>
+
+<p>
+<b>Definition.</b> A sequence <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1f826d0c42a12ace04f9f27a7f78c61cbb3b7065.png" alt="27_Real_Numbers_and_Analysis.org.temp_1f826d0c42a12ace04f9f27a7f78c61cbb3b7065.png" /> <i>converges</i> if it
+converges to some <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" />.
+</p>
+
+<p>
+<b>Theorem.</b> Every Cauchy sequence of real numbers converges.
+</p>
+
+<hr>
+<p>
+The statement of the theorem is often expressed by saying that the
+real numbers are <i>complete</i>. Roughly, it says that everywhere you look
+for a real number, you are bound to find one. Here is a similar
+principle.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> An element <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_10a5d36fad07856eb68834af98d5e7ab330b5a8d.png" alt="27_Real_Numbers_and_Analysis.org.temp_10a5d36fad07856eb68834af98d5e7ab330b5a8d.png" /> is said to be an <i>upper bound</i> to
+a subset <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_52da0eaa26ef67b84132fe4451e1a20868f3b264.png" alt="27_Real_Numbers_and_Analysis.org.temp_52da0eaa26ef67b84132fe4451e1a20868f3b264.png" /> if everything in <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> is less
+than or equal to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" alt="27_Real_Numbers_and_Analysis.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" />. <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> is said to be <i>bounded</i> if there is an upper
+bound to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />. An element <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" alt="27_Real_Numbers_and_Analysis.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" /> is said to be a <i>least upper bound</i> to
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> if it is an upper bound to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />, and nothing smaller than <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" alt="27_Real_Numbers_and_Analysis.org.temp_ad961e8304398abf1d7579e051ae76f58fd9ad46.png" /> is an
+upper bound to <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />.
+</p>
+
+<p>
+<b>Theorem.</b> Let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> be a bounded, nonempty subset of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" />. Then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />
+has a least upper bound.
+</p>
+
+<hr>
+<p>
+The rational numbers do not have this property: if we set <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_3a96294e57fe3ded24cad00c4d170fa732f0ff28.png" alt="27_Real_Numbers_and_Analysis.org.temp_3a96294e57fe3ded24cad00c4d170fa732f0ff28.png" />, then the rational number 2 is an upper bound for
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />, but <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="27_Real_Numbers_and_Analysis.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> has no least upper bound in <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0dae70e7144394189639fdaf3d54f6522b4d89ad.png" alt="27_Real_Numbers_and_Analysis.org.temp_0dae70e7144394189639fdaf3d54f6522b4d89ad.png" />.
+</p>
+
+<p>
+It is a fundamental theorem that the real numbers are characterized
+exactly by the property that they are a complete ordered field, such
+that every real number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> is less than or equal to some natural
+number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" alt="27_Real_Numbers_and_Analysis.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" />. Any two models that meet these requirements must behave in
+exactly the same way, at least insofar as the constants <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="27_Real_Numbers_and_Analysis.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="27_Real_Numbers_and_Analysis.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" />,
+the operations <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5753432a6c5ba0aa2fea916832580e882fec6a13.png" alt="27_Real_Numbers_and_Analysis.org.temp_5753432a6c5ba0aa2fea916832580e882fec6a13.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_38b9c3c9cd8834f10f7948823d63ca8f9b1ecd87.png" alt="27_Real_Numbers_and_Analysis.org.temp_38b9c3c9cd8834f10f7948823d63ca8f9b1ecd87.png" />, and the relation <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" alt="27_Real_Numbers_and_Analysis.org.temp_a3174f1412d925f884bab69faadca914001ef082.png" /> are
+concerned. This fact is extremely powerful because it allows us to avoid
+thinking about the Cauchy sequence construction in normal
+mathematics. Once we have shown that our construction meets these
+requirements, we can take <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" /> to be "the" unique complete totally
+ordered field and ignore any implementation details. We are also free
+to implement <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" /> in any way we choose, and as long as it meets this
+interface, and as long as they do not refer to the underlying
+representations, any theorems we prove about the reals will hold
+equally well for all constructions.
+</p>
+
+<p>
+[More needed here.]
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org55483a1" class="outline-3">
+<h3 id="org55483a1"><span class="section-number-3"> 27.5</span> An Alternative Construction</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Many sources use an alternative construction of the reals, taking them
+instead to be <i>Dedekind cuts</i>. A Dedekind cut is an ordered pair <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_36731de9a013826ffbce83d23d8c3c31d72f1cb8.png" alt="27_Real_Numbers_and_Analysis.org.temp_36731de9a013826ffbce83d23d8c3c31d72f1cb8.png" /> of sets of rational numbers with the following properties:
+</p>
+
+<ul class="org-ul">
+<li>Every rational number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" /> is in either <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> or <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />.</li>
+<li>Each <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b371c52fbf63ab940f8ddec358922813caca7bc4.png" alt="27_Real_Numbers_and_Analysis.org.temp_b371c52fbf63ab940f8ddec358922813caca7bc4.png" /> is less than every <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b4dbd31a81cbe4cecc52e4163e62a98bdcc0545b.png" alt="27_Real_Numbers_and_Analysis.org.temp_b4dbd31a81cbe4cecc52e4163e62a98bdcc0545b.png" />.</li>
+<li>There is no greatest element of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />.</li>
+<li><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> are both nonempty.</li>
+</ul>
+
+<p>
+The first two properties show why we call this pair a "cut." The set
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> contains all of the rational numbers to the left of some mark on
+the number line, and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> all of the points to the right. The third
+property tells us something about what happens exactly at that mark.
+But there are two possibilities: either <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> has a least element, or it
+doesn't. Picturing the situation where <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> has no greatest element and
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> has no least element may be tricky, but consider the example <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ebb838a51187448f8fbf2a2e505e2724d278894b.png" alt="27_Real_Numbers_and_Analysis.org.temp_ebb838a51187448f8fbf2a2e505e2724d278894b.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_a237f969415cf1265be1d1fcfa2007b2a6edcf77.png" alt="27_Real_Numbers_and_Analysis.org.temp_a237f969415cf1265be1d1fcfa2007b2a6edcf77.png" />.  There is
+no rational number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" /> such that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_8304a3d91b3920f60f060dcf38b6150a17f10e64.png" alt="27_Real_Numbers_and_Analysis.org.temp_8304a3d91b3920f60f060dcf38b6150a17f10e64.png" />, but there are rational
+numbers on either side that are arbitrarily close; thus neither <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="27_Real_Numbers_and_Analysis.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+nor <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> contains an endpoint.
+</p>
+
+<p>
+We can define <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" /> to be the set of Dedekind cuts. A Dedekind cut
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_9157c3238e9cacfb2f58e4d773e2680f24cc4180.png" alt="27_Real_Numbers_and_Analysis.org.temp_9157c3238e9cacfb2f58e4d773e2680f24cc4180.png" /> corresponds to a rational number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" /> if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="27_Real_Numbers_and_Analysis.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" /> is
+the least element of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and to an irrational number if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="27_Real_Numbers_and_Analysis.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> has no
+least element. It is straightforward to define addition on <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" alt="27_Real_Numbers_and_Analysis.org.temp_ca079b920c20120cc34a4c6b2f191d1d99b07abf.png" />:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_268aabf872f8d1c91ea0b5fb63bf11d3b1e4a025.png" alt="27_Real_Numbers_and_Analysis.org.temp_268aabf872f8d1c91ea0b5fb63bf11d3b1e4a025.png" /></p>
+</div>
+
+<p>
+Some authors prefer this construction to the Cauchy sequence
+construction because it avoids taking the quotient of a set, and thus
+removes the complication of showing that arithmetic operations respect
+equivalence. Others prefer Cauchy sequences since they provide a
+clearer notion of approximation: if a real number <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> is given by a
+Cauchy sequence <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_86583c4214d778e3d44f3ded32e403da9bff7534.png" alt="27_Real_Numbers_and_Analysis.org.temp_86583c4214d778e3d44f3ded32e403da9bff7534.png" />, then an arbitrarily close
+rational approximation of <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="27_Real_Numbers_and_Analysis.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> is given by <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c1d3987b21f75e7f423cccbfc10306493020d5aa.png" alt="27_Real_Numbers_and_Analysis.org.temp_c1d3987b21f75e7f423cccbfc10306493020d5aa.png" /> for a sufficiently
+large <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" alt="27_Real_Numbers_and_Analysis.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" />. 
+</p>
+
+<p>
+For most mathematicians most of the time, though, the difference
+is immaterial. Both constructions create complete linear ordered fields,
+and in a certain sense, they create the <i>same</i> complete linear ordered 
+field. Strictly speaking, the set of Cauchy reals is not equal to the
+set of Dedekind reals, since one consists of equivalence classes of 
+rational Cauchy sequences and one consists of pairs of sets of rationals.
+But there is a bijection between the two sets that preserves the field
+properties. That is, there is a bijection <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="27_Real_Numbers_and_Analysis.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> from the Cauchy reals
+to the Dedekind reals such that 
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1e97e42ec5f23d32de7dcc0dd5cf0e87c22dccbb.png" alt="27_Real_Numbers_and_Analysis.org.temp_1e97e42ec5f23d32de7dcc0dd5cf0e87c22dccbb.png" /></li>
+<li><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_8be31ae3963d0abaa2dff91f5b9b2647a75ae568.png" alt="27_Real_Numbers_and_Analysis.org.temp_8be31ae3963d0abaa2dff91f5b9b2647a75ae568.png" /></li>
+<li><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c2e133468945419636fb323108bc72ff0328fe4a.png" alt="27_Real_Numbers_and_Analysis.org.temp_c2e133468945419636fb323108bc72ff0328fe4a.png" /></li>
+<li><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2165834428aa91664817eefe27ff315abd820cfc.png" alt="27_Real_Numbers_and_Analysis.org.temp_2165834428aa91664817eefe27ff315abd820cfc.png" /></li>
+<li><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_4906ecf67fc514f22c333eb7b5d5e7b85a787d9e.png" alt="27_Real_Numbers_and_Analysis.org.temp_4906ecf67fc514f22c333eb7b5d5e7b85a787d9e.png" /></li>
+<li><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_8275756acf179cb7413036cda62f61c7c6989227.png" alt="27_Real_Numbers_and_Analysis.org.temp_8275756acf179cb7413036cda62f61c7c6989227.png" /></li>
+<li><img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_29ae1321dcd4ca55b674939e7763b81ffea0f30f.png" alt="27_Real_Numbers_and_Analysis.org.temp_29ae1321dcd4ca55b674939e7763b81ffea0f30f.png" />.</li>
+</ul>
+
+<p>
+We say that the two constructions are <i>isomorphic</i>, and that the function
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="27_Real_Numbers_and_Analysis.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is an <i>isomorphism</i>. Since we often only care about the real
+numbers in regard to their status as a complete ordered field, and the
+two constructions are indistinguishable as ordered fields, it makes
+no difference which construction is used. 
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org80bfdfd" class="outline-3">
+<h3 id="org80bfdfd"><span class="section-number-3"> 27.6</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li>Show that addition for the integers, as defined in <a href="#" onclick="myModule.scrollTutorialTo('Quotient_Constructions')">Section 27.2</a>, is
+commutative and associative.</li>
+
+<li>Show from the construction of the integers in  <a href="#" onclick="myModule.scrollTutorialTo('Quotient_Constructions')">Section 27.2</a> that
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_0fa2cfcdb0adc39ed59c445782a031d6c4a2176d.png" alt="27_Real_Numbers_and_Analysis.org.temp_0fa2cfcdb0adc39ed59c445782a031d6c4a2176d.png" /> for every integer <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />.</li>
+
+<li>Define subtraction for the integers by <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e06e6624aab266d29ab77c4c093bb84cac9efaa6.png" alt="27_Real_Numbers_and_Analysis.org.temp_e06e6624aab266d29ab77c4c093bb84cac9efaa6.png" />, and
+show that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_abce38accd9fa6ba387781e337013bec7a3491ea.png" alt="27_Real_Numbers_and_Analysis.org.temp_abce38accd9fa6ba387781e337013bec7a3491ea.png" /> for every pair of integers <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="27_Real_Numbers_and_Analysis.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="27_Real_Numbers_and_Analysis.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />.</li>
+
+<li>Define multiplication for the integers, by first defining it on the
+underlying representation and then showing that the operation
+respects the equivalence relation.</li>
+
+<li>Show that every Cauchy sequence is bounded: that is, if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1fd360a6c89e21313928f842bf9452e5dca467f0.png" alt="27_Real_Numbers_and_Analysis.org.temp_1fd360a6c89e21313928f842bf9452e5dca467f0.png" /> is Cauchy, there is some rational <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5d4d610aeb221c8445f9e8c9aa7124d015056469.png" alt="27_Real_Numbers_and_Analysis.org.temp_5d4d610aeb221c8445f9e8c9aa7124d015056469.png" /> such that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_5bb88609e715d822bd6223e4576d92aef90063ae.png" alt="27_Real_Numbers_and_Analysis.org.temp_5bb88609e715d822bd6223e4576d92aef90063ae.png" /> for all <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="27_Real_Numbers_and_Analysis.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />. Hint: try letting <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_dfdf0cf646ed8cdc927b878a287bd18a03456c04.png" alt="27_Real_Numbers_and_Analysis.org.temp_dfdf0cf646ed8cdc927b878a287bd18a03456c04.png" />.</li>
+
+<li><p>
+Let <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_f6361ac2a20a7e0645e62b85d57105a74f4a82dc.png" alt="27_Real_Numbers_and_Analysis.org.temp_f6361ac2a20a7e0645e62b85d57105a74f4a82dc.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_35fccfb13d56a5cb70f92bd31ed98861e3076233.png" alt="27_Real_Numbers_and_Analysis.org.temp_35fccfb13d56a5cb70f92bd31ed98861e3076233.png" /> be Cauchy
+sequences. Define <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_6b3b33cd71088ea3268d063ee4e806b0694c98c5.png" alt="27_Real_Numbers_and_Analysis.org.temp_6b3b33cd71088ea3268d063ee4e806b0694c98c5.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_71309d4ad8af89bd5071252202bf670b9467dd97.png" alt="27_Real_Numbers_and_Analysis.org.temp_71309d4ad8af89bd5071252202bf670b9467dd97.png" />.
+</p>
+
+<p>
+a. Show that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_3578c8d148442a8b6d137fbe076cca336cb521a4.png" alt="27_Real_Numbers_and_Analysis.org.temp_3578c8d148442a8b6d137fbe076cca336cb521a4.png" /> is Cauchy. That is, for arbitrary <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e52debf2f28d50315bbf97a670f8ec2a3fc987f8.png" alt="27_Real_Numbers_and_Analysis.org.temp_e52debf2f28d50315bbf97a670f8ec2a3fc987f8.png" />, show that there exists an <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" alt="27_Real_Numbers_and_Analysis.org.temp_1874d7d8ef6ab751293978b26e511bf9f2507b7f.png" /> such that for all <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_e80c2602c0736b723aa47afd83d8d47863aecf1f.png" alt="27_Real_Numbers_and_Analysis.org.temp_e80c2602c0736b723aa47afd83d8d47863aecf1f.png" />, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_1943d92a5a2a3da08bc1cb2550c1e2eb6f5b9af7.png" alt="27_Real_Numbers_and_Analysis.org.temp_1943d92a5a2a3da08bc1cb2550c1e2eb6f5b9af7.png" />.
+</p>
+
+<p>
+b. Show that <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_9b9385ed3e9e168fd4c97d86425c93c15b55687a.png" alt="27_Real_Numbers_and_Analysis.org.temp_9b9385ed3e9e168fd4c97d86425c93c15b55687a.png" /> is Cauchy. In addition to the triangle
+   inequality, you will find the previous exercise useful.
+</p></li>
+
+<li><p>
+These two parts show that addition of Cauchy sequences respects
+equivalence.
+</p>
+
+<p>
+a. Show that if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_2ab81226cd1ad0ae016b5b916c89a7ece42d934f.png" alt="27_Real_Numbers_and_Analysis.org.temp_2ab81226cd1ad0ae016b5b916c89a7ece42d934f.png" /> are Cauchy sequences and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_23c16568429ce05393b1b1d96196e0302eaa9b23.png" alt="27_Real_Numbers_and_Analysis.org.temp_23c16568429ce05393b1b1d96196e0302eaa9b23.png" />,
+   then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_340ec50807b39acbd573355eb017bb6adbbc6de0.png" alt="27_Real_Numbers_and_Analysis.org.temp_340ec50807b39acbd573355eb017bb6adbbc6de0.png" />.
+</p>
+
+<p>
+b. Argue, using exercise 1 and the first part of this problem, that
+   if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_65fb24a1f9d952affcd5d3c79031a9c7f194bf74.png" alt="27_Real_Numbers_and_Analysis.org.temp_65fb24a1f9d952affcd5d3c79031a9c7f194bf74.png" /> are Cauchy sequences, <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_23c16568429ce05393b1b1d96196e0302eaa9b23.png" alt="27_Real_Numbers_and_Analysis.org.temp_23c16568429ce05393b1b1d96196e0302eaa9b23.png" />, and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_12b585a1a27e12f526d9d6716120c7d800b01e9b.png" alt="27_Real_Numbers_and_Analysis.org.temp_12b585a1a27e12f526d9d6716120c7d800b01e9b.png" />, then <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_710f77ff3d472b3934a7992caecc4a27ce604b33.png" alt="27_Real_Numbers_and_Analysis.org.temp_710f77ff3d472b3934a7992caecc4a27ce604b33.png" />.
+</p></li>
+
+<li>Show that if <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_237f57b68dde231bf91e6e0b574f350ef050cca5.png" alt="27_Real_Numbers_and_Analysis.org.temp_237f57b68dde231bf91e6e0b574f350ef050cca5.png" /> and <img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_457f12e963c473176f50e8c53ee3ec9d2a686f2f.png" alt="27_Real_Numbers_and_Analysis.org.temp_457f12e963c473176f50e8c53ee3ec9d2a686f2f.png" /> are Dedekind cuts, then
+<img src="ltximg/27_Real_Numbers_and_Analysis.org.temp_ba3e319e007a458bbb51dba1f9c2836d05cfd157.png" alt="27_Real_Numbers_and_Analysis.org.temp_ba3e319e007a458bbb51dba1f9c2836d05cfd157.png" /> is also a Dedekind cut.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-19 Sat 19:23 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-orgf301baa" class="outline-2">
+<h2 id="Elementary_Number_Theory"><a id="orgf301baa"></a><span class="section-number-2"> 19</span> Elementary Number Theory</h2>
+<div class="outline-text-2" id="text-Elementary_Number_Theory">
+<p>
+In the last two chapters, we saw that the natural numbers are
+characterized by the fact that they support <i>proof by induction</i> and
+<i>definition by recursion</i>. Moreover, with these components, we can
+actually define <img src="ltximg/19_Elementary_Number_Theory.org.temp_5753432a6c5ba0aa2fea916832580e882fec6a13.png" alt="19_Elementary_Number_Theory.org.temp_5753432a6c5ba0aa2fea916832580e882fec6a13.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_98bc3d8ab8350fc0391df6dfb3ce7cddc16fb588.png" alt="19_Elementary_Number_Theory.org.temp_98bc3d8ab8350fc0391df6dfb3ce7cddc16fb588.png" />, and <img src="ltximg/19_Elementary_Number_Theory.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" alt="19_Elementary_Number_Theory.org.temp_04b749699171fd6c866f2dbedc3599ac3b9d01af.png" /> in a suitable axiomatic
+foundation, and prove that they have the relevant properties. In
+<a href="#" onclick="myModule.loadTutorial('17_The_Natural_Numbers_and_Induction.html', 'The_Integers')">Section 17.1</a> we also discussed the integers, which include negative
+numbers and support the operation of subtraction.
+</p>
+
+<p>
+The natural numbers and the integers are the central components of
+<i>number theory</i>, a branch of mathematics dating back to the
+ancients. In this chapter, we will discuss some of the rudiments of
+this subject.
+</p>
+</div>
+
+<div id="outline-container-org405240f" class="outline-3">
+<h3 id="The_Quotient_Remainder_Theorem"><a id="org405240f"></a><span class="section-number-3"> 19.1</span> The Quotient-Remainder Theorem</h3>
+<div class="outline-text-3" id="text-The_Quotient_Remainder_Theorem">
+<p>
+A key property of the integers that we will use here is the
+quotient-remainder theorem:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> be integers with <img src="ltximg/19_Elementary_Number_Theory.org.temp_a5f2cfacbabc0aaaa46a8b62bf1bb92e4d66efbd.png" alt="19_Elementary_Number_Theory.org.temp_a5f2cfacbabc0aaaa46a8b62bf1bb92e4d66efbd.png" />. Then there
+are integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="19_Elementary_Number_Theory.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> satisfying <img src="ltximg/19_Elementary_Number_Theory.org.temp_f0c1876ff960cf3df354b9b696bbddcc43cbad18.png" alt="19_Elementary_Number_Theory.org.temp_f0c1876ff960cf3df354b9b696bbddcc43cbad18.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_f634b02fa736964efa948a2803bb81fa6feceac2.png" alt="19_Elementary_Number_Theory.org.temp_f634b02fa736964efa948a2803bb81fa6feceac2.png" />.
+</p>
+
+<p>
+<b>Proof.</b> First we prove this in the case where <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is a natural
+number, in which case use complete induction on <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> be any
+natural number. If <img src="ltximg/19_Elementary_Number_Theory.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" alt="19_Elementary_Number_Theory.org.temp_c82a47aaa5c343eb0eda2d40e4f72330e2b7740b.png" />, then we can take <img src="ltximg/19_Elementary_Number_Theory.org.temp_b2627273f7c513459180ff5824788de2c281c7ac.png" alt="19_Elementary_Number_Theory.org.temp_b2627273f7c513459180ff5824788de2c281c7ac.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_fd28f559658544ac49f1d7c00f773e7118fea527.png" alt="19_Elementary_Number_Theory.org.temp_fd28f559658544ac49f1d7c00f773e7118fea527.png" />, and
+we indeed have <img src="ltximg/19_Elementary_Number_Theory.org.temp_f0c1876ff960cf3df354b9b696bbddcc43cbad18.png" alt="19_Elementary_Number_Theory.org.temp_f0c1876ff960cf3df354b9b696bbddcc43cbad18.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_f634b02fa736964efa948a2803bb81fa6feceac2.png" alt="19_Elementary_Number_Theory.org.temp_f634b02fa736964efa948a2803bb81fa6feceac2.png" />. Otherwise, we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_b7ca1530dc2d87b8dbd30eb56cef1a1593012ada.png" alt="19_Elementary_Number_Theory.org.temp_b7ca1530dc2d87b8dbd30eb56cef1a1593012ada.png" />. In this case <img src="ltximg/19_Elementary_Number_Theory.org.temp_b7d531ca66159282c40699b7c0f9162adf93db68.png" alt="19_Elementary_Number_Theory.org.temp_b7d531ca66159282c40699b7c0f9162adf93db68.png" /> is a natural number smaller than <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. By
+induction hypothesis, we know that we can find <img src="ltximg/19_Elementary_Number_Theory.org.temp_7c50e65eaf5b1e9184cfdf0d6f669d950af5ba8b.png" alt="19_Elementary_Number_Theory.org.temp_7c50e65eaf5b1e9184cfdf0d6f669d950af5ba8b.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_d85a2dfb8e9e479525965883855a6020fa5fd98f.png" alt="19_Elementary_Number_Theory.org.temp_d85a2dfb8e9e479525965883855a6020fa5fd98f.png" /> such that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_7e4bf2d9f0840a434e2f2639289239dd0d11d4d5.png" alt="19_Elementary_Number_Theory.org.temp_7e4bf2d9f0840a434e2f2639289239dd0d11d4d5.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_417f80a1083fe93c77331bc36003c4c6e7b0a5db.png" alt="19_Elementary_Number_Theory.org.temp_417f80a1083fe93c77331bc36003c4c6e7b0a5db.png" />. Then we can choose <img src="ltximg/19_Elementary_Number_Theory.org.temp_b1ce997d5f90cf3a9937dc4152701e92637aa531.png" alt="19_Elementary_Number_Theory.org.temp_b1ce997d5f90cf3a9937dc4152701e92637aa531.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_bf4beda12427d58d751be931067e3b6fbbbfd077.png" alt="19_Elementary_Number_Theory.org.temp_bf4beda12427d58d751be931067e3b6fbbbfd077.png" />, and we obtain <img src="ltximg/19_Elementary_Number_Theory.org.temp_f0c1876ff960cf3df354b9b696bbddcc43cbad18.png" alt="19_Elementary_Number_Theory.org.temp_f0c1876ff960cf3df354b9b696bbddcc43cbad18.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_f634b02fa736964efa948a2803bb81fa6feceac2.png" alt="19_Elementary_Number_Theory.org.temp_f634b02fa736964efa948a2803bb81fa6feceac2.png" />, as
+desired.
+</p>
+
+<p>
+If <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is negative, then <img src="ltximg/19_Elementary_Number_Theory.org.temp_a51c2797d8b7b185f68eecf198782ff192351257.png" alt="19_Elementary_Number_Theory.org.temp_a51c2797d8b7b185f68eecf198782ff192351257.png" /> is a natural number, hence we can
+use the previous part for <img src="ltximg/19_Elementary_Number_Theory.org.temp_a51c2797d8b7b185f68eecf198782ff192351257.png" alt="19_Elementary_Number_Theory.org.temp_a51c2797d8b7b185f68eecf198782ff192351257.png" /> to obtain <img src="ltximg/19_Elementary_Number_Theory.org.temp_7c50e65eaf5b1e9184cfdf0d6f669d950af5ba8b.png" alt="19_Elementary_Number_Theory.org.temp_7c50e65eaf5b1e9184cfdf0d6f669d950af5ba8b.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_d85a2dfb8e9e479525965883855a6020fa5fd98f.png" alt="19_Elementary_Number_Theory.org.temp_d85a2dfb8e9e479525965883855a6020fa5fd98f.png" /> such that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_6006a81dfbc0ebf8fae0f104f8a835e9323b0dd1.png" alt="19_Elementary_Number_Theory.org.temp_6006a81dfbc0ebf8fae0f104f8a835e9323b0dd1.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_417f80a1083fe93c77331bc36003c4c6e7b0a5db.png" alt="19_Elementary_Number_Theory.org.temp_417f80a1083fe93c77331bc36003c4c6e7b0a5db.png" />. Now let <img src="ltximg/19_Elementary_Number_Theory.org.temp_f5f7ec599d76f2ce28d20c7b61fd1fcb83efb3af.png" alt="19_Elementary_Number_Theory.org.temp_f5f7ec599d76f2ce28d20c7b61fd1fcb83efb3af.png" /> and
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_6c4601e040d7ddb7f07b37137343f81358098d3f.png" alt="19_Elementary_Number_Theory.org.temp_6c4601e040d7ddb7f07b37137343f81358098d3f.png" />. Then we can compute
+</p>
+
+<div class="figure">
+<p><img src="ltximg/19_Elementary_Number_Theory.org.temp_fb04a921c1e4feeed69c89d69c5374b7e17193d2.png" alt="19_Elementary_Number_Theory.org.temp_fb04a921c1e4feeed69c89d69c5374b7e17193d2.png" /></p>
+</div>
+<p>
+Also, since <img src="ltximg/19_Elementary_Number_Theory.org.temp_ac65d0084682e81332ad636c277929896bc7f0af.png" alt="19_Elementary_Number_Theory.org.temp_ac65d0084682e81332ad636c277929896bc7f0af.png" /> we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_dfe648c08f34fbcc90156096ff55299109709163.png" alt="19_Elementary_Number_Theory.org.temp_dfe648c08f34fbcc90156096ff55299109709163.png" /> and since <img src="ltximg/19_Elementary_Number_Theory.org.temp_423c704c42fbaa36046c483b919c43cdd67d6802.png" alt="19_Elementary_Number_Theory.org.temp_423c704c42fbaa36046c483b919c43cdd67d6802.png" /> we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_927f061afe2315006f818b3f608e99616198d739.png" alt="19_Elementary_Number_Theory.org.temp_927f061afe2315006f818b3f608e99616198d739.png" />. This completes the proof.
+</p>
+
+<hr>
+<p>
+Intuitively, <img src="ltximg/19_Elementary_Number_Theory.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="19_Elementary_Number_Theory.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" /> is the integer <i>quotient</i> when you divide <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> by <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />
+and <img src="ltximg/19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> is the <i>remainder</i>. Remember that using the word "the"
+presupposes that there are unique values meeting that
+description. That is, in fact, the case:
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> If <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> are as above, <img src="ltximg/19_Elementary_Number_Theory.org.temp_f0c1876ff960cf3df354b9b696bbddcc43cbad18.png" alt="19_Elementary_Number_Theory.org.temp_f0c1876ff960cf3df354b9b696bbddcc43cbad18.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_bbaf18a5c42531901dcb1dd2f376312f426aa424.png" alt="19_Elementary_Number_Theory.org.temp_bbaf18a5c42531901dcb1dd2f376312f426aa424.png" /> with both <img src="ltximg/19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_d85a2dfb8e9e479525965883855a6020fa5fd98f.png" alt="19_Elementary_Number_Theory.org.temp_d85a2dfb8e9e479525965883855a6020fa5fd98f.png" /> less than <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, then <img src="ltximg/19_Elementary_Number_Theory.org.temp_03dbe39ce22412f3aaac7fb9ca7d668f48bc5eea.png" alt="19_Elementary_Number_Theory.org.temp_03dbe39ce22412f3aaac7fb9ca7d668f48bc5eea.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_19a4d630f8530ec5c1cf4551d2db21aeca553f45.png" alt="19_Elementary_Number_Theory.org.temp_19a4d630f8530ec5c1cf4551d2db21aeca553f45.png" />.
+</p>
+
+<p>
+<b>Proof.</b> By assumption, we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_c40742dc7088813fb19accd1707744b371da808b.png" alt="19_Elementary_Number_Theory.org.temp_c40742dc7088813fb19accd1707744b371da808b.png" />. It suffices to
+show that <img src="ltximg/19_Elementary_Number_Theory.org.temp_03dbe39ce22412f3aaac7fb9ca7d668f48bc5eea.png" alt="19_Elementary_Number_Theory.org.temp_03dbe39ce22412f3aaac7fb9ca7d668f48bc5eea.png" />, because then <img src="ltximg/19_Elementary_Number_Theory.org.temp_dfde77257c523998605012c924ef2daa31cdd336.png" alt="19_Elementary_Number_Theory.org.temp_dfde77257c523998605012c924ef2daa31cdd336.png" />, and hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_bf4beda12427d58d751be931067e3b6fbbbfd077.png" alt="19_Elementary_Number_Theory.org.temp_bf4beda12427d58d751be931067e3b6fbbbfd077.png" />.
+</p>
+
+<p>
+Suppose <img src="ltximg/19_Elementary_Number_Theory.org.temp_8b40c57bd3b1baa41333495608502cd1cc274c2f.png" alt="19_Elementary_Number_Theory.org.temp_8b40c57bd3b1baa41333495608502cd1cc274c2f.png" />. Then either <img src="ltximg/19_Elementary_Number_Theory.org.temp_55c04ec42dd69d18bce7e2bb476c347c89ade716.png" alt="19_Elementary_Number_Theory.org.temp_55c04ec42dd69d18bce7e2bb476c347c89ade716.png" /> or <img src="ltximg/19_Elementary_Number_Theory.org.temp_a8d3048c5c9b704687b39e7612b9dee01e40193e.png" alt="19_Elementary_Number_Theory.org.temp_a8d3048c5c9b704687b39e7612b9dee01e40193e.png" />. Suppose without
+loss of generality that <img src="ltximg/19_Elementary_Number_Theory.org.temp_55c04ec42dd69d18bce7e2bb476c347c89ade716.png" alt="19_Elementary_Number_Theory.org.temp_55c04ec42dd69d18bce7e2bb476c347c89ade716.png" />. (The other case is symmetric.) Then
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_bd40983138f98f8112ba197b73943a43c03dd50b.png" alt="19_Elementary_Number_Theory.org.temp_bd40983138f98f8112ba197b73943a43c03dd50b.png" />, so we can subtract <img src="ltximg/19_Elementary_Number_Theory.org.temp_163ae093160500986f22a2b030106ca66f1b2221.png" alt="19_Elementary_Number_Theory.org.temp_163ae093160500986f22a2b030106ca66f1b2221.png" /> from both sides of the equality
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_c40742dc7088813fb19accd1707744b371da808b.png" alt="19_Elementary_Number_Theory.org.temp_c40742dc7088813fb19accd1707744b371da808b.png" /> to obtain
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_d224af55bff988a3a4638309b0f695de310d4619.png" alt="19_Elementary_Number_Theory.org.temp_d224af55bff988a3a4638309b0f695de310d4619.png" />
+But since <img src="ltximg/19_Elementary_Number_Theory.org.temp_a8d3048c5c9b704687b39e7612b9dee01e40193e.png" alt="19_Elementary_Number_Theory.org.temp_a8d3048c5c9b704687b39e7612b9dee01e40193e.png" />, we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_22a2588251394211dfbb6efe8072a59957032fcd.png" alt="19_Elementary_Number_Theory.org.temp_22a2588251394211dfbb6efe8072a59957032fcd.png" />, which means
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_1681ed97635fedba0d61289ad264ad27c0ce8a98.png" alt="19_Elementary_Number_Theory.org.temp_1681ed97635fedba0d61289ad264ad27c0ce8a98.png" />
+which contradicts the fact that <img src="ltximg/19_Elementary_Number_Theory.org.temp_dfe648c08f34fbcc90156096ff55299109709163.png" alt="19_Elementary_Number_Theory.org.temp_dfe648c08f34fbcc90156096ff55299109709163.png" />.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org4a67ceb" class="outline-3">
+<h3 id="Divisibility"><a id="org4a67ceb"></a><span class="section-number-3"> 19.2</span> Divisibility</h3>
+<div class="outline-text-3" id="text-Divisibility">
+<p>
+We can define divisibility on the integers as follows.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> Given two integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, we say that <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> <i>is a
+ divisor of</i> <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, written <img src="ltximg/19_Elementary_Number_Theory.org.temp_389f1fb462bc998ba1fe3ddf7c261f6b873ede87.png" alt="19_Elementary_Number_Theory.org.temp_389f1fb462bc998ba1fe3ddf7c261f6b873ede87.png" />, if there exists some integer <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />
+ such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_4113de27e3ea928a8230c11830e66c0bcae70840.png" alt="19_Elementary_Number_Theory.org.temp_4113de27e3ea928a8230c11830e66c0bcae70840.png" />. We also say that <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> <i>is divisible by</i> <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />
+ or that <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> <i>divides</i> <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. We write <img src="ltximg/19_Elementary_Number_Theory.org.temp_5a15a7098529400998fe93c1296853df92fa561d.png" alt="19_Elementary_Number_Theory.org.temp_5a15a7098529400998fe93c1296853df92fa561d.png" /> to say that <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> is
+ not a divisor of <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.
+</p>
+
+<hr>
+<p>
+We can now prove the following:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> The relation <img src="ltximg/19_Elementary_Number_Theory.org.temp_c05af299e74da7ab7d31cb2ff26ec73f6e2ea167.png" alt="19_Elementary_Number_Theory.org.temp_c05af299e74da7ab7d31cb2ff26ec73f6e2ea167.png" /> is reflexive and transitive. Also, if
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_23c725dd9f66d71a6b26b0a48205f3fef1d7e9e2.png" alt="19_Elementary_Number_Theory.org.temp_23c725dd9f66d71a6b26b0a48205f3fef1d7e9e2.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_389f1fb462bc998ba1fe3ddf7c261f6b873ede87.png" alt="19_Elementary_Number_Theory.org.temp_389f1fb462bc998ba1fe3ddf7c261f6b873ede87.png" />, then <img src="ltximg/19_Elementary_Number_Theory.org.temp_71cc8e3ae4b941910ae56f33f5323deeb4d78479.png" alt="19_Elementary_Number_Theory.org.temp_71cc8e3ae4b941910ae56f33f5323deeb4d78479.png" />. This means that
+restricted to the natural numbers, this relation is a partial order.
+</p>
+
+<p>
+<b>Proof.</b> Reflexivity is immediate, because <img src="ltximg/19_Elementary_Number_Theory.org.temp_ad31299f8f9daadd3f3b0a1e75b95576455226c6.png" alt="19_Elementary_Number_Theory.org.temp_ad31299f8f9daadd3f3b0a1e75b95576455226c6.png" />, hence
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_c626ff2f004ab33fce1c697d80d3def9bb433846.png" alt="19_Elementary_Number_Theory.org.temp_c626ff2f004ab33fce1c697d80d3def9bb433846.png" />.
+</p>
+
+<p>
+For transitivity, suppose <img src="ltximg/19_Elementary_Number_Theory.org.temp_389f1fb462bc998ba1fe3ddf7c261f6b873ede87.png" alt="19_Elementary_Number_Theory.org.temp_389f1fb462bc998ba1fe3ddf7c261f6b873ede87.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_325886e0adda160ab8c9e5e48f3c0dfcb5c97910.png" alt="19_Elementary_Number_Theory.org.temp_325886e0adda160ab8c9e5e48f3c0dfcb5c97910.png" />. Then there are <img src="ltximg/19_Elementary_Number_Theory.org.temp_9570c5f2397e29f49aff2611ec24abd02cd8575b.png" alt="19_Elementary_Number_Theory.org.temp_9570c5f2397e29f49aff2611ec24abd02cd8575b.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_4113de27e3ea928a8230c11830e66c0bcae70840.png" alt="19_Elementary_Number_Theory.org.temp_4113de27e3ea928a8230c11830e66c0bcae70840.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_974267b41c50211368641f82bdb1b88b11dc654d.png" alt="19_Elementary_Number_Theory.org.temp_974267b41c50211368641f82bdb1b88b11dc654d.png" />. Now we compute
+</p>
+
+<div class="figure">
+<p><img src="ltximg/19_Elementary_Number_Theory.org.temp_60a7c1301889dacde9f312ab16c4b475d2870e25.png" alt="19_Elementary_Number_Theory.org.temp_60a7c1301889dacde9f312ab16c4b475d2870e25.png" /></p>
+</div>
+
+<p>
+Suppose that <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> are integers such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_9685dcf0228af6a3ebf9028937886795fe3d43f3.png" alt="19_Elementary_Number_Theory.org.temp_9685dcf0228af6a3ebf9028937886795fe3d43f3.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_fb9fc77e30900ca3173ca969cf2778e818b3ab13.png" alt="19_Elementary_Number_Theory.org.temp_fb9fc77e30900ca3173ca969cf2778e818b3ab13.png" />. Then there exist <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_357826645657796a2c57aebc756663885a264ddb.png" alt="19_Elementary_Number_Theory.org.temp_357826645657796a2c57aebc756663885a264ddb.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_10e10e4d41594da35cc4e6283dd09b5800160e7a.png" alt="19_Elementary_Number_Theory.org.temp_10e10e4d41594da35cc4e6283dd09b5800160e7a.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_8a221e2b241e9de024f2a423b574ad74785f98e0.png" alt="19_Elementary_Number_Theory.org.temp_8a221e2b241e9de024f2a423b574ad74785f98e0.png" />. We distinguish two cases. If <img src="ltximg/19_Elementary_Number_Theory.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" alt="19_Elementary_Number_Theory.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" />, then we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_169aad82c646d6c4d76edcab7cf35adba029d5c0.png" alt="19_Elementary_Number_Theory.org.temp_169aad82c646d6c4d76edcab7cf35adba029d5c0.png" />, so we are done. If <img src="ltximg/19_Elementary_Number_Theory.org.temp_de96d264eb7a9f924e32ff21dabedc9a18e18c60.png" alt="19_Elementary_Number_Theory.org.temp_de96d264eb7a9f924e32ff21dabedc9a18e18c60.png" />, then we use the
+the equations to get <img src="ltximg/19_Elementary_Number_Theory.org.temp_fd0e158786a10b2f72b022860c563e366397f1e0.png" alt="19_Elementary_Number_Theory.org.temp_fd0e158786a10b2f72b022860c563e366397f1e0.png" />, and we
+can cancel <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> on both sides to get <img src="ltximg/19_Elementary_Number_Theory.org.temp_fd7b1349f0d3333d725cad156a14bbfdc00f12d8.png" alt="19_Elementary_Number_Theory.org.temp_fd7b1349f0d3333d725cad156a14bbfdc00f12d8.png" />. We conclude
+that <img src="ltximg/19_Elementary_Number_Theory.org.temp_d23c23dc3af56a35e3056367a7e7df0015775656.png" alt="19_Elementary_Number_Theory.org.temp_d23c23dc3af56a35e3056367a7e7df0015775656.png" />, hence we get <img src="ltximg/19_Elementary_Number_Theory.org.temp_5155ce361c04fb10765954154dac66b2e97a2839.png" alt="19_Elementary_Number_Theory.org.temp_5155ce361c04fb10765954154dac66b2e97a2839.png" />.
+</p>
+
+<p>
+Note that this means that if <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> are both natural numbers,
+then <img src="ltximg/19_Elementary_Number_Theory.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" alt="19_Elementary_Number_Theory.org.temp_fa59655dc0ac8e4b7884923a5cf1a320b01b9069.png" />, which means that <img src="ltximg/19_Elementary_Number_Theory.org.temp_c05af299e74da7ab7d31cb2ff26ec73f6e2ea167.png" alt="19_Elementary_Number_Theory.org.temp_c05af299e74da7ab7d31cb2ff26ec73f6e2ea167.png" /> is antisymmetric, and hence a
+partial order, on the natural numbers.
+</p>
+
+<hr>
+<p>
+See Exercise 1 for some basic properties of divisibility.
+</p>
+
+<p>
+An integer is <i>even</i> if it is divisible by <img src="ltximg/19_Elementary_Number_Theory.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" alt="19_Elementary_Number_Theory.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" />, in other words,
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is even if <img src="ltximg/19_Elementary_Number_Theory.org.temp_7b16ee5d2a0cb2d4b8a46ab9453fdaa3e4074dd2.png" alt="19_Elementary_Number_Theory.org.temp_7b16ee5d2a0cb2d4b8a46ab9453fdaa3e4074dd2.png" />. An integer is <i>odd</i> if it is not
+even. Of course, odd numbers are of the form <img src="ltximg/19_Elementary_Number_Theory.org.temp_b1c75469d12f243b73aef7c546de10fffe42405d.png" alt="19_Elementary_Number_Theory.org.temp_b1c75469d12f243b73aef7c546de10fffe42405d.png" /> for some <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />, and
+we can prove this now.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> If <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is an odd integer, then <img src="ltximg/19_Elementary_Number_Theory.org.temp_0ae188e3950eef8a00d33ebad0eaa3a69b973af7.png" alt="19_Elementary_Number_Theory.org.temp_0ae188e3950eef8a00d33ebad0eaa3a69b973af7.png" /> for some integer <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />.
+</p>
+
+<p>
+<b>Proof.</b> By the quotient-remainder theorem, we can write <img src="ltximg/19_Elementary_Number_Theory.org.temp_2aa69ef3ee58e81d65d59080adb431b5cc981b30.png" alt="19_Elementary_Number_Theory.org.temp_2aa69ef3ee58e81d65d59080adb431b5cc981b30.png" />
+for some integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> with <img src="ltximg/19_Elementary_Number_Theory.org.temp_7850c8281560d39d4ca485bfcc7319d66501153b.png" alt="19_Elementary_Number_Theory.org.temp_7850c8281560d39d4ca485bfcc7319d66501153b.png" />. The last condition
+means that <img src="ltximg/19_Elementary_Number_Theory.org.temp_d1f6d374fd8526aaa9a62f771c7efa5bfe3877e3.png" alt="19_Elementary_Number_Theory.org.temp_d1f6d374fd8526aaa9a62f771c7efa5bfe3877e3.png" /> or <img src="ltximg/19_Elementary_Number_Theory.org.temp_c24c6be25648d7f55b066537706c0fa541d45d3b.png" alt="19_Elementary_Number_Theory.org.temp_c24c6be25648d7f55b066537706c0fa541d45d3b.png" />. In the first case, we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_f925b22d691ba80eb537f063b295b64de2dd0e75.png" alt="19_Elementary_Number_Theory.org.temp_f925b22d691ba80eb537f063b295b64de2dd0e75.png" />,
+hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_7b16ee5d2a0cb2d4b8a46ab9453fdaa3e4074dd2.png" alt="19_Elementary_Number_Theory.org.temp_7b16ee5d2a0cb2d4b8a46ab9453fdaa3e4074dd2.png" />, contradicting that <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is odd. So we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_c24c6be25648d7f55b066537706c0fa541d45d3b.png" alt="19_Elementary_Number_Theory.org.temp_c24c6be25648d7f55b066537706c0fa541d45d3b.png" />,
+which means that <img src="ltximg/19_Elementary_Number_Theory.org.temp_9840117ebb3163486b48f91c897a7551b722c1da.png" alt="19_Elementary_Number_Theory.org.temp_9840117ebb3163486b48f91c897a7551b722c1da.png" />.
+</p>
+
+<p>
+<b>Theorem.</b> Every sequence of <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> consecutive numbers contains a number
+divisible by <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Denote the largest number of the sequence by <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. This means
+that the sequence is <img src="ltximg/19_Elementary_Number_Theory.org.temp_e764c0e06f4b35e76f3cb0564a9239a838f8735c.png" alt="19_Elementary_Number_Theory.org.temp_e764c0e06f4b35e76f3cb0564a9239a838f8735c.png" />. By the
+quotient-remainder theorem, we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_1eff27be1d1d897f6c47e489747a1992eb082f05.png" alt="19_Elementary_Number_Theory.org.temp_1eff27be1d1d897f6c47e489747a1992eb082f05.png" /> for some integers
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="19_Elementary_Number_Theory.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> with <img src="ltximg/19_Elementary_Number_Theory.org.temp_1cd9b3ab5864c9fd24d530775f89124473241edc.png" alt="19_Elementary_Number_Theory.org.temp_1cd9b3ab5864c9fd24d530775f89124473241edc.png" />. From these inequalities we conclude
+that <img src="ltximg/19_Elementary_Number_Theory.org.temp_e01cb365d571a076b7aa5ed40999152828b69426.png" alt="19_Elementary_Number_Theory.org.temp_e01cb365d571a076b7aa5ed40999152828b69426.png" /> is in our sequence, and <img src="ltximg/19_Elementary_Number_Theory.org.temp_25cf4d833859a4c4c2b93b1bb0fa7c5a009ccec1.png" alt="19_Elementary_Number_Theory.org.temp_25cf4d833859a4c4c2b93b1bb0fa7c5a009ccec1.png" />, hence divisible by
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> Given two integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> such that either <img src="ltximg/19_Elementary_Number_Theory.org.temp_bb4ddfaef8ed1b1eec479c94f59cfa9cb4563b48.png" alt="19_Elementary_Number_Theory.org.temp_bb4ddfaef8ed1b1eec479c94f59cfa9cb4563b48.png" /> or <img src="ltximg/19_Elementary_Number_Theory.org.temp_de96d264eb7a9f924e32ff21dabedc9a18e18c60.png" alt="19_Elementary_Number_Theory.org.temp_de96d264eb7a9f924e32ff21dabedc9a18e18c60.png" />, we define the <i>greatest common divisor</i> <img src="ltximg/19_Elementary_Number_Theory.org.temp_541893685e71cde8dcb845aee2afc89e93f239e8.png" alt="19_Elementary_Number_Theory.org.temp_541893685e71cde8dcb845aee2afc89e93f239e8.png" />
+of <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> to be the largest integer <img src="ltximg/19_Elementary_Number_Theory.org.temp_75237b86456fae65c4263b32c1e949a1bcb59f35.png" alt="19_Elementary_Number_Theory.org.temp_75237b86456fae65c4263b32c1e949a1bcb59f35.png" /> which is both a divisor
+of <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, that is <img src="ltximg/19_Elementary_Number_Theory.org.temp_c64d9fc3914ea6e4a6673a660f104f8f99c6439d.png" alt="19_Elementary_Number_Theory.org.temp_c64d9fc3914ea6e4a6673a660f104f8f99c6439d.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_0261381bd19fbe394f69ef28939bd0af522b870a.png" alt="19_Elementary_Number_Theory.org.temp_0261381bd19fbe394f69ef28939bd0af522b870a.png" />.
+</p>
+
+<p>
+This largest integer exists, because there is at least one common
+divisor, but only finitely many. There is at least one, since 1 is a
+common divisor of any two integers, and there are finitely many, since
+a nonzero number has only finitely many divisors.
+</p>
+
+<p>
+If <img src="ltximg/19_Elementary_Number_Theory.org.temp_ca78e89c6b6a09a5b30ecbbb5ce614f85f6959c6.png" alt="19_Elementary_Number_Theory.org.temp_ca78e89c6b6a09a5b30ecbbb5ce614f85f6959c6.png" />, then we define <img src="ltximg/19_Elementary_Number_Theory.org.temp_cea55d41169b71742fab5554aa9c94a7d4799ee7.png" alt="19_Elementary_Number_Theory.org.temp_cea55d41169b71742fab5554aa9c94a7d4799ee7.png" />.
+</p>
+
+<hr>
+<p>
+The greatest common divisor of two numbers is always a natural number,
+since 1 is always a common divisor of two numbers.  As an example, let
+us compute the greatest common divisor of 6 and 28. The positive
+divisors of 6 are <img src="ltximg/19_Elementary_Number_Theory.org.temp_664eee0a5ee8a3566a6024168911cba04dd43c19.png" alt="19_Elementary_Number_Theory.org.temp_664eee0a5ee8a3566a6024168911cba04dd43c19.png" /> and the positive divisors of 28 are
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_825f69b15555e233634090060d59a5ca66e70c0d.png" alt="19_Elementary_Number_Theory.org.temp_825f69b15555e233634090060d59a5ca66e70c0d.png" />. The largest number in both these sets is 2,
+which is the greatest common divisor of 6 and 28.
+</p>
+
+<p>
+However, computing the greatest common divisor of two numbers by
+listing all the divisors of both numbers is a lot of work, so we will
+now consider a method to compute the greatest common divisor more
+efficiently.
+</p>
+
+<hr>
+<p>
+<b>Lemma.</b> For all integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> we have
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_1f10b896c5cd08c204c42d2398ab11f4a65aeac8.png" alt="19_Elementary_Number_Theory.org.temp_1f10b896c5cd08c204c42d2398ab11f4a65aeac8.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_6a4e30a118ad00d9821bf72a56141ed92399d5e0.png" alt="19_Elementary_Number_Theory.org.temp_6a4e30a118ad00d9821bf72a56141ed92399d5e0.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_20a8b9fd2831a973397cdd1dc5e6015964f4a4f1.png" alt="19_Elementary_Number_Theory.org.temp_20a8b9fd2831a973397cdd1dc5e6015964f4a4f1.png" />. If <img src="ltximg/19_Elementary_Number_Theory.org.temp_ca78e89c6b6a09a5b30ecbbb5ce614f85f6959c6.png" alt="19_Elementary_Number_Theory.org.temp_ca78e89c6b6a09a5b30ecbbb5ce614f85f6959c6.png" />, then <img src="ltximg/19_Elementary_Number_Theory.org.temp_392c462637b5483c621011e452bd2532b8604e44.png" alt="19_Elementary_Number_Theory.org.temp_392c462637b5483c621011e452bd2532b8604e44.png" />, and we're done.
+</p>
+
+<p>
+In the other case we first show that the set of common divisors of <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />
+and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> is the same as the set of the common divisors of <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" />. To see this, let <img src="ltximg/19_Elementary_Number_Theory.org.temp_81a68d6d16f2446f3c5fe5b702d046f52e428df9.png" alt="19_Elementary_Number_Theory.org.temp_81a68d6d16f2446f3c5fe5b702d046f52e428df9.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5a66db603c50a9e5bc3de9077c657f01a09e4a76.png" alt="19_Elementary_Number_Theory.org.temp_5a66db603c50a9e5bc3de9077c657f01a09e4a76.png" />. Then also <img src="ltximg/19_Elementary_Number_Theory.org.temp_406a95c3e367b9f520a73beb83164c69b3d27c08.png" alt="19_Elementary_Number_Theory.org.temp_406a95c3e367b9f520a73beb83164c69b3d27c08.png" /> by Exercise 1 below. Hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_9f5c3ee01a23c44468e726ab5837b1646d4e49b6.png" alt="19_Elementary_Number_Theory.org.temp_9f5c3ee01a23c44468e726ab5837b1646d4e49b6.png" /> is a common divisor of <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />
+and <img src="ltximg/19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" />. On the other hand, if <img src="ltximg/19_Elementary_Number_Theory.org.temp_9f5c3ee01a23c44468e726ab5837b1646d4e49b6.png" alt="19_Elementary_Number_Theory.org.temp_9f5c3ee01a23c44468e726ab5837b1646d4e49b6.png" /> is a divisor of <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="19_Elementary_Number_Theory.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" />, then
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_503a0dea1155fe5e17c16c83ffcdd57bde1b6618.png" alt="19_Elementary_Number_Theory.org.temp_503a0dea1155fe5e17c16c83ffcdd57bde1b6618.png" />, hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_5a66db603c50a9e5bc3de9077c657f01a09e4a76.png" alt="19_Elementary_Number_Theory.org.temp_5a66db603c50a9e5bc3de9077c657f01a09e4a76.png" />, hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_9f5c3ee01a23c44468e726ab5837b1646d4e49b6.png" alt="19_Elementary_Number_Theory.org.temp_9f5c3ee01a23c44468e726ab5837b1646d4e49b6.png" /> is a common divisor
+of <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />.
+</p>
+
+<p>
+Since the sets of common divisors are the same, the largest element
+in each set is also the same, hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_1f10b896c5cd08c204c42d2398ab11f4a65aeac8.png" alt="19_Elementary_Number_Theory.org.temp_1f10b896c5cd08c204c42d2398ab11f4a65aeac8.png" />.
+</p>
+
+<p>
+<b>Lemma.</b> For all integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_26e83e9f45a971b3bacab6b8df91352a7a6a1305.png" alt="19_Elementary_Number_Theory.org.temp_26e83e9f45a971b3bacab6b8df91352a7a6a1305.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Every number is a divisor of 0, hence the greatest common
+divisor of <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and 0 is just the greatest divisor of <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, which is
+the absolute value of <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.
+</p>
+
+<hr>
+<p>
+These two lemmas give us a quick way to compute the greatest common
+divisor of two numbers. This is called the <i>Euclidean
+Algorithm</i>. Suppose we want to compute <img src="ltximg/19_Elementary_Number_Theory.org.temp_d0bb9b09d0deaa7ae0266c16ac1562540a75e782.png" alt="19_Elementary_Number_Theory.org.temp_d0bb9b09d0deaa7ae0266c16ac1562540a75e782.png" />.
+</p>
+
+<ul class="org-ul">
+<li>We let <img src="ltximg/19_Elementary_Number_Theory.org.temp_a7ab887743f4c84210732839cd2b17a2f103da36.png" alt="19_Elementary_Number_Theory.org.temp_a7ab887743f4c84210732839cd2b17a2f103da36.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_e18be5683d7cc6692a6633d5572b55120c7838e2.png" alt="19_Elementary_Number_Theory.org.temp_e18be5683d7cc6692a6633d5572b55120c7838e2.png" />.</li>
+<li>Given <img src="ltximg/19_Elementary_Number_Theory.org.temp_202d425efd0de91d1974bf811967c07d2b3a29c8.png" alt="19_Elementary_Number_Theory.org.temp_202d425efd0de91d1974bf811967c07d2b3a29c8.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_bf1399e9cbf164e5c71e78e5cd99db0d32661109.png" alt="19_Elementary_Number_Theory.org.temp_bf1399e9cbf164e5c71e78e5cd99db0d32661109.png" /> we compute <img src="ltximg/19_Elementary_Number_Theory.org.temp_84344f7af5aede978ea6d833cbb001c4d3da3aa2.png" alt="19_Elementary_Number_Theory.org.temp_84344f7af5aede978ea6d833cbb001c4d3da3aa2.png" /> as the remainder of
+of <img src="ltximg/19_Elementary_Number_Theory.org.temp_202d425efd0de91d1974bf811967c07d2b3a29c8.png" alt="19_Elementary_Number_Theory.org.temp_202d425efd0de91d1974bf811967c07d2b3a29c8.png" /> when divided by <img src="ltximg/19_Elementary_Number_Theory.org.temp_bf1399e9cbf164e5c71e78e5cd99db0d32661109.png" alt="19_Elementary_Number_Theory.org.temp_bf1399e9cbf164e5c71e78e5cd99db0d32661109.png" />.</li>
+<li>Once <img src="ltximg/19_Elementary_Number_Theory.org.temp_cd1211fd7db2da2e0cf527adc3c883e124e7bac6.png" alt="19_Elementary_Number_Theory.org.temp_cd1211fd7db2da2e0cf527adc3c883e124e7bac6.png" />, we stop, and <img src="ltximg/19_Elementary_Number_Theory.org.temp_1a08363c11eb0b17b1f54e27a98ad2e8a34f134e.png" alt="19_Elementary_Number_Theory.org.temp_1a08363c11eb0b17b1f54e27a98ad2e8a34f134e.png" />.</li>
+</ul>
+
+<p>
+This works, because by the lemmas above, we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_471cdb404ea99d5d83f3ab1a9a4cd84896748593.png" alt="19_Elementary_Number_Theory.org.temp_471cdb404ea99d5d83f3ab1a9a4cd84896748593.png" />, since <img src="ltximg/19_Elementary_Number_Theory.org.temp_7e3448fe0ff55f291ca77576d1d6a0aed8f01489.png" alt="19_Elementary_Number_Theory.org.temp_7e3448fe0ff55f291ca77576d1d6a0aed8f01489.png" /> for some
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="19_Elementary_Number_Theory.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" />. Hence if <img src="ltximg/19_Elementary_Number_Theory.org.temp_aace65ebff9d10cdc6704950e16b58cede7230e4.png" alt="19_Elementary_Number_Theory.org.temp_aace65ebff9d10cdc6704950e16b58cede7230e4.png" /> we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/19_Elementary_Number_Theory.org.temp_1795a638a2b84661e28acd4d38d70c6a6095a13e.png" alt="19_Elementary_Number_Theory.org.temp_1795a638a2b84661e28acd4d38d70c6a6095a13e.png" /></p>
+</div>
+
+<p>
+For example, suppose we want to compute the greatest common divisor of
+1311 and 5757. We compute the following remainders:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/19_Elementary_Number_Theory.org.temp_7c751c05875532654611f0d2fbec10c99e1967f6.png" alt="19_Elementary_Number_Theory.org.temp_7c751c05875532654611f0d2fbec10c99e1967f6.png" /></p>
+</div>
+<p>
+Hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_c201a83fcfa654a13680ce11906b2741d66a8f67.png" alt="19_Elementary_Number_Theory.org.temp_c201a83fcfa654a13680ce11906b2741d66a8f67.png" />. This is much quicker than computing all
+the divisors of both 1311 and 5757.
+</p>
+
+<p>
+Here is an important result about greatest common divisors. It is only
+called a "lemma" for historical reasons.
+</p>
+
+<hr>
+<p>
+<b>Theorem</b> (B‎ézout's Lemma). Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_c3648b9525359bf9de10a16af0a905db175a7cb1.png" alt="19_Elementary_Number_Theory.org.temp_c3648b9525359bf9de10a16af0a905db175a7cb1.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="19_Elementary_Number_Theory.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /> be integers. Then there
+are integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_39f2e76b20e63db78b02b7335bd70db3995f4e33.png" alt="19_Elementary_Number_Theory.org.temp_39f2e76b20e63db78b02b7335bd70db3995f4e33.png" />.
+</p>
+
+<p>
+<b>Proof.</b> We compute <img src="ltximg/19_Elementary_Number_Theory.org.temp_953dc173e297be89191172099083d0424b28586f.png" alt="19_Elementary_Number_Theory.org.temp_953dc173e297be89191172099083d0424b28586f.png" /> by the Euclidean Algorithm given
+above, and during the algorithm we get the intermediate values <img src="ltximg/19_Elementary_Number_Theory.org.temp_a8f0836d2e81a50c4c8a941359c57efeb6914168.png" alt="19_Elementary_Number_Theory.org.temp_a8f0836d2e81a50c4c8a941359c57efeb6914168.png" /> where <img src="ltximg/19_Elementary_Number_Theory.org.temp_cd1211fd7db2da2e0cf527adc3c883e124e7bac6.png" alt="19_Elementary_Number_Theory.org.temp_cd1211fd7db2da2e0cf527adc3c883e124e7bac6.png" />. Now by induction on <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> we prove
+that we can write <img src="ltximg/19_Elementary_Number_Theory.org.temp_f10869589eaba63f0942ed1f80f8abae52870d01.png" alt="19_Elementary_Number_Theory.org.temp_f10869589eaba63f0942ed1f80f8abae52870d01.png" /> for some integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_0ddbcdad4901b4770d7dccfc614b175025832a65.png" alt="19_Elementary_Number_Theory.org.temp_0ddbcdad4901b4770d7dccfc614b175025832a65.png" /> and
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_6317b122fbb768d35ed93555275a007e0600eef5.png" alt="19_Elementary_Number_Theory.org.temp_6317b122fbb768d35ed93555275a007e0600eef5.png" />. Indeed: <img src="ltximg/19_Elementary_Number_Theory.org.temp_04759e9aa49e7d9a87d7718c4f7a27e20e15f0ff.png" alt="19_Elementary_Number_Theory.org.temp_04759e9aa49e7d9a87d7718c4f7a27e20e15f0ff.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_83a4ae1f1636fee09410bde017b2966d2c19f10c.png" alt="19_Elementary_Number_Theory.org.temp_83a4ae1f1636fee09410bde017b2966d2c19f10c.png" />. Now if we assume that <img src="ltximg/19_Elementary_Number_Theory.org.temp_f10869589eaba63f0942ed1f80f8abae52870d01.png" alt="19_Elementary_Number_Theory.org.temp_f10869589eaba63f0942ed1f80f8abae52870d01.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5bd20f6fc9aae1219c734a9405b77fae933c3de2.png" alt="19_Elementary_Number_Theory.org.temp_5bd20f6fc9aae1219c734a9405b77fae933c3de2.png" />, we know that <img src="ltximg/19_Elementary_Number_Theory.org.temp_6295b0de30224f65545cb35c44860907d60ea1e2.png" alt="19_Elementary_Number_Theory.org.temp_6295b0de30224f65545cb35c44860907d60ea1e2.png" />,
+where <img src="ltximg/19_Elementary_Number_Theory.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="19_Elementary_Number_Theory.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" /> is the quotient of <img src="ltximg/19_Elementary_Number_Theory.org.temp_2daba9a4ca7efaca43b0a760b050e66ffbb32861.png" alt="19_Elementary_Number_Theory.org.temp_2daba9a4ca7efaca43b0a760b050e66ffbb32861.png" /> when divided by <img src="ltximg/19_Elementary_Number_Theory.org.temp_864167a24065d6418a6ea4c935536cd1a72a6ad3.png" alt="19_Elementary_Number_Theory.org.temp_864167a24065d6418a6ea4c935536cd1a72a6ad3.png" />. These
+equations together give
+</p>
+
+<div class="figure">
+<p><img src="ltximg/19_Elementary_Number_Theory.org.temp_846137d1f0db0d3c169783fd712d8bfec3013607.png" alt="19_Elementary_Number_Theory.org.temp_846137d1f0db0d3c169783fd712d8bfec3013607.png" /></p>
+</div>
+<p>
+This completes the induction. In particular, <img src="ltximg/19_Elementary_Number_Theory.org.temp_188e716711e998aa23a1a2a1d5fd9c3dc6bfe616.png" alt="19_Elementary_Number_Theory.org.temp_188e716711e998aa23a1a2a1d5fd9c3dc6bfe616.png" />, and since <img src="ltximg/19_Elementary_Number_Theory.org.temp_d7e68783f0d3c5206aed6599a34229cf94baf410.png" alt="19_Elementary_Number_Theory.org.temp_d7e68783f0d3c5206aed6599a34229cf94baf410.png" /> we can write
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_953dc173e297be89191172099083d0424b28586f.png" alt="19_Elementary_Number_Theory.org.temp_953dc173e297be89191172099083d0424b28586f.png" /> as <img src="ltximg/19_Elementary_Number_Theory.org.temp_c46386e95fb0b28de5c74542e34ba8c245594dd7.png" alt="19_Elementary_Number_Theory.org.temp_c46386e95fb0b28de5c74542e34ba8c245594dd7.png" /> for some <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />.
+</p>
+
+<hr>
+<p>
+<b>Corollary.</b> If <img src="ltximg/19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> is any common divisor of <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, then <img src="ltximg/19_Elementary_Number_Theory.org.temp_fecb48a2d24ff11621a35736ebc577a8f6909c49.png" alt="19_Elementary_Number_Theory.org.temp_fecb48a2d24ff11621a35736ebc577a8f6909c49.png" />.
+</p>
+
+<p>
+<b>Proof.</b> By B‎ézout's Lemma, there are <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> such that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_86a08eb9ea620ec72cf355729ac4126f12772bae.png" alt="19_Elementary_Number_Theory.org.temp_86a08eb9ea620ec72cf355729ac4126f12772bae.png" />. Since <img src="ltximg/19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> divides both <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> divides
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_c6a603f19695c24cb4bded7c601ab33fc2a3e339.png" alt="19_Elementary_Number_Theory.org.temp_c6a603f19695c24cb4bded7c601ab33fc2a3e339.png" /> by Exercise 1 below, and hence also <img src="ltximg/19_Elementary_Number_Theory.org.temp_ee21138d808cefe7911520b46907f8c9edc70f15.png" alt="19_Elementary_Number_Theory.org.temp_ee21138d808cefe7911520b46907f8c9edc70f15.png" />.
+</p>
+
+<hr>
+<p>
+Of special interest are pairs of integers which have no divisors in
+common, except 1 and <img src="ltximg/19_Elementary_Number_Theory.org.temp_89406b92e84370b122dc953656c2ed0d2ce25869.png" alt="19_Elementary_Number_Theory.org.temp_89406b92e84370b122dc953656c2ed0d2ce25869.png" />.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> Two integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> are <i>coprime</i> if <img src="ltximg/19_Elementary_Number_Theory.org.temp_ea28faa1dbcf9fb1ca8fca619533ba2e9c321409.png" alt="19_Elementary_Number_Theory.org.temp_ea28faa1dbcf9fb1ca8fca619533ba2e9c321409.png" />.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> be integers such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />
+are coprime. If <img src="ltximg/19_Elementary_Number_Theory.org.temp_1f423998c5c7dce991679fba3e35877d7a654af0.png" alt="19_Elementary_Number_Theory.org.temp_1f423998c5c7dce991679fba3e35877d7a654af0.png" /> then <img src="ltximg/19_Elementary_Number_Theory.org.temp_1c8e2c8ddb55cbedd27597c7de47371a799bd236.png" alt="19_Elementary_Number_Theory.org.temp_1c8e2c8ddb55cbedd27597c7de47371a799bd236.png" />
+</p>
+
+<p>
+<b>Proof.</b> By B‎ézout's Lemma, there are <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_f84c56d0ab36d823c1dd9c626575327909ab9c8e.png" alt="19_Elementary_Number_Theory.org.temp_f84c56d0ab36d823c1dd9c626575327909ab9c8e.png" />. Multiplying by <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> gives <img src="ltximg/19_Elementary_Number_Theory.org.temp_79ee3a97f901d40b3a5d9442bfe164ca90638386.png" alt="19_Elementary_Number_Theory.org.temp_79ee3a97f901d40b3a5d9442bfe164ca90638386.png" /> Since <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> divides <img src="ltximg/19_Elementary_Number_Theory.org.temp_abbc227d3815707753ad67f3acb97aa1f23ea69b.png" alt="19_Elementary_Number_Theory.org.temp_abbc227d3815707753ad67f3acb97aa1f23ea69b.png" />,
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> divides the left-hand side of the equation, hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_1c8e2c8ddb55cbedd27597c7de47371a799bd236.png" alt="19_Elementary_Number_Theory.org.temp_1c8e2c8ddb55cbedd27597c7de47371a799bd236.png" />.
+</p>
+
+<hr>
+</div>
+</div>
+
+
+<div id="outline-container-org16eff9f" class="outline-3">
+<h3 id="Modular_Arithmetic"><a id="org16eff9f"></a><span class="section-number-3"> 19.3</span> Prime Numbers</h3>
+<div class="outline-text-3" id="text-Modular_Arithmetic">
+<p>
+In this section we consider properties of prime numbers.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> An integer <img src="ltximg/19_Elementary_Number_Theory.org.temp_c26b347f9859dbf104fe210412139eac584538e0.png" alt="19_Elementary_Number_Theory.org.temp_c26b347f9859dbf104fe210412139eac584538e0.png" /> is called <i>prime</i> if the only
+positive divisors of <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> are 1 and <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" />. An integer <img src="ltximg/19_Elementary_Number_Theory.org.temp_2a8df2c6642e1047b538657882ee2f2a0e413cf5.png" alt="19_Elementary_Number_Theory.org.temp_2a8df2c6642e1047b538657882ee2f2a0e413cf5.png" /> which
+is not prime is called <i>composite</i>.
+</p>
+
+<hr>
+<p>
+An equivalent definition of a prime number is a positive number with
+exactly 2 positive divisors.
+</p>
+
+<p>
+Recall from <a href="#" onclick="myModule.loadTutorial('17_The_Natural_Numbers_and_Induction.html', null)">Chapter 17</a> that every natural number greater than 1 can be
+written as the product of primes. In particular, ever natural number
+greater than 1 is divisible by some prime number.
+</p>
+
+<p>
+We now prove some other properties about prime numbers.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> There are infinitely many primes.
+</p>
+
+<p>
+<b>Proof.</b> Suppose for the sake of contradiction that there are only
+finitely many primes <img src="ltximg/19_Elementary_Number_Theory.org.temp_0db77702efa7209fc2a22785994796140d0a420a.png" alt="19_Elementary_Number_Theory.org.temp_0db77702efa7209fc2a22785994796140d0a420a.png" />. Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_21352a6ea8fd790d5491190d9e130fb612931776.png" alt="19_Elementary_Number_Theory.org.temp_21352a6ea8fd790d5491190d9e130fb612931776.png" />. Since <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is divisible by <img src="ltximg/19_Elementary_Number_Theory.org.temp_0fd6eb0c2c062448d820b68274085ffa7109bee1.png" alt="19_Elementary_Number_Theory.org.temp_0fd6eb0c2c062448d820b68274085ffa7109bee1.png" />
+for all <img src="ltximg/19_Elementary_Number_Theory.org.temp_d9809b61baa123702b7597fb251d2b7923af67f2.png" alt="19_Elementary_Number_Theory.org.temp_d9809b61baa123702b7597fb251d2b7923af67f2.png" /> we know that <img src="ltximg/19_Elementary_Number_Theory.org.temp_68d5da830f951de0ddd6d9040613b5df5c2bcaec.png" alt="19_Elementary_Number_Theory.org.temp_68d5da830f951de0ddd6d9040613b5df5c2bcaec.png" /> is not divisible by <img src="ltximg/19_Elementary_Number_Theory.org.temp_0fd6eb0c2c062448d820b68274085ffa7109bee1.png" alt="19_Elementary_Number_Theory.org.temp_0fd6eb0c2c062448d820b68274085ffa7109bee1.png" /> for
+any <img src="ltximg/19_Elementary_Number_Theory.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="19_Elementary_Number_Theory.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" />. However, we assumed that these are all primes, contradicting the
+fact that every number is divisible by a prime number.
+</p>
+
+<p>
+<b>Lemma.</b> If <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is an integer and <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> is a prime number, then either <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />
+and <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> are coprime or <img src="ltximg/19_Elementary_Number_Theory.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" alt="19_Elementary_Number_Theory.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_60ea38b0c69c6302326b0f4ae5228399f38b532f.png" alt="19_Elementary_Number_Theory.org.temp_60ea38b0c69c6302326b0f4ae5228399f38b532f.png" />. Since <img src="ltximg/19_Elementary_Number_Theory.org.temp_75237b86456fae65c4263b32c1e949a1bcb59f35.png" alt="19_Elementary_Number_Theory.org.temp_75237b86456fae65c4263b32c1e949a1bcb59f35.png" /> is a positive divisor of
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" />, either <img src="ltximg/19_Elementary_Number_Theory.org.temp_48821a4b6cee3c53decded70cb57e3dba0428fdb.png" alt="19_Elementary_Number_Theory.org.temp_48821a4b6cee3c53decded70cb57e3dba0428fdb.png" /> or <img src="ltximg/19_Elementary_Number_Theory.org.temp_9456de9db98f22163285eff2dc20f7240ebfec6d.png" alt="19_Elementary_Number_Theory.org.temp_9456de9db98f22163285eff2dc20f7240ebfec6d.png" />. In the first case, <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> are
+coprime by definition, and in the second case we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" alt="19_Elementary_Number_Theory.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" />.
+</p>
+
+<p>
+<b>Proposition.</b> If <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> are integers and <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> is a prime number such
+that <img src="ltximg/19_Elementary_Number_Theory.org.temp_e78e9319f0851d7defa4c51eb660bc52836ca575.png" alt="19_Elementary_Number_Theory.org.temp_e78e9319f0851d7defa4c51eb660bc52836ca575.png" /> then either <img src="ltximg/19_Elementary_Number_Theory.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" alt="19_Elementary_Number_Theory.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" /> or <img src="ltximg/19_Elementary_Number_Theory.org.temp_c35bc13070cfb6dfd54fe8c75ea5e97a0fe2c440.png" alt="19_Elementary_Number_Theory.org.temp_c35bc13070cfb6dfd54fe8c75ea5e97a0fe2c440.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Suppose that <img src="ltximg/19_Elementary_Number_Theory.org.temp_555e61a83f3bb4a4c5bccf5aaccf6c2cab6ec313.png" alt="19_Elementary_Number_Theory.org.temp_555e61a83f3bb4a4c5bccf5aaccf6c2cab6ec313.png" />. By the previous Lemma, this means
+that <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> are coprime. From this we can conclude that <img src="ltximg/19_Elementary_Number_Theory.org.temp_c35bc13070cfb6dfd54fe8c75ea5e97a0fe2c440.png" alt="19_Elementary_Number_Theory.org.temp_c35bc13070cfb6dfd54fe8c75ea5e97a0fe2c440.png" />.
+</p>
+
+<hr>
+<p>
+The last result in this section captures that the primes are the
+"building blocks" of the positive integers for multiplication: all
+other integers can be written as a product of primes in an
+essentially unique way.
+</p>
+
+
+<hr>
+<p>
+<b>Theorem</b> (Fundamental Theorem of Arithmetic). Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_a81608ca8df3aa65b19f98f00fa2aadb78951e1e.png" alt="19_Elementary_Number_Theory.org.temp_a81608ca8df3aa65b19f98f00fa2aadb78951e1e.png" /> be an
+integer. Then there are primes <img src="ltximg/19_Elementary_Number_Theory.org.temp_d4fab04955a8ee37d621d7ad819e25e9a56817bf.png" alt="19_Elementary_Number_Theory.org.temp_d4fab04955a8ee37d621d7ad819e25e9a56817bf.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_0e797e804dafc1f0c27b0d9acfb76f9dcd2cfdf3.png" alt="19_Elementary_Number_Theory.org.temp_0e797e804dafc1f0c27b0d9acfb76f9dcd2cfdf3.png" />. Moreover, these primes are unique up to
+reordering. That means that if there are prime numbers <img src="ltximg/19_Elementary_Number_Theory.org.temp_66045bad2c7b168a2a56fdcd3d8608be5afa95d3.png" alt="19_Elementary_Number_Theory.org.temp_66045bad2c7b168a2a56fdcd3d8608be5afa95d3.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_fdf3a447acc6292592b52968cf986e6ab661f9b5.png" alt="19_Elementary_Number_Theory.org.temp_fdf3a447acc6292592b52968cf986e6ab661f9b5.png" />, then the <img src="ltximg/19_Elementary_Number_Theory.org.temp_a125b9c96dab72e8acab8c99447c04a02ae73812.png" alt="19_Elementary_Number_Theory.org.temp_a125b9c96dab72e8acab8c99447c04a02ae73812.png" />
+are a reordering of the <img src="ltximg/19_Elementary_Number_Theory.org.temp_0fd6eb0c2c062448d820b68274085ffa7109bee1.png" alt="19_Elementary_Number_Theory.org.temp_0fd6eb0c2c062448d820b68274085ffa7109bee1.png" />. To be completely precise, this means
+that there is a bijection <img src="ltximg/19_Elementary_Number_Theory.org.temp_dac93c2d50f4285ef2fcef4820466355a78bb2ea.png" alt="19_Elementary_Number_Theory.org.temp_dac93c2d50f4285ef2fcef4820466355a78bb2ea.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_e1fc3ba6fdfcb7884a6ee2310d8753701f5ffcbc.png" alt="19_Elementary_Number_Theory.org.temp_e1fc3ba6fdfcb7884a6ee2310d8753701f5ffcbc.png" />.
+</p>
+
+<p>
+<b>Remark.</b> 1 can be written as the product of zero prime numbers. The
+<i>empty product</i> is defined to be 1.
+</p>
+
+<p>
+<b>Proof.</b> We have already seen that every number can be written as the
+product of primes, so we only need to prove the uniqueness up to
+reordering. Suppose this is not true, and by the least element
+principle, let <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> be the smallest positive integers such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> can
+be written as the product of primes in two ways: <img src="ltximg/19_Elementary_Number_Theory.org.temp_cd2b9bf8158647054e71a19a43d4858c8ce14cbf.png" alt="19_Elementary_Number_Theory.org.temp_cd2b9bf8158647054e71a19a43d4858c8ce14cbf.png" />.
+</p>
+
+<p>
+Since 1 can be written as product of primes <i>only</i> as empty product,
+we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_5c7f1d235bee35e4ea4ea8411edc51aaaca18425.png" alt="19_Elementary_Number_Theory.org.temp_5c7f1d235bee35e4ea4ea8411edc51aaaca18425.png" />, hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_b49413190eb1cf14c4d0331c0ebc9eddcdfcac74.png" alt="19_Elementary_Number_Theory.org.temp_b49413190eb1cf14c4d0331c0ebc9eddcdfcac74.png" />. Since <img src="ltximg/19_Elementary_Number_Theory.org.temp_fa5f2d3fb920c64fd5cab4a29d4f57acdd0fbe18.png" alt="19_Elementary_Number_Theory.org.temp_fa5f2d3fb920c64fd5cab4a29d4f57acdd0fbe18.png" /> is prime, we must have
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_03bc859823178ddc0f77e9bde40abf7fbbde39a7.png" alt="19_Elementary_Number_Theory.org.temp_03bc859823178ddc0f77e9bde40abf7fbbde39a7.png" /> for some <img src="ltximg/19_Elementary_Number_Theory.org.temp_7ca34ed3b10e34c8b2004af20cffb8c24db64925.png" alt="19_Elementary_Number_Theory.org.temp_7ca34ed3b10e34c8b2004af20cffb8c24db64925.png" />. By swapping <img src="ltximg/19_Elementary_Number_Theory.org.temp_6f205b3b1eaa117366be7ffe28fd24e3d72482d7.png" alt="19_Elementary_Number_Theory.org.temp_6f205b3b1eaa117366be7ffe28fd24e3d72482d7.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_14d40e6147cee6c12e3d16d2012f0ee8f95879e0.png" alt="19_Elementary_Number_Theory.org.temp_14d40e6147cee6c12e3d16d2012f0ee8f95879e0.png" />,
+we may assume that <img src="ltximg/19_Elementary_Number_Theory.org.temp_fa2371c4a7eb0ff434f786772c71a62f6e742b47.png" alt="19_Elementary_Number_Theory.org.temp_fa2371c4a7eb0ff434f786772c71a62f6e742b47.png" />. Since <img src="ltximg/19_Elementary_Number_Theory.org.temp_14d40e6147cee6c12e3d16d2012f0ee8f95879e0.png" alt="19_Elementary_Number_Theory.org.temp_14d40e6147cee6c12e3d16d2012f0ee8f95879e0.png" /> is also prime, we have
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_43b1ed486acd27767ba56bc99627b3208a7858ae.png" alt="19_Elementary_Number_Theory.org.temp_43b1ed486acd27767ba56bc99627b3208a7858ae.png" />.
+</p>
+
+<p>
+Now we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_d286ffd515d645bb7455a122b22b879e53ebeeb6.png" alt="19_Elementary_Number_Theory.org.temp_d286ffd515d645bb7455a122b22b879e53ebeeb6.png" />. This product is smaller than <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, but can
+be written as product of primes in two different ways. But we assumed
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> was the smallest such number. Contradiction!
+</p>
+
+<hr>
+</div>
+</div>
+
+
+<div id="outline-container-orgcbe7718" class="outline-3">
+<h3 id="Modular_Arithmetic"><a id="orgcbe7718"></a><span class="section-number-3"> 19.4</span> Modular Arithmetic</h3>
+<div class="outline-text-3" id="text-Modular_Arithmetic">
+<p>
+In the discussion of equivalence relations in <a href="#" onclick="myModule.loadTutorial('13_Relations.html', 'Equivalence_Relations_and_Equality')">Section 13.3</a> we considered
+the example of the relation of modular equivalence on the
+integers. This is sometimes thought of as "clock arithmetic." Suppose
+you have a 12-hour clock without a minute hand, so it only has an hour
+hand which can point to the hours 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+11 and then it wraps to 12 again. We can do arithmetic with this
+clock.
+</p>
+<ul class="org-ul">
+<li>If the hand currently points to 10, then 5 hours later it will point to 3.</li>
+<li>If the hand points to 7, then 23 hours before that, it pointed to 8.</li>
+<li>If the hand points to 9, and we work for a 8 hours, then when we are
+done the hand will point to 5. If we worked twice as long, starting
+at 9, the hand will point to 1.</li>
+</ul>
+
+<p>
+We want to write these statements using mathematical notation, so that
+we can reason about them more easily. We cannot write <img src="ltximg/19_Elementary_Number_Theory.org.temp_57b18380d8cb57ed03a59d6acddba4e185ff76bb.png" alt="19_Elementary_Number_Theory.org.temp_57b18380d8cb57ed03a59d6acddba4e185ff76bb.png" /> for
+the first expression, because that would be false, so instead we use
+the notation <img src="ltximg/19_Elementary_Number_Theory.org.temp_dc299594abc1738e0c644e0b7be7603138874b7e.png" alt="19_Elementary_Number_Theory.org.temp_dc299594abc1738e0c644e0b7be7603138874b7e.png" />. The notation <img src="ltximg/19_Elementary_Number_Theory.org.temp_a280abf0c5a98de72c10a99fab48b2f22aa940e1.png" alt="19_Elementary_Number_Theory.org.temp_a280abf0c5a98de72c10a99fab48b2f22aa940e1.png" />
+indicates that we forget about multiples of 12, and we use the
+"congruence" symbol with three horizontal lines to remind us that
+these values are not exactly equal, but only equal up to multiples
+of 12. The other two lines can be formulated as <img src="ltximg/19_Elementary_Number_Theory.org.temp_57bf11dbdd4cd9b818df91cb6dc7e1d218bcbf4a.png" alt="19_Elementary_Number_Theory.org.temp_57bf11dbdd4cd9b818df91cb6dc7e1d218bcbf4a.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_862656c4503b7f9d180dff4e86d6784fea041559.png" alt="19_Elementary_Number_Theory.org.temp_862656c4503b7f9d180dff4e86d6784fea041559.png" />.
+</p>
+
+<p>
+Here are some more examples:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/19_Elementary_Number_Theory.org.temp_b606a38d4fd8d95e98d981ff07d24f05229b2b72.png" alt="19_Elementary_Number_Theory.org.temp_b606a38d4fd8d95e98d981ff07d24f05229b2b72.png" /></li>
+<li><img src="ltximg/19_Elementary_Number_Theory.org.temp_4ca0bd938bb8b0f34a6207253fbf163c5ba11219.png" alt="19_Elementary_Number_Theory.org.temp_4ca0bd938bb8b0f34a6207253fbf163c5ba11219.png" /></li>
+<li><img src="ltximg/19_Elementary_Number_Theory.org.temp_10308ad9647b69dc0737e3508c1b0790ddd3a960.png" alt="19_Elementary_Number_Theory.org.temp_10308ad9647b69dc0737e3508c1b0790ddd3a960.png" /></li>
+</ul>
+<p>
+The last example shows that we can use negative numbers as well.
+</p>
+
+<p>
+We now give a precise definition.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> For integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> we say that <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />
+are <i>congruent modulo</i> <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> if <img src="ltximg/19_Elementary_Number_Theory.org.temp_622c67e2f237e8ba51dcfe01b3678fe37ea2956c.png" alt="19_Elementary_Number_Theory.org.temp_622c67e2f237e8ba51dcfe01b3678fe37ea2956c.png" />. This is written <img src="ltximg/19_Elementary_Number_Theory.org.temp_7cb52aff02ed0fbf021701efc2ad2517a98ada83.png" alt="19_Elementary_Number_Theory.org.temp_7cb52aff02ed0fbf021701efc2ad2517a98ada83.png" />. The number <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is called the <i>modulus</i>.
+</p>
+
+<hr>
+<p>
+Typically we only use this definition when the modulus <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is
+positive.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Congruence modulo <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is an equivalence relation.
+</p>
+
+<p>
+<b>Proof.</b> We have to show that congruence modulo <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is reflexive,
+symmetric and transitive.
+</p>
+
+<p>
+It is reflexive, because <img src="ltximg/19_Elementary_Number_Theory.org.temp_d496c12221e25899e7ed511abab8fdd24f8bb1f9.png" alt="19_Elementary_Number_Theory.org.temp_d496c12221e25899e7ed511abab8fdd24f8bb1f9.png" />, so <img src="ltximg/19_Elementary_Number_Theory.org.temp_0ad5c8476908483fc39bfb563c68860d65459921.png" alt="19_Elementary_Number_Theory.org.temp_0ad5c8476908483fc39bfb563c68860d65459921.png" />, and hence
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_caf182cdaedfcdd87bb7d7ff786c9c9e33496911.png" alt="19_Elementary_Number_Theory.org.temp_caf182cdaedfcdd87bb7d7ff786c9c9e33496911.png" />.
+</p>
+
+<p>
+To show that it is symmetric, suppose that <img src="ltximg/19_Elementary_Number_Theory.org.temp_9108863f5caa9539a118d544c78a956210cc1632.png" alt="19_Elementary_Number_Theory.org.temp_9108863f5caa9539a118d544c78a956210cc1632.png" />. Then
+by definition, <img src="ltximg/19_Elementary_Number_Theory.org.temp_622c67e2f237e8ba51dcfe01b3678fe37ea2956c.png" alt="19_Elementary_Number_Theory.org.temp_622c67e2f237e8ba51dcfe01b3678fe37ea2956c.png" />. So <img src="ltximg/19_Elementary_Number_Theory.org.temp_32506738d96bdd8d2ec93ec26c22f45325ceaae8.png" alt="19_Elementary_Number_Theory.org.temp_32506738d96bdd8d2ec93ec26c22f45325ceaae8.png" />, which
+means that <img src="ltximg/19_Elementary_Number_Theory.org.temp_b5b985ab0efacea4ef659d85cec5f6fb87485c4e.png" alt="19_Elementary_Number_Theory.org.temp_b5b985ab0efacea4ef659d85cec5f6fb87485c4e.png" />. This means by definition that <img src="ltximg/19_Elementary_Number_Theory.org.temp_d99f6cc4190987eefc21ad9b3ba32652e160c4ed.png" alt="19_Elementary_Number_Theory.org.temp_d99f6cc4190987eefc21ad9b3ba32652e160c4ed.png" />.
+</p>
+
+<p>
+To show that it is transitive, suppose that <img src="ltximg/19_Elementary_Number_Theory.org.temp_9108863f5caa9539a118d544c78a956210cc1632.png" alt="19_Elementary_Number_Theory.org.temp_9108863f5caa9539a118d544c78a956210cc1632.png" /> and
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_117a59f2075ee823705fad6bfe8676e82474a4c9.png" alt="19_Elementary_Number_Theory.org.temp_117a59f2075ee823705fad6bfe8676e82474a4c9.png" />. Then we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_622c67e2f237e8ba51dcfe01b3678fe37ea2956c.png" alt="19_Elementary_Number_Theory.org.temp_622c67e2f237e8ba51dcfe01b3678fe37ea2956c.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_c5329956ee2fc1fcb2406f678afac013156777ee.png" alt="19_Elementary_Number_Theory.org.temp_c5329956ee2fc1fcb2406f678afac013156777ee.png" />. Hence we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_bccb0b89eec6ef97e780dd37f2018e39bc57f4ea.png" alt="19_Elementary_Number_Theory.org.temp_bccb0b89eec6ef97e780dd37f2018e39bc57f4ea.png" /> which means that <img src="ltximg/19_Elementary_Number_Theory.org.temp_055fe28f492b8c6fce158c97f89178f5e040019c.png" alt="19_Elementary_Number_Theory.org.temp_055fe28f492b8c6fce158c97f89178f5e040019c.png" />. So <img src="ltximg/19_Elementary_Number_Theory.org.temp_7d9cd798253df0f99b4d18e74265abe08e42fa72.png" alt="19_Elementary_Number_Theory.org.temp_7d9cd798253df0f99b4d18e74265abe08e42fa72.png" />.
+</p>
+
+<hr>
+<p>
+This theorem justifies the "chaining" notation we used above when we
+wrote <img src="ltximg/19_Elementary_Number_Theory.org.temp_10308ad9647b69dc0737e3508c1b0790ddd3a960.png" alt="19_Elementary_Number_Theory.org.temp_10308ad9647b69dc0737e3508c1b0790ddd3a960.png" />. Since congruence
+modulo 12 is transitive, we can now actually conclude that <img src="ltximg/19_Elementary_Number_Theory.org.temp_233cbcf8aa7b7b37ce3e2221ddf69c1aa87f8349.png" alt="19_Elementary_Number_Theory.org.temp_233cbcf8aa7b7b37ce3e2221ddf69c1aa87f8349.png" />.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Suppose that <img src="ltximg/19_Elementary_Number_Theory.org.temp_291dfac646dbeb1239be2c9f1956bb39884ceda6.png" alt="19_Elementary_Number_Theory.org.temp_291dfac646dbeb1239be2c9f1956bb39884ceda6.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_affd5cd41700661f265710dd804846102027f376.png" alt="19_Elementary_Number_Theory.org.temp_affd5cd41700661f265710dd804846102027f376.png" />. Then <img src="ltximg/19_Elementary_Number_Theory.org.temp_fd94fe0aff16dd13658f9aac5cc0eda86c7fcc12.png" alt="19_Elementary_Number_Theory.org.temp_fd94fe0aff16dd13658f9aac5cc0eda86c7fcc12.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_22a4ec93afc2be438d5cada0973e1d74d75d1afb.png" alt="19_Elementary_Number_Theory.org.temp_22a4ec93afc2be438d5cada0973e1d74d75d1afb.png" />.
+</p>
+
+<p>
+Moreover, if <img src="ltximg/19_Elementary_Number_Theory.org.temp_291dfac646dbeb1239be2c9f1956bb39884ceda6.png" alt="19_Elementary_Number_Theory.org.temp_291dfac646dbeb1239be2c9f1956bb39884ceda6.png" /> then <img src="ltximg/19_Elementary_Number_Theory.org.temp_f182e609026348590c28e43cad7342cc8c3abf41.png" alt="19_Elementary_Number_Theory.org.temp_f182e609026348590c28e43cad7342cc8c3abf41.png" /> for
+all natural numbers <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />.
+</p>
+
+<p>
+<b>Proof.</b> We know that <img src="ltximg/19_Elementary_Number_Theory.org.temp_622c67e2f237e8ba51dcfe01b3678fe37ea2956c.png" alt="19_Elementary_Number_Theory.org.temp_622c67e2f237e8ba51dcfe01b3678fe37ea2956c.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_81fee8b163e3b30447940840bdb32eea3721726c.png" alt="19_Elementary_Number_Theory.org.temp_81fee8b163e3b30447940840bdb32eea3721726c.png" />. For the first
+statement, we can calculate that <img src="ltximg/19_Elementary_Number_Theory.org.temp_b1d5f3e649f63a54f8d8a44c1dcc4e93254d0e07.png" alt="19_Elementary_Number_Theory.org.temp_b1d5f3e649f63a54f8d8a44c1dcc4e93254d0e07.png" />, so we can conclude that <img src="ltximg/19_Elementary_Number_Theory.org.temp_717b47b68b76abf7692411ca4ee78edb4ed22c9d.png" alt="19_Elementary_Number_Theory.org.temp_717b47b68b76abf7692411ca4ee78edb4ed22c9d.png" /> hence that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_ce793766ec0eb1024ab5f943f8a55b11f51172fe.png" alt="19_Elementary_Number_Theory.org.temp_ce793766ec0eb1024ab5f943f8a55b11f51172fe.png" />.
+</p>
+
+<p>
+For the second statement, we want to show that <img src="ltximg/19_Elementary_Number_Theory.org.temp_d13d840c3df543b05a2b5ae73a7816786236b1b8.png" alt="19_Elementary_Number_Theory.org.temp_d13d840c3df543b05a2b5ae73a7816786236b1b8.png" />. We can factor <img src="ltximg/19_Elementary_Number_Theory.org.temp_d750be8661b82fbeb133650ecf65a0900bd2bbe1.png" alt="19_Elementary_Number_Theory.org.temp_d750be8661b82fbeb133650ecf65a0900bd2bbe1.png" />. Now <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> divides both summands on the right, hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />
+divides <img src="ltximg/19_Elementary_Number_Theory.org.temp_2b3c71b46306c2c3f1d86ef648abcb1a79b7cf39.png" alt="19_Elementary_Number_Theory.org.temp_2b3c71b46306c2c3f1d86ef648abcb1a79b7cf39.png" />, which means that <img src="ltximg/19_Elementary_Number_Theory.org.temp_22a4ec93afc2be438d5cada0973e1d74d75d1afb.png" alt="19_Elementary_Number_Theory.org.temp_22a4ec93afc2be438d5cada0973e1d74d75d1afb.png" />.
+</p>
+
+<p>
+The last statement follows by induction on <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />. If <img src="ltximg/19_Elementary_Number_Theory.org.temp_8ec26f4ef71274bcaefe814f25d38b88a428d1ae.png" alt="19_Elementary_Number_Theory.org.temp_8ec26f4ef71274bcaefe814f25d38b88a428d1ae.png" />, then
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_0e62fc2b9f5482b0f465de332f22f545b09b3a63.png" alt="19_Elementary_Number_Theory.org.temp_0e62fc2b9f5482b0f465de332f22f545b09b3a63.png" />, and for the induction step, suppose that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_803bce2e4592bbb61f96ae0c4931d7d6ab616ef8.png" alt="19_Elementary_Number_Theory.org.temp_803bce2e4592bbb61f96ae0c4931d7d6ab616ef8.png" />, then we have
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_833f2a4b3d272bab993729b66216585565c446cd.png" alt="19_Elementary_Number_Theory.org.temp_833f2a4b3d272bab993729b66216585565c446cd.png" />
+</p>
+
+<hr>
+<p>
+This theorem is useful for carrying out computations modulo <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Here
+are some examples.
+</p>
+<ul class="org-ul">
+<li>Suppose we want to compute <img src="ltximg/19_Elementary_Number_Theory.org.temp_7bf2a7595d1b99b52d8f45b20940c0dc85a3b57b.png" alt="19_Elementary_Number_Theory.org.temp_7bf2a7595d1b99b52d8f45b20940c0dc85a3b57b.png" /> modulo 12. We know that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_0abb4480ef899bc574390c66112ce71138d5a33d.png" alt="19_Elementary_Number_Theory.org.temp_0abb4480ef899bc574390c66112ce71138d5a33d.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_594b062081fb67a54aee2e08cdb27bedf7122653.png" alt="19_Elementary_Number_Theory.org.temp_594b062081fb67a54aee2e08cdb27bedf7122653.png" />, so <img src="ltximg/19_Elementary_Number_Theory.org.temp_3160e84888ff8412453c4471d8a415a6abd31e4f.png" alt="19_Elementary_Number_Theory.org.temp_3160e84888ff8412453c4471d8a415a6abd31e4f.png" /></li>
+<li>Suppose we want to compute <img src="ltximg/19_Elementary_Number_Theory.org.temp_de363d750bb85531c8cec90ec2482dbdcd1af324.png" alt="19_Elementary_Number_Theory.org.temp_de363d750bb85531c8cec90ec2482dbdcd1af324.png" /> modulo 10. We know that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_0e0c37f2dcffe4fd89ea806d8c1864321860013e.png" alt="19_Elementary_Number_Theory.org.temp_0e0c37f2dcffe4fd89ea806d8c1864321860013e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_de3140b6641c11c4a8149e610e48ae7648df6f6e.png" alt="19_Elementary_Number_Theory.org.temp_de3140b6641c11c4a8149e610e48ae7648df6f6e.png" />, hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_a25a7d8e3edcd958522958ed639e34b9bf900370.png" alt="19_Elementary_Number_Theory.org.temp_a25a7d8e3edcd958522958ed639e34b9bf900370.png" />.</li>
+<li>Suppose we want to know the last digit of <img src="ltximg/19_Elementary_Number_Theory.org.temp_b9fce0c9003bd4351c31e9e48197458ab79b3aa4.png" alt="19_Elementary_Number_Theory.org.temp_b9fce0c9003bd4351c31e9e48197458ab79b3aa4.png" />. Notice that
+the last digit of a number <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is congruent to <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> modulo 10, so we
+can just compute <img src="ltximg/19_Elementary_Number_Theory.org.temp_ce8077df04cb5285a1f9756095a7762c1d7745a0.png" alt="19_Elementary_Number_Theory.org.temp_ce8077df04cb5285a1f9756095a7762c1d7745a0.png" />. So
+the last digit of <img src="ltximg/19_Elementary_Number_Theory.org.temp_b9fce0c9003bd4351c31e9e48197458ab79b3aa4.png" alt="19_Elementary_Number_Theory.org.temp_b9fce0c9003bd4351c31e9e48197458ab79b3aa4.png" /> is 1.</li>
+</ul>
+
+<p>
+<b>Warning.</b> You cannot do all computations you might expect with
+modular arithmetic:
+</p>
+<ul class="org-ul">
+<li>You are not allowed to divide congruent numbers in modular
+arithmetic. For example <img src="ltximg/19_Elementary_Number_Theory.org.temp_ce728432dfcda6dee9a3a3069e82ba8a242f6ffb.png" alt="19_Elementary_Number_Theory.org.temp_ce728432dfcda6dee9a3a3069e82ba8a242f6ffb.png" />, but we are not
+allowed to divide both sides of the equation by 2, because <img src="ltximg/19_Elementary_Number_Theory.org.temp_4e872493059e0ca949fb945bdc5e1491b2aa0fed.png" alt="19_Elementary_Number_Theory.org.temp_4e872493059e0ca949fb945bdc5e1491b2aa0fed.png" />.</li>
+<li>You are not allowed to compute in exponents with modular
+arithmetic. For example <img src="ltximg/19_Elementary_Number_Theory.org.temp_31a38ead6f4fcbe0e4986b306f58d9ac7bd51dcb.png" alt="19_Elementary_Number_Theory.org.temp_31a38ead6f4fcbe0e4986b306f58d9ac7bd51dcb.png" />, but <img src="ltximg/19_Elementary_Number_Theory.org.temp_197ecc7c9644e01f9d10e33ca9302d5059d26b37.png" alt="19_Elementary_Number_Theory.org.temp_197ecc7c9644e01f9d10e33ca9302d5059d26b37.png" />. To see this: <img src="ltximg/19_Elementary_Number_Theory.org.temp_37e78d826a8d484935ca5da25c9796c02cd54db3.png" alt="19_Elementary_Number_Theory.org.temp_37e78d826a8d484935ca5da25c9796c02cd54db3.png" />, but <img src="ltximg/19_Elementary_Number_Theory.org.temp_db782aff20e79f30f28bf0b86f585263bb03869e.png" alt="19_Elementary_Number_Theory.org.temp_db782aff20e79f30f28bf0b86f585263bb03869e.png" />.</li>
+</ul>
+
+<p>
+Recall the quotient-remainder theorem: if <img src="ltximg/19_Elementary_Number_Theory.org.temp_a81608ca8df3aa65b19f98f00fa2aadb78951e1e.png" alt="19_Elementary_Number_Theory.org.temp_a81608ca8df3aa65b19f98f00fa2aadb78951e1e.png" />, then any integer
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> can be expressed as <img src="ltximg/19_Elementary_Number_Theory.org.temp_9e8e1953bae43a574a1f3c62ce8c4ae326f33fa3.png" alt="19_Elementary_Number_Theory.org.temp_9e8e1953bae43a574a1f3c62ce8c4ae326f33fa3.png" />, where <img src="ltximg/19_Elementary_Number_Theory.org.temp_29eb070637c371ecf6859a205dbff2ef4725e5a4.png" alt="19_Elementary_Number_Theory.org.temp_29eb070637c371ecf6859a205dbff2ef4725e5a4.png" />. In the
+language of modular arithmetic this means that <img src="ltximg/19_Elementary_Number_Theory.org.temp_d6bb52d7ef2b0331a3682306a4d0aeeceafd789f.png" alt="19_Elementary_Number_Theory.org.temp_d6bb52d7ef2b0331a3682306a4d0aeeceafd789f.png" />. So if <img src="ltximg/19_Elementary_Number_Theory.org.temp_a81608ca8df3aa65b19f98f00fa2aadb78951e1e.png" alt="19_Elementary_Number_Theory.org.temp_a81608ca8df3aa65b19f98f00fa2aadb78951e1e.png" />, then every integer is congruent to a number
+between 0 and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6b7a2bb63013930df3b14f07b268dee18eb743c1.png" alt="19_Elementary_Number_Theory.org.temp_6b7a2bb63013930df3b14f07b268dee18eb743c1.png" /> (inclusive). So there "are only <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> different
+numbers" when working modulo <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. This can be used to prove many
+statements about the natural numbers.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> For every integer <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_b21b7ec86027d7ac4bb1c22f43bf25a0a31130be.png" alt="19_Elementary_Number_Theory.org.temp_b21b7ec86027d7ac4bb1c22f43bf25a0a31130be.png" /> is not divisible by 3.
+</p>
+
+<p>
+<b>Proof.</b> Translating this problem to modular arithmetic, we have to
+show that <img src="ltximg/19_Elementary_Number_Theory.org.temp_024583ff900c1bff5c837010879d03bbb66465b7.png" alt="19_Elementary_Number_Theory.org.temp_024583ff900c1bff5c837010879d03bbb66465b7.png" /> or in other words that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_c283e1e8ef6bf627a69e908f58d6fe42069fc7ed.png" alt="19_Elementary_Number_Theory.org.temp_c283e1e8ef6bf627a69e908f58d6fe42069fc7ed.png" /> for all <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />. By the quotient-remainder
+theorem, we know that <img src="ltximg/19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="19_Elementary_Number_Theory.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> is either congruent to 0, 1 or 2,
+modulo 3. In the first case, <img src="ltximg/19_Elementary_Number_Theory.org.temp_9bb20609ae68ad65dbc6f0f4508157c2e8435be5.png" alt="19_Elementary_Number_Theory.org.temp_9bb20609ae68ad65dbc6f0f4508157c2e8435be5.png" />. In the
+second case, <img src="ltximg/19_Elementary_Number_Theory.org.temp_d9de7bff711a3ca280dc8ba666734d79aba2f29a.png" alt="19_Elementary_Number_Theory.org.temp_d9de7bff711a3ca280dc8ba666734d79aba2f29a.png" />, and in the last case
+we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_80e52a54cfdd9670dac79b238fa1a83f67eb7963.png" alt="19_Elementary_Number_Theory.org.temp_80e52a54cfdd9670dac79b238fa1a83f67eb7963.png" />. In all of those cases,
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_cfee0bae42d4e3d52d777b070aa000f8afbfe612.png" alt="19_Elementary_Number_Theory.org.temp_cfee0bae42d4e3d52d777b070aa000f8afbfe612.png" />. So <img src="ltximg/19_Elementary_Number_Theory.org.temp_b21b7ec86027d7ac4bb1c22f43bf25a0a31130be.png" alt="19_Elementary_Number_Theory.org.temp_b21b7ec86027d7ac4bb1c22f43bf25a0a31130be.png" /> is never divisible by 3.
+</p>
+
+<hr>
+<p>
+<b>Proposition.</b> For all integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_b0ddd4d9d74c88e57871c878a7e8d4d95bb2641c.png" alt="19_Elementary_Number_Theory.org.temp_b0ddd4d9d74c88e57871c878a7e8d4d95bb2641c.png" /> is not
+divisible by 4.
+</p>
+
+<p>
+<b>Proof.</b> We first compute the squares modulo 4. We compute
+</p>
+
+<div class="figure">
+<p><img src="ltximg/19_Elementary_Number_Theory.org.temp_73881bde1e5a53d682c1abdcc8913a4b33eebce7.png" alt="19_Elementary_Number_Theory.org.temp_73881bde1e5a53d682c1abdcc8913a4b33eebce7.png" /></p>
+</div>
+<p>
+Since every number is congruent to 0, 1, 2 or 3 modulo 4, we know that
+every square is congruent to 0 or 1 modulo 4. This means that there
+are only four possibilities for <img src="ltximg/19_Elementary_Number_Theory.org.temp_1284d1310f98996fcc3c659d335ca2f899ea7cd7.png" alt="19_Elementary_Number_Theory.org.temp_1284d1310f98996fcc3c659d335ca2f899ea7cd7.png" />. It can be congruent
+to <img src="ltximg/19_Elementary_Number_Theory.org.temp_16060a9fcbbcd4b716be28a70a4ce65fc0398ef8.png" alt="19_Elementary_Number_Theory.org.temp_16060a9fcbbcd4b716be28a70a4ce65fc0398ef8.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_b5cd73cf176cc6faeb9f9aa53d9ca9895d515279.png" alt="19_Elementary_Number_Theory.org.temp_b5cd73cf176cc6faeb9f9aa53d9ca9895d515279.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_0f896b4b07f23df533ccdb7b9ab1e49673ae4026.png" alt="19_Elementary_Number_Theory.org.temp_0f896b4b07f23df533ccdb7b9ab1e49673ae4026.png" /> or <img src="ltximg/19_Elementary_Number_Theory.org.temp_16060a9fcbbcd4b716be28a70a4ce65fc0398ef8.png" alt="19_Elementary_Number_Theory.org.temp_16060a9fcbbcd4b716be28a70a4ce65fc0398ef8.png" />. In all those cases,
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_48b7d4115fcf67cb9b426b637777b82867607fdc.png" alt="19_Elementary_Number_Theory.org.temp_48b7d4115fcf67cb9b426b637777b82867607fdc.png" /> Hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_64ad72980692e078a1422eb7644854fc2a666515.png" alt="19_Elementary_Number_Theory.org.temp_64ad72980692e078a1422eb7644854fc2a666515.png" />, proving the
+proposition.
+</p>
+
+<hr>
+<p>
+Recall that we warned you about dividing in modular arithmetic. This
+doesn't always work, but often it does. For example, suppose we want
+to solve <img src="ltximg/19_Elementary_Number_Theory.org.temp_4ce39bf7522aff442d47d63c22c8c83230b107b8.png" alt="19_Elementary_Number_Theory.org.temp_4ce39bf7522aff442d47d63c22c8c83230b107b8.png" />. We cannot solve this by saying that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_7e746ae7f38e44425a0034aeda1bfc728d929c6e.png" alt="19_Elementary_Number_Theory.org.temp_7e746ae7f38e44425a0034aeda1bfc728d929c6e.png" />, because we cannot work with fractions in
+modular arithmetic. However, we can still solve it by multiplying
+both sides with 3. Then we get <img src="ltximg/19_Elementary_Number_Theory.org.temp_e3894a7a4cc6e12192abdf24844626d1296ec473.png" alt="19_Elementary_Number_Theory.org.temp_e3894a7a4cc6e12192abdf24844626d1296ec473.png" />, and since
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_3f22c020b678cb7da8f684e408e881bc53a8c0f7.png" alt="19_Elementary_Number_Theory.org.temp_3f22c020b678cb7da8f684e408e881bc53a8c0f7.png" /> we get <img src="ltximg/19_Elementary_Number_Theory.org.temp_801898588ed39c40abf2d28ec75e808eee12c0ba.png" alt="19_Elementary_Number_Theory.org.temp_801898588ed39c40abf2d28ec75e808eee12c0ba.png" />. So instead of
+dividing by 2 we could multiply by 3 to get the answer. The reason
+this worked is because <img src="ltximg/19_Elementary_Number_Theory.org.temp_68a7c82a58b386c653c35e9c2952a618638e5e81.png" alt="19_Elementary_Number_Theory.org.temp_68a7c82a58b386c653c35e9c2952a618638e5e81.png" />.
+</p>
+
+<hr>
+<p>
+<b>Definition.</b> Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> be integers. A <i>multiplicative inverse
+of <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> modulo <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /></i> is an integer <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_0681ed3b0ad607cc12676eae438850481f68bd57.png" alt="19_Elementary_Number_Theory.org.temp_0681ed3b0ad607cc12676eae438850481f68bd57.png" />.
+</p>
+
+<hr>
+<p>
+For example, 3 is a multiplicative inverse of 5 modulo 7, since
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_e351a78dde7bbc5ead847bf5049766b4f87ca458.png" alt="19_Elementary_Number_Theory.org.temp_e351a78dde7bbc5ead847bf5049766b4f87ca458.png" />. But <img src="ltximg/19_Elementary_Number_Theory.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" alt="19_Elementary_Number_Theory.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" /> has no multiplicative inverse
+modulo 6. Indeed, suppose that <img src="ltximg/19_Elementary_Number_Theory.org.temp_492f2ac548582cbc1520460a4c6cbafeef3bc810.png" alt="19_Elementary_Number_Theory.org.temp_492f2ac548582cbc1520460a4c6cbafeef3bc810.png" />, then <img src="ltximg/19_Elementary_Number_Theory.org.temp_2ecf8421377670d8c8f31ac4bd08d9ac1faeb0da.png" alt="19_Elementary_Number_Theory.org.temp_2ecf8421377670d8c8f31ac4bd08d9ac1faeb0da.png" />. However, <img src="ltximg/19_Elementary_Number_Theory.org.temp_b099577747cbdaa8815cec7144cff332888ce6fd.png" alt="19_Elementary_Number_Theory.org.temp_b099577747cbdaa8815cec7144cff332888ce6fd.png" /> is odd, and cannot be divisible by an even
+number. We can use multiplicative inverses to solve equations. If we
+want to solve <img src="ltximg/19_Elementary_Number_Theory.org.temp_e072efca8277cec810d0c0e90cdeecf25ac16189.png" alt="19_Elementary_Number_Theory.org.temp_e072efca8277cec810d0c0e90cdeecf25ac16189.png" /> for <img src="ltximg/19_Elementary_Number_Theory.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="19_Elementary_Number_Theory.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and we know that <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> is a
+multiplicative inverse of <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />, the solution is <img src="ltximg/19_Elementary_Number_Theory.org.temp_885d0ffc604e76e9df481f6bc3688c4639070074.png" alt="19_Elementary_Number_Theory.org.temp_885d0ffc604e76e9df481f6bc3688c4639070074.png" />
+which we can see by multiplying both sides by <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />.
+</p>
+
+<hr>
+<p>
+<b>Lemma</b> Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> be integers. <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> has at most one
+multiplicative inverse modulo <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. That is, if <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_69a7b58c6127ae60854359bcb84466c34a1baf8a.png" alt="19_Elementary_Number_Theory.org.temp_69a7b58c6127ae60854359bcb84466c34a1baf8a.png" /> are both
+multiplicative inverses of <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> modulo <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, then <img src="ltximg/19_Elementary_Number_Theory.org.temp_6b853698a44fe110000227998e00bf34d29aaf3c.png" alt="19_Elementary_Number_Theory.org.temp_6b853698a44fe110000227998e00bf34d29aaf3c.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Suppose that <img src="ltximg/19_Elementary_Number_Theory.org.temp_917e77e2f251a6d780ed5f477caac51ded4a0f73.png" alt="19_Elementary_Number_Theory.org.temp_917e77e2f251a6d780ed5f477caac51ded4a0f73.png" />. Then we can
+compute <img src="ltximg/19_Elementary_Number_Theory.org.temp_8b343e2cc0a8205bec1b4e98536b910dc02cb2c4.png" alt="19_Elementary_Number_Theory.org.temp_8b343e2cc0a8205bec1b4e98536b910dc02cb2c4.png" /> in two ways: <img src="ltximg/19_Elementary_Number_Theory.org.temp_5ef0493957b29c6d9afe96243b2896173cd4be46.png" alt="19_Elementary_Number_Theory.org.temp_5ef0493957b29c6d9afe96243b2896173cd4be46.png" />.
+</p>
+
+<p>
+<b>Proposition.</b> Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> be integers. <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> has a multiplicative
+inverse modulo <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> if and only if <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> are coprime.
+</p>
+
+<p>
+<b>Proof.</b> Suppose <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> is a multiplicative inverse of <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> modulo
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. Then <img src="ltximg/19_Elementary_Number_Theory.org.temp_0e56d9eb81d786883e4482d7fc35e604d297227b.png" alt="19_Elementary_Number_Theory.org.temp_0e56d9eb81d786883e4482d7fc35e604d297227b.png" />. Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_460d303018c05c1cc9566925e0d8c180b14e7818.png" alt="19_Elementary_Number_Theory.org.temp_460d303018c05c1cc9566925e0d8c180b14e7818.png" />. Since <img src="ltximg/19_Elementary_Number_Theory.org.temp_0261381bd19fbe394f69ef28939bd0af522b870a.png" alt="19_Elementary_Number_Theory.org.temp_0261381bd19fbe394f69ef28939bd0af522b870a.png" /> we
+have <img src="ltximg/19_Elementary_Number_Theory.org.temp_d80567736212358576c62c34718842040868e4c8.png" alt="19_Elementary_Number_Theory.org.temp_d80567736212358576c62c34718842040868e4c8.png" />. But since <img src="ltximg/19_Elementary_Number_Theory.org.temp_75237b86456fae65c4263b32c1e949a1bcb59f35.png" alt="19_Elementary_Number_Theory.org.temp_75237b86456fae65c4263b32c1e949a1bcb59f35.png" /> is a divisor of <img src="ltximg/19_Elementary_Number_Theory.org.temp_6e84cd1f8e41ca1100f26207daea325545482fbd.png" alt="19_Elementary_Number_Theory.org.temp_6e84cd1f8e41ca1100f26207daea325545482fbd.png" />, we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_6342faa734e6895fa5752c6abb91db17040c415e.png" alt="19_Elementary_Number_Theory.org.temp_6342faa734e6895fa5752c6abb91db17040c415e.png" />. Since <img src="ltximg/19_Elementary_Number_Theory.org.temp_005ee8051d06f40087dcdd3f3ef25f12cc6419b1.png" alt="19_Elementary_Number_Theory.org.temp_005ee8051d06f40087dcdd3f3ef25f12cc6419b1.png" /> we have <img src="ltximg/19_Elementary_Number_Theory.org.temp_12c0dcbca9f5c29eb5b1ea039b1df44a41330b54.png" alt="19_Elementary_Number_Theory.org.temp_12c0dcbca9f5c29eb5b1ea039b1df44a41330b54.png" />. Hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> are coprime.
+</p>
+
+<p>
+On the other hand, suppose that <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> are coprime. By B‎ézout's
+Lemma we know that there are integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> such that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_15fc055415ea56d21244471f4c43913cbfa98b45.png" alt="19_Elementary_Number_Theory.org.temp_15fc055415ea56d21244471f4c43913cbfa98b45.png" />. We can rewrite this to <img src="ltximg/19_Elementary_Number_Theory.org.temp_c0e29df0115f6bb31faf730d87bf1bde69a71538.png" alt="19_Elementary_Number_Theory.org.temp_c0e29df0115f6bb31faf730d87bf1bde69a71538.png" />, hence
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_0e56d9eb81d786883e4482d7fc35e604d297227b.png" alt="19_Elementary_Number_Theory.org.temp_0e56d9eb81d786883e4482d7fc35e604d297227b.png" />, which means by definition <img src="ltximg/19_Elementary_Number_Theory.org.temp_beaea4655b7ce93290226827183abb8d5baed82b.png" alt="19_Elementary_Number_Theory.org.temp_beaea4655b7ce93290226827183abb8d5baed82b.png" />. This means that <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> is a multiplicative inverse of <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />
+modulo <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.
+</p>
+
+<hr>
+<p>
+Note that if <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> is a prime number and <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is a integer not divisible
+by <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" />, then <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> are coprime, hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> has a multiplicative
+inverse.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org56c300a" class="outline-3">
+<h3 id="Properties of Squares"><a id="org56c300a"></a><span class="section-number-3"> 19.5</span> Properties of Squares</h3>
+<div class="outline-text-3" id="text-Properties of Squares">
+<p>
+Mathematicians from ancient times have been interested in the question
+as to which integers can be written as a sum of two squares. For
+example, we can write <img src="ltximg/19_Elementary_Number_Theory.org.temp_ce97ec4642b374594211eec01caae0b9c8cba389.png" alt="19_Elementary_Number_Theory.org.temp_ce97ec4642b374594211eec01caae0b9c8cba389.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_f3246f8489ecf279e8341fc95e2b1cae6b4d9d25.png" alt="19_Elementary_Number_Theory.org.temp_f3246f8489ecf279e8341fc95e2b1cae6b4d9d25.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_c97ade428b21aaa7f53848f8a9fe2115ca19fcc0.png" alt="19_Elementary_Number_Theory.org.temp_c97ade428b21aaa7f53848f8a9fe2115ca19fcc0.png" />. If we make a sufficiently long list of these, an interesting
+pattern emerges: if two numbers can be written as a sum of two
+squares, then so can their product. For example, <img src="ltximg/19_Elementary_Number_Theory.org.temp_f8e8b1cf778289cb279a33373bdf3ec71048f7c3.png" alt="19_Elementary_Number_Theory.org.temp_f8e8b1cf778289cb279a33373bdf3ec71048f7c3.png" />, and
+we can write <img src="ltximg/19_Elementary_Number_Theory.org.temp_8898c090aa57028c188d42ea5d624e7f5fb61e32.png" alt="19_Elementary_Number_Theory.org.temp_8898c090aa57028c188d42ea5d624e7f5fb61e32.png" />. Or <img src="ltximg/19_Elementary_Number_Theory.org.temp_b4031ec8552318d938c393187151553d4f8d7911.png" alt="19_Elementary_Number_Theory.org.temp_b4031ec8552318d938c393187151553d4f8d7911.png" />, and we can write
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_a7e2906e57e0369e6dbdeea987d3b7e8756042dd.png" alt="19_Elementary_Number_Theory.org.temp_a7e2906e57e0369e6dbdeea987d3b7e8756042dd.png" />.
+</p>
+
+<p>
+At first, one might wonder whether this is just a coincidence. The
+following provides a proof of the fact that it is not.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="19_Elementary_Number_Theory.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="19_Elementary_Number_Theory.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> be any two integers. If <img src="ltximg/19_Elementary_Number_Theory.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="19_Elementary_Number_Theory.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="19_Elementary_Number_Theory.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> are
+both sums of two squares, then so is <img src="ltximg/19_Elementary_Number_Theory.org.temp_3543e4f078238885be0b8ef993d5f9604bb72964.png" alt="19_Elementary_Number_Theory.org.temp_3543e4f078238885be0b8ef993d5f9604bb72964.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Suppose <img src="ltximg/19_Elementary_Number_Theory.org.temp_d45550828d11c873a63d143995d54ea157287ea2.png" alt="19_Elementary_Number_Theory.org.temp_d45550828d11c873a63d143995d54ea157287ea2.png" />, and suppose <img src="ltximg/19_Elementary_Number_Theory.org.temp_49585c2a0ec43ffe48a1d9e830c738a1d6bd8554.png" alt="19_Elementary_Number_Theory.org.temp_49585c2a0ec43ffe48a1d9e830c738a1d6bd8554.png" />. I claim
+that
+</p>
+
+<div class="figure">
+<p><img src="ltximg/19_Elementary_Number_Theory.org.temp_60998d6f042034aafaf5b4ec6fe4a1d884be4517.png" alt="19_Elementary_Number_Theory.org.temp_60998d6f042034aafaf5b4ec6fe4a1d884be4517.png" /></p>
+</div>
+<p>
+To show this, notice that on the one hand we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/19_Elementary_Number_Theory.org.temp_67bf6628cf85968c270d1be3fdfe0ab8e7ccb965.png" alt="19_Elementary_Number_Theory.org.temp_67bf6628cf85968c270d1be3fdfe0ab8e7ccb965.png" /></p>
+</div>
+<p>
+On the other hand, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/19_Elementary_Number_Theory.org.temp_d03920d92ba7b5fcab2f8ec428340ba0274b25b1.png" alt="19_Elementary_Number_Theory.org.temp_d03920d92ba7b5fcab2f8ec428340ba0274b25b1.png" /></p>
+</div>
+<p>
+Up to the order of summands, the two right-hand sides are the same.
+</p>
+
+<hr>
+<p>
+We will now prove that <img src="ltximg/19_Elementary_Number_Theory.org.temp_fbc7a9aaf899f339cc64b22c2b2f1783cc8f8c45.png" alt="19_Elementary_Number_Theory.org.temp_fbc7a9aaf899f339cc64b22c2b2f1783cc8f8c45.png" /> is not a fraction of two integers.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> There are no integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_c8d1017b05f681e354441d6f1ae8d2df849ea26b.png" alt="19_Elementary_Number_Theory.org.temp_c8d1017b05f681e354441d6f1ae8d2df849ea26b.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Suppose that <img src="ltximg/19_Elementary_Number_Theory.org.temp_c8d1017b05f681e354441d6f1ae8d2df849ea26b.png" alt="19_Elementary_Number_Theory.org.temp_c8d1017b05f681e354441d6f1ae8d2df849ea26b.png" /> for some integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />. By canceling common factors, we may assume that <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> are
+coprime. By squaring both sides, we get <img src="ltximg/19_Elementary_Number_Theory.org.temp_ac9f1d02b685c6cca7d692cef046c2f512b3e9a4.png" alt="19_Elementary_Number_Theory.org.temp_ac9f1d02b685c6cca7d692cef046c2f512b3e9a4.png" />, and
+multiplying both sides by <img src="ltximg/19_Elementary_Number_Theory.org.temp_22286ee3abb84d5259467de3731120bbac32f92f.png" alt="19_Elementary_Number_Theory.org.temp_22286ee3abb84d5259467de3731120bbac32f92f.png" /> gives <img src="ltximg/19_Elementary_Number_Theory.org.temp_31e7647cb9ae770331a82a6bbf16318b76841b05.png" alt="19_Elementary_Number_Theory.org.temp_31e7647cb9ae770331a82a6bbf16318b76841b05.png" />. Since <img src="ltximg/19_Elementary_Number_Theory.org.temp_1f132909e15be0007af72c8ba3ec4b92baf0f31b.png" alt="19_Elementary_Number_Theory.org.temp_1f132909e15be0007af72c8ba3ec4b92baf0f31b.png" /> is
+even, we know that <img src="ltximg/19_Elementary_Number_Theory.org.temp_8f6a6db17f7fe45faf24929519dfe7911b300ab8.png" alt="19_Elementary_Number_Theory.org.temp_8f6a6db17f7fe45faf24929519dfe7911b300ab8.png" /> is even, and since odd squares are odd, we
+conclude that <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is even. Hence we can write <img src="ltximg/19_Elementary_Number_Theory.org.temp_4c0f1e2034770fd94ae98efcf03a997a9124ebac.png" alt="19_Elementary_Number_Theory.org.temp_4c0f1e2034770fd94ae98efcf03a997a9124ebac.png" /> for some
+integer <img src="ltximg/19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" />. This means that <img src="ltximg/19_Elementary_Number_Theory.org.temp_f8c348683294c3e4859a24289af296c08327ec35.png" alt="19_Elementary_Number_Theory.org.temp_f8c348683294c3e4859a24289af296c08327ec35.png" />, hence <img src="ltximg/19_Elementary_Number_Theory.org.temp_b52a2118d6eef415059596232750a15dec15d70e.png" alt="19_Elementary_Number_Theory.org.temp_b52a2118d6eef415059596232750a15dec15d70e.png" />. The same
+reasoning shows that <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> is even. But we assumed that <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> are
+coprime, which contradicts the fact that they are both even.
+</p>
+
+<p>
+Hence there are no integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_c8d1017b05f681e354441d6f1ae8d2df849ea26b.png" alt="19_Elementary_Number_Theory.org.temp_c8d1017b05f681e354441d6f1ae8d2df849ea26b.png" />.
+</p>
+
+<hr>
+</div>
+</div>
+
+
+<div id="outline-container-orga3d708d" class="outline-3">
+<h3 id="orga3d708d"><span class="section-number-3"> 19.6</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li>Prove the following properties about divisibility (for any
+integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" />):
+
+<ul class="org-ul">
+<li>if <img src="ltximg/19_Elementary_Number_Theory.org.temp_1f9765453dcbefc06ac2bd5114eb255419c5a803.png" alt="19_Elementary_Number_Theory.org.temp_1f9765453dcbefc06ac2bd5114eb255419c5a803.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_09bcf531833fe1de98c64b42bb543676d1c3b5a6.png" alt="19_Elementary_Number_Theory.org.temp_09bcf531833fe1de98c64b42bb543676d1c3b5a6.png" /> then <img src="ltximg/19_Elementary_Number_Theory.org.temp_8606c6a38262d73df9036ec59c5396ca41733dc0.png" alt="19_Elementary_Number_Theory.org.temp_8606c6a38262d73df9036ec59c5396ca41733dc0.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5f6ee5b587cf0664906b688017ec5b773aa39e42.png" alt="19_Elementary_Number_Theory.org.temp_5f6ee5b587cf0664906b688017ec5b773aa39e42.png" />;</li>
+<li>if <img src="ltximg/19_Elementary_Number_Theory.org.temp_1f9765453dcbefc06ac2bd5114eb255419c5a803.png" alt="19_Elementary_Number_Theory.org.temp_1f9765453dcbefc06ac2bd5114eb255419c5a803.png" /> then <img src="ltximg/19_Elementary_Number_Theory.org.temp_ed839be83a2685d437574f5eb9c65c7f1c15840a.png" alt="19_Elementary_Number_Theory.org.temp_ed839be83a2685d437574f5eb9c65c7f1c15840a.png" />;</li>
+<li><img src="ltximg/19_Elementary_Number_Theory.org.temp_0f3130511bfa468bea4d8cc8a0e218a7dc0eba52.png" alt="19_Elementary_Number_Theory.org.temp_0f3130511bfa468bea4d8cc8a0e218a7dc0eba52.png" />;</li>
+<li>if <img src="ltximg/19_Elementary_Number_Theory.org.temp_fa5aa38c54d29e3ba789cb8fe70acfe08d0e29af.png" alt="19_Elementary_Number_Theory.org.temp_fa5aa38c54d29e3ba789cb8fe70acfe08d0e29af.png" /> then <img src="ltximg/19_Elementary_Number_Theory.org.temp_6191d859daed35d8f6b1fa69431ad3426af50c31.png" alt="19_Elementary_Number_Theory.org.temp_6191d859daed35d8f6b1fa69431ad3426af50c31.png" />;</li>
+<li>if <img src="ltximg/19_Elementary_Number_Theory.org.temp_a3e34704feef01cfbd7f3268b39eddf12062c3a4.png" alt="19_Elementary_Number_Theory.org.temp_a3e34704feef01cfbd7f3268b39eddf12062c3a4.png" /> then the statements <img src="ltximg/19_Elementary_Number_Theory.org.temp_019578658cf0f77037a7d3dff89523dacd89bc19.png" alt="19_Elementary_Number_Theory.org.temp_019578658cf0f77037a7d3dff89523dacd89bc19.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_33dcbd746bbdb38b038406c1e60c608b07e5c8c8.png" alt="19_Elementary_Number_Theory.org.temp_33dcbd746bbdb38b038406c1e60c608b07e5c8c8.png" />
+are equivalent;</li>
+<li>if <img src="ltximg/19_Elementary_Number_Theory.org.temp_1f9765453dcbefc06ac2bd5114eb255419c5a803.png" alt="19_Elementary_Number_Theory.org.temp_1f9765453dcbefc06ac2bd5114eb255419c5a803.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_f7e7a669226aa45c44a0f6261d2e1f7abde895a4.png" alt="19_Elementary_Number_Theory.org.temp_f7e7a669226aa45c44a0f6261d2e1f7abde895a4.png" /> then <img src="ltximg/19_Elementary_Number_Theory.org.temp_9a255264e7aae6845c2b668727cfcf0d3da485a6.png" alt="19_Elementary_Number_Theory.org.temp_9a255264e7aae6845c2b668727cfcf0d3da485a6.png" />.</li>
+</ul></li>
+
+<li>Prove that for any integer <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_4f3d99e56806cfafbfdef116afbd377f1dc743f7.png" alt="19_Elementary_Number_Theory.org.temp_4f3d99e56806cfafbfdef116afbd377f1dc743f7.png" /> leaves a remainder of 0 or 1
+when you divide it by 4. Conclude that <img src="ltximg/19_Elementary_Number_Theory.org.temp_c05ba6cb7ee6918276c025a9122f6ac511494f80.png" alt="19_Elementary_Number_Theory.org.temp_c05ba6cb7ee6918276c025a9122f6ac511494f80.png" /> is never divisible
+by 4.</li>
+
+<li>Prove that if <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is odd, <img src="ltximg/19_Elementary_Number_Theory.org.temp_6e681031a6c6083fb68f3342c7af381622c60dd1.png" alt="19_Elementary_Number_Theory.org.temp_6e681031a6c6083fb68f3342c7af381622c60dd1.png" /> is divisible by 8.</li>
+
+<li>Prove that if <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> are odd, then <img src="ltximg/19_Elementary_Number_Theory.org.temp_e29b82b208e6648b51d792202af8b0f3f6609073.png" alt="19_Elementary_Number_Theory.org.temp_e29b82b208e6648b51d792202af8b0f3f6609073.png" /> is even but not
+divisible by 4.</li>
+
+<li>Say that two integers "have the same parity" if they are both even
+or both odd. Prove that if <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> are any two integers, then
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_cee1cba7107d427e06d2e0aec02eb7ed8f05df52.png" alt="19_Elementary_Number_Theory.org.temp_cee1cba7107d427e06d2e0aec02eb7ed8f05df52.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_0131a3256c6c31ec8ca2f12f64b2b15ea854bcdf.png" alt="19_Elementary_Number_Theory.org.temp_0131a3256c6c31ec8ca2f12f64b2b15ea854bcdf.png" /> have the same parity.</li>
+
+<li>Write 11160 as product of primes.</li>
+
+<li>List all the divisors of 42 and 198, and find the greatest common
+divisor by looking at the largest number in both lists. Also
+compute the greatest common divisor of the numbers by the
+Euclidean Algorithm.</li>
+
+<li>Compute <img src="ltximg/19_Elementary_Number_Theory.org.temp_982962d0a0082c345d3c4ea726e24bbe550d8fa6.png" alt="19_Elementary_Number_Theory.org.temp_982962d0a0082c345d3c4ea726e24bbe550d8fa6.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_3e4eb7fd1cc9c985af495dbe6271e9c79d3ff8cb.png" alt="19_Elementary_Number_Theory.org.temp_3e4eb7fd1cc9c985af495dbe6271e9c79d3ff8cb.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_bc0f77d9479e018232271888265df902c43a79a9.png" alt="19_Elementary_Number_Theory.org.temp_bc0f77d9479e018232271888265df902c43a79a9.png" /></li>
+
+<li>Show by induction on <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> that for every pair of integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="19_Elementary_Number_Theory.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="19_Elementary_Number_Theory.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_b399d81a4ba994fcfe05a9b8729b53525c079cdc.png" alt="19_Elementary_Number_Theory.org.temp_b399d81a4ba994fcfe05a9b8729b53525c079cdc.png" /> divides <img src="ltximg/19_Elementary_Number_Theory.org.temp_ed0a39d10517c3ecbddfd9917e31ac3cca38868b.png" alt="19_Elementary_Number_Theory.org.temp_ed0a39d10517c3ecbddfd9917e31ac3cca38868b.png" />. (Hint: in the induction step,
+write <img src="ltximg/19_Elementary_Number_Theory.org.temp_b63045b8e43b250b943634036d4f4071b939d3a9.png" alt="19_Elementary_Number_Theory.org.temp_b63045b8e43b250b943634036d4f4071b939d3a9.png" /> as <img src="ltximg/19_Elementary_Number_Theory.org.temp_5e1cabb32bbef829e2cebaf3ea9ddc6d2d75b653.png" alt="19_Elementary_Number_Theory.org.temp_5e1cabb32bbef829e2cebaf3ea9ddc6d2d75b653.png" />.)</li>
+
+<li>Compute <img src="ltximg/19_Elementary_Number_Theory.org.temp_1e8019030345cdeb69ff7ab12e7b883c451c9b71.png" alt="19_Elementary_Number_Theory.org.temp_1e8019030345cdeb69ff7ab12e7b883c451c9b71.png" />. Use this to compute <img src="ltximg/19_Elementary_Number_Theory.org.temp_6fba2ff0e3fb175128d4ead6d39bd4de344b0edc.png" alt="19_Elementary_Number_Theory.org.temp_6fba2ff0e3fb175128d4ead6d39bd4de344b0edc.png" />.</li>
+
+<li>Find the last digit of <img src="ltximg/19_Elementary_Number_Theory.org.temp_e11bbda4ac8bb59c93040d0b461c2acf1ab2cdf3.png" alt="19_Elementary_Number_Theory.org.temp_e11bbda4ac8bb59c93040d0b461c2acf1ab2cdf3.png" />. Can you also find the last two
+digits of this number?</li>
+
+<li>Prove that <img src="ltximg/19_Elementary_Number_Theory.org.temp_d8b457f4a5e53ce4417da9945c0a7bd8b5573ab7.png" alt="19_Elementary_Number_Theory.org.temp_d8b457f4a5e53ce4417da9945c0a7bd8b5573ab7.png" /> is divisible by 7.</li>
+
+<li>Check whether the following multiplicative inverses exist, and if
+so, find them.
+
+<ul class="org-ul">
+<li>The multiplicative inverse of 5 modulo 7;</li>
+<li>The multiplicative inverse of 17 modulo 21;</li>
+<li>The multiplicative inverse of 4 modulo 14;</li>
+<li>The multiplicative inverse of <img src="ltximg/19_Elementary_Number_Theory.org.temp_c816a88a603b3a06e520e6c3b8828eaef4dcf173.png" alt="19_Elementary_Number_Theory.org.temp_c816a88a603b3a06e520e6c3b8828eaef4dcf173.png" /> modulo 9.</li>
+</ul></li>
+
+<li>Find all integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="19_Elementary_Number_Theory.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_c23f5a12f8ca75c1d23f4fae5efbcb954990df46.png" alt="19_Elementary_Number_Theory.org.temp_c23f5a12f8ca75c1d23f4fae5efbcb954990df46.png" />.</li>
+
+<li>Show that for every integer <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> the number <img src="ltximg/19_Elementary_Number_Theory.org.temp_04d0b0f1010f82b96f6a36a27dd2a2c1944a6c46.png" alt="19_Elementary_Number_Theory.org.temp_04d0b0f1010f82b96f6a36a27dd2a2c1944a6c46.png" /> is congruent to 0
+or 1 modulo 5. Hint: to simplify the computation, use that
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_5b8f9a74e9beb09df13d8a8749f89cd36c220747.png" alt="19_Elementary_Number_Theory.org.temp_5b8f9a74e9beb09df13d8a8749f89cd36c220747.png" />.</li>
+
+<li>Prove that the equation <img src="ltximg/19_Elementary_Number_Theory.org.temp_da8d6991c5ebd948853121af14fd4b2171ab31f8.png" alt="19_Elementary_Number_Theory.org.temp_da8d6991c5ebd948853121af14fd4b2171ab31f8.png" /> has no solutions in the
+integers. (Hint: use the previous exercise.)</li>
+
+<li>Suppose <img src="ltximg/19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="19_Elementary_Number_Theory.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> is a prime number such that <img src="ltximg/19_Elementary_Number_Theory.org.temp_03a4896a8851ea43e6bc295b4151768a30ca8477.png" alt="19_Elementary_Number_Theory.org.temp_03a4896a8851ea43e6bc295b4151768a30ca8477.png" />. Show that if
+<img src="ltximg/19_Elementary_Number_Theory.org.temp_a099bfa5429270d57ecddc0f71d046f7a2cc0d03.png" alt="19_Elementary_Number_Theory.org.temp_a099bfa5429270d57ecddc0f71d046f7a2cc0d03.png" /> then <img src="ltximg/19_Elementary_Number_Theory.org.temp_571bd0e8d8f2302d629b6a92b7e1068f38f587eb.png" alt="19_Elementary_Number_Theory.org.temp_571bd0e8d8f2302d629b6a92b7e1068f38f587eb.png" />.</li>
+
+<li>Let <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="19_Elementary_Number_Theory.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> be given integers. Use B‎ézout's Lemma to
+prove that the equation <img src="ltximg/19_Elementary_Number_Theory.org.temp_7662c803220716440de91deec0e38ccdcaed071f.png" alt="19_Elementary_Number_Theory.org.temp_7662c803220716440de91deec0e38ccdcaed071f.png" /> has a solution for integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="19_Elementary_Number_Theory.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />
+and <img src="ltximg/19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="19_Elementary_Number_Theory.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> if and only if <img src="ltximg/19_Elementary_Number_Theory.org.temp_d853db96cf1453a5f95d2f67483a5341b5153877.png" alt="19_Elementary_Number_Theory.org.temp_d853db96cf1453a5f95d2f67483a5341b5153877.png" />.</li>
+
+<li>Suppose that <img src="ltximg/19_Elementary_Number_Theory.org.temp_08fb27f08738882ca9a0d5ff9b089d642404c03d.png" alt="19_Elementary_Number_Theory.org.temp_08fb27f08738882ca9a0d5ff9b089d642404c03d.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_08fb27f08738882ca9a0d5ff9b089d642404c03d.png" alt="19_Elementary_Number_Theory.org.temp_08fb27f08738882ca9a0d5ff9b089d642404c03d.png" /> and let <img src="ltximg/19_Elementary_Number_Theory.org.temp_8f2d0e4bb2c53890f86bfcb6f0920ac6cc231567.png" alt="19_Elementary_Number_Theory.org.temp_8f2d0e4bb2c53890f86bfcb6f0920ac6cc231567.png" />. Prove that <img src="ltximg/19_Elementary_Number_Theory.org.temp_f8063614da2112c44fe0011912b9c9df4289b816.png" alt="19_Elementary_Number_Theory.org.temp_f8063614da2112c44fe0011912b9c9df4289b816.png" />. Conclude that for any two integers <img src="ltximg/19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="19_Elementary_Number_Theory.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="19_Elementary_Number_Theory.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> with greatest
+common divisor <img src="ltximg/19_Elementary_Number_Theory.org.temp_75237b86456fae65c4263b32c1e949a1bcb59f35.png" alt="19_Elementary_Number_Theory.org.temp_75237b86456fae65c4263b32c1e949a1bcb59f35.png" /> the numbers <img src="ltximg/19_Elementary_Number_Theory.org.temp_001d74536c8a1fe29b7352db86c794c7be69ed11.png" alt="19_Elementary_Number_Theory.org.temp_001d74536c8a1fe29b7352db86c794c7be69ed11.png" /> and <img src="ltximg/19_Elementary_Number_Theory.org.temp_daaa62f4aaec8ee3ee0257bb07cb61716ce65f74.png" alt="19_Elementary_Number_Theory.org.temp_daaa62f4aaec8ee3ee0257bb07cb61716ce65f74.png" /> are
+coprime.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

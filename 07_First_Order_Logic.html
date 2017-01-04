@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-11-17 Thu 21:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-orgc6d79d1" class="outline-2">
+<h2 id="First_Order_Logic"><a id="orgc6d79d1"></a><span class="section-number-2"> 7</span> First Order Logic</h2>
+<div class="outline-text-2" id="text-First_Order_Logic">
+<p>
+Propositional logic provides a good start at describing the general
+principles of logical reasoning, but it does not go far enough. Some
+of the limitations are apparent even in the "Malice and Alice" example
+from <a href="#" onclick="myModule.loadTutorial('02_Propositional_Logic.html', 'Propositional_Logic')">Chapter 2</a>. Propositional logic does not give us the means to
+express a general principle that tells us that if Alice is with her
+son on the beach, then her son is with Alice; the general fact that no
+child is younger than his or her parent; or the general fact that if
+someone is alone, they are not with someone else. To express
+principles like these, we need a way to talk about objects and
+individuals, as well as their properties and the relationships between
+them. These are exactly what is provided by a more expressive logical
+framework known as <i>first-order logic</i>, which will be the topic of the
+next few chapters.
+</p>
+</div>
+
+<div id="outline-container-org9242747" class="outline-3">
+<h3 id="Functions_Predicates_and_Relations"><a id="org9242747"></a><span class="section-number-3"> 7.1</span> Functions, Predicates, and Relations</h3>
+<div class="outline-text-3" id="text-Functions_Predicates_and_Relations">
+<p>
+Consider some ordinary statements about the natural numbers:
+</p>
+<ul class="org-ul">
+<li>Every natural number is even or odd, but not both.</li>
+<li>A natural number is even if and only if it is divisible by two.</li>
+<li>If some natural number, <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, is even, then so is <img src="ltximg/07_First_Order_Logic.org.temp_ed6ce3f28bdd6cb7db18f38999841952529801c0.png" alt="07_First_Order_Logic.org.temp_ed6ce3f28bdd6cb7db18f38999841952529801c0.png" />.</li>
+<li>A natural number <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is even if and only if <img src="ltximg/07_First_Order_Logic.org.temp_41d0664c70b4e630d11d6760c6ba29a4bebb7e05.png" alt="07_First_Order_Logic.org.temp_41d0664c70b4e630d11d6760c6ba29a4bebb7e05.png" /> is odd.</li>
+<li>Any prime number that is greater than 2 is odd.</li>
+<li>For any three natural numbers <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, and <img src="ltximg/07_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="07_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />, if <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> divides <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />
+and <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> divides <img src="ltximg/07_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="07_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />, then <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> divides <img src="ltximg/07_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="07_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />.</li>
+</ul>
+<p>
+These statements are true, but we generally do not think of them as
+<i>logically valid</i>: they depend on assumptions about the natural
+numbers, the meaning of the terms "even" and "odd," and so on. But
+once we accept the first statement, for example, it seems to be a
+logical consequence that the number of stairs in the White House is
+either even or odd, and, in particular, if it is not even, it is
+odd. To make sense of inferences like these, we need a logical system
+that can deal with objects, their properties, and relations between
+them.
+</p>
+
+<p>
+Rather than fix a single language once and for all, first-order logic
+allows us to specify the symbols we wish to use for any given domain
+of interest. In this section, we will use the following running
+example:
+</p>
+<ul class="org-ul">
+<li>the domain of interest is the natural numbers, <img src="ltximg/07_First_Order_Logic.org.temp_f55a37e324745bbf04e0f5aede21b9f7c2def003.png" alt="07_First_Order_Logic.org.temp_f55a37e324745bbf04e0f5aede21b9f7c2def003.png" />.</li>
+<li>there are objects, <img src="ltximg/07_First_Order_Logic.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="07_First_Order_Logic.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="07_First_Order_Logic.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" alt="07_First_Order_Logic.org.temp_ca5a63e912a49e1a363bb4b5fb865a83063e184c.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_589b4d802d7fce3611012a506403dced871832d0.png" alt="07_First_Order_Logic.org.temp_589b4d802d7fce3611012a506403dced871832d0.png" />, &#x2026;.</li>
+<li>there are functions, addition and multiplication, as well as the
+square function, on this domain.</li>
+<li>there are predicates on this domain, "even," "odd," and "prime."</li>
+<li>there are relations between elements of this domain, "equal," "less
+than", and "divides."</li>
+</ul>
+<p>
+For our logical language, we will choose symbols 1, 2, 3,
+<img src="ltximg/07_First_Order_Logic.org.temp_17b40d1b77d9907d0ba443f1c4de9d01b6d9d0b7.png" alt="07_First_Order_Logic.org.temp_17b40d1b77d9907d0ba443f1c4de9d01b6d9d0b7.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_bc2d320999b3165aae742544f20eb52181a69d62.png" alt="07_First_Order_Logic.org.temp_bc2d320999b3165aae742544f20eb52181a69d62.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_e5cf583c96654fc1873c2009ebcfe8e77015d290.png" alt="07_First_Order_Logic.org.temp_e5cf583c96654fc1873c2009ebcfe8e77015d290.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_a2b78fc52e9aa05f400adb06ff4db07fd6af8e58.png" alt="07_First_Order_Logic.org.temp_a2b78fc52e9aa05f400adb06ff4db07fd6af8e58.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_9edb8c8cc5371d5e61536da5cf533bf0f8f53f26.png" alt="07_First_Order_Logic.org.temp_9edb8c8cc5371d5e61536da5cf533bf0f8f53f26.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" alt="07_First_Order_Logic.org.temp_0f4ae4dd73783512f2eafad5a53161d86bfa0854.png" />,
+<img src="ltximg/07_First_Order_Logic.org.temp_246949d99022dc0d810847b773eb7260ccd82124.png" alt="07_First_Order_Logic.org.temp_246949d99022dc0d810847b773eb7260ccd82124.png" />, and so on, to denote these things. We will also have
+variables <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, and <img src="ltximg/07_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="07_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" /> ranging over the natural numbers. Note all
+of the following.
+</p>
+<ul class="org-ul">
+<li>Functions can take any number of arguments: if <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> are
+natural numbers, it makes sense to write <img src="ltximg/07_First_Order_Logic.org.temp_ed19a33458d8131683b9945daa92cd8da3045a67.png" alt="07_First_Order_Logic.org.temp_ed19a33458d8131683b9945daa92cd8da3045a67.png" /> and
+<img src="ltximg/07_First_Order_Logic.org.temp_7283f87ee3080c8371b3262175163777355ba10f.png" alt="07_First_Order_Logic.org.temp_7283f87ee3080c8371b3262175163777355ba10f.png" />. so <img src="ltximg/07_First_Order_Logic.org.temp_bc2d320999b3165aae742544f20eb52181a69d62.png" alt="07_First_Order_Logic.org.temp_bc2d320999b3165aae742544f20eb52181a69d62.png" /> takes two arguments, and
+<img src="ltximg/07_First_Order_Logic.org.temp_e5cf583c96654fc1873c2009ebcfe8e77015d290.png" alt="07_First_Order_Logic.org.temp_e5cf583c96654fc1873c2009ebcfe8e77015d290.png" /> takes only one.</li>
+<li>Predicates and relations can also be understood in these terms. The
+predicates <img src="ltximg/07_First_Order_Logic.org.temp_f9f953fec370de45e583f534baac7638627a5794.png" alt="07_First_Order_Logic.org.temp_f9f953fec370de45e583f534baac7638627a5794.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_7a219e87a97e3cb43f1d65dc9bf6ddad4cac10ed.png" alt="07_First_Order_Logic.org.temp_7a219e87a97e3cb43f1d65dc9bf6ddad4cac10ed.png" /> take one argument,
+while the binary relations <img src="ltximg/07_First_Order_Logic.org.temp_7b46473ece3997e46090c8eefca7a74e387623be.png" alt="07_First_Order_Logic.org.temp_7b46473ece3997e46090c8eefca7a74e387623be.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_05e0d5190ea387336bcd1705633a6ff66a0dad99.png" alt="07_First_Order_Logic.org.temp_05e0d5190ea387336bcd1705633a6ff66a0dad99.png" />
+take two arguments.</li>
+<li>Functions are different from predicates! A function takes one or
+more arguments, and returns a <i>value</i>. A predicate takes one or more
+arguments, and is either true or false. We can think of predicates
+as returning propositions, rather than values.</li>
+<li>In fact, we can think of the constant symbols <img src="ltximg/07_First_Order_Logic.org.temp_268eedbe5ab1a98302c11223caa829bff8523233.png" alt="07_First_Order_Logic.org.temp_268eedbe5ab1a98302c11223caa829bff8523233.png" /> as
+special sorts of function symbols that take zero
+arguments. Analogously, we can consider the predicates that take
+zero arguments to be the constant logical values, <img src="ltximg/07_First_Order_Logic.org.temp_5e63c8abf3b0c42012365b5702f80124df3a70e4.png" alt="07_First_Order_Logic.org.temp_5e63c8abf3b0c42012365b5702f80124df3a70e4.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" alt="07_First_Order_Logic.org.temp_7bea1d03799b42f9b799647895fded7894b866bd.png" />.</li>
+<li>In ordinary mathematics, we often use "infix" notation for binary
+functions and relations. For example, we usually write <img src="ltximg/07_First_Order_Logic.org.temp_3e9ca2930019c4ff3829344230c6d31bc79f1cde.png" alt="07_First_Order_Logic.org.temp_3e9ca2930019c4ff3829344230c6d31bc79f1cde.png" />
+or <img src="ltximg/07_First_Order_Logic.org.temp_561af17d4d71b740c94b6c224620729bfc042249.png" alt="07_First_Order_Logic.org.temp_561af17d4d71b740c94b6c224620729bfc042249.png" /> instead of <img src="ltximg/07_First_Order_Logic.org.temp_ed19a33458d8131683b9945daa92cd8da3045a67.png" alt="07_First_Order_Logic.org.temp_ed19a33458d8131683b9945daa92cd8da3045a67.png" />, and we write <img src="ltximg/07_First_Order_Logic.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" alt="07_First_Order_Logic.org.temp_e6d4062a9fb699fc7033c747c8910c34e01d63d5.png" />
+instead of <img src="ltximg/07_First_Order_Logic.org.temp_48ee0c37e4432a72f7336b043649d71ea61b5a13.png" alt="07_First_Order_Logic.org.temp_48ee0c37e4432a72f7336b043649d71ea61b5a13.png" />. We will use these conventions when
+writing proofs in natural deduction, and they are supported in Lean
+as well.</li>
+<li>We will treat the equality relation, <img src="ltximg/07_First_Order_Logic.org.temp_bf29e4faa6167c250f8f41656727f1420b8a5922.png" alt="07_First_Order_Logic.org.temp_bf29e4faa6167c250f8f41656727f1420b8a5922.png" />, as a special binary
+relation that is included in every first-order language.</li>
+</ul>
+
+<p>
+First-order logic allows us to build complex expressions out of the
+basic ones. Starting with the variables and constants, we can use the
+function symbols to build up compound expressions like these:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_99197d497e34140f20fc90ef1b95333279da1dd1.png" alt="07_First_Order_Logic.org.temp_99197d497e34140f20fc90ef1b95333279da1dd1.png" /></p>
+</div>
+<p>
+Such expressions are called "terms." Intuitively, they name objects
+in the intended domain of discourse.
+</p>
+
+<p>
+Now, using the predicates and relation symbols, we can make assertions
+about these expressions:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_5294a2013208035d849f5d30a63714882df5913d.png" alt="07_First_Order_Logic.org.temp_5294a2013208035d849f5d30a63714882df5913d.png" /></p>
+</div>
+<p>
+Even more interestingly, we can use propositional connectives to build
+compound expressions like these:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/07_First_Order_Logic.org.temp_a558cef56717b2bca0a93c00ae768379deb815b9.png" alt="07_First_Order_Logic.org.temp_a558cef56717b2bca0a93c00ae768379deb815b9.png" /></li>
+<li><img src="ltximg/07_First_Order_Logic.org.temp_fb685cd40066bb504533bb8d7d16b6843ff9d30e.png" alt="07_First_Order_Logic.org.temp_fb685cd40066bb504533bb8d7d16b6843ff9d30e.png" /></li>
+<li><img src="ltximg/07_First_Order_Logic.org.temp_cfd7378580f577e0c5b217d5a99f1be1ef962e3b.png" alt="07_First_Order_Logic.org.temp_cfd7378580f577e0c5b217d5a99f1be1ef962e3b.png" /></li>
+</ul>
+<p>
+The second one, for example, asserts that either <img src="ltximg/07_First_Order_Logic.org.temp_0b9ebf87f44d7659dd876567243025bb71847a9f.png" alt="07_First_Order_Logic.org.temp_0b9ebf87f44d7659dd876567243025bb71847a9f.png" /> is not
+equal to <img src="ltximg/07_First_Order_Logic.org.temp_905d5df8ca486514ac6a4665bcdae7f6faa4ad0f.png" alt="07_First_Order_Logic.org.temp_905d5df8ca486514ac6a4665bcdae7f6faa4ad0f.png" />, or <img src="ltximg/07_First_Order_Logic.org.temp_9c277c05123d6fa1176b0ac039b3f73a2f9f94cb.png" alt="07_First_Order_Logic.org.temp_9c277c05123d6fa1176b0ac039b3f73a2f9f94cb.png" /> is less than <img src="ltximg/07_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" alt="07_First_Order_Logic.org.temp_dd06266bbc7e7e620a78269efec3e4557bda3598.png" />. Remember, these are
+expressions in symbolic logic; in ordinary mathematics, we would
+express the notions using words like "is even" and "if and only if,"
+as we did above. We will use notation like this whenever we are in the
+realm of symbolic logic, for example, when we write proofs in natural
+deduction. Expressions like these are called <i>formulas</i>. In contrast
+to terms, which name things, formulas <i>say things</i>; in other words, they
+make assertions about objects in the domain of discourse.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4e106f5" class="outline-3">
+<h3 id="org4e106f5"><span class="section-number-3"> 7.2</span> The Universal Quantifier</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+What makes first-order logic powerful is that it allows us to make
+general assertions using <i>quantifiers</i>. The universal quantifier
+<img src="ltximg/07_First_Order_Logic.org.temp_773687659e5c303f98d508803fb94c045c8e01cd.png" alt="07_First_Order_Logic.org.temp_773687659e5c303f98d508803fb94c045c8e01cd.png" /> followed by a variable <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is meant to represent the phrase
+"for every <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />." In other words, it asserts that every value of <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />
+has the property that follows it. Using the universal quantifier, the
+examples with which we began this previous section can be expressed as
+follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_bcc2535c88e18da51dfacbb112884bda4d37d4ca.png" alt="07_First_Order_Logic.org.temp_bcc2535c88e18da51dfacbb112884bda4d37d4ca.png" /></p>
+</div>
+<p>
+It is common to combine multiple quantifiers of the same kind, and
+write, for example, <img src="ltximg/07_First_Order_Logic.org.temp_f9fca0acecb6d39d6a7b709bf588f813938684e6.png" alt="07_First_Order_Logic.org.temp_f9fca0acecb6d39d6a7b709bf588f813938684e6.png" /> in the last expression.
+</p>
+
+<p>
+Here are some notes on syntax:
+</p>
+<ul class="org-ul">
+<li>In symbolic logic, the universal quantifier is usually taken to bind
+tightly. For example, <img src="ltximg/07_First_Order_Logic.org.temp_fa54f8989aaf592e6ae5ee3f1dcc2df561776577.png" alt="07_First_Order_Logic.org.temp_fa54f8989aaf592e6ae5ee3f1dcc2df561776577.png" /> is interpreted as <img src="ltximg/07_First_Order_Logic.org.temp_df63b1dd8c08e3b1bdbb579021954e2d73bcedf1.png" alt="07_First_Order_Logic.org.temp_df63b1dd8c08e3b1bdbb579021954e2d73bcedf1.png" />, and we would write <img src="ltximg/07_First_Order_Logic.org.temp_4ee33e4367055045cf3f0164f117d062aeed9360.png" alt="07_First_Order_Logic.org.temp_4ee33e4367055045cf3f0164f117d062aeed9360.png" /> to extend the scope.</li>
+<li>Be careful, however. In other contexts, especially in computer
+science, people often give quantifiers the <i>widest</i> scope
+possible. This is the case with Lean. For example, <code>∀ x, P ∨ Q</code> is
+interpreted as <code>∀ x, (P ∨ Q)</code>, and we would write <code>(∀ x, P) ∨ Q</code> to
+limit the scope.</li>
+<li>After the quantifier <img src="ltximg/07_First_Order_Logic.org.temp_311a890f22b2e731bacb244978c52037cf63c8fd.png" alt="07_First_Order_Logic.org.temp_311a890f22b2e731bacb244978c52037cf63c8fd.png" />, the variable <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is <i>bound</i>. For
+example, the expression <img src="ltximg/07_First_Order_Logic.org.temp_056e8ccf43118b6fd5114c83c2633565068684be.png" alt="07_First_Order_Logic.org.temp_056e8ccf43118b6fd5114c83c2633565068684be.png" /> is
+expresses that every number is even or odd. Notice that the variable
+<img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> does not appear anywhere in the informal statement. The
+statement is not about <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> at all; rather <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is a dummy variable, a
+placeholder that stands for the "thing" referred to within a phrase
+that beings with the words "every thing." We think of the expression 
+<img src="ltximg/07_First_Order_Logic.org.temp_056e8ccf43118b6fd5114c83c2633565068684be.png" alt="07_First_Order_Logic.org.temp_056e8ccf43118b6fd5114c83c2633565068684be.png" /> as being the same as the
+expression <img src="ltximg/07_First_Order_Logic.org.temp_07f27da01224f667354b6ac14f6864e66e42cfa9.png" alt="07_First_Order_Logic.org.temp_07f27da01224f667354b6ac14f6864e66e42cfa9.png" />. Lean treats
+these expressions as the same as well.</li>
+<li>In Lean, the expression <code>∀ x y z, x ∣ y → y ∣ z → x ∣ z</code> is
+interpreted as <code>∀ x y z, x ∣ y → (y ∣ z → x ∣ z)</code>, with parentheses
+associated to the <i>right</i>. The part of the expression after the
+universal quantifier can therefore be interpreted as saying "given
+that <code>x</code> divides <code>y</code> and that <code>y</code> divides <code>z</code>, <code>x</code> divides <code>z</code>." The
+expression is logically equivalent to <code>∀ x y z, x ∣ y ∧ y ∣ z → x ∣
+  z</code>, but we will see that, in Lean, it is often convenient to express
+facts like this as an iterated implication.</li>
+</ul>
+
+<p>
+A variable that is not bound is called <i>free</i>. Notice that formulas in
+first-order logic say things about their free variables. For example,
+in the interpretation we have in mind, the formula <img src="ltximg/07_First_Order_Logic.org.temp_fde629bc0156c7f2d37a5e929b83a5edf1088820.png" alt="07_First_Order_Logic.org.temp_fde629bc0156c7f2d37a5e929b83a5edf1088820.png" />
+says that <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is less than or equal to every natural number. The
+formula <img src="ltximg/07_First_Order_Logic.org.temp_470dd825df655c64dedf6ebdc4ef45c942845367.png" alt="07_First_Order_Logic.org.temp_470dd825df655c64dedf6ebdc4ef45c942845367.png" /> says exactly the same thing; we can always
+rename a bound variable, as long as we pick a name that does not clash
+with another name that is already in use. On the other hand, the
+formula <img src="ltximg/07_First_Order_Logic.org.temp_8d6131df414843e2abfe547da93f59add8b058b3.png" alt="07_First_Order_Logic.org.temp_8d6131df414843e2abfe547da93f59add8b058b3.png" /> says that <img src="ltximg/07_First_Order_Logic.org.temp_905d5df8ca486514ac6a4665bcdae7f6faa4ad0f.png" alt="07_First_Order_Logic.org.temp_905d5df8ca486514ac6a4665bcdae7f6faa4ad0f.png" /> is less than or equal to every
+natural number. This is an entirely different statement: it says
+something about <img src="ltximg/07_First_Order_Logic.org.temp_905d5df8ca486514ac6a4665bcdae7f6faa4ad0f.png" alt="07_First_Order_Logic.org.temp_905d5df8ca486514ac6a4665bcdae7f6faa4ad0f.png" />, rather than <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />. So renaming a <i>free</i> variable
+changes the meaning of a formula.
+</p>
+
+<p>
+Notice also that some formulas, like <img src="ltximg/07_First_Order_Logic.org.temp_1a53ba4e0488ca39205b2681d6a8e978136c2956.png" alt="07_First_Order_Logic.org.temp_1a53ba4e0488ca39205b2681d6a8e978136c2956.png" />, have no free variables at all. Such a formula is called a
+<i>sentence</i>, because it makes an outright assertion, a statement that
+is either true or false about the intended interpretation. In <a href="#" onclick="myModule.loadTutorial('10_Semantics_of_First_Order_Logic.html', 'Semantics_of_First_Order_Logic')">Chapter
+10</a> we will make the notion of an "intended interpretation" precise,
+and explain what it means to be "true in an interpretation." For now,
+the idea that formulas say things about about object in an intended
+interpretation should motivate the rules for reasoning with such
+expressions.
+</p>
+
+<p>
+In <a href="#" onclick="myModule.loadTutorial('01_Introduction.html', 'Introduction')">Chapter 1</a> we proved that the square root of two is irrational. One
+way to construe the statement is as follows:
+</p>
+<blockquote>
+<p>
+For every pair of natural numbers, <img src="ltximg/07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, it is not the case
+that <img src="ltximg/07_First_Order_Logic.org.temp_d3397dc47e124a1497f7420668c1b141ffbd6237.png" alt="07_First_Order_Logic.org.temp_d3397dc47e124a1497f7420668c1b141ffbd6237.png" />.
+</p>
+</blockquote>
+<p>
+The advantage of this formulation is that we can restrict our
+attention to the natural numbers, without having to consider the
+larger domain of rationals. In symbolic logic, assuming our intended
+domain of discourse is the natural numbers, we would express this
+theorem using the universal quantifier:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_24681a1a28028af7662cfe28ee1d92d9e83825bc.png" alt="07_First_Order_Logic.org.temp_24681a1a28028af7662cfe28ee1d92d9e83825bc.png" /></p>
+</div>
+<p>
+How do we prove such a theorem? Informally, we would use such a
+pattern:
+</p>
+<blockquote>
+<p>
+Let <img src="ltximg/07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> be arbitrary integers, and suppose <img src="ltximg/07_First_Order_Logic.org.temp_d3397dc47e124a1497f7420668c1b141ffbd6237.png" alt="07_First_Order_Logic.org.temp_d3397dc47e124a1497f7420668c1b141ffbd6237.png" />.
+</p>
+
+<p>
+&#x2026;
+</p>
+
+<p>
+Contradiction.
+</p>
+</blockquote>
+<p>
+What we are really doing is proving that the universal statement
+holds, by showing that it holds of "arbitrary" values <img src="ltximg/07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />. In
+natural deduction, the proof would look something like this:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_690d89d326af36dea6008c933ca31ee3a3e63fcc.png" alt="07_First_Order_Logic.org.temp_690d89d326af36dea6008c933ca31ee3a3e63fcc.png" /></p>
+</div>
+<p>
+Notice that after the hypothesis is canceled, we have proved <img src="ltximg/07_First_Order_Logic.org.temp_6156fc74e997f418e85077666f35b3a777c16441.png" alt="07_First_Order_Logic.org.temp_6156fc74e997f418e85077666f35b3a777c16441.png" /> without making any assumptions about <img src="ltximg/07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and
+<img src="ltximg/07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />; at this stage in the proof, they are "arbitrary," justifying the
+application of the universal quantifiers in the next two rules.
+</p>
+
+<p>
+This example motivates the following rule in natural deduction:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_46277ae10170da740b8cbf81af0d6c3361eb2e82.png" alt="07_First_Order_Logic.org.temp_46277ae10170da740b8cbf81af0d6c3361eb2e82.png" /></p>
+</div>
+<p>
+provided <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is not free in any uncanceled hypothesis. Here <img src="ltximg/07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" />
+stands for any formula that (potentially) mentions <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />. Also remember
+that if <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> is any "fresh" variable that does not occur in <img src="ltximg/07_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="07_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, we are
+thinking of <img src="ltximg/07_First_Order_Logic.org.temp_330418a8b68cbfd376a4cbd9c91f06467289644c.png" alt="07_First_Order_Logic.org.temp_330418a8b68cbfd376a4cbd9c91f06467289644c.png" /> as being the same as <img src="ltximg/07_First_Order_Logic.org.temp_be142cc2e8d2d5c2d24aea0974f417e1a15061ab.png" alt="07_First_Order_Logic.org.temp_be142cc2e8d2d5c2d24aea0974f417e1a15061ab.png" />.
+</p>
+
+<p>
+What about the elimination rule? Suppose we know that every number is
+even or odd. Then, in an ordinary proof, we are free to assert "<img src="ltximg/07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is
+even or <img src="ltximg/07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> is odd," or "<img src="ltximg/07_First_Order_Logic.org.temp_8f6a6db17f7fe45faf24929519dfe7911b300ab8.png" alt="07_First_Order_Logic.org.temp_8f6a6db17f7fe45faf24929519dfe7911b300ab8.png" /> is even or <img src="ltximg/07_First_Order_Logic.org.temp_8f6a6db17f7fe45faf24929519dfe7911b300ab8.png" alt="07_First_Order_Logic.org.temp_8f6a6db17f7fe45faf24929519dfe7911b300ab8.png" /> is odd." In terms of
+symbolic logic, this amounts to the following inference: from <img src="ltximg/07_First_Order_Logic.org.temp_d88270099aa96d57d4e212c02e97e3af929ad3e4.png" alt="07_First_Order_Logic.org.temp_d88270099aa96d57d4e212c02e97e3af929ad3e4.png" />, we can conclude <img src="ltximg/07_First_Order_Logic.org.temp_51fe4be8caecc3a20794d12aa549ba9b44fdc91b.png" alt="07_First_Order_Logic.org.temp_51fe4be8caecc3a20794d12aa549ba9b44fdc91b.png" /> for any term <img src="ltximg/07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" />. This motivates the elimination rule for
+the universal quantifier:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_44efb8fe2dc72cab68badd3ac8934d702bdd73b9.png" alt="07_First_Order_Logic.org.temp_44efb8fe2dc72cab68badd3ac8934d702bdd73b9.png" /></p>
+</div>
+<p>
+where <img src="ltximg/07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /> is an arbitrary term. 
+</p>
+
+<p>
+In a sense, this feels like the elimination rule for implication; we
+might read the hypothesis as saying "if <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is any thing, then <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is
+even or odd." The conclusion is obtained by applying it to the fact
+that <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is a thing. Note that, in general, we could replace <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> by
+any <i>term</i> in the language, like <img src="ltximg/07_First_Order_Logic.org.temp_65820045f7e69ec4f1ff2f9f5ecee203f617846a.png" alt="07_First_Order_Logic.org.temp_65820045f7e69ec4f1ff2f9f5ecee203f617846a.png" />. Similarly, the
+introduction rule feels like the introduction rule for implication. If
+we want to show that everything has a certain property, we temporarily
+let <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> denote an arbitrary thing, and then show that it has the
+relevant property.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4e248ab" class="outline-3">
+<h3 id="org4e248ab"><span class="section-number-3"> 7.3</span> The Existential Quantifier</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Dual to the universal quantifier is the existential quantifier,
+<img src="ltximg/07_First_Order_Logic.org.temp_3b2b11b2089d283bf62ba1f9595b2f98f38985f8.png" alt="07_First_Order_Logic.org.temp_3b2b11b2089d283bf62ba1f9595b2f98f38985f8.png" />, which is used to express assertions such as "some number is
+even," or, "between any two even numbers there is an odd number." 
+</p>
+
+<p>
+The following statements about the natural numbers assert the
+existence of some natural number:
+</p>
+<ul class="org-ul">
+<li>There exists an odd composite number. (Remember that a natural
+number is <i>composite</i> if it is greater than 1 and not prime.)</li>
+<li>Every natural number greater than one has a prime divisor.</li>
+<li>For every <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, if <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> has a prime divisor smaller than <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, then <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />
+is composite.</li>
+</ul>
+
+<p>
+These statements can be expressed in first-order logic using the
+existential quantifier as follows:
+</p>
+
+<ul class="org-ul">
+<li><img src="ltximg/07_First_Order_Logic.org.temp_3c7c0f394cf5c477b42b02367a301fe719fd7b1d.png" alt="07_First_Order_Logic.org.temp_3c7c0f394cf5c477b42b02367a301fe719fd7b1d.png" /></li>
+<li><img src="ltximg/07_First_Order_Logic.org.temp_6a605955800e70fa75812114b3f9e78205f640cd.png" alt="07_First_Order_Logic.org.temp_6a605955800e70fa75812114b3f9e78205f640cd.png" /></li>
+<li><img src="ltximg/07_First_Order_Logic.org.temp_1439c581521f983ed2c8b159b1f94bb6abd80433.png" alt="07_First_Order_Logic.org.temp_1439c581521f983ed2c8b159b1f94bb6abd80433.png" /></li>
+</ul>
+
+<p>
+After we write <img src="ltximg/07_First_Order_Logic.org.temp_66dffa2487a1048b363c3b34a211375b4be65ace.png" alt="07_First_Order_Logic.org.temp_66dffa2487a1048b363c3b34a211375b4be65ace.png" />, the variable <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is bound in the
+formula, just as for the universal quantifier. So the formulas <img src="ltximg/07_First_Order_Logic.org.temp_353a4cb4e6e5e143498818feb0a1f7f5c0228e75.png" alt="07_First_Order_Logic.org.temp_353a4cb4e6e5e143498818feb0a1f7f5c0228e75.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_53cd684d1d9a5a37918f2a9ebd311de40bda014e.png" alt="07_First_Order_Logic.org.temp_53cd684d1d9a5a37918f2a9ebd311de40bda014e.png" /> are considered the
+same.
+</p>
+
+<p>
+How do we prove such existential statements? Suppose we want to prove
+that there exists an odd composite number. To do this, we just present
+a candidate, and show that the candidate satisfies the required
+properties. For example, we could choose 15, and then show that 15 is
+odd and that 15 is prime. Of course, there's nothing special about 15,
+and we could have proven it also using a different number, like 9
+or 35. The choice of candidate does not matter, as long as it has the
+required property.
+</p>
+
+<p>
+In a natural deduction proof this would look like this:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_38cb994c0125fe4d6b7b448acb039e895f415444.png" alt="07_First_Order_Logic.org.temp_38cb994c0125fe4d6b7b448acb039e895f415444.png" /></p>
+</div>
+<p>
+This illustrates the introduction rule for the existential quantifier:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_9bb90e83e9c66ff578ce53c6ceed988af4fd92dc.png" alt="07_First_Order_Logic.org.temp_9bb90e83e9c66ff578ce53c6ceed988af4fd92dc.png" /></p>
+</div>
+<p>
+where <img src="ltximg/07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /> is any term. So to prove an existential formula, we just
+have to give one particular term for which we can prove that
+formula. Such term is called a <i>witness</i> for the formula.
+</p>
+
+<p>
+What about the elimination rule? Suppose that we know that <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is some
+natural number and we know that there exists a prime <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> such that <img src="ltximg/07_First_Order_Logic.org.temp_97734a50998cbcb1144e97d531226533d457be75.png" alt="07_First_Order_Logic.org.temp_97734a50998cbcb1144e97d531226533d457be75.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" alt="07_First_Order_Logic.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" />. How can we use this to prove that <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is
+composite? We can reason as follows:
+</p>
+<blockquote>
+<p>
+Let <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> be any prime such that <img src="ltximg/07_First_Order_Logic.org.temp_dcb783b8a7814de9229236d7cf205b67c114a44b.png" alt="07_First_Order_Logic.org.temp_dcb783b8a7814de9229236d7cf205b67c114a44b.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" alt="07_First_Order_Logic.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" />. 
+</p>
+
+<p>
+&#x2026;
+</p>
+
+<p>
+Therefore, <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is composite.
+</p>
+</blockquote>
+<p>
+First, we assume that there is some <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> which satisfies the properties
+<img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> is prime, <img src="ltximg/07_First_Order_Logic.org.temp_dcb783b8a7814de9229236d7cf205b67c114a44b.png" alt="07_First_Order_Logic.org.temp_dcb783b8a7814de9229236d7cf205b67c114a44b.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" alt="07_First_Order_Logic.org.temp_aed360e3286ebd5f3359f58e6984cf440f5983df.png" />, and then we reason about that
+<img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" />. As with case-based reasoning using "or," the assumption is only
+temporary: if we can show that <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is composite from that assumption,
+that we have essentially shown that <img src="ltximg/07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="07_First_Order_Logic.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is composite assuming the
+existence of such a <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" />. Notice that in this pattern of reasoning, <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" />
+should be "arbitrary." In other words, we should not have assumed
+anything about <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> beforehand, we should not make any additional
+assumptions about <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> along the way, and the conclusion should not
+mention <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" />. Only then does it makes sense to say that the conclusion
+follows from the "mere" existence of a <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> with the assumed
+properties.
+</p>
+
+<p>
+In natural deduction, the elimination rule is expressed as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_289c0adc160231e58e7f2f1ef46830ce1a6fbc55.png" alt="07_First_Order_Logic.org.temp_289c0adc160231e58e7f2f1ef46830ce1a6fbc55.png" /></p>
+</div>
+<p>
+Here we require that <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> is not free in <img src="ltximg/07_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="07_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and that the only
+uncanceled hypotheses where <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> occurs freely are the hypotheses
+<img src="ltximg/07_First_Order_Logic.org.temp_b964d663c34c6361f5b19878b503e0d968210b44.png" alt="07_First_Order_Logic.org.temp_b964d663c34c6361f5b19878b503e0d968210b44.png" /> that are canceled when you apply this rule. Formally, this is
+what it means to say that <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> is "arbitrary." As was the case for or
+elimination and implication introduction, you can use the hypothesis
+<img src="ltximg/07_First_Order_Logic.org.temp_b964d663c34c6361f5b19878b503e0d968210b44.png" alt="07_First_Order_Logic.org.temp_b964d663c34c6361f5b19878b503e0d968210b44.png" /> multiple times in the proof of <img src="ltximg/07_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="07_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, and cancel all of them at
+once.
+</p>
+
+<p>
+Intuitively, the rule says that you can prove <img src="ltximg/07_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="07_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> from the assumption
+<img src="ltximg/07_First_Order_Logic.org.temp_6a233a8764e95ac874205cf2c155aeecb72814ba.png" alt="07_First_Order_Logic.org.temp_6a233a8764e95ac874205cf2c155aeecb72814ba.png" /> by assuming <img src="ltximg/07_First_Order_Logic.org.temp_b964d663c34c6361f5b19878b503e0d968210b44.png" alt="07_First_Order_Logic.org.temp_b964d663c34c6361f5b19878b503e0d968210b44.png" /> for a fresh variable <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />, and
+concluding, in any number of steps, that <img src="ltximg/07_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="07_First_Order_Logic.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> follows. You should
+compare this rule to the rule for or elimination, which is somewhat
+analogous. In the following example, we show that if <img src="ltximg/07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" /> always
+implies <img src="ltximg/07_First_Order_Logic.org.temp_bd90f0545aaa5f766fc2c4c857977fa2881ef253.png" alt="07_First_Order_Logic.org.temp_bd90f0545aaa5f766fc2c4c857977fa2881ef253.png" />, then there cannot be an <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> for which both <img src="ltximg/07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" />
+and <img src="ltximg/07_First_Order_Logic.org.temp_3bea4bbf0e2b6efe946437b293cb1a895e7137c7.png" alt="07_First_Order_Logic.org.temp_3bea4bbf0e2b6efe946437b293cb1a895e7137c7.png" /> holds.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org16e61e5" class="outline-3">
+<h3 id="Relativization_and_Sorts"><a id="org16e61e5"></a><span class="section-number-3"> 7.4</span> Relativization and Sorts</h3>
+<div class="outline-text-3" id="text-Relativization_and_Sorts">
+<p>
+In first-order logic as we have presented it, there is one intended
+"universe" of objects of discourse, and the universal and existential
+quantifiers range over that universe. For example, we could design a
+language to talk about people living in a certain town, with a
+relation <img src="ltximg/07_First_Order_Logic.org.temp_6e744056021a15936c50440c6005673c81f26d89.png" alt="07_First_Order_Logic.org.temp_6e744056021a15936c50440c6005673c81f26d89.png" /> to express that <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> loves <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />. In such a
+language, we might express the statement that "everyone loves someone"
+by writing <img src="ltximg/07_First_Order_Logic.org.temp_c4625e8769dcc3d1b128ce1001013442fb2bd0ae.png" alt="07_First_Order_Logic.org.temp_c4625e8769dcc3d1b128ce1001013442fb2bd0ae.png" />.
+</p>
+
+<p>
+You should keep in mind that, at this stage, <img src="ltximg/07_First_Order_Logic.org.temp_e1dc2b53622504dbe53abb27bad477e09b90867b.png" alt="07_First_Order_Logic.org.temp_e1dc2b53622504dbe53abb27bad477e09b90867b.png" /> is just a
+symbol. We have designed the language with a certain interpretation in
+mind, but one could also interpret the language as making statements
+about the natural numbers, where <img src="ltximg/07_First_Order_Logic.org.temp_6e744056021a15936c50440c6005673c81f26d89.png" alt="07_First_Order_Logic.org.temp_6e744056021a15936c50440c6005673c81f26d89.png" /> means that <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is
+less than or equal to <img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />. In that interpretation, the sentence
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_7cd6f45eddead58f39fcfe7d5b97f681706f5d00.png" alt="07_First_Order_Logic.org.temp_7cd6f45eddead58f39fcfe7d5b97f681706f5d00.png" /></p>
+</div>
+<p>
+is true, though in the original interpretation it makes an implausible
+claim about the nature of love triangles. In <a href="#" onclick="myModule.loadTutorial('10_Semantics_of_First_Order_Logic.html', 'Semantics_of_First_Order_Logic')">Chapter 10</a>, we will spell
+out the notion that the deductive rules of first-order logic enable us
+to determine the statements that are true in <i>all</i>
+interpretations, just as the rules of propositional logic enable us to
+determine the statements that are true under all truth assignments.
+</p>
+
+<p>
+Returning to the original example, suppose we want to represent the
+statement that, in our town, all the women are strong and all the men
+are good looking. We could do that with the following two sentences:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/07_First_Order_Logic.org.temp_6fd5f18b564089c98e56f471adf4346877c4ba7a.png" alt="07_First_Order_Logic.org.temp_6fd5f18b564089c98e56f471adf4346877c4ba7a.png" /></li>
+<li><img src="ltximg/07_First_Order_Logic.org.temp_349aadcde0f3aacce9e35c6d290eca8a01af0e0d.png" alt="07_First_Order_Logic.org.temp_349aadcde0f3aacce9e35c6d290eca8a01af0e0d.png" /></li>
+</ul>
+<p>
+These are instances of <i>relativization</i>. The universal quantifier
+ranges over all the people in the town, but this device gives us a way
+of using implication to restrict the scope of our statements to men
+and women, respectively. The trick also comes into play when we render
+"every prime number greater than two is odd":
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_e792af09d6528e0b6e7b6a736e48f91bdf66bd19.png" alt="07_First_Order_Logic.org.temp_e792af09d6528e0b6e7b6a736e48f91bdf66bd19.png" /></p>
+</div>
+<p>
+We could also read this more literally as saying "for every number
+<img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />, if <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is prime and <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> is greater than or equal to 2, then <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />
+is odd," but it is natural to read it as a restricted quantifier. 
+</p>
+
+<p>
+It is also possible to relativize the existential quantifier to say
+things like "some woman is strong" and "some man is good-looking."
+These are expressed as follows:
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/07_First_Order_Logic.org.temp_6224d14014f1f397c9f901563ad0d842dc7800ef.png" alt="07_First_Order_Logic.org.temp_6224d14014f1f397c9f901563ad0d842dc7800ef.png" /></li>
+<li><img src="ltximg/07_First_Order_Logic.org.temp_d965d62e39983218826caa889fc8dbf411351ea7.png" alt="07_First_Order_Logic.org.temp_d965d62e39983218826caa889fc8dbf411351ea7.png" /></li>
+</ul>
+<p>
+Notice that although we used implication to relativize the universal
+quantifier, here we need to use conjunction instead of
+implication. The expression <img src="ltximg/07_First_Order_Logic.org.temp_8e5c5309d1a2a8dc370d50dfda12fd1bc82e1764.png" alt="07_First_Order_Logic.org.temp_8e5c5309d1a2a8dc370d50dfda12fd1bc82e1764.png" />
+says that there is something with the property that if it is a woman,
+then it is strong. Classically this is equivalent to saying that there
+is something which is either not a woman or is strong, which is a
+funny thing to say.
+</p>
+
+<p>
+Now, suppose we are studying geometry, and we want to express the fact
+that given any two distinct points <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="07_First_Order_Logic.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" /> and any two lines <img src="ltximg/07_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" alt="07_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" />
+and <img src="ltximg/07_First_Order_Logic.org.temp_5d4d610aeb221c8445f9e8c9aa7124d015056469.png" alt="07_First_Order_Logic.org.temp_5d4d610aeb221c8445f9e8c9aa7124d015056469.png" />, if <img src="ltximg/07_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" alt="07_First_Order_Logic.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_5d4d610aeb221c8445f9e8c9aa7124d015056469.png" alt="07_First_Order_Logic.org.temp_5d4d610aeb221c8445f9e8c9aa7124d015056469.png" /> both pass through <img src="ltximg/07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" alt="07_First_Order_Logic.org.temp_2858735a231340e680882621d4595c9b3b4a03c3.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" alt="07_First_Order_Logic.org.temp_c264b2ed5d72e92334e21fc5728fdf99b380eb1e.png" />, then they have
+to be the same. (In other words, there is at most one line between two
+distinct points.) One option is to design a first-order logic where the
+intended universe is big enough to include both points and lines, and
+use relativization:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_b1ceb619aa1d46205828d2702f6e53492a41efa0.png" alt="07_First_Order_Logic.org.temp_b1ceb619aa1d46205828d2702f6e53492a41efa0.png" /></p>
+</div>
+<p>
+But dealing with such predicates is tedious, and there is a mild
+extension of first-order logic, called <i>many-sorted first-order
+logic</i>, which builds in some of the bookkeeping. In many-sorted logic,
+one can have different sorts of objects &#x2014; such as points and lines
+&#x2014; and a separate stock of variables and quantifiers ranging over
+each. Moreover, the specification of function symbols and predicate
+symbols indicates what sorts of arguments they expect, and, in the
+case of function symbols, what sort of argument they return. For
+example, we might choose to have a sort with variables <img src="ltximg/07_First_Order_Logic.org.temp_1a5803791587e510ff534b3e1015ba2009623663.png" alt="07_First_Order_Logic.org.temp_1a5803791587e510ff534b3e1015ba2009623663.png" /> ranging over points, a sort with variables <img src="ltximg/07_First_Order_Logic.org.temp_e2c641c201800f6226cacdcce18b6f8c73b66804.png" alt="07_First_Order_Logic.org.temp_e2c641c201800f6226cacdcce18b6f8c73b66804.png" />
+ranging over lines, and a relation <img src="ltximg/07_First_Order_Logic.org.temp_1231a4d9d5aa607bde470990b2d472d341b9e2ea.png" alt="07_First_Order_Logic.org.temp_1231a4d9d5aa607bde470990b2d472d341b9e2ea.png" /> relating the
+two. Then the assertion above is rendered more simply as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_e81e0c6b06492a12eacb9b80f9f5ab3b38ae498b.png" alt="07_First_Order_Logic.org.temp_e81e0c6b06492a12eacb9b80f9f5ab3b38ae498b.png" /></p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgef55691" class="outline-3">
+<h3 id="orgef55691"><span class="section-number-3"> 7.5</span> Equality</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+In symbolic logic, we use the expression <img src="ltximg/07_First_Order_Logic.org.temp_ac47f0f4aab5bda4253b2ed078ea3d3bcab3a163.png" alt="07_First_Order_Logic.org.temp_ac47f0f4aab5bda4253b2ed078ea3d3bcab3a163.png" /> to express the fact
+that <img src="ltximg/07_First_Order_Logic.org.temp_c3648b9525359bf9de10a16af0a905db175a7cb1.png" alt="07_First_Order_Logic.org.temp_c3648b9525359bf9de10a16af0a905db175a7cb1.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /> are "equal" or "identical." The equality symbol is
+meant to model what we mean when we say, for example, "Alice's brother
+is the victim," or "2 + 2 = 4." We are asserting that two different
+descriptions refer to the same object. Because the notion of identity
+can be applied to virtually any domain of objects, it is viewed as
+falling under the province of logic.
+</p>
+
+<p>
+Talk of "equality" or "identity" raises messy philosophical questions,
+however. Am I the same person I was three days ago? Are the two copies
+of <i>Huckleberry Finn</i> sitting on my shelf the same book, or two
+different books? Using symbolic logic to model identity presupposes
+that we have in mind a certain way of carving up and interpreting the
+world. We assume that our terms refer to distinct entities, and
+writing <img src="ltximg/07_First_Order_Logic.org.temp_ac47f0f4aab5bda4253b2ed078ea3d3bcab3a163.png" alt="07_First_Order_Logic.org.temp_ac47f0f4aab5bda4253b2ed078ea3d3bcab3a163.png" /> asserts that the two expressions refer to the same
+thing. Axiomatically, we assume that equality satisfies the following
+three properties:
+</p>
+<ul class="org-ul">
+<li><i>reflexivity</i>: <img src="ltximg/07_First_Order_Logic.org.temp_c57981c3944851c3e27af71b8f90a234415f0b38.png" alt="07_First_Order_Logic.org.temp_c57981c3944851c3e27af71b8f90a234415f0b38.png" />, for any term <img src="ltximg/07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /></li>
+<li><i>symmetry</i>: if <img src="ltximg/07_First_Order_Logic.org.temp_ac47f0f4aab5bda4253b2ed078ea3d3bcab3a163.png" alt="07_First_Order_Logic.org.temp_ac47f0f4aab5bda4253b2ed078ea3d3bcab3a163.png" />, then <img src="ltximg/07_First_Order_Logic.org.temp_d6469c61c1ee0d847d97d33bacd6f90a7140f542.png" alt="07_First_Order_Logic.org.temp_d6469c61c1ee0d847d97d33bacd6f90a7140f542.png" /></li>
+<li><i>transitivity</i>: if <img src="ltximg/07_First_Order_Logic.org.temp_ad90b1682e8357a3f66f062a3b06184a1f42a469.png" alt="07_First_Order_Logic.org.temp_ad90b1682e8357a3f66f062a3b06184a1f42a469.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_ac47f0f4aab5bda4253b2ed078ea3d3bcab3a163.png" alt="07_First_Order_Logic.org.temp_ac47f0f4aab5bda4253b2ed078ea3d3bcab3a163.png" />, then <img src="ltximg/07_First_Order_Logic.org.temp_002ed2c3b725419da36e22f7df4e1ea108a068f2.png" alt="07_First_Order_Logic.org.temp_002ed2c3b725419da36e22f7df4e1ea108a068f2.png" />.</li>
+</ul>
+
+<p>
+These properties are not enough to characterize equality, however. If
+two expressions denote the same thing, then we should be able to
+subtitute one for any other in any expression. It is convenient to
+adopt the following convention: if <img src="ltximg/07_First_Order_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="07_First_Order_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" /> is any term, we may write
+<img src="ltximg/07_First_Order_Logic.org.temp_e3cf8c136c0ca977849a4b55efdd307125d1da8f.png" alt="07_First_Order_Logic.org.temp_e3cf8c136c0ca977849a4b55efdd307125d1da8f.png" /> to indicate that the variable <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> may occur in <img src="ltximg/07_First_Order_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="07_First_Order_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" />. Then, if
+<img src="ltximg/07_First_Order_Logic.org.temp_c3648b9525359bf9de10a16af0a905db175a7cb1.png" alt="07_First_Order_Logic.org.temp_c3648b9525359bf9de10a16af0a905db175a7cb1.png" /> is another term, we can thereafter write <img src="ltximg/07_First_Order_Logic.org.temp_bafba6ba39a66696dac0e0ccf382d5ecf054f75c.png" alt="07_First_Order_Logic.org.temp_bafba6ba39a66696dac0e0ccf382d5ecf054f75c.png" /> to denote the
+result of replacing <img src="ltximg/07_First_Order_Logic.org.temp_c3648b9525359bf9de10a16af0a905db175a7cb1.png" alt="07_First_Order_Logic.org.temp_c3648b9525359bf9de10a16af0a905db175a7cb1.png" /> for <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in <img src="ltximg/07_First_Order_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" alt="07_First_Order_Logic.org.temp_b643064d0f5fa210f63ec304fb6f3d71fa382d67.png" />. The substition rule for terms
+thus reads as follows: if <img src="ltximg/07_First_Order_Logic.org.temp_ac47f0f4aab5bda4253b2ed078ea3d3bcab3a163.png" alt="07_First_Order_Logic.org.temp_ac47f0f4aab5bda4253b2ed078ea3d3bcab3a163.png" />, then <img src="ltximg/07_First_Order_Logic.org.temp_680f4dd519c85d29a0ff4068bd090d598660b23e.png" alt="07_First_Order_Logic.org.temp_680f4dd519c85d29a0ff4068bd090d598660b23e.png" />. 
+</p>
+
+<p>
+We already adopted a similiar convention for formulas: if we introduce
+a formula as <img src="ltximg/07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" />, then <img src="ltximg/07_First_Order_Logic.org.temp_3f58f1ff3755af6fd8d4e2bf2d7a2562f01ee5a4.png" alt="07_First_Order_Logic.org.temp_3f58f1ff3755af6fd8d4e2bf2d7a2562f01ee5a4.png" /> denotes the result of substituting
+<img src="ltximg/07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" alt="07_First_Order_Logic.org.temp_483eb328af194237825b7ad68d31af6aa5b34274.png" /> for <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> in <img src="ltximg/07_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="07_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. With this in mind, we can write the rules for
+equality as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_c12923ac6fb796f14a61d72b7eabe341d81ccaf6.png" alt="07_First_Order_Logic.org.temp_c12923ac6fb796f14a61d72b7eabe341d81ccaf6.png" /></p>
+</div>
+<p>
+In the next chapter, you will learn how to use them.
+</p>
+
+<p>
+Using equality, we can define even more quantifiers.
+</p>
+
+<ul class="org-ul">
+<li>We can express "there are at least two elements <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> such that <img src="ltximg/07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" />
+holds" as <img src="ltximg/07_First_Order_Logic.org.temp_472afe456d4d5fe3a7daa2989666e1fd55a0459b.png" alt="07_First_Order_Logic.org.temp_472afe456d4d5fe3a7daa2989666e1fd55a0459b.png" />.</li>
+
+<li>We can express "there are at most two elements <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> such that <img src="ltximg/07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" />
+holds" as <img src="ltximg/07_First_Order_Logic.org.temp_cfd86f80d0c9fd0dc0acb5de024026f878a6c8d9.png" alt="07_First_Order_Logic.org.temp_cfd86f80d0c9fd0dc0acb5de024026f878a6c8d9.png" />. This states that if we have three elements
+<img src="ltximg/07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> for which <img src="ltximg/07_First_Order_Logic.org.temp_eed2e270d9a5a76327fa093dff025101969ad75d.png" alt="07_First_Order_Logic.org.temp_eed2e270d9a5a76327fa093dff025101969ad75d.png" /> holds, then two of them must be equal.</li>
+
+<li>We can express "there are exactly two elements <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> such that <img src="ltximg/07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" />
+holds" as the conjunction of the above two statements.</li>
+</ul>
+
+<p>
+As an exercise, write out in first order logic the statements that
+there are at least, at most, and exactly three elements <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> such that
+<img src="ltximg/07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" /> holds.
+</p>
+
+<p>
+In logic, the expression <img src="ltximg/07_First_Order_Logic.org.temp_38538b0e00b86213250fda38a05654a930547484.png" alt="07_First_Order_Logic.org.temp_38538b0e00b86213250fda38a05654a930547484.png" /> is used to express the
+fact that there is a <i>unique</i> <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> satisfying <img src="ltximg/07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" alt="07_First_Order_Logic.org.temp_1dd285ea81b65dd1a3cbd20396bb18c2e8773e54.png" />, which is to say,
+there is exactly one such <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" />. As above, this can be expressed as
+follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_5d2c7dfddcf9340536ab1a3016da304c16859511.png" alt="07_First_Order_Logic.org.temp_5d2c7dfddcf9340536ab1a3016da304c16859511.png" /></p>
+</div>
+<p>
+The first conjunct says that there is at least one object satisfying
+<img src="ltximg/07_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="07_First_Order_Logic.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and the second conjunct says that there is at most one. The same
+thing can be expressed more concisely as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/07_First_Order_Logic.org.temp_1c04e02065d2e1777a261b00a1304c7d802f035d.png" alt="07_First_Order_Logic.org.temp_1c04e02065d2e1777a261b00a1304c7d802f035d.png" /></p>
+</div>
+<p>
+You should think about why this second expression works. In the next
+chapter we will see that, using the rules of natural deduction, we can prove
+that these two expressions are equivalent.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org278e30c" class="outline-3">
+<h3 id="org278e30c"><span class="section-number-3"> 7.6</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li><p>
+A <i>perfect number</i> is a number that is equal to the sum of its
+proper divisors, that is, the numbers that divide it, other than
+itself. For example, 6 is perfect, because <img src="ltximg/07_First_Order_Logic.org.temp_28c33dda9de01c3a8651d7a27b259a112c7653f9.png" alt="07_First_Order_Logic.org.temp_28c33dda9de01c3a8651d7a27b259a112c7653f9.png" />.
+</p>
+
+<p>
+Using a language with variables ranging over the natural numbers and
+suitable functions and predicates, write down first-order sentences
+asserting the following. Use a predicate <img src="ltximg/07_First_Order_Logic.org.temp_0c7d9bb24c3ce85d1452c92ab3cfd5794c7753a7.png" alt="07_First_Order_Logic.org.temp_0c7d9bb24c3ce85d1452c92ab3cfd5794c7753a7.png" /> to express
+that a number is perfect.
+</p>
+
+<ul class="org-ul">
+<li>28 is perfect.</li>
+
+<li>There are no perfect numbers between 100 and 200.</li>
+
+<li>There are (at least) two perfect numbers between 200 and 10,000.
+(Express this by saying that there are perfect numbers <img src="ltximg/07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="07_First_Order_Logic.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> and
+<img src="ltximg/07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="07_First_Order_Logic.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" /> between 200 and 10,000, with the property that <img src="ltximg/07_First_Order_Logic.org.temp_b096f8c92d8dcb713a74fe3f09b218aaebb13aa3.png" alt="07_First_Order_Logic.org.temp_b096f8c92d8dcb713a74fe3f09b218aaebb13aa3.png" />.)</li>
+
+<li>Every perfect number is even.</li>
+
+<li>For every number, there is a perfect number that is larger than
+it. (This is one way to express the statement that there are
+infinitely many perfect numbers.)</li>
+</ul>
+<p>
+Here, the phrase ``between <img src="ltximg/07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> and <img src="ltximg/07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> '' is meant to include <img src="ltximg/07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="07_First_Order_Logic.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />
+and <img src="ltximg/07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="07_First_Order_Logic.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />.
+</p>
+
+<p>
+By the way, we do not know whether the last two statements are
+true. They are open questions.
+</p></li>
+
+<li><p>
+Using a language with variables ranging over people, and predicates
+<img src="ltximg/07_First_Order_Logic.org.temp_2853d5ae65defa824d7268910246676c590c5523.png" alt="07_First_Order_Logic.org.temp_2853d5ae65defa824d7268910246676c590c5523.png" />, <img src="ltximg/07_First_Order_Logic.org.temp_adebb09c81d31d2ce68987398528720828b4e804.png" alt="07_First_Order_Logic.org.temp_adebb09c81d31d2ce68987398528720828b4e804.png" />,
+<img src="ltximg/07_First_Order_Logic.org.temp_9aba8a79da5a9c90b36094c6889f70a5d654860d.png" alt="07_First_Order_Logic.org.temp_9aba8a79da5a9c90b36094c6889f70a5d654860d.png" />, and <img src="ltximg/07_First_Order_Logic.org.temp_07d98e95b6771b426533f206695b238b94c070b5.png" alt="07_First_Order_Logic.org.temp_07d98e95b6771b426533f206695b238b94c070b5.png" />, and
+<img src="ltximg/07_First_Order_Logic.org.temp_98309ea8d941b82beff1d93708e1ed8e846d4b3c.png" alt="07_First_Order_Logic.org.temp_98309ea8d941b82beff1d93708e1ed8e846d4b3c.png" />, write down first-order sentences asserting the
+following:
+</p>
+
+<ul class="org-ul">
+<li>Nobody trusts a politician.</li>
+<li>Anyone who trusts a politician is crazy.</li>
+<li>Everyone knows someone who is related to a politician.</li>
+<li>Everyone who is rich is either a politician or knows a politician.</li>
+</ul>
+<p>
+In each case, some interpretation may be involved. Notice that
+writing down a logical expression is one way of helping to clarify
+the meaning.
+</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

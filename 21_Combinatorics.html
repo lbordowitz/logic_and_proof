@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-01-04 Wed 09:18 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logic and Proof</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="[[http://www.andrew.cmu.edu/user/avigad][Jeremy Avigad]]Jeremy Avigad, [[http://www.andrew.cmu.edu/user/rlewis1/][Robert Y. Lewis]]Robert Y. Lewis,  [[http://www.contrib.andrew.cmu.edu/~fpv/][Floris van Doorn]]Floris van Doorn" />
+<link rel="stylesheet" href="css/tutorial.css"/>
+<link rel="stylesheet" href="css/code.css"/>
+<script type="text/javascript" charset="utf-8">if(!window.PolymerGestures) { var head = document.getElementsByTagName('head')[0]; var js = document.createElement("script"); js.type = "text/javascript"; js.src = "//cdn.jsdelivr.net/polymer.platform/0.4.2/platform.js"; head.appendChild(js); } </script>
+<link rel='import' href='juicy-ace-editor.html'/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Logic and Proof</h1>
+
+<div id="outline-container-orgd2065dc" class="outline-2">
+<h2 id="Combinatorics"><a id="orgd2065dc"></a><span class="section-number-2"> 21</span> Combinatorics</h2>
+<div class="outline-text-2" id="text-Combinatorics">
+<p>
+Combinatorics is the art of counting without counting. It is a
+fundamental mathematical task to determine how many things there are
+in a given collection, and when the collection is large, it can be
+tedious or infeasible to count the elements individually. Moreover,
+when the collection is described in terms of a changing parameter
+(say, a natural number, <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />), we would like a formula that tells us
+how the number of objects depends on that parameter. In this chapter
+we will set up a foundation for achieving this goal, and learn some of
+the tricks of the trade.
+</p>
+</div>
+
+<div id="outline-container-orgae45e6f" class="outline-3">
+<h3 id="orgae45e6f"><span class="section-number-3"> 21.1</span> Finite Sets and Cardinality</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+It will be helpful, for every natural number <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, to have a canonical
+set of elements of size <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. To that end, we will choose the set
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_190124d0c8a2d73308df74a63d71c6a6a833d946.png" alt="21_Combinatorics.org.temp_190124d0c8a2d73308df74a63d71c6a6a833d946.png" /></p>
+</div>
+<p>
+We used the same notation, <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />, to describe equivalence classes with
+respect to an equivalence relation, but hopefully our intended meaning
+will always be clear from the context.
+</p>
+
+<p>
+A set <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> of elements is said to be <i>finite</i> if there is a bijection
+from <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" /> for some <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. In that case, we would like to say
+that <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> <i>has <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements</i>, or that the set <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> <i>has cardinality</i>
+<img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, and write <img src="ltximg/21_Combinatorics.org.temp_6380ba37c4b40041fba90c74e1a4abc4493d16d1.png" alt="21_Combinatorics.org.temp_6380ba37c4b40041fba90c74e1a4abc4493d16d1.png" />. But to do so, we need to know that when <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+is finite, there is a <i>unique</i> <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> with the property above.
+</p>
+
+<p>
+Suppose there are bijections from <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to <img src="ltximg/21_Combinatorics.org.temp_6a86334a7287d40ca1fa484c254bab5dc0c85213.png" alt="21_Combinatorics.org.temp_6a86334a7287d40ca1fa484c254bab5dc0c85213.png" /> and <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />. Composing
+the inverse of the first bijection with the second, we get a bijection
+from <img src="ltximg/21_Combinatorics.org.temp_6a86334a7287d40ca1fa484c254bab5dc0c85213.png" alt="21_Combinatorics.org.temp_6a86334a7287d40ca1fa484c254bab5dc0c85213.png" /> to <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />. It seems intuitively clear that this implies <img src="ltximg/21_Combinatorics.org.temp_79fdc3b3a76755c059181d2ed2adb636a86403db.png" alt="21_Combinatorics.org.temp_79fdc3b3a76755c059181d2ed2adb636a86403db.png" />, but our goal is to prove this from the fundamental properties of
+sets, functions, and the natural numbers.
+</p>
+
+<p>
+So suppose, for the sake of contradiction, <img src="ltximg/21_Combinatorics.org.temp_83e4b30ce81b4e3df14fb200c4ec4254492e8d28.png" alt="21_Combinatorics.org.temp_83e4b30ce81b4e3df14fb200c4ec4254492e8d28.png" />. Without loss of
+generality, we can assume <img src="ltximg/21_Combinatorics.org.temp_bb7dc8afb0a2b435d4180de3d7ef4e4d484e2572.png" alt="21_Combinatorics.org.temp_bb7dc8afb0a2b435d4180de3d7ef4e4d484e2572.png" /> (why?). In particular, there is an
+injective function <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> from <img src="ltximg/21_Combinatorics.org.temp_6a86334a7287d40ca1fa484c254bab5dc0c85213.png" alt="21_Combinatorics.org.temp_6a86334a7287d40ca1fa484c254bab5dc0c85213.png" /> to <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />. Since <img src="ltximg/21_Combinatorics.org.temp_bb7dc8afb0a2b435d4180de3d7ef4e4d484e2572.png" alt="21_Combinatorics.org.temp_bb7dc8afb0a2b435d4180de3d7ef4e4d484e2572.png" />, <img src="ltximg/21_Combinatorics.org.temp_7939e2523d846d2c0846c8e39bfcb3496b47d328.png" alt="21_Combinatorics.org.temp_7939e2523d846d2c0846c8e39bfcb3496b47d328.png" />,
+and so we can restrict <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> to get an injective function from <img src="ltximg/21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" alt="21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" />
+to <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />. The next theorem shows that this cannot happen.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> For any natural number <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, there is no injective function
+from <img src="ltximg/21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" alt="21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" /> to <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />.
+</p>
+
+<p>
+<b>Proof.</b> By induction on <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />. The theorem is clear when <img src="ltximg/21_Combinatorics.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" alt="21_Combinatorics.org.temp_ca92eef311a400193c1593952cc63a4644ee8b89.png" />,
+because <img src="ltximg/21_Combinatorics.org.temp_f40b122253bc642f8354ab91fa2f92efd263e640.png" alt="21_Combinatorics.org.temp_f40b122253bc642f8354ab91fa2f92efd263e640.png" /> and <img src="ltximg/21_Combinatorics.org.temp_b92e007c0372122d0022e78f7010eaf30e9b7e32.png" alt="21_Combinatorics.org.temp_b92e007c0372122d0022e78f7010eaf30e9b7e32.png" />. If <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> were an
+injective function from <img src="ltximg/21_Combinatorics.org.temp_112600a91e1dcbc68cf42a130b52e6ce4d8c21db.png" alt="21_Combinatorics.org.temp_112600a91e1dcbc68cf42a130b52e6ce4d8c21db.png" /> to <img src="ltximg/21_Combinatorics.org.temp_b6cedb8a5162788f5ba21c018d8edd04f7903235.png" alt="21_Combinatorics.org.temp_b6cedb8a5162788f5ba21c018d8edd04f7903235.png" />, we would have <img src="ltximg/21_Combinatorics.org.temp_92cfe7416f38a725887874d247bb290d6af838a5.png" alt="21_Combinatorics.org.temp_92cfe7416f38a725887874d247bb290d6af838a5.png" />, which is impossible.
+</p>
+
+<p>
+So suppose the claim is true for <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, and suppose <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is an injective
+function from <img src="ltximg/21_Combinatorics.org.temp_c947706a73510fc380542735239a7bacaf1cdbe9.png" alt="21_Combinatorics.org.temp_c947706a73510fc380542735239a7bacaf1cdbe9.png" /> to <img src="ltximg/21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" alt="21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" />. We consider two cases.
+</p>
+
+<p>
+In the first case, suppose <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is not in the image of <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />. Then <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" />
+maps <img src="ltximg/21_Combinatorics.org.temp_c947706a73510fc380542735239a7bacaf1cdbe9.png" alt="21_Combinatorics.org.temp_c947706a73510fc380542735239a7bacaf1cdbe9.png" /> to <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />, and restricting the domain, we have an
+injective function from <img src="ltximg/21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" alt="21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" /> to <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />, contradicting the inductive
+hypothesis.
+</p>
+
+<p>
+In the second case, there is some <img src="ltximg/21_Combinatorics.org.temp_33edc099a230f47f7bf5752c16fe0da7c3245557.png" alt="21_Combinatorics.org.temp_33edc099a230f47f7bf5752c16fe0da7c3245557.png" /> such that <img src="ltximg/21_Combinatorics.org.temp_24a8188b6cf5c3b4bb329fec817ecec585d05a0a.png" alt="21_Combinatorics.org.temp_24a8188b6cf5c3b4bb329fec817ecec585d05a0a.png" />. The idea is to alter <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> slightly to get an injective function
+from <img src="ltximg/21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" alt="21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" /> to <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />, again contradicting the inductive
+hypothesis. If <img src="ltximg/21_Combinatorics.org.temp_cf12227a6743a85b3974fee04e5a8544ac79f541.png" alt="21_Combinatorics.org.temp_cf12227a6743a85b3974fee04e5a8544ac79f541.png" />, which is to say it is the last element of
+<img src="ltximg/21_Combinatorics.org.temp_c947706a73510fc380542735239a7bacaf1cdbe9.png" alt="21_Combinatorics.org.temp_c947706a73510fc380542735239a7bacaf1cdbe9.png" /> that is mapped to the last element of <img src="ltximg/21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" alt="21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" />, we can just
+restrict <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> to <img src="ltximg/21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" alt="21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" />. The fact that <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> was injective implies that
+all the elements in <img src="ltximg/21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" alt="21_Combinatorics.org.temp_92fef769ad448ef02a82f9d53be94971f1e0241e.png" /> are mapped to <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.
+</p>
+
+<p>
+Otherwise, define <img src="ltximg/21_Combinatorics.org.temp_b4c36f1acb2ef9ca55f61f762dc4b9e96f1ac02c.png" alt="21_Combinatorics.org.temp_b4c36f1acb2ef9ca55f61f762dc4b9e96f1ac02c.png" /> by
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_714ef7bf8a81fa71e867a0c69b0be467560cd548.png" alt="21_Combinatorics.org.temp_714ef7bf8a81fa71e867a0c69b0be467560cd548.png" /></p>
+</div>
+<p>
+In other words, we map <img src="ltximg/21_Combinatorics.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="21_Combinatorics.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" /> to the value that <img src="ltximg/21_Combinatorics.org.temp_68d5da830f951de0ddd6d9040613b5df5c2bcaec.png" alt="21_Combinatorics.org.temp_68d5da830f951de0ddd6d9040613b5df5c2bcaec.png" /> was mapped
+to. Since <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> is injective, <img src="ltximg/21_Combinatorics.org.temp_9eae0ce76d8451620650cf57a6f8c3681545a216.png" alt="21_Combinatorics.org.temp_9eae0ce76d8451620650cf57a6f8c3681545a216.png" />, and so <img src="ltximg/21_Combinatorics.org.temp_a95a17aad1f279144c537793880f214fceef47a1.png" alt="21_Combinatorics.org.temp_a95a17aad1f279144c537793880f214fceef47a1.png" />,
+as required. It is not hard to check that <img src="ltximg/21_Combinatorics.org.temp_40e24e9093aafe0fd0700e72d4b47601a0542bde.png" alt="21_Combinatorics.org.temp_40e24e9093aafe0fd0700e72d4b47601a0542bde.png" /> is injective, so we
+have the contradiction we were after.
+</p>
+
+<hr>
+<p>
+This theorem is known as the "pigeonhole principle." It implies that
+if <img src="ltximg/21_Combinatorics.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="21_Combinatorics.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" /> pigeons inhabit <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> holes, then at least one hole has more
+than one pigeon. The principle implies that for every finite set <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />,
+there is a unique <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> such that there is a bijection from <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" /> to
+<img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and we can define the cardinality of <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to be that <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf81fc42" class="outline-3">
+<h3 id="Counting_Principles"><a id="orgf81fc42"></a><span class="section-number-3"> 21.2</span> Counting Principles</h3>
+<div class="outline-text-3" id="text-Counting_Principles">
+<p>
+Here is a basic counting principle.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be disjoint finite sets. Then <img src="ltximg/21_Combinatorics.org.temp_c7937328b8e5a17e992501c55b4d2e1961675448.png" alt="21_Combinatorics.org.temp_c7937328b8e5a17e992501c55b4d2e1961675448.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Suppose <img src="ltximg/21_Combinatorics.org.temp_f9a9bc6758f9b9c5dceb29f80a4ac1cfb9c3b702.png" alt="21_Combinatorics.org.temp_f9a9bc6758f9b9c5dceb29f80a4ac1cfb9c3b702.png" /> and <img src="ltximg/21_Combinatorics.org.temp_1f9272f72e094ce9675ec50ac0d4784d88479343.png" alt="21_Combinatorics.org.temp_1f9272f72e094ce9675ec50ac0d4784d88479343.png" /> are
+bijections. Define <img src="ltximg/21_Combinatorics.org.temp_3306f0d160778d15763e3c3395f859818b35cfc4.png" alt="21_Combinatorics.org.temp_3306f0d160778d15763e3c3395f859818b35cfc4.png" /> by
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_26db76164ed9d611d02544be1ba26998d23866e6.png" alt="21_Combinatorics.org.temp_26db76164ed9d611d02544be1ba26998d23866e6.png" /></p>
+</div>
+<p>
+To see that <img src="ltximg/21_Combinatorics.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" alt="21_Combinatorics.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" /> is surjective, note that every <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> in <img src="ltximg/21_Combinatorics.org.temp_6e1e2fb228c597c5cd49839ab257f4ac52c22459.png" alt="21_Combinatorics.org.temp_6e1e2fb228c597c5cd49839ab257f4ac52c22459.png" /> can
+be written as either <img src="ltximg/21_Combinatorics.org.temp_f5dc21d89bfa21d8afd54cc3a8ba75249a62b8b9.png" alt="21_Combinatorics.org.temp_f5dc21d89bfa21d8afd54cc3a8ba75249a62b8b9.png" /> for some <img src="ltximg/21_Combinatorics.org.temp_04efbfb8f10bc98bd43dc1478f2f06c2f482072c.png" alt="21_Combinatorics.org.temp_04efbfb8f10bc98bd43dc1478f2f06c2f482072c.png" /> or <img src="ltximg/21_Combinatorics.org.temp_22adfe3a61615ea09e51a2283ac9c756a1572663.png" alt="21_Combinatorics.org.temp_22adfe3a61615ea09e51a2283ac9c756a1572663.png" /> for
+some <img src="ltximg/21_Combinatorics.org.temp_4372357c697e17a378fee32b395f631660a70141.png" alt="21_Combinatorics.org.temp_4372357c697e17a378fee32b395f631660a70141.png" />. In the first case, <img src="ltximg/21_Combinatorics.org.temp_5eb7acd1ada72c56972dd2793796b99e8f6f3194.png" alt="21_Combinatorics.org.temp_5eb7acd1ada72c56972dd2793796b99e8f6f3194.png" />, and in the
+second case, <img src="ltximg/21_Combinatorics.org.temp_f7a98595bc89128a23a07567f1e4fb4073c34f78.png" alt="21_Combinatorics.org.temp_f7a98595bc89128a23a07567f1e4fb4073c34f78.png" />.
+</p>
+
+<p>
+It is not hard to show that <img src="ltximg/21_Combinatorics.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" alt="21_Combinatorics.org.temp_aeb1b9052e71973a0e8aafcfb324c3fd5c4d4f9c.png" /> is also injective. Suppose <img src="ltximg/21_Combinatorics.org.temp_8b8c140d20b759eb4a2c082c2da0234a70316ffc.png" alt="21_Combinatorics.org.temp_8b8c140d20b759eb4a2c082c2da0234a70316ffc.png" />. If <img src="ltximg/21_Combinatorics.org.temp_b0a8ebb057d05804f1b849224ec4213ffdd40557.png" alt="21_Combinatorics.org.temp_b0a8ebb057d05804f1b849224ec4213ffdd40557.png" /> is in <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, then it is not in the range of <img src="ltximg/21_Combinatorics.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" alt="21_Combinatorics.org.temp_d4c74a06a6f4b0d8dedb5faa63a779d5d0cbf5cb.png" />, and so
+we must have <img src="ltximg/21_Combinatorics.org.temp_18ec1076c4f77f8a6df1ef4cf205e9121351a0a2.png" alt="21_Combinatorics.org.temp_18ec1076c4f77f8a6df1ef4cf205e9121351a0a2.png" /> and <img src="ltximg/21_Combinatorics.org.temp_67386eea6d0b0fc24188ccc99f68ee56900b12cb.png" alt="21_Combinatorics.org.temp_67386eea6d0b0fc24188ccc99f68ee56900b12cb.png" />. Then <img src="ltximg/21_Combinatorics.org.temp_d347c2e9de45bcbf390483e987c9766871bbf4c1.png" alt="21_Combinatorics.org.temp_d347c2e9de45bcbf390483e987c9766871bbf4c1.png" />, the
+injectivity of <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> implies that <img src="ltximg/21_Combinatorics.org.temp_85d99c96cbae49c413c52a58161b2d7a07cb0099.png" alt="21_Combinatorics.org.temp_85d99c96cbae49c413c52a58161b2d7a07cb0099.png" />. If <img src="ltximg/21_Combinatorics.org.temp_b0a8ebb057d05804f1b849224ec4213ffdd40557.png" alt="21_Combinatorics.org.temp_b0a8ebb057d05804f1b849224ec4213ffdd40557.png" /> is instead in <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />,
+the argument it similar.
+</p>
+
+<hr>
+<p>
+The proof only spells out our basic intuitions: if you want to list
+all of the elements of <img src="ltximg/21_Combinatorics.org.temp_6e1e2fb228c597c5cd49839ab257f4ac52c22459.png" alt="21_Combinatorics.org.temp_6e1e2fb228c597c5cd49839ab257f4ac52c22459.png" />, you can list all the elements of
+<img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and then all the elements of <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />. And if <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> have no
+elements in common, then to count the elements of <img src="ltximg/21_Combinatorics.org.temp_6e1e2fb228c597c5cd49839ab257f4ac52c22459.png" alt="21_Combinatorics.org.temp_6e1e2fb228c597c5cd49839ab257f4ac52c22459.png" />, you can
+count the elements of <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and then continue counting the elements of
+<img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />. Once you are comfortable translating the intuitive argument into a
+precise mathematical proof (and mathematicians generally are), you can
+use the more intuitive descriptions (and mathematicians generally do).
+</p>
+
+<p>
+Here is another basic counting principle:
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be finite sets. Then <img src="ltximg/21_Combinatorics.org.temp_7c62cbba343044cfc066caa28ee29f23f1f3d4ad.png" alt="21_Combinatorics.org.temp_7c62cbba343044cfc066caa28ee29f23f1f3d4ad.png" />.
+</p>
+
+<hr>
+<p>
+Notice that this time we are counting the number of ordered pairs <img src="ltximg/21_Combinatorics.org.temp_54921ef384a49d7868d779d0a91df19a92ac29f6.png" alt="21_Combinatorics.org.temp_54921ef384a49d7868d779d0a91df19a92ac29f6.png" /> with <img src="ltximg/21_Combinatorics.org.temp_b371c52fbf63ab940f8ddec358922813caca7bc4.png" alt="21_Combinatorics.org.temp_b371c52fbf63ab940f8ddec358922813caca7bc4.png" /> and <img src="ltximg/21_Combinatorics.org.temp_b4dbd31a81cbe4cecc52e4163e62a98bdcc0545b.png" alt="21_Combinatorics.org.temp_b4dbd31a81cbe4cecc52e4163e62a98bdcc0545b.png" />. The exercises ask you to give a
+detailed proof of this theorem. There are at least two ways to go
+about it. The first is to start with bijections <img src="ltximg/21_Combinatorics.org.temp_f9a9bc6758f9b9c5dceb29f80a4ac1cfb9c3b702.png" alt="21_Combinatorics.org.temp_f9a9bc6758f9b9c5dceb29f80a4ac1cfb9c3b702.png" /> and
+<img src="ltximg/21_Combinatorics.org.temp_1f9272f72e094ce9675ec50ac0d4784d88479343.png" alt="21_Combinatorics.org.temp_1f9272f72e094ce9675ec50ac0d4784d88479343.png" /> and describe an explicit bijection <img src="ltximg/21_Combinatorics.org.temp_7f9e60ab36829d9abfb96c07b73b15cceaa50fc9.png" alt="21_Combinatorics.org.temp_7f9e60ab36829d9abfb96c07b73b15cceaa50fc9.png" />. The second is to fix <img src="ltximg/21_Combinatorics.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" alt="21_Combinatorics.org.temp_5b0a1dfc616e3a54d5c3ca94d7bf0cad30343a1e.png" />, say, and use induction on
+<img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and the previous counting principle. Notice that if <img src="ltximg/21_Combinatorics.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="21_Combinatorics.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" /> and <img src="ltximg/21_Combinatorics.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="21_Combinatorics.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" />
+are any sets and <img src="ltximg/21_Combinatorics.org.temp_905d5df8ca486514ac6a4665bcdae7f6faa4ad0f.png" alt="21_Combinatorics.org.temp_905d5df8ca486514ac6a4665bcdae7f6faa4ad0f.png" /> is not in <img src="ltximg/21_Combinatorics.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="21_Combinatorics.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" />, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_31ed85ba6e73fc9fafb15d7611665b0f054e1e90.png" alt="21_Combinatorics.org.temp_31ed85ba6e73fc9fafb15d7611665b0f054e1e90.png" /></p>
+</div>
+<p>
+and the two sets in this union are disjoint.
+</p>
+
+<p>
+Just as we have notions of union <img src="ltximg/21_Combinatorics.org.temp_8bc0a2e2ab9e9d0c8b85af8d529ce422dc337041.png" alt="21_Combinatorics.org.temp_8bc0a2e2ab9e9d0c8b85af8d529ce422dc337041.png" /> and
+intersection <img src="ltximg/21_Combinatorics.org.temp_abb049f6e2d43bc8c86f0de09e5f6f0278e8bdb6.png" alt="21_Combinatorics.org.temp_abb049f6e2d43bc8c86f0de09e5f6f0278e8bdb6.png" /> for indexed families of sets, it
+is useful to have a notion of a product <img src="ltximg/21_Combinatorics.org.temp_c6a3f49b4efee15e0d7966a38f7be021f580e5e7.png" alt="21_Combinatorics.org.temp_c6a3f49b4efee15e0d7966a38f7be021f580e5e7.png" />. We can
+think of an element <img src="ltximg/21_Combinatorics.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="21_Combinatorics.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> of this product as a function which, for each
+element <img src="ltximg/21_Combinatorics.org.temp_9814a11a2aa7edfce9ca088aa1230c675683355c.png" alt="21_Combinatorics.org.temp_9814a11a2aa7edfce9ca088aa1230c675683355c.png" />, returns an element <img src="ltximg/21_Combinatorics.org.temp_3bf62f617b300af317beb19bc2bf1a6b3f74c779.png" alt="21_Combinatorics.org.temp_3bf62f617b300af317beb19bc2bf1a6b3f74c779.png" />. For example, when
+<img src="ltximg/21_Combinatorics.org.temp_415072153ee71437d5c100c11ba9ed2c2f64a11a.png" alt="21_Combinatorics.org.temp_415072153ee71437d5c100c11ba9ed2c2f64a11a.png" />, an element of <img src="ltximg/21_Combinatorics.org.temp_c6a3f49b4efee15e0d7966a38f7be021f580e5e7.png" alt="21_Combinatorics.org.temp_c6a3f49b4efee15e0d7966a38f7be021f580e5e7.png" /> is just a
+triple <img src="ltximg/21_Combinatorics.org.temp_b2fbc0833572b9b1423f9942b36d6fc0f4bfb680.png" alt="21_Combinatorics.org.temp_b2fbc0833572b9b1423f9942b36d6fc0f4bfb680.png" /> with <img src="ltximg/21_Combinatorics.org.temp_ffa04d467984227d553218f67176fb22fac5d10a.png" alt="21_Combinatorics.org.temp_ffa04d467984227d553218f67176fb22fac5d10a.png" />, <img src="ltximg/21_Combinatorics.org.temp_28a6152f59ff137ec18f90970a829c4fedaee6c9.png" alt="21_Combinatorics.org.temp_28a6152f59ff137ec18f90970a829c4fedaee6c9.png" />, and <img src="ltximg/21_Combinatorics.org.temp_ba31823f9013e552ac479169845cc7b987227915.png" alt="21_Combinatorics.org.temp_ba31823f9013e552ac479169845cc7b987227915.png" />. This is essentially the same as <img src="ltximg/21_Combinatorics.org.temp_ca8c2a585dd1c400f3c300edb08906f4362132ba.png" alt="21_Combinatorics.org.temp_ca8c2a585dd1c400f3c300edb08906f4362132ba.png" />, up
+to the fiddly details as to whether we represent a triple as a
+function or with iterated pairing <img src="ltximg/21_Combinatorics.org.temp_fc381fc3e8ae8be2014d1ab9acef7655e61d7aae.png" alt="21_Combinatorics.org.temp_fc381fc3e8ae8be2014d1ab9acef7655e61d7aae.png" />.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/21_Combinatorics.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="21_Combinatorics.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" /> be a finite index set, and let <img src="ltximg/21_Combinatorics.org.temp_206c33aa3a9b4ca3e86c7825df890d16614cbe16.png" alt="21_Combinatorics.org.temp_206c33aa3a9b4ca3e86c7825df890d16614cbe16.png" /> be
+a family of finite sets. Then:
+</p>
+<ul class="org-ul">
+<li>If each pair of sets <img src="ltximg/21_Combinatorics.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" alt="21_Combinatorics.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" />, <img src="ltximg/21_Combinatorics.org.temp_f017d688264d948f868b587261c84ce5fc1702b7.png" alt="21_Combinatorics.org.temp_f017d688264d948f868b587261c84ce5fc1702b7.png" /> are disjoint, then <img src="ltximg/21_Combinatorics.org.temp_33cb9092633965f9714ec7d787339e0692ec4e21.png" alt="21_Combinatorics.org.temp_33cb9092633965f9714ec7d787339e0692ec4e21.png" />.</li>
+<li><img src="ltximg/21_Combinatorics.org.temp_a4bc5d420921d9cb80292c3c4abe98bbcaa761bf.png" alt="21_Combinatorics.org.temp_a4bc5d420921d9cb80292c3c4abe98bbcaa761bf.png" />.</li>
+</ul>
+
+<p>
+<b>Proof.</b> By induction on <img src="ltximg/21_Combinatorics.org.temp_16a483f988da44c440989e6f09b89a5484fc5df6.png" alt="21_Combinatorics.org.temp_16a483f988da44c440989e6f09b89a5484fc5df6.png" />, using the previous counting principles.
+</p>
+
+<hr>
+<p>
+We can already use these principles to carry out basic calculations.
+</p>
+
+<hr>
+<p>
+<b>Example.</b> The dessert menu at a restaurant has four flavors of ice
+cream, two kinds of cake, and three kinds of pie. How many dessert
+choices are there?
+</p>
+
+<p>
+<b>Solution.</b> <img src="ltximg/21_Combinatorics.org.temp_ac53f09db679a798f96312285df7d3df9003f82a.png" alt="21_Combinatorics.org.temp_ac53f09db679a798f96312285df7d3df9003f82a.png" />, the cardinality of the union of the three
+disjoint sets.
+</p>
+
+<p>
+<b>Example.</b> The menu at a diner has 6 choices of appetizers, 7 choices
+of entrée, and 5 choices of dessert. How many choices of three-course
+dinners are there?
+</p>
+
+<p>
+<b>Solution.</b> A three-course dinner is a triple consisting of an
+appetizer, an entrée, and a dessert. There are therefore <img src="ltximg/21_Combinatorics.org.temp_047b42426994c6722e7ee0c181635a39ea608016.png" alt="21_Combinatorics.org.temp_047b42426994c6722e7ee0c181635a39ea608016.png" /> options.
+</p>
+
+<hr>
+<p>
+A special case of the previous counting principles arises when all the
+sets have the same size. If <img src="ltximg/21_Combinatorics.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="21_Combinatorics.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" /> has cardinality <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> and each <img src="ltximg/21_Combinatorics.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" alt="21_Combinatorics.org.temp_cbf12be287cf8baaa0b4d44ee523ebc7e6cc463f.png" /> has
+cardinality <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, then the cardinality of <img src="ltximg/21_Combinatorics.org.temp_e1d963c97bd3451e3560012f42d666acb94c9add.png" alt="21_Combinatorics.org.temp_e1d963c97bd3451e3560012f42d666acb94c9add.png" /> is <img src="ltximg/21_Combinatorics.org.temp_3cdd58233a31a9705d177f0e95e8fc2518719580.png" alt="21_Combinatorics.org.temp_3cdd58233a31a9705d177f0e95e8fc2518719580.png" /> if the sets are pairwise disjoint, and the cardinality of
+<img src="ltximg/21_Combinatorics.org.temp_c6a3f49b4efee15e0d7966a38f7be021f580e5e7.png" alt="21_Combinatorics.org.temp_c6a3f49b4efee15e0d7966a38f7be021f580e5e7.png" /> is <img src="ltximg/21_Combinatorics.org.temp_77d8894677e87bc70960e733d93cef957a6aa574.png" alt="21_Combinatorics.org.temp_77d8894677e87bc70960e733d93cef957a6aa574.png" />.
+</p>
+
+<hr>
+<p>
+<b>Example.</b> A deck of playing cards has four suits (diamonds, hearts,
+spades, and clubs) and 13 cards in each suit, for a total of <img src="ltximg/21_Combinatorics.org.temp_3b3b10e25d4ff46f9eb3cba8b785540f83ce06f2.png" alt="21_Combinatorics.org.temp_3b3b10e25d4ff46f9eb3cba8b785540f83ce06f2.png" />.
+</p>
+
+<p>
+<b>Example.</b> A binary string of length <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> is a sequence of <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> many
+0's and 1's. We can think of this as an element of 
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_fb53c671fad16ad3f0116c963c6fe6bab8910fb6.png" alt="21_Combinatorics.org.temp_fb53c671fad16ad3f0116c963c6fe6bab8910fb6.png" /></p>
+</div>
+<p>
+so there are <img src="ltximg/21_Combinatorics.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" alt="21_Combinatorics.org.temp_f64975aafd2eb2895967fca9465706e32ccdeeb9.png" /> many binary strings of length <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.
+</p>
+
+<hr>
+<p>
+There is another counting principle that is almost too obvious to
+mention: if <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a finite set and there is a bijection between <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+and <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, then <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is also finite, and <img src="ltximg/21_Combinatorics.org.temp_3499f409ca503ac5f7ab38ea9b5fbe8a95844150.png" alt="21_Combinatorics.org.temp_3499f409ca503ac5f7ab38ea9b5fbe8a95844150.png" />.
+</p>
+
+<hr>
+<p>
+<b>Example.</b> Consider the power set of <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />, that is, the collection of
+all subsets of <img src="ltximg/21_Combinatorics.org.temp_0648d900c68e7c8e06eb085f92062180ed71d73e.png" alt="21_Combinatorics.org.temp_0648d900c68e7c8e06eb085f92062180ed71d73e.png" />. There is a one-to-one
+correspondence between subsets and binary strings of length <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, where
+element <img src="ltximg/21_Combinatorics.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="21_Combinatorics.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" /> of the string is <img src="ltximg/21_Combinatorics.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="21_Combinatorics.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" /> if <img src="ltximg/21_Combinatorics.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" alt="21_Combinatorics.org.temp_f2f51616d8afb76817b2d5b958446a00be06abf9.png" /> is in the set and <img src="ltximg/21_Combinatorics.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="21_Combinatorics.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />
+otherwise. As a result, we have <img src="ltximg/21_Combinatorics.org.temp_f0c74568d82e5559d8b42ae9e311dce649fc68e5.png" alt="21_Combinatorics.org.temp_f0c74568d82e5559d8b42ae9e311dce649fc68e5.png" />.
+</p>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-orgd40aa20" class="outline-3">
+<h3 id="orgd40aa20"><span class="section-number-3"> 21.3</span> Ordered Selections</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Let <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> be a finite set, which we will think of as being a set of
+options, such as items on a menu or books that can be selected from a
+shelf. We now turn to a family of problems in combinatorics that involves
+making repeated selections from that set of options. In each case,
+there are finitely many selections, and the order counts: there is a
+first choice, a second one, a third one, and so on.
+</p>
+
+<p>
+In the first variant of the problem, you are allowed to repeat a
+choice. For example, if you are choosing 3 flavors from a list of 31
+ice cream flavors, you can choose "chocolate, vanilla, chocolate."
+This is known as <i>ordered selection with repetition</i>. If you are
+making <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> choices from among <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> options in <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />, such a selection is
+essentially a tuple <img src="ltximg/21_Combinatorics.org.temp_59543ae1dccc4666172386108c6395fd99bc3df2.png" alt="21_Combinatorics.org.temp_59543ae1dccc4666172386108c6395fd99bc3df2.png" />, where each <img src="ltximg/21_Combinatorics.org.temp_ce29c3da8688ef13d90ba61c9aea7f33dd868367.png" alt="21_Combinatorics.org.temp_ce29c3da8688ef13d90ba61c9aea7f33dd868367.png" /> is
+one of the <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements in <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />. In other words, the set of ways of
+making <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> selections from <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> with repetition is the set <img src="ltximg/21_Combinatorics.org.temp_3a3169c8417e769c4439dfd8bcc8d3af4faa7369.png" alt="21_Combinatorics.org.temp_3a3169c8417e769c4439dfd8bcc8d3af4faa7369.png" />, and
+we have seen in the last section that if <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> has cardinality <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, the
+set <img src="ltximg/21_Combinatorics.org.temp_3a3169c8417e769c4439dfd8bcc8d3af4faa7369.png" alt="21_Combinatorics.org.temp_3a3169c8417e769c4439dfd8bcc8d3af4faa7369.png" /> has cardinality <img src="ltximg/21_Combinatorics.org.temp_77d8894677e87bc70960e733d93cef957a6aa574.png" alt="21_Combinatorics.org.temp_77d8894677e87bc70960e733d93cef957a6aa574.png" />.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> be a set of <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements. Then the number of ways of making
+<img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> selections from <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> with repetition allowed is <img src="ltximg/21_Combinatorics.org.temp_77d8894677e87bc70960e733d93cef957a6aa574.png" alt="21_Combinatorics.org.temp_77d8894677e87bc70960e733d93cef957a6aa574.png" />.
+</p>
+
+<p>
+<b>Example.</b> How many three-letter strings (like "xyz," "qqa," &#x2026;) can
+be formed using the twenty-six letters of the alphabet?
+</p>
+
+<p>
+<b>Solution.</b> We have to make three selections from a set of 26
+elements, for a total of <img src="ltximg/21_Combinatorics.org.temp_75e78bbf310963e4c60292238cc500038c340305.png" alt="21_Combinatorics.org.temp_75e78bbf310963e4c60292238cc500038c340305.png" /> possibilities.
+</p>
+
+<hr>
+<p>
+Suppose instead we wish to make <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> ordered selections, but we are not
+allowed to repeat ourselves. This would arise, from example, if a
+museum had 26 paintings in its storeroom, and has to select three of
+them to put on display, ordered from left to right along a wall. There
+are 26 choices for the first position. Once we have made that choice,
+25 remain for the second position, and then 24 remain for the
+third. So it seems clear that there are <img src="ltximg/21_Combinatorics.org.temp_e1fecc188ea6ef0090bb3ec547289c4275748e33.png" alt="21_Combinatorics.org.temp_e1fecc188ea6ef0090bb3ec547289c4275748e33.png" />
+arrangements overall.
+</p>
+
+<p>
+Let us try to frame the problem in mathematical terms. We can think of
+an ordered selection of <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> elements from a set <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> without repetition
+as being an <i>injective function</i> <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> from <img src="ltximg/21_Combinatorics.org.temp_90d869434b36efc2f470bbfe12184d1a9338b985.png" alt="21_Combinatorics.org.temp_90d869434b36efc2f470bbfe12184d1a9338b985.png" /> to <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />. The element
+<img src="ltximg/21_Combinatorics.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" alt="21_Combinatorics.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" /> is the first choice; <img src="ltximg/21_Combinatorics.org.temp_97aecbb80f44be7d75ad910d79b20b81d9c2cb5c.png" alt="21_Combinatorics.org.temp_97aecbb80f44be7d75ad910d79b20b81d9c2cb5c.png" /> is the second choice, which has to
+be distinct from <img src="ltximg/21_Combinatorics.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" alt="21_Combinatorics.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" />; <img src="ltximg/21_Combinatorics.org.temp_9f751e760d7d19b99002eb64730eef08fee85ed7.png" alt="21_Combinatorics.org.temp_9f751e760d7d19b99002eb64730eef08fee85ed7.png" /> is the third choice, which has to be
+distinct from <img src="ltximg/21_Combinatorics.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" alt="21_Combinatorics.org.temp_b7f0ccd3dd3e4c51314e7081cc0bccb610a40769.png" /> and <img src="ltximg/21_Combinatorics.org.temp_97aecbb80f44be7d75ad910d79b20b81d9c2cb5c.png" alt="21_Combinatorics.org.temp_97aecbb80f44be7d75ad910d79b20b81d9c2cb5c.png" />; and so on.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be finite sets, with <img src="ltximg/21_Combinatorics.org.temp_db4da388797b43978cab7fd64c33d3737ce6c5f1.png" alt="21_Combinatorics.org.temp_db4da388797b43978cab7fd64c33d3737ce6c5f1.png" /> and <img src="ltximg/21_Combinatorics.org.temp_d754c713d21c97fe7be8b8fe250b71eb6db0eba2.png" alt="21_Combinatorics.org.temp_d754c713d21c97fe7be8b8fe250b71eb6db0eba2.png" />, and <img src="ltximg/21_Combinatorics.org.temp_fc4ee75dd3a7aeabd27b0e08ce12a0425e9ebb44.png" alt="21_Combinatorics.org.temp_fc4ee75dd3a7aeabd27b0e08ce12a0425e9ebb44.png" />. The number of injective functions from <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+to <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> is <img src="ltximg/21_Combinatorics.org.temp_acc51d7d2ee18e7dad3adaf688084f58306f64e2.png" alt="21_Combinatorics.org.temp_acc51d7d2ee18e7dad3adaf688084f58306f64e2.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Using induction on <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />, we will show that for every <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />,
+and <img src="ltximg/21_Combinatorics.org.temp_340f7f20b0b9420a35c76523fa700753d0d7705d.png" alt="21_Combinatorics.org.temp_340f7f20b0b9420a35c76523fa700753d0d7705d.png" />, the claim holds. When <img src="ltximg/21_Combinatorics.org.temp_8ec26f4ef71274bcaefe814f25d38b88a428d1ae.png" alt="21_Combinatorics.org.temp_8ec26f4ef71274bcaefe814f25d38b88a428d1ae.png" /> there is only one
+injective function, namely the function with empty domain. Suppose <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+has cardinality <img src="ltximg/21_Combinatorics.org.temp_7b839e9d662b85209d821e8c4cc79a82bc218406.png" alt="21_Combinatorics.org.temp_7b839e9d662b85209d821e8c4cc79a82bc218406.png" />, let <img src="ltximg/21_Combinatorics.org.temp_127dc7156f2b93158b1068af50027f69fe590e87.png" alt="21_Combinatorics.org.temp_127dc7156f2b93158b1068af50027f69fe590e87.png" /> be any element of <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. Then any
+injective function from <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> can be obtained by choosing an
+element <img src="ltximg/21_Combinatorics.org.temp_fe7fbce95592a441ca99430f69c75f7500595415.png" alt="21_Combinatorics.org.temp_fe7fbce95592a441ca99430f69c75f7500595415.png" /> for the image of <img src="ltximg/21_Combinatorics.org.temp_127dc7156f2b93158b1068af50027f69fe590e87.png" alt="21_Combinatorics.org.temp_127dc7156f2b93158b1068af50027f69fe590e87.png" />, and then choosing an injective
+function from <img src="ltximg/21_Combinatorics.org.temp_bef14d69fa314b5ef6ce5c24577671aa8ad368fa.png" alt="21_Combinatorics.org.temp_bef14d69fa314b5ef6ce5c24577671aa8ad368fa.png" /> to <img src="ltximg/21_Combinatorics.org.temp_5f265d9d6fce47e6967dd8808cf1f2ec64c868ef.png" alt="21_Combinatorics.org.temp_5f265d9d6fce47e6967dd8808cf1f2ec64c868ef.png" />. There are <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> choices of <img src="ltximg/21_Combinatorics.org.temp_fe7fbce95592a441ca99430f69c75f7500595415.png" alt="21_Combinatorics.org.temp_fe7fbce95592a441ca99430f69c75f7500595415.png" />, and since <img src="ltximg/21_Combinatorics.org.temp_9e972df097f92cb30bb857d91c80d0482c8607ef.png" alt="21_Combinatorics.org.temp_9e972df097f92cb30bb857d91c80d0482c8607ef.png" /> and <img src="ltximg/21_Combinatorics.org.temp_66101b810ce75b6c94b223750b3c1e93b7731d3e.png" alt="21_Combinatorics.org.temp_66101b810ce75b6c94b223750b3c1e93b7731d3e.png" />, there are
+<img src="ltximg/21_Combinatorics.org.temp_137c585688607250adfc1e49d103b4ea7497426b.png" alt="21_Combinatorics.org.temp_137c585688607250adfc1e49d103b4ea7497426b.png" /> choices of the injective
+function, by the inductive hypothesis.
+</p>
+
+<p>
+<b>Theorem.</b> Let <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> be a finite set, with <img src="ltximg/21_Combinatorics.org.temp_ec23b9aa79904ed4015ab1521d1fb76edb6b9c4b.png" alt="21_Combinatorics.org.temp_ec23b9aa79904ed4015ab1521d1fb76edb6b9c4b.png" />. Then the number of
+ways of making <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> selections from <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> without repetition allowed is
+<img src="ltximg/21_Combinatorics.org.temp_acc51d7d2ee18e7dad3adaf688084f58306f64e2.png" alt="21_Combinatorics.org.temp_acc51d7d2ee18e7dad3adaf688084f58306f64e2.png" />.
+</p>
+
+<p>
+<b>Proof.</b> This is just a restatement of the previous theorem, where <img src="ltximg/21_Combinatorics.org.temp_3af7d77ca0c98237bc369bd3fd5fb1bad43ee122.png" alt="21_Combinatorics.org.temp_3af7d77ca0c98237bc369bd3fd5fb1bad43ee122.png" /> and <img src="ltximg/21_Combinatorics.org.temp_a621176e09c823be36ebfaba4e15f42638c7dd2c.png" alt="21_Combinatorics.org.temp_a621176e09c823be36ebfaba4e15f42638c7dd2c.png" />.
+</p>
+
+<hr>
+<p>
+If <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is a finite set, a bijection <img src="ltximg/21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" alt="21_Combinatorics.org.temp_c8296004169f8ae8709660be6b8a5a661d5e0680.png" /> from <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is also called
+a <i>permutation</i> of <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. The previous theorem shows that if <img src="ltximg/21_Combinatorics.org.temp_6380ba37c4b40041fba90c74e1a4abc4493d16d1.png" alt="21_Combinatorics.org.temp_6380ba37c4b40041fba90c74e1a4abc4493d16d1.png" />
+then the number of permutations of <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is <img src="ltximg/21_Combinatorics.org.temp_64da2ede5e08a8a1afca30b936511d214c620ccb.png" alt="21_Combinatorics.org.temp_64da2ede5e08a8a1afca30b936511d214c620ccb.png" />. This quantity comes up so often that it has a name,
+<img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> <i>factorial</i>, and a special notation, <img src="ltximg/21_Combinatorics.org.temp_3c4afb186fe919b64fa77a898d9c1d50161c2e97.png" alt="21_Combinatorics.org.temp_3c4afb186fe919b64fa77a898d9c1d50161c2e97.png" />. If we think of the
+elements of <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> listed in some order, a permutation of <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is
+essentially an ordered selection of <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements from <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> without
+repetition: we choose where to map the first element, then the second
+element, and so on. It is a useful convention to take <img src="ltximg/21_Combinatorics.org.temp_74a75c29ed641c29ed53b75b5f6b5c258c779c76.png" alt="21_Combinatorics.org.temp_74a75c29ed641c29ed53b75b5f6b5c258c779c76.png" /> to be equal
+to <img src="ltximg/21_Combinatorics.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" alt="21_Combinatorics.org.temp_a5f83fdd040001e0081291796bcabb628a39accb.png" />.
+</p>
+
+<p>
+The more general case where we are choosing only <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> elements from a
+set <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> is called a <img src="ltximg/21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" alt="21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" />-permutation of <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />. The theorem above says
+that the number of <img src="ltximg/21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" alt="21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" />-permutations of an <img src="ltximg/21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-element set is equal to
+<img src="ltximg/21_Combinatorics.org.temp_5bfbbb7aeeb4f8b1b953074d4b45e3c8cfbb22db.png" alt="21_Combinatorics.org.temp_5bfbbb7aeeb4f8b1b953074d4b45e3c8cfbb22db.png" />, because if you expand the numerator and denominator
+into products and cancel, you get exactly the <img src="ltximg/21_Combinatorics.org.temp_0799ed0197b2e8567052a00817d1934d3ca7d5c6.png" alt="21_Combinatorics.org.temp_0799ed0197b2e8567052a00817d1934d3ca7d5c6.png" />. This number is often denoted <img src="ltximg/21_Combinatorics.org.temp_9a404cb03e4e6bfca20dcfbd293508776e5f7e14.png" alt="21_Combinatorics.org.temp_9a404cb03e4e6bfca20dcfbd293508776e5f7e14.png" /> or
+<img src="ltximg/21_Combinatorics.org.temp_0446efbe9921599ef0de54d56e16e09616047557.png" alt="21_Combinatorics.org.temp_0446efbe9921599ef0de54d56e16e09616047557.png" />, or some similar variant. So we have <img src="ltximg/21_Combinatorics.org.temp_c78eb1a2e2f6a90b7aa5951972a1d4ceefe77cf5.png" alt="21_Combinatorics.org.temp_c78eb1a2e2f6a90b7aa5951972a1d4ceefe77cf5.png" />. Notice that the expression on the right side of the equality
+provides an efficient way of writing the value of <img src="ltximg/21_Combinatorics.org.temp_9a404cb03e4e6bfca20dcfbd293508776e5f7e14.png" alt="21_Combinatorics.org.temp_9a404cb03e4e6bfca20dcfbd293508776e5f7e14.png" />, but an
+inefficient way of calculating it.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcd9a331" class="outline-3">
+<h3 id="Combinations_and_Binomial_Coefficients"><a id="orgcd9a331"></a><span class="section-number-3"> 21.4</span> Combinations and Binomial Coefficients</h3>
+<div class="outline-text-3" id="text-Combinations_and_Binomial_Coefficients">
+<p>
+In the last section, we calculated the number of ways in which a
+museum could arrange three paintings along a wall, chosen from among
+26 paintings in its storeroom. By the final observation in the
+previous section, we can write this number as <img src="ltximg/21_Combinatorics.org.temp_7a9a8b0c3b5d0e9ddbe47c54316c6a5074708ec2.png" alt="21_Combinatorics.org.temp_7a9a8b0c3b5d0e9ddbe47c54316c6a5074708ec2.png" />.
+</p>
+
+<p>
+Suppose now we want to calculate the number of ways that a museum can
+choose three paintings from its storeroom to put on display, where we
+do not care about the order. In other words, if <img src="ltximg/21_Combinatorics.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="21_Combinatorics.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />, <img src="ltximg/21_Combinatorics.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="21_Combinatorics.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />, and <img src="ltximg/21_Combinatorics.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="21_Combinatorics.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> are
+paintings, we do not want to distinguish between choosing <img src="ltximg/21_Combinatorics.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="21_Combinatorics.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> then <img src="ltximg/21_Combinatorics.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="21_Combinatorics.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" />
+then <img src="ltximg/21_Combinatorics.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="21_Combinatorics.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> and choosing <img src="ltximg/21_Combinatorics.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" alt="21_Combinatorics.org.temp_0de2d2bbf0c8d7db41e9aa4676c37b2a30d09a68.png" /> then <img src="ltximg/21_Combinatorics.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="21_Combinatorics.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> then <img src="ltximg/21_Combinatorics.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="21_Combinatorics.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" />. When we were arranging
+paintings along all wall, it made sense to consider these two
+different arrangements, but if we only care about the <i>set</i> of
+elements we end up with at the end, the order that we choose them does
+not matter. 
+</p>
+
+<p>
+The problem is that each set of three paintings will be counted
+multiple times. In fact, each one will be counted six times: there are
+<img src="ltximg/21_Combinatorics.org.temp_65180743c8d0437c1c3a4c726324041f94404730.png" alt="21_Combinatorics.org.temp_65180743c8d0437c1c3a4c726324041f94404730.png" /> permutations of the set <img src="ltximg/21_Combinatorics.org.temp_a20fccf644166781a16ce32f8235904252279bfb.png" alt="21_Combinatorics.org.temp_a20fccf644166781a16ce32f8235904252279bfb.png" />, for example. So to
+count the number of outcomes we simply need to divide by 6. In other
+words, the number we want is <img src="ltximg/21_Combinatorics.org.temp_7c4ca6397595bc17ded3f71918dae2ad4f915fc8.png" alt="21_Combinatorics.org.temp_7c4ca6397595bc17ded3f71918dae2ad4f915fc8.png" />.
+</p>
+
+<p>
+There is nothing special about the numbers <img src="ltximg/21_Combinatorics.org.temp_5b17b1fbe7d159ea85a8dfb0d3cc131406657abd.png" alt="21_Combinatorics.org.temp_5b17b1fbe7d159ea85a8dfb0d3cc131406657abd.png" /> and <img src="ltximg/21_Combinatorics.org.temp_589b4d802d7fce3611012a506403dced871832d0.png" alt="21_Combinatorics.org.temp_589b4d802d7fce3611012a506403dced871832d0.png" />. The same
+formula holds for what we will call <i>unordered selections of <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />
+elements from a set of <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements</i>, or <i>$k$-combinations from an
+<img src="ltximg/21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-element set</i>. Our goal is once again to describe the situation in
+precise mathematical terms, at which point we will be able to state
+the formula as a theorem.
+</p>
+
+<p>
+In fact, describing the situation in more mathematical terms is quite
+easy to do. If <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> is a set of <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements, an unordered selection of
+<img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> elements from <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> is just a subset of <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> that has cardinality <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> Let <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> be any set with cardinality <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, and let <img src="ltximg/21_Combinatorics.org.temp_721823455bdd96c88bd28dcbc66d9813f121824c.png" alt="21_Combinatorics.org.temp_721823455bdd96c88bd28dcbc66d9813f121824c.png" />. Then the number of subsets of <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> of cardinality <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> is
+<img src="ltximg/21_Combinatorics.org.temp_106ec8350d5fee2aa483169de3f010912c0ec79a.png" alt="21_Combinatorics.org.temp_106ec8350d5fee2aa483169de3f010912c0ec79a.png" />.
+</p>
+
+<p>
+<b>Proof.</b> Let <img src="ltximg/21_Combinatorics.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="21_Combinatorics.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" /> be the set of unordered selections of <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> elements
+from <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />, let <img src="ltximg/21_Combinatorics.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" alt="21_Combinatorics.org.temp_c39d3ba87f829eb1b98bb8a9d7788daa7a8943d0.png" /> be the set of permutations of <img src="ltximg/21_Combinatorics.org.temp_90d869434b36efc2f470bbfe12184d1a9338b985.png" alt="21_Combinatorics.org.temp_90d869434b36efc2f470bbfe12184d1a9338b985.png" />, and let <img src="ltximg/21_Combinatorics.org.temp_44b6682c30506735a5dd42a536e9026b92001b66.png" alt="21_Combinatorics.org.temp_44b6682c30506735a5dd42a536e9026b92001b66.png" /> be the set of
+<i>ordered</i> selections of <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> elements from <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />. There is a bijection
+between <img src="ltximg/21_Combinatorics.org.temp_db9730e9c0f135771491659e38e2856fd8097af9.png" alt="21_Combinatorics.org.temp_db9730e9c0f135771491659e38e2856fd8097af9.png" /> and <img src="ltximg/21_Combinatorics.org.temp_44b6682c30506735a5dd42a536e9026b92001b66.png" alt="21_Combinatorics.org.temp_44b6682c30506735a5dd42a536e9026b92001b66.png" />: given any <img src="ltximg/21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" alt="21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" />-element subset <img src="ltximg/21_Combinatorics.org.temp_dd9867b2e56a0380fc6556b2e6d74d808c2e7b0d.png" alt="21_Combinatorics.org.temp_dd9867b2e56a0380fc6556b2e6d74d808c2e7b0d.png" /> of <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" />, each permutation gives a different ordered
+selection.
+</p>
+
+<p>
+By the counting principles, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_4a867175a9a02c9913bc3113ea64fda7a1d20cde.png" alt="21_Combinatorics.org.temp_4a867175a9a02c9913bc3113ea64fda7a1d20cde.png" /></p>
+</div>
+<p>
+so we have <img src="ltximg/21_Combinatorics.org.temp_931f58beada83b57e3aeadebe264aeeb92eba3ab.png" alt="21_Combinatorics.org.temp_931f58beada83b57e3aeadebe264aeeb92eba3ab.png" />.
+</p>
+
+<p>
+<b>Example.</b> Someone is going on vacation and wants to choose three
+outfits from ten in their closet to pack in their suitcase. How many
+choices do they have?
+</p>
+
+<p>
+<b>Solution.</b> <img src="ltximg/21_Combinatorics.org.temp_df2ca8de6dea473ad814de2c51ad74aab85c12b7.png" alt="21_Combinatorics.org.temp_df2ca8de6dea473ad814de2c51ad74aab85c12b7.png" />. 
+</p>
+
+<hr>
+<p>
+The number of unordered selections of <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> elements from a set of size
+<img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, or, equivalently, the number of <img src="ltximg/21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" alt="21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" />-combinations from an
+<img src="ltximg/21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-element set, is typically denoted by <img src="ltximg/21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" alt="21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" />, <img src="ltximg/21_Combinatorics.org.temp_60814cb03e084957ca06bed9bd2fa4b74d75ff83.png" alt="21_Combinatorics.org.temp_60814cb03e084957ca06bed9bd2fa4b74d75ff83.png" />,
+<img src="ltximg/21_Combinatorics.org.temp_a0eed427b2d19d3fa578fa9091a36b0427495568.png" alt="21_Combinatorics.org.temp_a0eed427b2d19d3fa578fa9091a36b0427495568.png" />, or something similar. We will use the first notation, because
+it is most common. Notice that <img src="ltximg/21_Combinatorics.org.temp_8e0fed5ee4858d3e63725b8d31a08f981757a9c8.png" alt="21_Combinatorics.org.temp_8e0fed5ee4858d3e63725b8d31a08f981757a9c8.png" /> for every <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />; this
+makes sense, because there is exactly one subset of any <img src="ltximg/21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-element
+set of cardinality <img src="ltximg/21_Combinatorics.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="21_Combinatorics.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />.
+</p>
+
+<p>
+Here is one important property of this function.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> For every <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/21_Combinatorics.org.temp_ef06a3d2d76c4b089c1a6cc9bdfea6776a42b962.png" alt="21_Combinatorics.org.temp_ef06a3d2d76c4b089c1a6cc9bdfea6776a42b962.png" />, we have <img src="ltximg/21_Combinatorics.org.temp_b5efdd83fcebcd74d37eda5bc24ef9fd19148bfb.png" alt="21_Combinatorics.org.temp_b5efdd83fcebcd74d37eda5bc24ef9fd19148bfb.png" />.
+</p>
+
+<p>
+<b>Proof.</b> This is an easy calculation:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_b46f0ef728c1d65f10b703bd3e2be011ec8a7f96.png" alt="21_Combinatorics.org.temp_b46f0ef728c1d65f10b703bd3e2be011ec8a7f96.png" /></p>
+</div>
+<p>
+But it is also easy to see from the combinatorial interpretation:
+choosing <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> outfits from <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> to take on vacation is the same task as
+choosing <img src="ltximg/21_Combinatorics.org.temp_7c201018c067b169c22e9afabc7ab38b31b325cf.png" alt="21_Combinatorics.org.temp_7c201018c067b169c22e9afabc7ab38b31b325cf.png" /> outfits to leave home.
+</p>
+
+<hr>
+<p>
+Here is another important property.
+</p>
+
+<hr>
+<p>
+<b>Theorem.</b> For every <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />, if <img src="ltximg/21_Combinatorics.org.temp_1a27a2b175f28f08156a6fddbcd8204706a77c0d.png" alt="21_Combinatorics.org.temp_1a27a2b175f28f08156a6fddbcd8204706a77c0d.png" />, then
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_0f6aca8cda3bc3a42c9ca1ab7e6261f266fbcbd3.png" alt="21_Combinatorics.org.temp_0f6aca8cda3bc3a42c9ca1ab7e6261f266fbcbd3.png" /></p>
+</div>
+
+<p>
+<b>Proof.</b> One way to understand this theorem is in terms of the 
+combinatorial interpretation. Suppose you want to choose <img src="ltximg/21_Combinatorics.org.temp_e9046f74c2176dace82f3aa15972dcc0e6a6867c.png" alt="21_Combinatorics.org.temp_e9046f74c2176dace82f3aa15972dcc0e6a6867c.png" /> outfits
+out of <img src="ltximg/21_Combinatorics.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="21_Combinatorics.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" />. Set aside one outfit, say, the blue one. Then you have two
+choices: you can either choose <img src="ltximg/21_Combinatorics.org.temp_e9046f74c2176dace82f3aa15972dcc0e6a6867c.png" alt="21_Combinatorics.org.temp_e9046f74c2176dace82f3aa15972dcc0e6a6867c.png" /> outfits from the remaining ones,
+with <img src="ltximg/21_Combinatorics.org.temp_20d34ac424c132986a02c02236fba6ecaf666bbb.png" alt="21_Combinatorics.org.temp_20d34ac424c132986a02c02236fba6ecaf666bbb.png" /> possibilities; or you can take the blue one, and
+choose <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> outfits from the remaining ones.
+</p>
+
+<p>
+The theorem can also be proved by direct calculation. We can express
+the left-hand side of the equation as follows:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_47bc35941dc9976f5f7ba148d1c1f062ca4c870e.png" alt="21_Combinatorics.org.temp_47bc35941dc9976f5f7ba148d1c1f062ca4c870e.png" /></p>
+</div>
+<p>
+Similarly, we can simplify the right-hand side:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_6478b2dae5271b79fd197ed9a285e86437cd7c85.png" alt="21_Combinatorics.org.temp_6478b2dae5271b79fd197ed9a285e86437cd7c85.png" /></p>
+</div>
+<p>
+Thus the left-hand side and the right-hand side are equal.
+</p>
+
+<hr>
+<p>
+For every <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, we know <img src="ltximg/21_Combinatorics.org.temp_26c45b523987f769d562d69faeb466a5873addcd.png" alt="21_Combinatorics.org.temp_26c45b523987f769d562d69faeb466a5873addcd.png" />. The previous
+theorem then gives a recipe to compute all the binomial coefficients:
+once we have determine <img src="ltximg/21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" alt="21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" /> for some <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> and every <img src="ltximg/21_Combinatorics.org.temp_721823455bdd96c88bd28dcbc66d9813f121824c.png" alt="21_Combinatorics.org.temp_721823455bdd96c88bd28dcbc66d9813f121824c.png" />, we can determine the values of <img src="ltximg/21_Combinatorics.org.temp_a8b2bbb41816239f3e17fa1ee9ecad057d0863f8.png" alt="21_Combinatorics.org.temp_a8b2bbb41816239f3e17fa1ee9ecad057d0863f8.png" /> for every <img src="ltximg/21_Combinatorics.org.temp_e89bb3efcf54bdbcf15b9b4a888fe103bdab572a.png" alt="21_Combinatorics.org.temp_e89bb3efcf54bdbcf15b9b4a888fe103bdab572a.png" /> using the recipe above. The results can be displayed
+graphically in what is known as <i>Pascal's triangle</i>:
+</p>
+
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_53199266902ad5fb5336d259a5fea3d6a2dbc616.png" alt="21_Combinatorics.org.temp_53199266902ad5fb5336d259a5fea3d6a2dbc616.png" /></p>
+</div>
+<p>
+Specifically, if we start counting at <img src="ltximg/21_Combinatorics.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" alt="21_Combinatorics.org.temp_602bd992dc221edd6d5402a787016604dfbf2436.png" />, the <img src="ltximg/21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" alt="21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" />th element of the
+<img src="ltximg/21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />th row is equal to <img src="ltximg/21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" alt="21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" />.
+</p>
+
+<p>
+There is also a connection between <img src="ltximg/21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" alt="21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" /> and the
+polynomials <img src="ltximg/21_Combinatorics.org.temp_8e0b3c72aacb4f626089c8c924379072fb50ce1f.png" alt="21_Combinatorics.org.temp_8e0b3c72aacb4f626089c8c924379072fb50ce1f.png" />, namely, that the <img src="ltximg/21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" alt="21_Combinatorics.org.temp_4427bdafa52b8189b20b2b9312ca04b27b4010e2.png" />th coefficient of <img src="ltximg/21_Combinatorics.org.temp_58965d91ecf4f0b6b3af5ee5716b113dc1d2340d.png" alt="21_Combinatorics.org.temp_58965d91ecf4f0b6b3af5ee5716b113dc1d2340d.png" /> is exactly <img src="ltximg/21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" alt="21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" />. For example, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_ad6844a243b61bf4cabf6b89c281b63d5fa2f653.png" alt="21_Combinatorics.org.temp_ad6844a243b61bf4cabf6b89c281b63d5fa2f653.png" /></p>
+</div>
+<p>
+For that reason, the values <img src="ltximg/21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" alt="21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" /> are often called <i>binomial
+coefficients</i>, and the statement that
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_0c84fd85ea081fd78942e321f0c50827010fbc50.png" alt="21_Combinatorics.org.temp_0c84fd85ea081fd78942e321f0c50827010fbc50.png" /></p>
+</div>
+<p>
+is known as the <i>binomial theorem</i>.
+</p>
+
+<p>
+There are a couple of ways of seeing why this theorem holds. One
+is to expand the polynomial, 
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_127a0b8cf2bd03ce3920e50f9ca2948b011c335f.png" alt="21_Combinatorics.org.temp_127a0b8cf2bd03ce3920e50f9ca2948b011c335f.png" /></p>
+</div>
+<p>
+and notice that the coefficient of the term <img src="ltximg/21_Combinatorics.org.temp_634ae2e4bb93747e9429e8016aea0c9940f469fa.png" alt="21_Combinatorics.org.temp_634ae2e4bb93747e9429e8016aea0c9940f469fa.png" /> is equal to
+the number of ways of taking the summand <img src="ltximg/21_Combinatorics.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" alt="21_Combinatorics.org.temp_6c7dbc4aa7cf1b45f978f27ac2907026d436eed5.png" /> in exactly <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> positions,
+and <img src="ltximg/21_Combinatorics.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" alt="21_Combinatorics.org.temp_f12c734449da3952c2152f79cb9cae124139effb.png" /> in the remaining <img src="ltximg/21_Combinatorics.org.temp_7c201018c067b169c22e9afabc7ab38b31b325cf.png" alt="21_Combinatorics.org.temp_7c201018c067b169c22e9afabc7ab38b31b325cf.png" /> positions. Another way to prove the
+result is to use induction on <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, and use the identity
+<img src="ltximg/21_Combinatorics.org.temp_b904408ba392ef2aaa5eb70f8798ab7a13c2c953.png" alt="21_Combinatorics.org.temp_b904408ba392ef2aaa5eb70f8798ab7a13c2c953.png" />. The details are
+left as an exercise.
+</p>
+
+<p>
+Finally, we have considered ordered selections with and without
+repetitions, and unordered selections without repetitions. What about
+unordered selections with repetitions? In other words, given a set
+<img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> with <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements, we would like to know how many ways there are
+of making <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> choices, where we can choose elements of <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> repeatedly,
+but we only care about the number of times each element was chosen,
+and not the order. We have the following:
+</p>
+
+<hr>
+<p>
+The number of unordered selections of <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> elements from an <img src="ltximg/21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-element
+set, with repetition, is <img src="ltximg/21_Combinatorics.org.temp_0049d91f7a884043a798cd31a5fe3877b7a6e366.png" alt="21_Combinatorics.org.temp_0049d91f7a884043a798cd31a5fe3877b7a6e366.png" />.
+</p>
+
+<hr>
+<p>
+A proof of this is outlined in the exercises.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org8a80104" class="outline-3">
+<h3 id="org8a80104"><span class="section-number-3"> 21.5</span> The Inclusion-Exclusion Principle</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Let <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> and <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" /> be any two subsets of some domain, <img src="ltximg/21_Combinatorics.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" alt="21_Combinatorics.org.temp_8934db00448552693f304367e43669d5b747f9cd.png" />. Then <img src="ltximg/21_Combinatorics.org.temp_dd3bcb26a8cbd9a59c36deb8fc2d7a646a9b3c7b.png" alt="21_Combinatorics.org.temp_dd3bcb26a8cbd9a59c36deb8fc2d7a646a9b3c7b.png" />, and the two sets in the union are
+disjoint, so we have <img src="ltximg/21_Combinatorics.org.temp_4a17c238c78d46784982b35ac5aeea6f8f5c8ec7.png" alt="21_Combinatorics.org.temp_4a17c238c78d46784982b35ac5aeea6f8f5c8ec7.png" />. This means <img src="ltximg/21_Combinatorics.org.temp_a55a9cffc39c419e070630831aba522f9f641130.png" alt="21_Combinatorics.org.temp_a55a9cffc39c419e070630831aba522f9f641130.png" />. Intuitively, this makes sense: we
+can count the elements of <img src="ltximg/21_Combinatorics.org.temp_861e38bf5a4bc86446184857427690e2b10ea33d.png" alt="21_Combinatorics.org.temp_861e38bf5a4bc86446184857427690e2b10ea33d.png" /> by counting the elements in
+<img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />, and then subtracting the number of elements that are in both <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" />
+and <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />.
+</p>
+
+<p>
+Similarly, we have <img src="ltximg/21_Combinatorics.org.temp_7fa448ab4498aa16af74d65d955ca5eebfaa941c.png" alt="21_Combinatorics.org.temp_7fa448ab4498aa16af74d65d955ca5eebfaa941c.png" />, and the two
+sets on the right-hand side of this equation are disjoint, so we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_57acab8dd51a77f72b27cee8f56d5ac9473b86a1.png" alt="21_Combinatorics.org.temp_57acab8dd51a77f72b27cee8f56d5ac9473b86a1.png" /></p>
+</div>
+<p>
+If we draw a Venn diagram, this makes sense: to count the elements in
+<img src="ltximg/21_Combinatorics.org.temp_6e1e2fb228c597c5cd49839ab257f4ac52c22459.png" alt="21_Combinatorics.org.temp_6e1e2fb228c597c5cd49839ab257f4ac52c22459.png" />, we can add the number of elements in <img src="ltximg/21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" alt="21_Combinatorics.org.temp_cfd84d0cf5b16a0279ed47d0d5204f0d029e1098.png" /> to the number of
+elements in <img src="ltximg/21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" alt="21_Combinatorics.org.temp_d97dc406cb5606cb9d7e849c11adc553d50b79a6.png" />, but then we have to subtract the number of elements
+of both.
+</p>
+
+<p>
+What happen when there are three sets? To compute <img src="ltximg/21_Combinatorics.org.temp_01c42a944af5ba62b555ee80a009bdabe850fc2c.png" alt="21_Combinatorics.org.temp_01c42a944af5ba62b555ee80a009bdabe850fc2c.png" />,
+we can start by adding the number of elements in each, and then
+subtracting the number of elements of <img src="ltximg/21_Combinatorics.org.temp_d85577fb3ad5e5196caf829dab5ec82e305fb9cd.png" alt="21_Combinatorics.org.temp_d85577fb3ad5e5196caf829dab5ec82e305fb9cd.png" />, <img src="ltximg/21_Combinatorics.org.temp_5004dd6d9bac991b86c188c7623661857b7a35d8.png" alt="21_Combinatorics.org.temp_5004dd6d9bac991b86c188c7623661857b7a35d8.png" />,
+and <img src="ltximg/21_Combinatorics.org.temp_92dbd190c208b0bc52f634e280928b5cef22efd6.png" alt="21_Combinatorics.org.temp_92dbd190c208b0bc52f634e280928b5cef22efd6.png" />, each of which have been double-counted. But thinking
+about the Venn diagram should help us realize that then we have
+over-corrected: each element of <img src="ltximg/21_Combinatorics.org.temp_0b7f6f6ad344c0be14231e2b6d4d7676d646ea9d.png" alt="21_Combinatorics.org.temp_0b7f6f6ad344c0be14231e2b6d4d7676d646ea9d.png" /> was counted three
+times in the original sum, and the subtracted three times. So we need
+to add them back in:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_6f0b9ba721c6989214f7e5049ce827adf567cb58.png" alt="21_Combinatorics.org.temp_6f0b9ba721c6989214f7e5049ce827adf567cb58.png" /></p>
+</div>
+
+<p>
+This generalizes to any number of sets. To state the general result, suppose
+the sets are numbered <img src="ltximg/21_Combinatorics.org.temp_3ad580ca37e03464c81412b09845ddfa1d0df763.png" alt="21_Combinatorics.org.temp_3ad580ca37e03464c81412b09845ddfa1d0df763.png" />. For each nonempty subset
+<img src="ltximg/21_Combinatorics.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" alt="21_Combinatorics.org.temp_6f87c83dab5d4744aad08ab25a7227233aa01cf7.png" /> of <img src="ltximg/21_Combinatorics.org.temp_d14728c7b09db9a8df3719eca5ef8052f4aa1e86.png" alt="21_Combinatorics.org.temp_d14728c7b09db9a8df3719eca5ef8052f4aa1e86.png" />, consider <img src="ltximg/21_Combinatorics.org.temp_abb049f6e2d43bc8c86f0de09e5f6f0278e8bdb6.png" alt="21_Combinatorics.org.temp_abb049f6e2d43bc8c86f0de09e5f6f0278e8bdb6.png" />. If
+<img src="ltximg/21_Combinatorics.org.temp_16a483f988da44c440989e6f09b89a5484fc5df6.png" alt="21_Combinatorics.org.temp_16a483f988da44c440989e6f09b89a5484fc5df6.png" /> is odd (that is, equal to 1, 3, 5, ) we want to add the
+cardinality of the intersection; if it is even we want to subtract it. This
+recipe is expressed compactly by the following formula:
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_f5efaf1465b23ac237bb31b83f804d325f3756fc.png" alt="21_Combinatorics.org.temp_f5efaf1465b23ac237bb31b83f804d325f3756fc.png" /></p>
+</div>
+<p>
+You are invited to try proving this as an exercise, if you are
+ambitious. The following example illustrates its use:
+</p>
+
+<hr>
+<p>
+<b>Example.</b> Among a group of college Freshmen, 30 are taking Logic, 25
+are taking History, and 20 are taking French. Moreover, 11 are taking
+Logic and History, 10 are taking Logic and French, 7 are taking
+History and French, and 3 are taking all three. How many students are
+taking at least one of the three classes?
+</p>
+
+<p>
+<b>Solution.</b> Letting <img src="ltximg/21_Combinatorics.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" alt="21_Combinatorics.org.temp_e021954682163d032a3c2a7efff86747732268a5.png" />, <img src="ltximg/21_Combinatorics.org.temp_5036dd76902b97a998bc024eb115e3b1e701dbb8.png" alt="21_Combinatorics.org.temp_5036dd76902b97a998bc024eb115e3b1e701dbb8.png" />, and <img src="ltximg/21_Combinatorics.org.temp_caaa6544e3e1368836ddca3c0aeefe65ae310ee4.png" alt="21_Combinatorics.org.temp_caaa6544e3e1368836ddca3c0aeefe65ae310ee4.png" /> denote the sets of students
+ taking Logic, History, and French, respectively, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_b5d4271a9438037868ebaba45cd9cace643c2080.png" alt="21_Combinatorics.org.temp_b5d4271a9438037868ebaba45cd9cace643c2080.png" /></p>
+</div>
+
+<hr>
+</div>
+</div>
+
+<div id="outline-container-org5926f15" class="outline-3">
+<h3 id="org5926f15"><span class="section-number-3"> 21.6</span> Exercises</h3>
+<div class="outline-text-3" id="text-1-6">
+<ol class="org-ol">
+<li><p>
+Suppose that, at a party, every two people either know each other
+or don't. In other words, "<img src="ltximg/21_Combinatorics.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="21_Combinatorics.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> knows <img src="ltximg/21_Combinatorics.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="21_Combinatorics.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />" is symmetric. Also, let
+us ignore the complex question of whether we always know ourselves
+by restricting attention to the relation between distinct people;
+in other words, for this problem, take "<img src="ltximg/21_Combinatorics.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" alt="21_Combinatorics.org.temp_d264ca80e3657ef30d95cfb1f0aa642d82f53bfd.png" /> knows <img src="ltximg/21_Combinatorics.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" alt="21_Combinatorics.org.temp_404e42bc95b30158622d309930c2468a6970e4df.png" />" to be
+antisymmetric as well.
+</p>
+
+<p>
+Use the pigeonhole principle (and an additional insight) to show
+that there must be two people who know exactly the same number of
+people.
+</p></li>
+
+<li>Show that in any set of <img src="ltximg/21_Combinatorics.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" alt="21_Combinatorics.org.temp_d7f241b4fdffa094da7e8e52c5f4d04a46dc890d.png" /> integers, two of them are
+equivalent modulo <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />.</li>
+
+<li>Spell out in detail a proof of the second counting principle in
+<a href="#" onclick="myModule.scrollTutorialTo('Counting_Principles')">Section 21.1</a>.</li>
+
+<li><p>
+An ice cream parlor has 31 flavors of ice cream.
+</p>
+
+<p>
+a. Determine how many three-flavor ice-cream cones are possible, if
+   we care about the order and repetitions are allowed. (So
+   choosing chocolate-chocolate-vanilla scoops, from bottom to top, 
+   is different from choosing chocolate-vanilla-chocolate.)
+</p>
+
+<p>
+b. Determine how many three flavor ice-cream cones are possible, if
+   we care about the order, but repetitions are not allowed. 
+</p>
+
+<p>
+c. Determine how many three flavor ice-cream cones are possible, 
+   if we don't care about the order, but repetitions are not
+   allowed.
+</p></li>
+
+<li><p>
+A club of 10 people has to elect a president, vice president, and
+secretary. How many possibilities are there:
+</p>
+
+<p>
+a. if no person can hold more than one office?
+</p>
+
+<p>
+b. if anyone can hold any number of those offices? 
+</p>
+
+<p>
+c. if anyone can hold up to two offices?
+</p>
+
+<p>
+d. if the president cannot hold another office, but
+   the vice president and secretary may or may not be the same
+   person?
+</p></li>
+
+<li>How many 7 digit phone numbers are there, if any 7 digits can be
+used? How many are there is the first digit cannot be 0?</li>
+
+<li>In a class of 20 kindergarten students, two are twins. How many
+ways are there of lining up the students, so that the twins are
+standing together?</li>
+
+<li>A woman has 8 murder mysteries sitting on her shelf, and wants to
+take three of them on a vacation. How many ways can she do this?</li>
+
+<li>In poker, a "full house" is a hand with three of one rank and two
+of another (for example, three kings and two fives). Determine the
+number of full houses in poker.</li>
+
+<li><p>
+We saw in <a href="#" onclick="myModule.scrollTutorialTo('Combinations_and_Binomial_Coefficients')">Section 21.4</a> that
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_824066226df6104a0e372274694d981b8f2f55e4.png" alt="21_Combinatorics.org.temp_824066226df6104a0e372274694d981b8f2f55e4.png" /></p>
+</div>
+<p>
+Replacing <img src="ltximg/21_Combinatorics.org.temp_7b839e9d662b85209d821e8c4cc79a82bc218406.png" alt="21_Combinatorics.org.temp_7b839e9d662b85209d821e8c4cc79a82bc218406.png" /> by <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" />, whenever <img src="ltximg/21_Combinatorics.org.temp_1fe40bee68e13c312f028cea400e050fc6d76115.png" alt="21_Combinatorics.org.temp_1fe40bee68e13c312f028cea400e050fc6d76115.png" />, we have
+</p>
+
+<div class="figure">
+<p><img src="ltximg/21_Combinatorics.org.temp_5d76ca75f7a397eac1162c2e288b49d0c99d5ed0.png" alt="21_Combinatorics.org.temp_5d76ca75f7a397eac1162c2e288b49d0c99d5ed0.png" /></p>
+</div>
+<p>
+ Use this to show, by induction on <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" />, that for every <img src="ltximg/21_Combinatorics.org.temp_ef06a3d2d76c4b089c1a6cc9bdfea6776a42b962.png" alt="21_Combinatorics.org.temp_ef06a3d2d76c4b089c1a6cc9bdfea6776a42b962.png" />,
+ that if <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> is any set of <img src="ltximg/21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" alt="21_Combinatorics.org.temp_6456f2649ddade5686905f71bd3d22a9376cf8af.png" /> elements, <img src="ltximg/21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" alt="21_Combinatorics.org.temp_b0a9b203ab608871bca0fca685eb5352ba7975cd.png" /> is the number
+of subsets of <img src="ltximg/21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" alt="21_Combinatorics.org.temp_d86a67261b95325cbf4767cfaabf36bb5910a634.png" /> with <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> elements.
+</p></li>
+
+<li><p>
+How many distinct arrangements are there of the letters in the word
+MISSISSIPPI?
+</p>
+
+<p>
+(Hint: this is tricky. First, suppose all the S's, I's, and P's
+were painted different colors. Then determine how many distinct
+arrangements of the letters there would be. In the absence of
+distinguishing colors, determine how many times each configuration
+appeared in the first count, and divide by that number.
+</p></li>
+
+<li>Prove the inclusion exclusion principle.</li>
+
+<li>Use the inclusion exclusion principle to determine the number of
+integers less than 100 that are divisible by 2, 3, or 5.</li>
+
+<li><p>
+Show that the number of <i>unordered</i> selections of <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> elements
+from an <img src="ltximg/21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" alt="21_Combinatorics.org.temp_720bfe40b5570790ef667dd440ef37b9dd6c6296.png" />-element set is <img src="ltximg/21_Combinatorics.org.temp_0049d91f7a884043a798cd31a5fe3877b7a6e366.png" alt="21_Combinatorics.org.temp_0049d91f7a884043a798cd31a5fe3877b7a6e366.png" />.
+</p>
+
+<p>
+Hint: consider <img src="ltximg/21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" alt="21_Combinatorics.org.temp_b497a17a54bcc642316936e8eefcb55667708151.png" />. We need to choose some number <img src="ltximg/21_Combinatorics.org.temp_c7b1c1154b272b9c358a11bd95a2208f7f96a905.png" alt="21_Combinatorics.org.temp_c7b1c1154b272b9c358a11bd95a2208f7f96a905.png" /> of 0's,
+some number <img src="ltximg/21_Combinatorics.org.temp_bc709b6ba20aa6d30600b150e21151e0460f74e5.png" alt="21_Combinatorics.org.temp_bc709b6ba20aa6d30600b150e21151e0460f74e5.png" /> of 1's, and so on, so that <img src="ltximg/21_Combinatorics.org.temp_c561e84cf8cbcdfead4b733dcfbe8f5c491595c9.png" alt="21_Combinatorics.org.temp_c561e84cf8cbcdfead4b733dcfbe8f5c491595c9.png" />. Suppose we assign to each such tuple a
+the following binary sequence: we write down <img src="ltximg/21_Combinatorics.org.temp_c7b1c1154b272b9c358a11bd95a2208f7f96a905.png" alt="21_Combinatorics.org.temp_c7b1c1154b272b9c358a11bd95a2208f7f96a905.png" /> 0's, then a 1,
+then <img src="ltximg/21_Combinatorics.org.temp_bc709b6ba20aa6d30600b150e21151e0460f74e5.png" alt="21_Combinatorics.org.temp_bc709b6ba20aa6d30600b150e21151e0460f74e5.png" /> <img src="ltximg/21_Combinatorics.org.temp_192e69b74da8eec094c2bbaaf6bbc4e112a06bbf.png" alt="21_Combinatorics.org.temp_192e69b74da8eec094c2bbaaf6bbc4e112a06bbf.png" />, then a 1, then <img src="ltximg/21_Combinatorics.org.temp_bff137f965d503b9397c9700498687e9cfabacfb.png" alt="21_Combinatorics.org.temp_bff137f965d503b9397c9700498687e9cfabacfb.png" /> 0's, and so on. The result
+is a binary sequence of length <img src="ltximg/21_Combinatorics.org.temp_c93be0dbc6617b8c0762eb533af78abf23357a31.png" alt="21_Combinatorics.org.temp_c93be0dbc6617b8c0762eb533af78abf23357a31.png" /> with exactly <img src="ltximg/21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" alt="21_Combinatorics.org.temp_da6ed9b9900036b05a877ca9d7a2333a1f3e018f.png" /> 1's,
+and such binary sequence arises from a unique tuple in this way.
+</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
